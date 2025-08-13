@@ -10,8 +10,8 @@ assignees: ''
 ## 🧑🏻‍💻 작업할 이슈에 대한 설명
 
 📝 Todo
-[] Todo1
-[] Todo2
-[] Todo3
+- [ ] Todo1
+- [ ] Todo2
+- [ ] Todo3
 
 ### 📚(Optional) 참고자료
