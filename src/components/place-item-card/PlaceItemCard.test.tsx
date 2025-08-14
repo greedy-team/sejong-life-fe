@@ -6,15 +6,15 @@ describe('장소 아이템 카드 컴포넌트', () => {
   it('아이템 카드 내에 장소 이미지, 장소명, 카테고리, 태그가 모두 렌더링되어야 한다.', () => {
     const mockPlaceInfo = {
       placeId: 1,
-      placeName: '시홍쓰',
-      mainPhotoUrl: 'https://example.com/photo.jpg',
+      placeName: '그리디 카페',
+      mainPhotoUrl: '/asset/place-item-card/tempImg.svg',
       categories: [
         { categoryId: 1, categoryName: '식당' },
-        { categoryId: 2, categoryName: '술집' },
+        { categoryId: 2, categoryName: '카페' },
       ],
       tags: [
         { tagId: 1, tagName: '가성비' },
-        { tagId: 7, tagName: '혼밥' },
+        { tagId: 7, tagName: '공부하기 좋은' },
       ],
     };
     render(<PlaceItemCard placeInfo={mockPlaceInfo} />);

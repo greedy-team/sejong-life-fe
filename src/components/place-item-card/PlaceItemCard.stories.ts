@@ -14,15 +14,15 @@ type Story = StoryObj<typeof PlaceItemCard>;
 
 const mockPlaceInfo = {
   placeId: 1,
-  placeName: '시홍쓰',
-  mainPhotoUrl: 'https://example.com/photo.jpg',
+  placeName: '그리디 카페',
+  mainPhotoUrl: '/asset/place-item-card/tempImg.svg',
   categories: [
     { categoryId: 1, categoryName: '식당' },
-    { categoryId: 2, categoryName: '술집' },
+    { categoryId: 2, categoryName: '카페' },
   ],
   tags: [
     { tagId: 1, tagName: '가성비' },
-    { tagId: 7, tagName: '혼밥' },
+    { tagId: 7, tagName: '공부하기 좋은' },
   ],
 };
 
