@@ -6,8 +6,9 @@ const PhotoStripContainer = styled.div`
   margin: 2rem auto;
   width: 90%;
   height: 30%;
+  background: #d9d9d9;
   cursor: pointer;
-  background: #95f2d7;
+  overflow: hidden;
 `;
 
 const Image = styled.img`
@@ -23,15 +24,20 @@ const MoreImageButton = styled.button`
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  color: #555;
+  color: #000000;
+  cursor: pointer;
+
+  &:hover {
+    background: #e5e5e5;
+  }
 `;
 
-const PhotoStrip = () => {
-  const images = [
-    'https://via.placeholder.com/300x200',
-    'https://via.placeholder.com/300x200',
-    'https://via.placeholder.com/300x200',
-  ];
+interface PhotoStripProps {
+  images: string[];
+}
+
+const PhotoStrip: React.FC<PhotoStripProps> = ({ images }) => {
+  if (!images || images.length === 0) return null;
 
   return (
     <PhotoStripContainer>

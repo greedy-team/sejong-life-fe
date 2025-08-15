@@ -11,7 +11,7 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
         message: '필수 파라미터(category)가 누락되었습니다.',
         data: null,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -49,7 +49,7 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
       message: '장소 목록 조회 성공',
       data: mockPlaces,
     },
-    { status: 200 }
+    { status: 200 },
   );
 });
 
@@ -70,7 +70,7 @@ export const getPlaceDetails = http.get(
           message: '해당하는 장소 ID를 찾을 수 없습니다.',
           data: null,
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -82,9 +82,10 @@ export const getPlaceDetails = http.get(
             placeId: 1,
             placeName: '공학관 학생 식당',
             images: [
-              'https://example.com/photo1.jpg',
-              'https://example.com/photo2.jpg',
-              'https://example.com/photo3.jpg',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA0MjVfMjgz%2FMDAxNzQ1NTEwMDExMzE3.fvoMulzVSMo08z9fSy0pdbTtTB4IERcVBpCYizC4j6kg.BBfZu1bS8LpRmnB3brwyWY8kMUsFau-Vzts6s1Wk6X8g.PNG%2F7.png&type=a340',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA2MDVfMjg2%2FMDAxNzE3NTYxMjQ1MzM5.d02btha4jL7zbgMpZ10uPqNsDDwZHDCzzhEEpbeaIM8g.ShyiYxLutUvaoxYHESm5KM9o0euYGsyArqY3BnMdaJ8g.JPEG%2F0.jpg&type=a340',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA3MDRfMTU2%2FMDAxNjU2OTMxMzcyMDk2.0FbfiI5SGnrhUBG6LMcHZFGbiG6_mqnlXr_gWGH0dkIg.5w-arGwT2Bn0PsFmtfVg81iEA9YjpCEgScF-DCw8cnAg.JPEG.rim-com4604%2FIMG_1624.jpg&type=a340',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA0MjVfMjgz%2FMDAxNzQ1NTEwMDExMzE3.fvoMulzVSMo08z9fSy0pdbTtTB4IERcVBpCYizC4j6kg.BBfZu1bS8LpRmnB3brwyWY8kMUsFau-Vzts6s1Wk6X8g.PNG%2F7.png&type=a340',
             ],
             tags: [
               { tagId: 1, tagName: '가성비' },
@@ -98,8 +99,8 @@ export const getPlaceDetails = http.get(
             },
           },
         },
-        { status: 200 }
+        { status: 200 },
       );
     }
-  }
+  },
 );
