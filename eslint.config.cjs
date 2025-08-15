@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+const storybook = require('eslint-plugin-storybook');
+
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
@@ -7,7 +10,8 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'airbnb',
     'airbnb-typescript',
-    'plugin:prettier/recommended'
+    'plugin:storybook/recommended',
+    'plugin:prettier/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -17,7 +21,7 @@ module.exports = {
     project: ['./tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', 'react', 'import', 'storybook'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -27,5 +31,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/function-component-definition': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
+    'prettier/prettier': 'error',
   },
 };
