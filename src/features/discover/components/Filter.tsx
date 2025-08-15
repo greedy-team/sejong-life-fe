@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import fetchCategories from '../apis/filterApi';
 import type { CategoryProps } from '../model/type';
+import CategoryFilter from './CategoryFilter';
 
 const Filter = () => {
   const [categories, setCategories] = useState<CategoryProps[]>([]);
@@ -14,7 +15,11 @@ const Filter = () => {
     fetchCategory();
   }, []);
 
-  return <></>;
+  return (
+    <div className="w-full">
+      <CategoryFilter categories={categories} />
+    </div>
+  );
 };
 
 export default Filter;
