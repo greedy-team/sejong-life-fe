@@ -10,7 +10,7 @@ describe('Header 컴포넌트', () => {
     render(
       <BrowserRouter>
         <Header />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     // 1. 로고 이미지 검증
