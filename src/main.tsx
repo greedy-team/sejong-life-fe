@@ -1,8 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { AppProviders } from './context/Provider.tsx';
 import './index.css';
 import App from './App.tsx';
-import { CategoryProvider } from './context/categoryContext.tsx';
 
 if (import.meta.env.DEV) {
   const { worker } = await import('./mock/browser');
@@ -11,8 +11,8 @@ if (import.meta.env.DEV) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <CategoryProvider>
+    <AppProviders>
       <App />
-    </CategoryProvider>
+    </AppProviders>
   </StrictMode>,
 );
