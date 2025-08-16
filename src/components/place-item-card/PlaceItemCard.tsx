@@ -1,8 +1,10 @@
 import type { PlaceItemCardProps } from './model/type';
 
-const PlaceItemCard = ({ placeInfo }: PlaceItemCardProps) => {
+const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
   return (
-    <div className="h-[235px] w-[430px] rounded-[20px] p-3 shadow-[0_0_15px_0_rgba(0,0,0,0.1)]">
+    <div
+      className={`h-[235px] w-[430px] rounded-[20px] p-3 shadow-[0_0_15px_0_rgba(0,0,0,0.1)] ${className}`}
+    >
       <div className="mb-3 flex w-full gap-3">
         <img
           src={placeInfo.mainPhotoUrl}
