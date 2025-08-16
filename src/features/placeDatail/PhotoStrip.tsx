@@ -98,7 +98,7 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ images }) => {
 
       {isGridOpen && (
         <Backdrop onClick={() => setIsGridOpen(false)}>
-          <Modal>
+          <Modal onClick={(e) => e.stopPropagation()}>
             <ModalHeader>
               <CloseButton onClick={() => setIsGridOpen(false)}>✕</CloseButton>
             </ModalHeader>
