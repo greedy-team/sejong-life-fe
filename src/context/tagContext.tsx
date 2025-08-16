@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { TagProps } from '../features/discover/model/type';
+import type { TagProps } from '../types/type';
 
 interface TagContextType {
   selectedTags: TagProps[];
