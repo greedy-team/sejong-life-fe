@@ -1,6 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 body {
   margin: 0;
   padding: 0;
+}
+
+:root {
+  --background-color: #ffffff;
+  --box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+  --border-radius: 10px;
+  --border-radius-button: 10rem;
 }
