@@ -30,7 +30,7 @@ const TagFilter = () => {
   };
 
   return (
-    <ul className="mt-[-1px] flex w-full gap-2 border border-[#dadada] bg-[#F7F5F5] p-10">
+    <ul className="mt-[-1px] flex w-full gap-2 rounded-tr-md rounded-b-md border border-[#dadada] bg-[#F7F5F5] p-10">
       {tags.map((tag) => (
         <TagButton
           key={tag.tagId}
