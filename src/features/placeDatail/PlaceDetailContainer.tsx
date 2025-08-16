@@ -8,7 +8,7 @@ const Base = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 8rem auto;
+  margin: 4rem auto;
   width: 90%;
   max-width: 62.5rem;
   min-height: 50rem;
@@ -22,6 +22,10 @@ const Base = styled.main`
 export type PlaceDetail = {
   placeId: number;
   placeName: string;
+  category: {
+    categoryId: number;
+    categoryName: string;
+  };
   images: string[];
   tags: { tagId: number; tagName: string }[];
   mapLinks: {

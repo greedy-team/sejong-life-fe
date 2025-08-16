@@ -20,8 +20,8 @@ const NameAndCategorySection = styled.div`
   }
 
   .category {
-    padding: 0.4rem 0.8rem 0 0.8rem;
-    font-size: 1rem;
+    padding: 0.5rem 0.9rem 0 0.9rem;
+    font-size: 0.8rem;
     border-radius: var(--border-radius-button);
     background: #f0f0f0;
   }
@@ -95,7 +95,7 @@ const PlaceInfo: React.FC<PlaceInfoProps> = ({ place }) => {
     <PlaceInfoContainer>
       <NameAndCategorySection>
         <h1>{place.placeName}</h1>
-        <div className="category">카페</div>
+        <div className="category">{place.category.categoryName}</div>
       </NameAndCategorySection>
 
       <TagsSection>

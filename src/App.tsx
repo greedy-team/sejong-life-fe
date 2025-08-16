@@ -6,14 +6,14 @@ import PlaceDetailPage from './pages/PlaceDetailPage';
 
 function App() {
   return (
-    // <BrowserRouter>
-    //   <Routes>
-    //     <Route path="/" element={<Layout />}>
-    //       <Route index element={<MainPage />} />
-    //     </Route>
-    //   </Routes>
-    // </BrowserRouter>
-    <PlaceDetailPage></PlaceDetailPage>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<MainPage />} />
+          <Route path="detail" element={<PlaceDetailPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
