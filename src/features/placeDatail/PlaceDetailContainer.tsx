@@ -9,7 +9,9 @@ const Base = styled.main`
   flex-direction: column;
   align-items: center;
   margin: 8rem auto;
-  width: 62.5rem;
+  width: 90%;
+  max-width: 62.5rem;
+  min-height: 50rem;
   height: 50rem;
   background: var(--background-color);
   box-shadow: var(--box-shadow);

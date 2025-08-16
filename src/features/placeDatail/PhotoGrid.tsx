@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  max-width: 50rem;
   max-height: 40rem;
   overflow-y: auto;
   padding: 0.1rem;
