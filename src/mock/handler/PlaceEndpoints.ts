@@ -11,7 +11,7 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
         message: '필수 파라미터(category)가 누락되었습니다.',
         data: null,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -19,7 +19,8 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 1,
       placeName: '시홍쓰',
-      mainPhotoUrl: 'https://example.com/shihong.jpg',
+      mainPhotoUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      categories: [{ categoryId: 1, categoryName: '식당' }],
       tags: [
         {
           tagId: 1,
@@ -34,11 +35,84 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 2,
       placeName: '제주몰빵',
-      mainPhotoUrl: 'https://example.com/caffeine.jpg',
+      mainPhotoUrl: '/asset/place-item-card/cafe-example.jpg',
+      categories: [{ categoryId: 2, categoryName: '카페' }],
       tags: [
         {
           tagId: 3,
           tagName: '콘센트가 있는',
+        },
+      ],
+    },
+    {
+      placeId: 3,
+      placeName: 'mock3',
+      mainPhotoUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      categories: [{ categoryId: 1, categoryName: '식당' }],
+      tags: [
+        {
+          tagId: 1,
+          tagName: '자고 싶다',
+        },
+        {
+          tagId: 2,
+          tagName: '야작 그만',
+        },
+      ],
+    },
+    {
+      placeId: 4,
+      placeName: 'mock4',
+      mainPhotoUrl: '/asset/place-item-card/cafe-example.jpg',
+      categories: [{ categoryId: 2, categoryName: '카페' }],
+      tags: [
+        {
+          tagId: 3,
+          tagName: '콘센트가 있는',
+        },
+      ],
+    },
+    {
+      placeId: 5,
+      placeName: 'mock5',
+      mainPhotoUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      categories: [{ categoryId: 1, categoryName: '식당' }],
+      tags: [
+        {
+          tagId: 1,
+          tagName: '자고 싶다',
+        },
+        {
+          tagId: 2,
+          tagName: '야작 그만',
+        },
+      ],
+    },
+    {
+      placeId: 6,
+      placeName: 'mock6',
+      mainPhotoUrl: '/asset/place-item-card/cafe-example.jpg',
+      categories: [{ categoryId: 2, categoryName: '카페' }],
+      tags: [
+        {
+          tagId: 3,
+          tagName: '콘센트가 있는',
+        },
+      ],
+    },
+    {
+      placeId: 7,
+      placeName: 'mock7',
+      mainPhotoUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      categories: [{ categoryId: 1, categoryName: '식당' }],
+      tags: [
+        {
+          tagId: 1,
+          tagName: '자고 싶다',
+        },
+        {
+          tagId: 2,
+          tagName: '야작 그만',
         },
       ],
     },
@@ -49,14 +123,9 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
       message: '장소 목록 조회 성공',
       data: mockPlaces,
     },
-    { status: 200 }
+    { status: 200 },
   );
 });
-
-// 추천 장소 목록 조회는 회의 후 반영
-// export const getRecommendPlaces = http.get('/sejonglife/api/places/recommend', ({themes}) => {
-//   return;
-// });
 
 export const getPlaceDetails = http.get(
   '/sejonglife/api/places/:placeId',
@@ -70,7 +139,7 @@ export const getPlaceDetails = http.get(
           message: '해당하는 장소 ID를 찾을 수 없습니다.',
           data: null,
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -98,8 +167,8 @@ export const getPlaceDetails = http.get(
             },
           },
         },
-        { status: 200 }
+        { status: 200 },
       );
     }
-  }
+  },
 );
