@@ -3,6 +3,7 @@ import { useTag } from '../../../hooks/useTag';
 import type { TagProps } from '../model/type';
 import { fetchCategoryTags } from '../apis/filterApi';
 import { useCategory } from '../../../hooks/useCategory';
+import TagButton from '../../../components/share/TagButton';
 
 const TagFilter = () => {
   const { selectedCategory } = useCategory();
@@ -29,15 +30,16 @@ const TagFilter = () => {
   };
 
   return (
-    <ul>
+    <ul className="mt-[-1px] flex w-full gap-2 border border-[#dadada] bg-[#F7F5F5] p-10">
       {tags.map((tag) => (
-        <li
+        <TagButton
           key={tag.tagId}
+          size="large"
           onClick={() => handleTagClick(tag)}
-          className={` ${isSelected(tag) ? 'opacity-100' : 'opacity-30'} `}
+          className={`transition-property cursor-pointer duration-200 ${isSelected(tag) ? 'opacity-100' : 'opacity-50'} `}
         >
           {tag.tagName}
-        </li>
+        </TagButton>
       ))}
     </ul>
   );
