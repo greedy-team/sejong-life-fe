@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import LightboxViewer from './LightboxViewer';
 
 const PhotoStripContainer = styled.div`
   display: flex;
@@ -23,7 +25,8 @@ const MoreImageButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 3rem;
+  font-weight: bold;
   color: #000000;
   cursor: pointer;
 
@@ -37,15 +40,35 @@ interface PhotoStripProps {
 }
 
 const PhotoStrip: React.FC<PhotoStripProps> = ({ images }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+
   if (!images || images.length === 0) return null;
 
   return (
-    <PhotoStripContainer>
-      {images.slice(0, 3).map((src, i) => (
-        <Image key={i} src={src} alt={`place-${i}`} />
-      ))}
-      <MoreImageButton>+</MoreImageButton>
-    </PhotoStripContainer>
+    <>
+      <PhotoStripContainer>
+        {images.slice(0, 3).map((src, i) => (
+          <Image
+            key={i}
+            src={src}
+            alt={`place-${i}`}
+            onClick={() => {
+              setIndex(i);
+              setIsOpen(true);
+            }}
+          />
+        ))}
+        <MoreImageButton>+</MoreImageButton>
+      </PhotoStripContainer>
+
+      <LightboxViewer
+        isOpen={isOpen}
+        index={index}
+        images={images}
+        onClose={() => setIsOpen(false)}
+      />
+    </>
   );
 };
 
