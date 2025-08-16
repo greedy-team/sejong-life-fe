@@ -12,6 +12,7 @@ const PlaceInfoContainer = styled.div`
 const NameAndCategorySection = styled.div`
   display: flex;
   gap: 1rem;
+  margin-top: 0.5rem;
 
   h1 {
     font-size: 1.5rem;
@@ -50,16 +51,20 @@ const TagsSection = styled.div`
 const MapLinksSection = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
+  width: 100%;
 
   .mapLinksWrapper {
     display: flex;
-    gap: 4rem;
+    justify-content: space-between;
     margin-top: 1rem;
+    width: 100%;
+    gap: 2rem;
   }
 
   .mapLinkButton {
+    flex: 1;
     text-align: center;
-    padding: 0.3rem 6rem;
+    padding: 0.3rem 0;
     font-size: 1.2rem;
     border-radius: var(--border-radius-button);
 
@@ -69,7 +74,6 @@ const MapLinksSection = styled.div`
 
     &.kakao {
       background-color: #f6df03;
-      color: #000;
     }
 
     &.google {

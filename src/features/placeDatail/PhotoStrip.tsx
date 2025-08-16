@@ -8,7 +8,7 @@ const PhotoStripContainer = styled.div`
   border-radius: var(--border-radius);
   margin: 2rem auto;
   width: 90%;
-  height: 30%;
+  height: 35%;
   background: #d9d9d9;
   cursor: pointer;
   overflow: hidden;
