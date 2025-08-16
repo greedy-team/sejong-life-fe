@@ -14,9 +14,10 @@ const Base = styled.main`
   background: var(--background-color);
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);
+  gap: 2.5rem;
 `;
 
-type PlaceDetail = {
+export type PlaceDetail = {
   placeId: number;
   placeName: string;
   images: string[];
@@ -52,8 +53,8 @@ const PlaceDetailContainer = () => {
   return (
     <>
       <Base>
-        <PhotoStrip images={place.images}></PhotoStrip>
-        <PlaceInfo></PlaceInfo>
+        <PhotoStrip images={place.images} />
+        <PlaceInfo place={place} />
       </Base>
     </>
   );
