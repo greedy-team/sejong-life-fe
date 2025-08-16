@@ -1,3 +1,4 @@
+import TagButton from '../share/TagButton';
 import type { PlaceItemCardProps } from './model/type';
 
 const PlaceItemCard = ({ placeInfo }: PlaceItemCardProps) => {
@@ -20,9 +21,7 @@ const PlaceItemCard = ({ placeInfo }: PlaceItemCardProps) => {
       </div>
       <div className="flex gap-2 p-2">
         {placeInfo.tags.map((tag) => (
-          <span className="w-fit rounded-full border border-[#828282] bg-blue-200 px-3 py-0.5 text-[10px] font-semibold text-[#70553D]">
-            # {tag.tagName}
-          </span>
+          <TagButton key={tag.tagId}># {tag.tagName}</TagButton>
         ))}
       </div>
     </div>
