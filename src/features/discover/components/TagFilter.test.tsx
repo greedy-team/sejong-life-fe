@@ -5,8 +5,8 @@ import '@testing-library/jest-dom';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest';
-import { TagProvider } from '../../../context/tagContext';
 import TagFilter from './TagFilter';
+import { AppProviders } from '../../../context/Provider';
 
 // 모킹 데이터 정의
 const mockTags = [
@@ -39,9 +39,9 @@ afterAll(() => server.close());
 describe('TagFilter Component', () => {
   test('태그를 성공적으로 불러오고 렌더링해야 합니다.', async () => {
     render(
-      <TagProvider>
+      <AppProviders>
         <TagFilter />
-      </TagProvider>,
+      </AppProviders>,
     );
 
     // API 호출
@@ -54,9 +54,9 @@ describe('TagFilter Component', () => {
 
   test('태그를 클릭하면 선택 상태가 변경되어야 합니다.', async () => {
     render(
-      <TagProvider>
+      <AppProviders>
         <TagFilter />
-      </TagProvider>,
+      </AppProviders>,
     );
 
     const user = userEvent.setup();
