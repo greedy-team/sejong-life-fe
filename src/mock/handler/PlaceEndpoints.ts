@@ -88,6 +88,9 @@ export const getPlaceDetails = http.get(
               'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMTNfMTkg%2FMDAxNjc4NzAxNTg4MDgx.ZJTXj7U7eobQtDiLzrnIKDsD5yEdoc5GdfTVoTTN4SYg.peOFi-uv3gj-GffgWYpciAO_qUCWP1VVW9jFXbnY-a8g.JPEG.lbyks%2Foutput_1026576730.jpg&type=a340',
               'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjFfNyAg%2FMDAxNjc5NDEwMDM3NDk1.lErk8m9JWINpL7FpDl_UGqlEjk19zV-mmrnoZxYLkwYg.Krv48V3-L_6wc4g6GjmCuPlb3KbqFqkpOhL22JKHGoYg.JPEG.sleepyahong%2F20230319024529%25A3%25DFIMG%25A3%25DF8418.JPG&type=a340',
               'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjhfMjEz%2FMDAxNjc5OTg5ODI1NTM0.-4E4hYfC2UDbP4_oDwAMKauLB0Xta2-LhUaJmBJD1MAg.tK0Y66D_NldU871s5DOFSd37O_r3_Gr1YzZHfT15XHkg.PNG.wmwk9565%2Fimage.png&type=a340',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA3MDRfMTU2%2FMDAxNjU2OTMxMzcyMDk2.0FbfiI5SGnrhUBG6LMcHZFGbiG6_mqnlXr_gWGH0dkIg.5w-arGwT2Bn0PsFmtfVg81iEA9YjpCEgScF-DCw8cnAg.JPEG.rim-com4604%2FIMG_1624.jpg&type=a340',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA3MDRfMTU2%2FMDAxNjU2OTMxMzcyMDk2.0FbfiI5SGnrhUBG6LMcHZFGbiG6_mqnlXr_gWGH0dkIg.5w-arGwT2Bn0PsFmtfVg81iEA9YjpCEgScF-DCw8cnAg.JPEG.rim-com4604%2FIMG_1624.jpg&type=a340',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA3MDRfMTU2%2FMDAxNjU2OTMxMzcyMDk2.0FbfiI5SGnrhUBG6LMcHZFGbiG6_mqnlXr_gWGH0dkIg.5w-arGwT2Bn0PsFmtfVg81iEA9YjpCEgScF-DCw8cnAg.JPEG.rim-com4604%2FIMG_1624.jpg&type=a340',
             ],
             tags: [
               { tagId: 1, tagName: '가성비' },
