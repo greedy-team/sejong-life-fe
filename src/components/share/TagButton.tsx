@@ -19,12 +19,16 @@ const TagButton = ({
     sizeStyle = 'px-6 py-1 text-xs font-bold';
   }
 
+  if (size === 'middle') {
+    sizeStyle = 'px-4 py-1 text-xs font-bold';
+  }
+
   return (
     <li
       onClick={onClick}
       className={`w-fit rounded-full border border-[#828282] bg-blue-200 text-[#70553D] select-none ${sizeStyle} ${className}`}
     >
-      {children}
+      # {children}
     </li>
   );
 };

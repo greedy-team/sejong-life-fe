@@ -21,7 +21,7 @@ const PlaceItemCard = ({ placeInfo }: PlaceItemCardProps) => {
       </div>
       <div className="flex gap-2 p-2">
         {placeInfo.tags.map((tag) => (
-          <TagButton key={tag.tagId}># {tag.tagName}</TagButton>
+          <TagButton key={tag.tagId}>{tag.tagName}</TagButton>
         ))}
       </div>
     </div>
