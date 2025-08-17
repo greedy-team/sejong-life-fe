@@ -19,7 +19,7 @@ const TagFilter = () => {
     };
 
     fetchTag();
-  }, []);
+  }, [selectedCategory]);
 
   const isSelected = (tag: TagProps) => {
     return selectedTags.some((selectedTag) => selectedTag.tagId === tag.tagId);

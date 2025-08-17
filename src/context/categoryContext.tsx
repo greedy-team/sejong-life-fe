@@ -15,7 +15,7 @@ export const CategoryProvider = ({ children }: { children: ReactNode }) => {
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryProps | null>({
       categoryId: 1,
-      categoryName: '식당',
+      categoryName: '전체',
     });
   const value = { selectedCategory, setSelectedCategory };
 
