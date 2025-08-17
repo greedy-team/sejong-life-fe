@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useCategory } from '../../../hooks/useCategory';
-import type { CategoryProps } from '../model/type';
+import type { CategoryProps } from '../../../types/type';
 import { fetchCategories } from '../apis/filterApi';
 
 const CategoryFilter = () => {

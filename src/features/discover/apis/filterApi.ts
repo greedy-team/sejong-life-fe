@@ -1,5 +1,5 @@
 import api from '../../../api/api';
-import type { Category, Tag } from '../model/type';
+import type { Category, Tag } from '../../../types/type';
 
 // 카테고리 api
 export const fetchCategories = async (): Promise<Category> => {
@@ -7,7 +7,7 @@ export const fetchCategories = async (): Promise<Category> => {
   return response.data;
 };
 
-// 카테고리병 태그 api
+// 카테고리별 태그 api
 export const fetchCategoryTags = async (categoryId: number): Promise<Tag> => {
   const response = await api.get(`/tags/${categoryId}`);
   return response.data;

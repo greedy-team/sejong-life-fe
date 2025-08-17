@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { CategoryProps } from '../features/discover/model/type';
+import type { CategoryProps } from '../types/type';
 
 interface CategoryContextType {
   selectedCategory: CategoryProps | null;

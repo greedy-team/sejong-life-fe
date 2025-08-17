@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTag } from '../../../hooks/useTag';
-import type { TagProps } from '../model/type';
+import type { TagProps } from '../../../types/type';
 import { fetchCategoryTags } from '../apis/filterApi';
 import { useCategory } from '../../../hooks/useCategory';
 import TagButton from '../../../components/share/TagButton';

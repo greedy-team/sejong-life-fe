@@ -19,6 +19,10 @@ const TagButton = ({
     sizeStyle = 'px-6 py-1 text-xs font-bold';
   }
 
+  if (size === 'middle') {
+    sizeStyle = 'px-4 py-1 text-xs font-bold';
+  }
+
   return (
     <button
       onClick={onClick}
