@@ -37,8 +37,11 @@ const ItemContainer = ({ title, items }: ItemContainerProps) => {
         </div>
         <div className="relative">
           <div ref={scrollRef} className="flex gap-x-4 overflow-x-hidden py-2">
-            {items.map((item, index) => (
-              <PlaceItemCard key={index} placeInfo={item.placeInfo} />
+            {items.map((item) => (
+              <PlaceItemCard
+                key={item.placeInfo.placeId}
+                placeInfo={item.placeInfo}
+              />
             ))}
           </div>
           <button
