@@ -19,17 +19,8 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 1,
       placeName: '시홍쓰',
-      mainPhotoUrl: 'https://example.com/shihong.jpg',
-      categories: [
-        {
-          categoryId: 1,
-          categoryName: '식당',
-        },
-        {
-          categoryId: 2,
-          categoryName: '술집',
-        },
-      ],
+      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      categories: [{ categoryId: 1, categoryName: '식당' }],
       tags: [
         {
           tagId: 1,
@@ -44,17 +35,84 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 2,
       placeName: '제주몰빵',
-      mainPhotoUrl: 'https://example.com/caffeine.jpg',
-      categories: [
-        {
-          categoryId: 3,
-          categoryName: '카페',
-        },
-      ],
+      mainImageUrl: '/asset/place-item-card/cafe-example.jpg',
+      categories: [{ categoryId: 2, categoryName: '카페' }],
       tags: [
         {
           tagId: 3,
           tagName: '콘센트가 있는',
+        },
+      ],
+    },
+    {
+      placeId: 3,
+      placeName: 'mock3',
+      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      categories: [{ categoryId: 1, categoryName: '식당' }],
+      tags: [
+        {
+          tagId: 1,
+          tagName: '자고 싶다',
+        },
+        {
+          tagId: 2,
+          tagName: '야작 그만',
+        },
+      ],
+    },
+    {
+      placeId: 4,
+      placeName: 'mock4',
+      mainImageUrl: '/asset/place-item-card/cafe-example.jpg',
+      categories: [{ categoryId: 2, categoryName: '카페' }],
+      tags: [
+        {
+          tagId: 3,
+          tagName: '콘센트가 있는',
+        },
+      ],
+    },
+    {
+      placeId: 5,
+      placeName: 'mock5',
+      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      categories: [{ categoryId: 1, categoryName: '식당' }],
+      tags: [
+        {
+          tagId: 1,
+          tagName: '자고 싶다',
+        },
+        {
+          tagId: 2,
+          tagName: '야작 그만',
+        },
+      ],
+    },
+    {
+      placeId: 6,
+      placeName: 'mock6',
+      mainImageUrl: '/asset/place-item-card/cafe-example.jpg',
+      categories: [{ categoryId: 2, categoryName: '카페' }],
+      tags: [
+        {
+          tagId: 3,
+          tagName: '콘센트가 있는',
+        },
+      ],
+    },
+    {
+      placeId: 7,
+      placeName: 'mock7',
+      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      categories: [{ categoryId: 1, categoryName: '식당' }],
+      tags: [
+        {
+          tagId: 1,
+          tagName: '자고 싶다',
+        },
+        {
+          tagId: 2,
+          tagName: '야작 그만',
         },
       ],
     },
@@ -68,11 +126,6 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     { status: 200 },
   );
 });
-
-// 추천 장소 목록 조회는 회의 후 반영
-// export const getRecommendPlaces = http.get('/sejonglife/api/places/recommend', ({themes}) => {
-//   return;
-// });
 
 export const getPlaceDetails = http.get(
   '/sejonglife/api/places/:placeId',
