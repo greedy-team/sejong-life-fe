@@ -11,7 +11,7 @@ export interface PlaceTag {
 export interface PlaceInfo {
   placeId: number;
   placeName: string;
-  mainPhotoUrl: string;
+  mainImageUrl: string;
   categories: PlaceCategory[];
   tags: PlaceTag[];
 }

@@ -7,7 +7,7 @@ import type { PlaceItemCardProps } from '../components/place-item-card/model/typ
 interface PlaceApiData {
   placeId: number;
   placeName: string;
-  mainPhotoUrl: string;
+  mainImageUrl: string;
   tags: { tagId: number; tagName: string }[];
   categories?: { categoryId: number; categoryName: string }[];
 }
@@ -27,7 +27,7 @@ const MainPage = () => {
               placeInfo: {
                 placeId: item.placeId,
                 placeName: item.placeName,
-                mainPhotoUrl: item.mainPhotoUrl,
+                mainImageUrl: item.mainImageUrl,
                 categories: item.categories,
                 tags: item.tags,
               },
