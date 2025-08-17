@@ -3,13 +3,13 @@ import TagButton from '../share/TagButton';
 
 interface PlaceItemCardProps {
   placeInfo: PlaceProps;
-  grid: boolean;
+  className: string;
 }
 
-const PlaceItemCard = ({ placeInfo, grid }: PlaceItemCardProps) => {
+const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
   return (
     <div
-      className={`box-border aspect-[16/9] w-[430px] rounded-[20px] p-3 shadow-[0_0_15px_0_rgba(0,0,0,0.1)] ${grid && 'w-full'}`}
+      className={`box-border aspect-[16/9] w-[430px] rounded-[20px] p-3 shadow-[0_0_15px_0_rgba(0,0,0,0.1)] ${className}`}
     >
       <div className="mb-3 flex w-full gap-3">
         <img

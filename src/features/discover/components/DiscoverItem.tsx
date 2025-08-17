@@ -47,7 +47,11 @@ const DiscoverItem = () => {
       </h1>
       <div className="grid w-full grid-cols-3 gap-3">
         {filteredPlaces.map((place) => (
-          <PlaceItemCard key={place.placeId} placeInfo={place} grid={true} />
+          <PlaceItemCard
+            key={place.placeId}
+            placeInfo={place}
+            className="w-full"
+          />
         ))}
       </div>
     </div>
