@@ -41,6 +41,7 @@ const ItemContainer = ({ title, items }: ItemContainerProps) => {
               <PlaceItemCard
                 key={item.placeInfo.placeId}
                 placeInfo={item.placeInfo}
+                className={'flex-none'}
               />
             ))}
           </div>
