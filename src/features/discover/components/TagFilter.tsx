@@ -14,7 +14,7 @@ const TagFilter = () => {
     const fetchTag = async () => {
       if (selectedCategory?.categoryId) {
         const res = await fetchCategoryTags(selectedCategory.categoryId);
-        setTags(res.data);
+        setTags(res.data || []);
       }
     };
 

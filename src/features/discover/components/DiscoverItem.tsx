@@ -15,7 +15,7 @@ const DiscoverItem = () => {
     const fetchFilterPlace = async () => {
       if (selectedCategory && selectedTags) {
         const res = await fetchFilteredPlaces(selectedCategory, selectedTags);
-        setFilteredPlaces(res.data);
+        setFilteredPlaces(res.data || []);
       }
     };
 

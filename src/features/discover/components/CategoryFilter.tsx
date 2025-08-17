@@ -10,7 +10,7 @@ const CategoryFilter = () => {
   useEffect(() => {
     const fetchCategory = async () => {
       const res = await fetchCategories();
-      setCategories(res.data);
+      setCategories(res.data || []);
     };
 
     fetchCategory();
