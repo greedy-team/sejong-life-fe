@@ -18,5 +18,4 @@ export interface PlaceInfo {
 
 export interface PlaceItemCardProps {
   placeInfo: PlaceInfo;
-  className?: string;
 }
