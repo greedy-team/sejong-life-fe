@@ -20,12 +20,12 @@ const TagButton = ({
   }
 
   return (
-    <li
+    <button
       onClick={onClick}
       className={`w-fit rounded-full border border-[#828282] bg-blue-200 text-[#70553D] select-none ${sizeStyle} ${className}`}
     >
       {children}
-    </li>
+    </button>
   );
 };
 
