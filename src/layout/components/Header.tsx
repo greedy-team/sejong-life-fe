@@ -10,18 +10,18 @@ const Header = () => {
           className="h-full"
         />
       </Link>
-      <ul className="flex flex-1 items-center gap-20 px-20">
-        <li>
+      <div className="flex flex-1 items-center gap-20 px-20">
+        <button>
           <Link to="/" className="font-bold">
             홈
           </Link>
-        </li>
-        <li>
+        </button>
+        <button>
           <Link to="/discover" className="font-bold">
             탐색
           </Link>
-        </li>
-      </ul>
+        </button>
+      </div>
     </header>
   );
 };

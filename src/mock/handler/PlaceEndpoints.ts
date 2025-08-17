@@ -19,7 +19,7 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 1,
       placeName: '시홍쓰',
-      mainPhotoUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
       categories: [{ categoryId: 1, categoryName: '식당' }],
       tags: [
         {
@@ -35,7 +35,7 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 2,
       placeName: '제주몰빵',
-      mainPhotoUrl: '/asset/place-item-card/cafe-example.jpg',
+      mainImageUrl: '/asset/place-item-card/cafe-example.jpg',
       categories: [{ categoryId: 2, categoryName: '카페' }],
       tags: [
         {
@@ -47,7 +47,7 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 3,
       placeName: 'mock3',
-      mainPhotoUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
       categories: [{ categoryId: 1, categoryName: '식당' }],
       tags: [
         {
@@ -63,7 +63,7 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 4,
       placeName: 'mock4',
-      mainPhotoUrl: '/asset/place-item-card/cafe-example.jpg',
+      mainImageUrl: '/asset/place-item-card/cafe-example.jpg',
       categories: [{ categoryId: 2, categoryName: '카페' }],
       tags: [
         {
@@ -75,7 +75,7 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 5,
       placeName: 'mock5',
-      mainPhotoUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
       categories: [{ categoryId: 1, categoryName: '식당' }],
       tags: [
         {
@@ -91,7 +91,7 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 6,
       placeName: 'mock6',
-      mainPhotoUrl: '/asset/place-item-card/cafe-example.jpg',
+      mainImageUrl: '/asset/place-item-card/cafe-example.jpg',
       categories: [{ categoryId: 2, categoryName: '카페' }],
       tags: [
         {
@@ -103,7 +103,7 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 7,
       placeName: 'mock7',
-      mainPhotoUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
       categories: [{ categoryId: 1, categoryName: '식당' }],
       tags: [
         {
