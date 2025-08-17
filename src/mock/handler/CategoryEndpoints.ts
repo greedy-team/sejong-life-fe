@@ -7,14 +7,18 @@ export const getCategories = http.get('/sejonglife/api/categories', () => {
       data: [
         {
           categoryId: 1,
-          categoryName: '식당',
+          categoryName: '전체',
         },
         {
           categoryId: 2,
+          categoryName: '식당',
+        },
+        {
+          categoryId: 3,
           categoryName: '카페',
         },
       ],
     },
-    { status: 200 }
+    { status: 200 },
   );
 });
