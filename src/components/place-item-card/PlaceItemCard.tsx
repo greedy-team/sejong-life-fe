@@ -3,7 +3,7 @@ import TagButton from '../share/TagButton';
 
 interface PlaceItemCardProps {
   placeInfo: PlaceProps;
-  className: string;
+  className?: string;
 }
 
 const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
@@ -13,7 +13,7 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
     >
       <div className="mb-3 flex w-full gap-3">
         <img
-          src={placeInfo.mainImgUrl}
+          src={placeInfo.mainImageUrl}
           alt="장소 대표 이미지"
           className="aspect-square w-[30%]"
         />

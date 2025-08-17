@@ -21,7 +21,7 @@ export interface Tag {
 export interface PlaceProps {
   placeId: number;
   placeName: string;
-  mainImgUrl: string;
+  mainImageUrl: string;
   categories: CategoryProps[];
   tags: TagProps[];
 }
