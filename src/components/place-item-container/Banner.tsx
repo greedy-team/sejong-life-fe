@@ -4,10 +4,6 @@ import { useNavigate } from 'react-router-dom';
 const Banner: React.FC = () => {
   const navigate = useNavigate();
 
-  const handlerButtonClick = () => {
-    navigate('/discover');
-  };
-
   return (
     <section
       className="relative flex h-[300px] w-full items-center justify-center bg-cover bg-center text-center text-white"
@@ -27,7 +23,7 @@ const Banner: React.FC = () => {
           맛집・카페・공부 공간을 한 번에.
         </p>
         <button
-          onClick={handlerButtonClick}
+          onClick={() => navigate('/dicover')}
           className="rounded-md bg-red-600 px-6 py-2 font-bold text-white transition-colors duration-300 hover:bg-red-700"
         >
           지금 골라보기
