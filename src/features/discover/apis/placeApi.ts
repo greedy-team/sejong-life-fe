@@ -14,6 +14,6 @@ export const fetchFilteredPlaces = async (
     params.append('tags', tagIds);
   }
 
-  const response = await api.get(`/places?${params.toString()}`);
+  const response = await api.get(`places?${params.toString()}`);
   return response.data;
 };
