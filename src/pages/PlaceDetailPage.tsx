@@ -1,7 +1,7 @@
-import PlaceDetailContainer from '../features/placeDatail/PlaceDetailContainer';
+import PlaceDetailContainer from '../features/placeDetail/PlaceDetailContainer';
 
 function PlaceDetailPage() {
-  return <PlaceDetailContainer></PlaceDetailContainer>;
+  return <PlaceDetailContainer />;
 }
 
 export default PlaceDetailPage;
