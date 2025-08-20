@@ -27,6 +27,7 @@ module.exports = {
         'revert',
         'style',
         'test',
+        'hotfix',
       ],
     ],
     'body-max-line-length': [0, 'always'],

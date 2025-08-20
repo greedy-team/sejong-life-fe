@@ -15,7 +15,7 @@ type Story = StoryObj<typeof PlaceItemCard>;
 const mockPlaceInfo = {
   placeId: 1,
   placeName: '그리디 카페',
-  mainPhotoUrl: '/asset/place-item-card/tempImg.svg',
+  mainImageUrl: '/asset/place-item-card/tempImg.svg',
   categories: [
     { categoryId: 1, categoryName: '식당' },
     { categoryId: 2, categoryName: '카페' },
