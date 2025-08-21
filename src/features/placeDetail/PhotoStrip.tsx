@@ -72,7 +72,7 @@ interface PhotoStripProps {
   images: string[];
 }
 
-const PhotoStrip: React.FC<PhotoStripProps> = ({ images }) => {
+const PhotoStrip = ({ images }: PhotoStripProps) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [isGridOpen, setIsGridOpen] = useState(false);

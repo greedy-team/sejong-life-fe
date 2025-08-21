@@ -23,7 +23,7 @@ interface PhotoGridProps {
   onImageClick: (index: number) => void;
 }
 
-const PhotoGrid: React.FC<PhotoGridProps> = ({ images, onImageClick }) => {
+const PhotoGrid = ({ images, onImageClick }: PhotoGridProps) => {
   return (
     <GridContainer>
       {images.map((src, i) => (

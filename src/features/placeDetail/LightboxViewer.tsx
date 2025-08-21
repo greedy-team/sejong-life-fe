@@ -15,12 +15,12 @@ interface LightboxViewerProps {
   onClose: () => void;
 }
 
-const LightboxViewer: React.FC<LightboxViewerProps> = ({
+const LightboxViewer = ({
   isLightboxOpen,
   index,
   images,
   onClose,
-}) => {
+}: LightboxViewerProps) => {
   return (
     <>
       <LightboxStyles />

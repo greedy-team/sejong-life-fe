@@ -91,7 +91,7 @@ interface PlaceInfoProps {
   place: PlaceDetail;
 }
 
-const PlaceInfo: React.FC<PlaceInfoProps> = ({ place }) => {
+const PlaceInfo = ({ place }: PlaceInfoProps) => {
   return (
     <PlaceInfoContainer>
       <NameAndCategorySection>
