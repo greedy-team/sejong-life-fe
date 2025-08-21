@@ -3,6 +3,7 @@ import PhotoStrip from './PhotoStrip';
 import PlaceInfo from './PlaceInfo';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const Base = styled.main`
   display: flex;
@@ -37,11 +38,12 @@ export type PlaceDetail = {
 
 const PlaceDetailContainer = () => {
   const [place, setPlace] = useState<PlaceDetail | null>(null);
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     const fetchPlaceDetail = async () => {
       try {
-        const res = await axios.get('/sejonglife/api/places/1');
+        const res = await axios.get(`/sejonglife/api/places/${id}`);
         setPlace(res.data.data);
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
@@ -52,7 +54,7 @@ const PlaceDetailContainer = () => {
       }
     };
     fetchPlaceDetail();
-  }, []);
+  }, [id]);
 
   if (!place) return <div>로딩중...</div>;
 
