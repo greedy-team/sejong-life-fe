@@ -76,27 +76,51 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ images }) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [isGridOpen, setIsGridOpen] = useState(false);
+  const haveImages = images && images.length > 0;
 
-  if (!images || images.length === 0) return null;
+  const handleMoreImageButtonClick = () => {
+    if (haveImages) {
+      setIsGridOpen(true);
+    } else {
+      alert('사진이 없습니다.');
+    }
+  };
 
   return (
     <>
       <PhotoStripContainer>
-        {images.slice(0, 3).map((src, i) => (
-          <Image
-            key={i}
-            src={src}
-            alt={`place-${i}`}
-            onClick={() => {
-              setIndex(i);
-              setIsLightboxOpen(true);
-            }}
-          />
-        ))}
-        <MoreImageButton onClick={() => setIsGridOpen(true)}>+</MoreImageButton>
+        {[0, 1, 2].map((i) =>
+          images[i] ? (
+            <Image
+              key={i}
+              src={images[i]}
+              alt={`place-${i}`}
+              onClick={() => {
+                setIndex(i);
+                setIsLightboxOpen(true);
+              }}
+            />
+          ) : (
+            <div
+              key={i}
+              style={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#f0f0f0',
+              }}
+            >
+              📷 사진이 없습니다
+            </div>
+          ),
+        )}
+        <MoreImageButton onClick={() => handleMoreImageButtonClick()}>
+          +
+        </MoreImageButton>
       </PhotoStripContainer>
 
-      {isGridOpen && (
+      {isGridOpen && haveImages && (
         <Backdrop onClick={() => setIsGridOpen(false)}>
           <Modal onClick={(e) => e.stopPropagation()}>
             <ModalHeader>
