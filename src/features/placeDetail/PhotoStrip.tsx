@@ -86,6 +86,10 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ images }) => {
     }
   };
 
+  const handledError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.alt = '사진을 불러오는 데 실패했습니다.';
+  };
+
   return (
     <>
       <PhotoStripContainer>
@@ -99,6 +103,7 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ images }) => {
                 setIndex(i);
                 setIsLightboxOpen(true);
               }}
+              onError={handledError}
             />
           ) : (
             <div
