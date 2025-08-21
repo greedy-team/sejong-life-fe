@@ -149,11 +149,14 @@ export const getPlaceDetails = http.get(
           message: '장소 상세 정보 조회 성공',
           data: {
             placeId: 1,
-            placeName: '공학관 학생 식당',
+            placeName: '그리디 카페',
+            category: { categoryId: '2', categoryName: '카페' },
             images: [
-              'https://example.com/photo1.jpg',
-              'https://example.com/photo2.jpg',
-              'https://example.com/photo3.jpg',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA0MjVfMjgz%2FMDAxNzQ1NTEwMDExMzE3.fvoMulzVSMo08z9fSy0pdbTtTB4IERcVBpCYizC4j6kg.BBfZu1bS8LpRmnB3brwyWY8kMUsFau-Vzts6s1Wk6X8g.PNG%2F7.png&type=a340',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA2MDVfMjg2%2FMDAxNzE3NTYxMjQ1MzM5.d02btha4jL7zbgMpZ10uPqNsDDwZHDCzzhEEpbeaIM8g.ShyiYxLutUvaoxYHESm5KM9o0euYGsyArqY3BnMdaJ8g.JPEG%2F0.jpg&type=a340',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA0MDlfNTAg%2FMDAxNzQ0MTg4MTY4NTAz.ouTG9RpQLDyrl7FTCWbRBPxzc4NWAJDcOufY-X1ff64g.j8SrsGQxjmq-a2dgSsEZOp4N6v0tnlx0x7D1GU3KwRcg.JPEG%2F900%25A3%25DF1744188153898.jpg&type=a340',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA3MDRfMTU2%2FMDAxNjU2OTMxMzcyMDk2.0FbfiI5SGnrhUBG6LMcHZFGbiG6_mqnlXr_gWGH0dkIg.5w-arGwT2Bn0PsFmtfVg81iEA9YjpCEgScF-DCw8cnAg.JPEG.rim-com4604%2FIMG_1624.jpg&type=a340',
+              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDExMjNfMjkz%2FMDAxNzMyMzQ3Njk3MDA5.87N1jY3N83RzmToo8DyB5vWGPDseM-yHF65HrbUjitog.asMFw-uEGajRSko-zih-FPUG98yFxQnJMGLbUuaCJYMg.JPEG%2FIMG_8441.JPG&type=a340',
             ],
             tags: [
               { tagId: 1, tagName: '가성비' },
