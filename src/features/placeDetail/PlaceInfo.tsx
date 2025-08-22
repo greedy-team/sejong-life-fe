@@ -1,91 +1,5 @@
-import styled from 'styled-components';
 import type { PlaceDetail } from './PlaceDetailContainer';
 import TagButton from '../../components/share/TagButton';
-
-const PlaceInfoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2rem;
-  width: 90%;
-`;
-
-const NameAndCategorySection = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
-
-  h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-
-  .category {
-    padding: 0.5rem 0.9rem 0 0.9rem;
-    font-size: 0.8rem;
-    border-radius: var(--border-radius-button);
-    background: #f0f0f0;
-  }
-`;
-
-const TagsSection = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-
-  .tagList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  .tag {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.875rem;
-    border-radius: var(--border-radius-button);
-    background-color: #f8a7a7;
-    color: #333;
-    font-weight: normal;
-  }
-`;
-
-const MapLinksSection = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-  width: 100%;
-
-  .mapLinksWrapper {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    width: 100%;
-    gap: 2rem;
-  }
-
-  .mapLinkButton {
-    flex: 1;
-    text-align: center;
-    padding: 0.3rem 0;
-    font-size: 1.2rem;
-    border-radius: var(--border-radius-button);
-
-    &.naver {
-      background-color: #02c158;
-    }
-
-    &.kakao {
-      background-color: #f6df03;
-    }
-
-    &.google {
-      background-color: #c3c8c3;
-    }
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-`;
 
 interface PlaceInfoProps {
   place: PlaceDetail;
@@ -93,50 +7,52 @@ interface PlaceInfoProps {
 
 const PlaceInfo = ({ place }: PlaceInfoProps) => {
   return (
-    <PlaceInfoContainer>
-      <NameAndCategorySection>
-        <h1>{place.placeName}</h1>
-        <div className="category">{place.category.categoryName}</div>
-      </NameAndCategorySection>
+    <div className="flex w-[90%] flex-col items-start gap-8">
+      <div className="mt-2 flex gap-4">
+        <h1 className="text-2xl font-bold">{place.placeName}</h1>
+        <div className="rounded-full bg-[#f0f0f0] px-3.5 pt-1.5 text-sm">
+          {place.category.categoryName}
+        </div>
+      </div>
 
-      <TagsSection>
+      <div className="text-2xl font-bold">
         🏷️ 태그
-        <div className="tagList">
+        <div className="mt-4 flex flex-wrap gap-2">
           {place.tags.map((tag) => (
             <TagButton key={tag.tagId} size="small" className="tag">
               #{tag.tagName}
             </TagButton>
           ))}
         </div>
-      </TagsSection>
+      </div>
 
-      <MapLinksSection>
+      <div className="w-full text-2xl font-bold">
         📍 지도 바로가기
-        <div className="mapLinksWrapper">
+        <div className="mt-4 flex w-full justify-between gap-8">
           <a
             href={place.mapLinks.naverMap}
             target="_blank"
-            className="mapLinkButton naver"
+            className="flex-1 rounded-full border border-[#D9D9D9] bg-[#D6F3D2] py-1.5 text-center text-lg hover:brightness-90"
           >
             네이버맵
           </a>
           <a
             href={place.mapLinks.kakaoMap}
             target="_blank"
-            className="mapLinkButton kakao"
+            className="flex-1 rounded-full border border-[#D9D9D9] bg-[#FFE480] py-1.5 text-center text-lg hover:brightness-90"
           >
             카카오맵
           </a>
           <a
             href={place.mapLinks.googleMap}
             target="_blank"
-            className="mapLinkButton google"
+            className="flex-1 rounded-full border border-[#D9D9D9] bg-[#ECEAE6] py-1.5 text-center text-lg hover:brightness-90"
           >
             구글맵
           </a>
         </div>
-      </MapLinksSection>
-    </PlaceInfoContainer>
+      </div>
+    </div>
   );
 };
 
