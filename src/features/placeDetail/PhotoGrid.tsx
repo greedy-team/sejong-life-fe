@@ -1,23 +1,3 @@
-import styled from 'styled-components';
-
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  max-width: 50rem;
-  max-height: 40rem;
-  overflow-y: auto;
-  padding: 0.1rem;
-  gap: 0.1rem;
-  background: var(--background-color);
-`;
-
-const GridImage = styled.img`
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  cursor: pointer;
-`;
-
 interface PhotoGridProps {
   images: string[];
   onImageClick: (index: number) => void;
@@ -25,11 +5,16 @@ interface PhotoGridProps {
 
 const PhotoGrid = ({ images, onImageClick }: PhotoGridProps) => {
   return (
-    <GridContainer>
+    <div className="grid max-h-[40rem] max-w-[50rem] grid-cols-3 gap-0.5 overflow-y-auto bg-white p-0.5">
       {images.map((src, i) => (
-        <GridImage key={i} src={src} onClick={() => onImageClick(i)} />
+        <img
+          className="aspect-square w-full cursor-pointer object-cover"
+          key={i}
+          src={src}
+          onClick={() => onImageClick(i)}
+        />
       ))}
-    </GridContainer>
+    </div>
   );
 };
 
