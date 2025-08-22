@@ -19,7 +19,7 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
         🏷️ 태그
         <div className="mt-4 flex flex-wrap gap-2">
           {place.tags.map((tag) => (
-            <TagButton key={tag.tagId} size="small" className="tag">
+            <TagButton key={tag.tagId} size="large">
               #{tag.tagName}
             </TagButton>
           ))}
