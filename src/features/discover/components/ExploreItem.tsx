@@ -6,7 +6,7 @@ import { useTag } from '../../../hooks/useTag';
 import type { PlaceProps, TagProps } from '../../../types/type';
 import { fetchFilteredPlaces } from '../apis/placeApi';
 
-const DiscoverItem = () => {
+const ExploreItem = () => {
   const { selectedCategory } = useCategory();
   const { selectedTags, toggleTag } = useTag();
   const [filteredPlaces, setFilteredPlaces] = useState<PlaceProps[]>([]);
@@ -57,4 +57,4 @@ const DiscoverItem = () => {
   );
 };
 
-export default DiscoverItem;
+export default ExploreItem;
