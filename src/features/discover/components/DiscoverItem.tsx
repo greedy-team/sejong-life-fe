@@ -10,7 +10,7 @@ const DiscoverItem = () => {
   const { selectedCategory } = useCategory();
   const { selectedTags, toggleTag } = useTag();
   const [filteredPlaces, setFilteredPlaces] = useState<PlaceProps[]>([]);
-  console.log(filteredPlaces);
+
   useEffect(() => {
     const fetchFilterPlace = async () => {
       if (selectedCategory && selectedTags) {
@@ -33,12 +33,11 @@ const DiscoverItem = () => {
           <TagButton
             key={tag.tagId}
             size="middle"
-            className="flex items-center justify-center gap-3 px-1"
+            className="flex cursor-pointer items-center justify-center gap-3 px-1"
+            onClick={() => handleTag(tag)}
           >
             {tag.tagName}
-            <button className="cursor-pointer" onClick={() => handleTag(tag)}>
-              X
-            </button>
+            <button>X</button>
           </TagButton>
         ))}
       </ul>
