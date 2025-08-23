@@ -1,72 +1,6 @@
-import styled from 'styled-components';
 import { useState } from 'react';
 import LightboxViewer from './LightboxViewer';
 import PhotoGrid from './PhotoGrid';
-
-const PhotoStripContainer = styled.div`
-  display: flex;
-  border-radius: var(--border-radius);
-  margin: 2rem auto;
-  width: 90%;
-  height: 35%;
-  background: #d9d9d9;
-  cursor: pointer;
-  overflow: hidden;
-`;
-
-const Image = styled.img`
-  flex: 1;
-  width: 25%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const MoreImageButton = styled.button`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  font-weight: bold;
-  color: #000000;
-  cursor: pointer;
-
-  &:hover {
-    background: #e5e5e5;
-  }
-`;
-const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Modal = styled.div`
-  position: relative;
-  max-width: 70%;
-  max-height: 70%;
-`;
-
-const ModalHeader = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
-`;
-
-const CloseButton = styled.button`
-  font-size: 2rem;
-  font-weight: bold;
-  cursor: pointer;
-  color: #fff;
-`;
 
 interface PhotoStripProps {
   images: string[];
@@ -92,10 +26,11 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
 
   return (
     <>
-      <PhotoStripContainer>
+      <div className="mx-auto my-8 flex h-[35%] w-[90%] cursor-pointer overflow-hidden rounded-2xl bg-[#d9d9d9]">
         {[0, 1, 2].map((i) =>
           images[i] ? (
-            <Image
+            <img
+              className="h-full w-1/4 flex-1 object-cover"
               key={i}
               src={images[i]}
               alt={`place-${i}`}
@@ -120,17 +55,31 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
             </div>
           ),
         )}
-        <MoreImageButton onClick={() => handleMoreImageButtonClick()}>
+        <button
+          className="h0ver:bg-[#e5e5e5] flex flex-1 cursor-pointer items-center justify-center text-5xl font-bold text-black"
+          onClick={() => handleMoreImageButtonClick()}
+        >
           +
-        </MoreImageButton>
-      </PhotoStripContainer>
+        </button>
+      </div>
 
       {isGridOpen && haveImages && (
-        <Backdrop onClick={() => setIsGridOpen(false)}>
-          <Modal onClick={(e) => e.stopPropagation()}>
-            <ModalHeader>
-              <CloseButton onClick={() => setIsGridOpen(false)}>✕</CloseButton>
-            </ModalHeader>
+        <div
+          className="fixed top-0 left-0 z-[999] flex h-screen w-screen items-center justify-center bg-black/80"
+          onClick={() => setIsGridOpen(false)}
+        >
+          <div
+            className="relative max-h-[70%] max-w-[70%]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex w-full items-center justify-end">
+              <button
+                className="cursor-pointer text-2xl font-bold text-white"
+                onClick={() => setIsGridOpen(false)}
+              >
+                ✕
+              </button>
+            </div>
             <PhotoGrid
               images={images}
               onImageClick={(i) => {
@@ -138,8 +87,8 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
                 setIsLightboxOpen(true);
               }}
             />
-          </Modal>
-        </Backdrop>
+          </div>
+        </div>
       )}
 
       <LightboxViewer

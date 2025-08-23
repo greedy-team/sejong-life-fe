@@ -1,24 +1,8 @@
-import styled from 'styled-components';
 import PhotoStrip from './PhotoStrip';
 import PlaceInfo from './PlaceInfo';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
-const Base = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 4rem auto;
-  width: 90%;
-  max-width: 62.5rem;
-  min-height: 50rem;
-  height: 50rem;
-  background: var(--background-color);
-  box-shadow: var(--box-shadow);
-  border-radius: var(--border-radius);
-  gap: 2.5rem;
-`;
 
 export type PlaceDetail = {
   placeId: number;
@@ -59,12 +43,10 @@ const PlaceDetailContainer = () => {
   if (!place) return <div>로딩중...</div>;
 
   return (
-    <>
-      <Base>
-        <PhotoStrip images={place.images} />
-        <PlaceInfo place={place} />
-      </Base>
-    </>
+    <main className="mx-auto my-16 flex h-[50rem] min-h-[50rem] w-[90%] max-w-[62.5rem] flex-col items-center gap-10 rounded-2xl bg-white shadow-lg">
+      <PhotoStrip images={place.images} />
+      <PlaceInfo place={place} />
+    </main>
   );
 };
 
