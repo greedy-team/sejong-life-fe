@@ -20,7 +20,7 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
         <div className="mt-4 flex flex-wrap gap-2">
           {place.tags.map((tag) => (
             <TagButton key={tag.tagId} size="large">
-              #{tag.tagName}
+              {tag.tagName}
             </TagButton>
           ))}
         </div>
