@@ -15,21 +15,19 @@ const LightboxViewer = ({
   onClose,
 }: LightboxViewerProps) => {
   return (
-    <>
-      <Lightbox
-        open={isLightboxOpen}
-        close={onClose}
-        index={index}
-        slides={images.map((src) => ({ src }))}
-        carousel={{ finite: true }}
-        controller={{ closeOnBackdropClick: true }}
-        styles={{
-          container: {
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          },
-        }}
-      />
-    </>
+    <Lightbox
+      open={isLightboxOpen}
+      close={onClose}
+      index={index}
+      slides={images.map((src) => ({ src }))}
+      carousel={{ finite: true }}
+      controller={{ closeOnBackdropClick: true }}
+      styles={{
+        container: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        },
+      }}
+    />
   );
 };
 
