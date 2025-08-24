@@ -17,7 +17,7 @@ const Header = () => {
           </Link>
         </button>
         <button>
-          <Link to="/discover" className="font-bold">
+          <Link to="/explore" className="font-bold">
             탐색
           </Link>
         </button>

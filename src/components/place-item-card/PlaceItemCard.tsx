@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import type { PlaceProps } from '../../types/type';
 import TagButton from '../share/TagButton';
 
@@ -7,9 +8,11 @@ interface PlaceItemCardProps {
 }
 
 const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
+  const navigate = useNavigate();
   return (
     <div
-      className={`box-border aspect-[16/9] w-[430px] rounded-[20px] p-3 shadow-[0_0_15px_0_rgba(0,0,0,0.1)] ${className}`}
+      className={`box-border aspect-[16/9] w-[430px] cursor-pointer rounded-[20px] p-3 shadow-[0_0_15px_0_rgba(0,0,0,0.1)] ${className}`}
+      onClick={() => navigate(`/detail/${placeInfo.placeId}`)}
     >
       <div className="mb-3 flex w-full gap-3">
         <img
