@@ -1,6 +1,7 @@
 import type { Review } from '../PlaceDetailContainer';
 import TagButton from '../../../components/share/TagButton';
 import { useState } from 'react';
+import LightboxViewer from '../LightboxViewer';
 
 interface ReviewCardProps {
   review: Review;
@@ -9,6 +10,8 @@ interface ReviewCardProps {
 const ReviewCard = ({ review }: ReviewCardProps) => {
   const haveImages = review.images && review.images.length > 0;
   const [isLiked, setIsLiked] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const formatDate = (dateString: string) => {
     try {
@@ -47,46 +50,58 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
     return stars;
   };
 
-  const handleLikeButton = {};
   return (
-    <div className="flex w-full flex-col gap-2.5 border-t border-gray-200 px-5 py-5">
-      <div className="flex justify-between">
-        <div className="text-lg font-bold">
-          {String(review.studentId).slice(0, 2)}학번
+    <>
+      <div className="flex w-full flex-col gap-2.5 border-t border-gray-200 px-5 py-5">
+        <div className="flex justify-between">
+          <div className="text-lg font-bold">
+            {String(review.studentId).slice(0, 2)}학번
+          </div>
+          <div className="text-small text-gray-500">
+            {formatDate(review.createdAt)}
+          </div>
         </div>
-        <div className="text-small text-gray-500">
-          {formatDate(review.createdAt)}
-        </div>
-      </div>
-      <div data-testid="review-rating">{rederStartIcons(review.rating)}</div>
-      {haveImages && (
-        <div className="flex gap-1 overflow-x-auto">
-          {review.images.map((imgURL, i) => (
-            <img
-              key={i}
-              src={imgURL}
-              alt={'리뷰 사진 ${i+1}'}
-              className="h-24 w-24 flex-shrink-0 object-cover"
-            />
+        <div data-testid="review-rating">{rederStartIcons(review.rating)}</div>
+        {haveImages && (
+          <div className="flex gap-1 overflow-x-auto">
+            {review.images.map((imgURL, i) => (
+              <img
+                key={i}
+                src={imgURL}
+                alt={'리뷰 사진 ${i+1}'}
+                onClick={() => {
+                  setIndex(i);
+                  setIsLightboxOpen(true);
+                }}
+                className="h-24 w-24 flex-shrink-0 cursor-pointer object-cover"
+              />
+            ))}
+          </div>
+        )}
+        <div className="">{review.content}</div>
+        <div className="flex flex-wrap gap-2">
+          {review.tags.map((tag) => (
+            <TagButton key={tag.tagId} size="small">
+              {tag.tagName}
+            </TagButton>
           ))}
         </div>
-      )}
-      <div className="">{review.content}</div>
-      <div className="flex flex-wrap gap-2">
-        {review.tags.map((tag) => (
-          <TagButton key={tag.tagId} size="small">
-            {tag.tagName}
-          </TagButton>
-        ))}
+        <button
+          onClick={() => setIsLiked(!isLiked)}
+          className="flex cursor-pointer items-start text-base text-gray-500"
+        >
+          <span className={isLiked ? 'text-red-600' : 'text-gray-500'}>♥</span>
+          {review.likeCount}
+        </button>
       </div>
-      <button
-        onClick={() => setIsLiked(!isLiked)}
-        className="flex cursor-pointer items-start text-base text-gray-500"
-      >
-        <span className={isLiked ? 'text-red-600' : 'text-gray-500'}>♥</span>
-        {review.likeCount}
-      </button>
-    </div>
+
+      <LightboxViewer
+        isLightboxOpen={isLightboxOpen}
+        index={index}
+        images={review.images}
+        onClose={() => setIsLightboxOpen(false)}
+      />
+    </>
   );
 };
 
