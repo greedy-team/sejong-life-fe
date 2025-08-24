@@ -66,7 +66,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
               key={i}
               src={imgURL}
               alt={'리뷰 사진 ${i+1}'}
-              className="h-24 w-24 object-cover"
+              className="h-24 w-24 flex-shrink-0 object-cover"
             />
           ))}
         </div>
