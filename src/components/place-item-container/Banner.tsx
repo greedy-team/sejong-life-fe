@@ -22,7 +22,7 @@ const Banner = () => {
           맛집・카페・공부 공간을 한 번에.
         </p>
         <button
-          onClick={() => navigate('/discover')}
+          onClick={() => navigate('/explore')}
           className="rounded-md bg-red-600 px-6 py-2 font-bold text-white transition-colors duration-300 hover:bg-red-700"
         >
           지금 골라보기

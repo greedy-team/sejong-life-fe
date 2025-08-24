@@ -1,5 +1,5 @@
-import ExploreItem from '../features/discover/components/ExploreItem';
-import Filter from '../features/discover/components/Filter';
+import ExploreItem from '../features/explore/components/ExploreItem';
+import Filter from '../features/explore/components/Filter';
 
 const ExplorePage = () => {
   return (

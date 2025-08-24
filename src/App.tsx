@@ -3,7 +3,7 @@ import MainPage from './pages/MainPage';
 import Layout from './layout/Layout';
 import './App.css';
 import PlaceDetailPage from './pages/PlaceDetailPage';
-import ExplorePage from './pages/DiscoverPage';
+import ExplorePage from './pages/ExplorePage';
 
 function App() {
   return (
