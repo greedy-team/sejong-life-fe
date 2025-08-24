@@ -1,5 +1,6 @@
 import type { Review } from '../PlaceDetailContainer';
 import TagButton from '../../../components/share/TagButton';
+import { useState } from 'react';
 
 interface ReviewCardProps {
   review: Review;
@@ -7,6 +8,7 @@ interface ReviewCardProps {
 
 const ReviewCard = ({ review }: ReviewCardProps) => {
   const haveImages = review.images && review.images.length > 0;
+  const [isLiked, setIsLiked] = useState(false);
 
   const formatDate = (dateString: string) => {
     try {
@@ -45,6 +47,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
     return stars;
   };
 
+  const handleLikeButton = {};
   return (
     <div className="flex w-full flex-col gap-2.5 border-t border-gray-200 px-5 py-5">
       <div className="flex justify-between">
@@ -76,8 +79,12 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           </TagButton>
         ))}
       </div>
-      <button className="flex cursor-pointer items-start text-base text-gray-500">
-        ♡{review.likeCount}
+      <button
+        onClick={() => setIsLiked(!isLiked)}
+        className="flex cursor-pointer items-start text-base text-gray-500"
+      >
+        <span className={isLiked ? 'text-red-600' : 'text-gray-500'}>♥</span>
+        {review.likeCount}
       </button>
     </div>
   );
