@@ -50,3 +50,13 @@ export interface DetailPlace {
   message: string;
   data: DetailPlaceProps;
 }
+
+export interface TagProps {
+  tagId: number;
+  tagName: string;
+}
+
+export interface Tag {
+  message: string;
+  data: TagProps[];
+}
