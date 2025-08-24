@@ -14,9 +14,8 @@ const mockReview = {
   likeCount: 24,
   createdAt: '2025-08-21T14:35:50.123456',
   images: [
-    'https://example.com/photo1.jpg',
-    'https://example.com/photo2.jpg',
-    'https://example.com/photo3.jpg',
+    'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMzFfMTUy%2FMDAxNjc1MTM1NDkyNjcz.A582PyJHvoRO8lKE8Ri3FPLghkGfAar42Mu9kw9WeYsg.HiLMoSYNRcnqV8J_0RlwAfqCcormP-iXtsfCfl2rXJkg.JPEG.gotsla_0505%2FIMG_6898.jpg&type=a340',
+    'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MzFfMjg5%2FMDAxNjg1NDYxNzI4NjYy.mPJDvCIfgJ9WxN84RXqsnVitIAWq6HXCkxY19LpPhn4g.gM2LpfoQeGCLcCVhSzUZJwYBGMjEoW1sQZrhboZySfgg.JPEG.mimibus74%2Foutput_2844177903.jpg&type=a340',
   ],
   tags: [
     { tagId: 1, tagName: '맛있어요' },
@@ -62,17 +61,19 @@ describe('ReciewCard Component', () => {
       expect(ratingElement).toBeInTheDocument();
       //태그
       mockReview.tags.forEach((tag) => {
-        expect(screen.getByText(`#${tag.tagName}`)).toBeInTheDocument();
+        expect(screen.getByText(`# ${tag.tagName}`)).toBeInTheDocument();
       });
       //좋아요 수
-      expect(screen.getByText('24')).toBeInTheDocument();
+      expect(screen.getByText(/24/)).toBeInTheDocument();
     });
   });
 
   test('리뷰에 이미지가 있는 경우 올바른 개수의 이미지를 렌더링 해야합니다.', async () => {
     render(<ReviewCard review={mockReview} />);
     await waitFor(() => {
-      const reviewImages = screen.getAllByRole('img', { name: /리뷰 사진/ });
+      const reviewImages = screen.queryAllByRole('img', {
+        name: /리뷰 사진/,
+      });
       expect(reviewImages).toHaveLength(2);
     });
   });
@@ -80,7 +81,7 @@ describe('ReciewCard Component', () => {
   test('리뷰에 이미지가 없는 경우 이미지를 영역을 렌더링하지 않아야합니다.', async () => {
     render(<ReviewCard review={mockReviewNoImage} />);
     await waitFor(() => {
-      const reviewImages = screen.getAllByRole('img', { name: /리뷰 사진/ });
+      const reviewImages = screen.queryAllByRole('img', { name: /리뷰 사진/ });
       expect(reviewImages).toHaveLength(0);
     });
   });

@@ -3,7 +3,7 @@ import PlaceInfo from './PlaceInfo';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import ReviewCard from '../../components/place-review-card/ReviewCard';
+import ReviewCard from './place-review-card/ReviewCard';
 
 export type PlaceDetail = {
   placeId: number;
@@ -47,7 +47,7 @@ const PlaceDetailContainer = () => {
         const reviewRes = await axios.get(
           `/sejonglife/api/places/${id}/reviews`,
         );
-        setReview(reviewRes.data.data);
+        setReview(reviewRes.data.data[0]);
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
           alert(err.response.data.message);
@@ -62,7 +62,7 @@ const PlaceDetailContainer = () => {
   if (!place || !review) return <div>로딩중...</div>;
 
   return (
-    <main className="mx-auto my-16 flex h-[50rem] min-h-[50rem] w-[90%] max-w-[62.5rem] flex-col items-center gap-10 rounded-2xl bg-white shadow-lg">
+    <main className="mx-auto my-16 flex h-[50rem] min-h-[50rem] w-[90%] max-w-[62.5rem] flex-col items-center gap-10 overflow-y-auto rounded-2xl bg-white shadow-lg">
       <PhotoStrip images={place.images} />
       <PlaceInfo place={place} />
       <ReviewCard review={review} />
