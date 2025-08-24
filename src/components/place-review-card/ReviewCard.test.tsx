@@ -68,4 +68,20 @@ describe('ReciewCard Component', () => {
       expect(screen.getByText('24')).toBeInTheDocument();
     });
   });
+
+  test('리뷰에 이미지가 있는 경우 올바른 개수의 이미지를 렌더링 해야합니다.', async () => {
+    render(<ReviewCard review={mockReview} />);
+    await waitFor(() => {
+      const reviewImages = screen.getAllByRole('img', { name: /리뷰 사진/ });
+      expect(reviewImages).toHaveLength(2);
+    });
+  });
+
+  test('리뷰에 이미지가 없는 경우 이미지를 영역을 렌더링하지 않아야합니다.', async () => {
+    render(<ReviewCard review={mockReviewNoImage} />);
+    await waitFor(() => {
+      const reviewImages = screen.getAllByRole('img', { name: /리뷰 사진/ });
+      expect(reviewImages).toHaveLength(0);
+    });
+  });
 });
