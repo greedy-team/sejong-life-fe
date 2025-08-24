@@ -35,7 +35,7 @@ export type Review = {
 
 const PlaceDetailContainer = () => {
   const [place, setPlace] = useState<PlaceDetail | null>(null);
-  const [review, setReview] = useState<Review | null>(null);
+  const [reviews, setReviews] = useState<Review[] | []>([]);
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const PlaceDetailContainer = () => {
         const reviewRes = await axios.get(
           `/sejonglife/api/places/${id}/reviews`,
         );
-        setReview(reviewRes.data.data[0]);
+        setReviews(reviewRes.data.data);
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
           alert(err.response.data.message);
@@ -59,13 +59,15 @@ const PlaceDetailContainer = () => {
     fetchPlaceAndReviewDetail();
   }, [id]);
 
-  if (!place || !review) return <div>로딩중...</div>;
+  if (!place || reviews.length === 0) return <div>로딩중...</div>;
 
   return (
     <main className="mx-auto my-16 flex h-[50rem] min-h-[50rem] w-[90%] max-w-[62.5rem] flex-col items-center gap-10 overflow-y-auto rounded-2xl bg-white shadow-lg">
       <PhotoStrip images={place.images} />
       <PlaceInfo place={place} />
-      <ReviewCard review={review} />
+      {reviews.map((review) => (
+        <ReviewCard key={review.reviewId} review={review} />
+      ))}
     </main>
   );
 };
