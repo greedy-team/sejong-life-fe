@@ -30,3 +30,23 @@ export interface Place {
   message: string;
   data: PlaceProps[];
 }
+
+export interface MapProps {
+  naverMap: string;
+  kakoaMap: string;
+  googleMap: string;
+}
+
+export interface DetailPlaceProps {
+  placeId: number;
+  placeName: string;
+  images: string[];
+  categories: CategoryProps[];
+  tags: TagProps[];
+  mapLinks: MapProps;
+}
+
+export interface DetailPlace {
+  message: string;
+  data: DetailPlaceProps;
+}
