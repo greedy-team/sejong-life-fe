@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { fetchTagList } from '../../../api/tagApi';
 import TagButton from '../../../components/share/TagButton';
 import { postReview } from '../api/postReviewApi';
+import StarRating from './starRating';
 
 const CreateReview = () => {
   const { placeId } = useParams();
@@ -130,18 +131,43 @@ const CreateReview = () => {
       </div>
       <span className="h-4 w-full bg-gray-200" />
       <form onSubmit={handleSubmit}>
-        <div className="p-10">별점 영역</div>
-        <div className="space-x-2 p-10">
-          {tags.map((tag) => (
-            <TagButton
-              key={tag.tagId}
-              onClick={() => handleSelectedTags(tag.tagId)}
-            >
-              {tag.tagName}
-            </TagButton>
-          ))}
+        <div className="p-10">
+          <h1></h1>
+          <StarRating
+            value={formData.rating}
+            onChange={(newRating) =>
+              setFormData((prev) => ({ ...prev, rating: newRating }))
+            }
+          />
         </div>
-        <div className="flex items-center gap-2 p-10">
+        <div className="space-y-2 space-x-2 p-10">
+          <h4 className="text-sm font-bold">어울리는 태그를 골라주세요!</h4>
+          {tags.map((tag) => {
+            const isSelected = formData.tagIds.includes(tag.tagId);
+            return (
+              <TagButton
+                key={tag.tagId}
+                onClick={() => handleSelectedTags(tag.tagId)}
+                className={isSelected ? 'opacity-100' : 'opacity-60'}
+              >
+                {tag.tagName}
+              </TagButton>
+            );
+          })}
+        </div>
+        <div className="flex flex-col gap-2 px-10 py-5">
+          <label htmlFor="review" className="text-sm font-bold">
+            리뷰를 작성해주세요.
+          </label>
+          <textarea
+            name="review"
+            id="review"
+            placeholder="방문한 장소의 리뷰를 남겨주세요!"
+            className="h-40 rounded-md border-2 p-3 text-sm"
+            onChange={handleContentChange}
+          />
+        </div>
+        <div className="flex items-center gap-2 px-10 py-5">
           <input
             id="imageUpload"
             name="image"
@@ -176,18 +202,6 @@ const CreateReview = () => {
               </div>
             ))}
           </div>
-        </div>
-        <div className="flex flex-col gap-2 px-10 py-5">
-          <label htmlFor="review" className="text-sm font-bold">
-            리뷰를 작성해주세요.
-          </label>
-          <textarea
-            name="review"
-            id="review"
-            placeholder="방문한 장소의 리뷰를 남겨주세요!"
-            className="h-40 rounded-md border-2 p-3 text-sm"
-            onChange={handleContentChange}
-          />
         </div>
         <div className="flex justify-end px-10 py-5">
           <button
