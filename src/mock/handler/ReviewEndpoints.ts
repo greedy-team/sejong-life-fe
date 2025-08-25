@@ -1,23 +1,20 @@
 import { http, HttpResponse } from 'msw';
 
 export const getReviewStats = http.get(
-  'api/places/:placeId/reviews/summary',
+  '/sejonglife/api/places/:placeId/reviews/summary',
   ({ params }) => {
     const { placeId } = params;
-    const mockReviewStats = [
-      {
-        reviewCount: 10,
-        averageRate: 4.3,
-        ratingDistribution: {
-          '5': 3,
-          '4': 5,
-          '3': 1,
-          '2': 1,
-          '1': 0,
-        },
+    const mockReviewStats = {
+      reviewCount: 10,
+      averageRate: 4.3,
+      ratingDistribution: {
+        '5': 3,
+        '4': 5,
+        '3': 1,
+        '2': 1,
+        '1': 0,
       },
-    ];
-
+    };
     if (placeId === '1') {
       return HttpResponse.json(
         {
