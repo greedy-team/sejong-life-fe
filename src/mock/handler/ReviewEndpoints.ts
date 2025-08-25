@@ -44,18 +44,6 @@ export const getReviewDetail = http.get(
         images: [
           'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMzFfMTUy%2FMDAxNjc1MTM1NDkyNjcz.A582PyJHvoRO8lKE8Ri3FPLghkGfAar42Mu9kw9WeYsg.HiLMoSYNRcnqV8J_0RlwAfqCcormP-iXtsfCfl2rXJkg.JPEG.gotsla_0505%2FIMG_6898.jpg&type=a340',
           'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MzFfMjg5%2FMDAxNjg1NDYxNzI4NjYy.mPJDvCIfgJ9WxN84RXqsnVitIAWq6HXCkxY19LpPhn4g.gM2LpfoQeGCLcCVhSzUZJwYBGMjEoW1sQZrhboZySfgg.JPEG.mimibus74%2Foutput_2844177903.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMzFfMTUy%2FMDAxNjc1MTM1NDkyNjcz.A582PyJHvoRO8lKE8Ri3FPLghkGfAar42Mu9kw9WeYsg.HiLMoSYNRcnqV8J_0RlwAfqCcormP-iXtsfCfl2rXJkg.JPEG.gotsla_0505%2FIMG_6898.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MzFfMjg5%2FMDAxNjg1NDYxNzI4NjYy.mPJDvCIfgJ9WxN84RXqsnVitIAWq6HXCkxY19LpPhn4g.gM2LpfoQeGCLcCVhSzUZJwYBGMjEoW1sQZrhboZySfgg.JPEG.mimibus74%2Foutput_2844177903.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMzFfMTUy%2FMDAxNjc1MTM1NDkyNjcz.A582PyJHvoRO8lKE8Ri3FPLghkGfAar42Mu9kw9WeYsg.HiLMoSYNRcnqV8J_0RlwAfqCcormP-iXtsfCfl2rXJkg.JPEG.gotsla_0505%2FIMG_6898.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MzFfMjg5%2FMDAxNjg1NDYxNzI4NjYy.mPJDvCIfgJ9WxN84RXqsnVitIAWq6HXCkxY19LpPhn4g.gM2LpfoQeGCLcCVhSzUZJwYBGMjEoW1sQZrhboZySfgg.JPEG.mimibus74%2Foutput_2844177903.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMzFfMTUy%2FMDAxNjc1MTM1NDkyNjcz.A582PyJHvoRO8lKE8Ri3FPLghkGfAar42Mu9kw9WeYsg.HiLMoSYNRcnqV8J_0RlwAfqCcormP-iXtsfCfl2rXJkg.JPEG.gotsla_0505%2FIMG_6898.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MzFfMjg5%2FMDAxNjg1NDYxNzI4NjYy.mPJDvCIfgJ9WxN84RXqsnVitIAWq6HXCkxY19LpPhn4g.gM2LpfoQeGCLcCVhSzUZJwYBGMjEoW1sQZrhboZySfgg.JPEG.mimibus74%2Foutput_2844177903.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMzFfMTUy%2FMDAxNjc1MTM1NDkyNjcz.A582PyJHvoRO8lKE8Ri3FPLghkGfAar42Mu9kw9WeYsg.HiLMoSYNRcnqV8J_0RlwAfqCcormP-iXtsfCfl2rXJkg.JPEG.gotsla_0505%2FIMG_6898.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MzFfMjg5%2FMDAxNjg1NDYxNzI4NjYy.mPJDvCIfgJ9WxN84RXqsnVitIAWq6HXCkxY19LpPhn4g.gM2LpfoQeGCLcCVhSzUZJwYBGMjEoW1sQZrhboZySfgg.JPEG.mimibus74%2Foutput_2844177903.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMzFfMTUy%2FMDAxNjc1MTM1NDkyNjcz.A582PyJHvoRO8lKE8Ri3FPLghkGfAar42Mu9kw9WeYsg.HiLMoSYNRcnqV8J_0RlwAfqCcormP-iXtsfCfl2rXJkg.JPEG.gotsla_0505%2FIMG_6898.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MzFfMjg5%2FMDAxNjg1NDYxNzI4NjYy.mPJDvCIfgJ9WxN84RXqsnVitIAWq6HXCkxY19LpPhn4g.gM2LpfoQeGCLcCVhSzUZJwYBGMjEoW1sQZrhboZySfgg.JPEG.mimibus74%2Foutput_2844177903.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMzFfMTUy%2FMDAxNjc1MTM1NDkyNjcz.A582PyJHvoRO8lKE8Ri3FPLghkGfAar42Mu9kw9WeYsg.HiLMoSYNRcnqV8J_0RlwAfqCcormP-iXtsfCfl2rXJkg.JPEG.gotsla_0505%2FIMG_6898.jpg&type=a340',
-          'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MzFfMjg5%2FMDAxNjg1NDYxNzI4NjYy.mPJDvCIfgJ9WxN84RXqsnVitIAWq6HXCkxY19LpPhn4g.gM2LpfoQeGCLcCVhSzUZJwYBGMjEoW1sQZrhboZySfgg.JPEG.mimibus74%2Foutput_2844177903.jpg&type=a340',
         ],
 
         tags: [

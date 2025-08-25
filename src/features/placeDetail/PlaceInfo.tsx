@@ -7,15 +7,15 @@ interface PlaceInfoProps {
 
 const PlaceInfo = ({ place }: PlaceInfoProps) => {
   return (
-    <div className="flex w-[90%] flex-col items-start gap-8">
-      <div className="mt-2 flex gap-4">
+    <div className="flex w-[90%] flex-col items-start gap-6">
+      <div className="flex gap-4">
         <h1 className="text-2xl font-bold">{place.placeName}</h1>
         <div className="rounded-full bg-[#f0f0f0] px-3.5 pt-1.5 text-sm">
           {place.category.categoryName}
         </div>
       </div>
 
-      <div className="text-2xl font-bold">
+      <div className="text-xl font-bold">
         🏷️ 태그
         <div className="mt-4 flex flex-wrap gap-2">
           {place.tags.map((tag) => (
@@ -26,7 +26,7 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
         </div>
       </div>
 
-      <div className="w-full text-2xl font-bold">
+      <div className="w-full text-xl font-semibold">
         📍 지도 바로가기
         <div className="mt-4 flex w-full justify-between gap-8">
           <a
