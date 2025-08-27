@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import ReviewStats from './ReviewStats';
 import ReviewCard from './place-review-card/ReviewCard';
 import ReviewWriteButton from './ReviewWriteButton';
+import MoreReviewButton from './MoreReviewButton';
 
 export type PlaceDetail = {
   placeId: number;
@@ -70,9 +71,10 @@ const PlaceDetailContainer = () => {
       <ReviewWriteButton placeName={place.placeName} />
       <ReviewStats />
       <div className="flex w-[90%] flex-col">
-        {reviews.map((review) => (
+        {reviews.slice(0, 2).map((review) => (
           <ReviewCard key={review.reviewId} review={review} />
         ))}
+        {reviews[2] && <MoreReviewButton />}
       </div>
     </main>
   );
