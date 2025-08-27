@@ -79,7 +79,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           </div>
         )}
         <div className="">{review.content}</div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex gap-1 overflow-x-auto whitespace-nowrap">
           {review.tags.map((tag) => (
             <TagButton key={tag.tagId} size="small">
               {tag.tagName}
