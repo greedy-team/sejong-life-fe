@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ReviewStats from './ReviewStats';
 import ReviewCard from './place-review-card/ReviewCard';
+import ReviewWriteButton from './ReviewWriteButton';
 
 export type PlaceDetail = {
   placeId: number;
@@ -66,6 +67,7 @@ const PlaceDetailContainer = () => {
     <main className="mx-auto mt-12 flex h-[50rem] min-h-[50rem] w-[90%] max-w-[62.5rem] flex-col items-center gap-10 overflow-y-auto rounded-2xl bg-white shadow-lg">
       <PhotoStrip images={place.images} />
       <PlaceInfo place={place} />
+      <ReviewWriteButton placeName={place.placeName} />
       <ReviewStats />
       {reviews.map((review) => (
         <ReviewCard key={review.reviewId} review={review} />
