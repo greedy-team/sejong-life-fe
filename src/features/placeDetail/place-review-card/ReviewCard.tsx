@@ -12,6 +12,8 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [index, setIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isContentLong = review.content.length > 150;
 
   const formatDate = (dateString: string) => {
     try {
@@ -78,7 +80,19 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
             ))}
           </div>
         )}
-        <div className="">{review.content}</div>
+        <div
+          className={`whitespace-pre-wrap ${!isExpanded ? 'line-clamp-3' : ''}`}
+        >
+          {review.content}
+        </div>
+        {isContentLong && (
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="-mt-2 text-left text-sm font-semibold text-gray-500"
+          >
+            {isExpanded ? '간락히보기' : '더보기...'}
+          </button>
+        )}
         <div className="flex gap-1 overflow-x-auto whitespace-nowrap">
           {review.tags.map((tag) => (
             <TagButton key={tag.tagId} size="small">
