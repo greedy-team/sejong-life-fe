@@ -69,9 +69,11 @@ const PlaceDetailContainer = () => {
       <PlaceInfo place={place} />
       <ReviewWriteButton placeName={place.placeName} />
       <ReviewStats />
-      {reviews.map((review) => (
-        <ReviewCard key={review.reviewId} review={review} />
-      ))}
+      <div className="flex w-[90%] flex-col">
+        {reviews.map((review) => (
+          <ReviewCard key={review.reviewId} review={review} />
+        ))}
+      </div>
     </main>
   );
 };
