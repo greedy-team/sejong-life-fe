@@ -47,14 +47,16 @@ const ReviewStats = () => {
 
   return (
     <div className="flex w-[90%] flex-col items-start border-t border-gray-200 pt-5">
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <div className="flex gap-1.5">
-          <div className="text-xl">⭐️</div>
-          <div className="text-xl font-semibold">
+          <div className="text-xl text-[#FE6F0F]">★</div>
+          <div className="text-xl font-bold text-[#212529]">
             {stats.averageRate.toFixed(1)}점
           </div>
         </div>
-        <div className="text-gray-700">총 {stats.reviewCount}개의 리뷰</div>
+        <div className="font-semibold text-[#868E96]">
+          총 {stats.reviewCount}개의 리뷰
+        </div>
       </div>
 
       <div className="mt-4 flex w-full flex-col gap-1.5">
@@ -69,7 +71,7 @@ const ReviewStats = () => {
               <span className="w-5 text-sm font-semibold">{rating}★</span>
               <div className="h-2 flex-1 overflow-hidden rounded-full bg-gray-200">
                 <div
-                  className="h-full bg-yellow-400"
+                  className="h-full rounded-full bg-[#FE6F0F]"
                   style={{ width: `${percentage}%` }}
                 ></div>
               </div>

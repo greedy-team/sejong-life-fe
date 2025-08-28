@@ -34,7 +34,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
 
     for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <span key={`full-${i}`} className="text-yellow-400">
+        <span key={`full-${i}`} className="text-[#FE6F0F]">
           ★
         </span>,
       );

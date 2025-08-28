@@ -68,6 +68,7 @@ const PlaceDetailContainer = () => {
     <main className="mx-auto mt-12 flex h-[50rem] min-h-[50rem] w-[90%] max-w-[62.5rem] flex-col items-center gap-10 overflow-y-auto rounded-2xl bg-white shadow-lg">
       <PhotoStrip images={place.images} />
       <PlaceInfo place={place} />
+      <div className="flex w-full border border-gray-100"></div>
       <ReviewWriteButton placeName={place.placeName} />
       <ReviewStats />
       <div className="flex w-[90%] flex-col">
