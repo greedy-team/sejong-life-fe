@@ -26,7 +26,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
 
   return (
     <>
-      <div className="relative mx-auto mt-8 flex h-[30%] min-h-[250px] w-[90%] cursor-pointer overflow-hidden rounded-2xl bg-[#d9d9d9]">
+      <div className="relative mx-auto mt-8 flex h-[18rem] min-h-[120px] w-[90%] cursor-pointer overflow-hidden rounded-2xl bg-[#d9d9d9]">
         {[0, 1, 2].map((i) =>
           images[i] ? (
             <img

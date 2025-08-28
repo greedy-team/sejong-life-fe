@@ -65,7 +65,7 @@ const PlaceDetailContainer = () => {
   if (!place || reviews.length === 0) return <div>로딩중...</div>;
 
   return (
-    <main className="mx-auto mt-12 flex h-[50rem] min-h-[50rem] w-[90%] max-w-[62.5rem] flex-col items-center gap-10 overflow-y-auto rounded-2xl bg-white shadow-lg">
+    <div className="mx-auto mt-12 flex w-[70%] flex-col items-center gap-10 overflow-y-auto">
       <PhotoStrip images={place.images} />
       <PlaceInfo place={place} />
       <div className="flex w-full border border-gray-100"></div>
@@ -77,7 +77,7 @@ const PlaceDetailContainer = () => {
         ))}
         {reviews[2] && <MoreReviewButton />}
       </div>
-    </main>
+    </div>
   );
 };
 
