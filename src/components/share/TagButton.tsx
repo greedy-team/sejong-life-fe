@@ -13,7 +13,7 @@ const TagButton = ({
   className = '',
   size = 'small',
 }: TagButtonProps) => {
-  let sizeStyle = 'px-4 py-2 text-[10px] font-semibold';
+  let sizeStyle = 'px-3 py-1.5 text-[10px] font-semibold';
 
   if (size === 'large') {
     sizeStyle = 'px-4 py-2 text-xs font-bold';
