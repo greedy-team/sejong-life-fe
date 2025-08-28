@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { fetchTagList } from '../../../api/tagApi';
 import TagButton from '../../../components/share/TagButton';
 import { postReview } from '../api/postReviewApi';
-import StarRating from './starRating';
+import StarRating from './StarRating';
 
 const CreateReview = () => {
   const { placeId } = useParams();
@@ -118,7 +118,7 @@ const CreateReview = () => {
         <img
           src={placeInfo.images[0]}
           alt="대표 이미지"
-          className="aspect-square w-[20%]"
+          className="aspect-square w-[20%] rounded-md"
         />
         <div className="flex flex-col">
           <h4 className="text-lg font-extrabold">{placeInfo.placeName}</h4>
@@ -129,10 +129,12 @@ const CreateReview = () => {
           </p>
         </div>
       </div>
-      <span className="h-4 w-full bg-gray-200" />
+      <span className="h-4 w-full bg-gray-100" />
       <form onSubmit={handleSubmit}>
-        <div className="p-10">
-          <h1></h1>
+        <div className="space-y-10 px-10 py-5">
+          <h1 className="text-lg font-bold">
+            방문하신 장소의 별점을 남겨주세요
+          </h1>
           <StarRating
             value={formData.rating}
             onChange={(newRating) =>
@@ -141,7 +143,7 @@ const CreateReview = () => {
           />
         </div>
         <div className="space-y-2 space-x-2 p-10">
-          <h4 className="text-sm font-bold">어울리는 태그를 골라주세요!</h4>
+          <h4 className="text-lg font-bold">어울리는 태그를 골라주세요!</h4>
           {tags.map((tag) => {
             const isSelected = formData.tagIds.includes(tag.tagId);
             return (
@@ -156,7 +158,7 @@ const CreateReview = () => {
           })}
         </div>
         <div className="flex flex-col gap-2 px-10 py-5">
-          <label htmlFor="review" className="text-sm font-bold">
+          <label htmlFor="review" className="text-lg font-bold">
             리뷰를 작성해주세요.
           </label>
           <textarea
