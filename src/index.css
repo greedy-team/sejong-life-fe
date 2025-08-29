@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
 
 @font-face {
   font-family: 'Pretendard';
@@ -69,11 +70,4 @@ body {
   font-family: 'Pretendard', sans-serif;
 }
 
-:root {
-  --background-color: #ffffff;
-  --box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
-  --border-radius: 10px;
-  --border-radius-button: 10rem;
-}
-
-/* bg-white shadow-lg rounded-2xl rounded-full*/
+/* bg-white shadow-lg rounded-xl rounded-full*/
