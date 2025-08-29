@@ -1,9 +1,14 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import LoginForm from '../../features/login/components/LoginForm';
+import LoginModal from '../../features/login/components/LoginModal';
 
 const Header = () => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
   return (
-    <header className="fixed top-0 left-0 z-50 flex h-17 w-full px-20 py-4">
-      <Link to="/">
+    <header className="flex h-14 w-full border-b-1 px-20 py-2">
+      <Link to="/" className="w-fit">
         <img
           src="/asset/header/newLogo.svg"
           alt="로고 이미지"
@@ -21,6 +26,17 @@ const Header = () => {
           </Link>
         </button>
       </div>
+      <button
+        onClick={() => setIsLoginOpen(true)}
+        className="cursor-pointer rounded-md bg-[#8BE34A] px-3 py-1.5 text-sm font-semibold text-white transition-colors duration-100 hover:bg-[#77db30]"
+      >
+        로그인
+      </button>
+
+      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)}>
+        <h2 className="mb-4 text-2xl font-bold text-[#8BE34A]">로그인</h2>
+        <LoginForm />
+      </LoginModal>
     </header>
   );
 };
