@@ -3,21 +3,21 @@ import PlaceItemCard from '../place-item-card/PlaceItemCard';
 import { Link } from 'react-router-dom';
 import LogoLoop from '../../blocks/Animations/LogoLoop/LogoLoop';
 
-const ItemContainer = ({ title, items }: ItemContainerProps) => {
+const ItemContainer = ({ title, items, iconSrc }: ItemContainerProps) => {
   const logoItems = items.map((item) => ({
     node: (
       <Link to={`/detail/${item.placeInfo.placeId}`} className="flex-none">
         <PlaceItemCard placeInfo={item.placeInfo} className={'flex-none'} />
       </Link>
     ),
-    href: `/detail/${item.placeInfo.placeId}`,
     title: item.placeInfo.placeName,
   }));
 
   return (
-    <section className="relative mx-auto w-full max-w-7xl py-15 text-left">
+    <section className="relative mx-auto w-full max-w-7xl py-4 text-left">
       <div className="relative z-20 px-4">
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex items-center justify-start">
+          {iconSrc && <img src={iconSrc} alt="icon" className="mr-2 h-8 w-8" />}
           <h2 className="text-3xl font-bold"> {title} </h2>
         </div>
         <LogoLoop

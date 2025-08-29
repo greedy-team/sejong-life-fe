@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import Banner from '../components/place-item-container/Banner';
 import ItemContainer from '../components/place-item-container/ItemContainer';
 import type { PlaceItemCardProps } from '../components/place-item-card/model/type';
+import PageRouterButton from '../components/share/PageRouterButton';
+import Footer from '../layout/components/Footer';
 
 // ------------ mocking Data---------------- API 구현 후 지워야 함
 interface PlaceApiData {
@@ -50,13 +52,48 @@ const MainPage = () => {
     <>
       <div className="w-full overflow-x-hidden">
         <Banner />
-        <ItemContainer title="🔥 Hot Places" items={hotPlaces} />
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '10px',
+            padding: '10px',
+          }}
+        >
+          <PageRouterButton
+            to="/discover"
+            icon="/asset/pageRouterButton/allItemIcon.svg"
+          >
+            <div>전체</div>
+          </PageRouterButton>
+          <PageRouterButton
+            to="/discover"
+            icon="/asset/pageRouterButton/restaurantIcon.svg"
+          >
+            <div>식당</div>
+          </PageRouterButton>
+          <PageRouterButton
+            to="/discover"
+            icon="/asset/pageRouterButton/cafeIcon.svg"
+          >
+            <div>카페</div>
+          </PageRouterButton>
+          <PageRouterButton
+            to="/preparingService"
+            icon="/asset/pageRouterButton/rouletteIcon.svg"
+          >
+            <div>룰렛</div>
+          </PageRouterButton>
+        </div>
+        <div className="mt-4 border-b border-gray-200"></div>
         <ItemContainer
-          title="🍝 🍣 세종대 근처 중식, 일식 추천"
+          iconSrc="/asset/itemContainer/hotPlaceIcon.svg"
+          title="Hot Places"
           items={hotPlaces}
         />
-        <ItemContainer title="🥝 2기 프로젝트 파이팅" items={hotPlaces} />
       </div>
+      <Footer />
     </>
   );
 };
