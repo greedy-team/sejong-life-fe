@@ -12,7 +12,7 @@ const ReviewWriteButton = ({ placeName }: ReviewWiteButtonProps) => {
         </div>
         <div className="flex">리뷰로 경험을 남겨보세요 !</div>
       </div>
-      <a className="flex w-full cursor-pointer items-center justify-center rounded-2xl border border-[#FFE5D1] bg-[#FFF4ED] px-6 py-3 font-semibold text-[#FF6F0F] transition-colors hover:bg-[#FFE5D1]">
+      <a className="flex w-full cursor-pointer items-center justify-center rounded-2xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]">
         ✍️리뷰쓰기
       </a>
     </div>

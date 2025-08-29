@@ -49,7 +49,7 @@ const ReviewStats = () => {
     <div className="flex w-[90%] flex-col items-start border-t border-gray-200 pt-5">
       <div className="flex gap-4">
         <div className="flex gap-1.5">
-          <div className="text-xl text-[#FE6F0F]">★</div>
+          <div className="text-xl text-[#77db30]">★</div>
           <div className="text-xl font-bold text-[#212529]">
             {stats.averageRate.toFixed(1)}점
           </div>
@@ -71,7 +71,7 @@ const ReviewStats = () => {
               <span className="w-5 text-sm font-semibold">{rating}★</span>
               <div className="h-2 flex-1 overflow-hidden rounded-full bg-gray-200">
                 <div
-                  className="h-full rounded-full bg-[#FE6F0F]"
+                  className="h-full rounded-full bg-[#77db30]"
                   style={{ width: `${percentage}%` }}
                 ></div>
               </div>
