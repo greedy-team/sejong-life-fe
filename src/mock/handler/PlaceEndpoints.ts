@@ -19,7 +19,8 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 1,
       placeName: '시홍쓰',
-      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      mainImageUrl:
+        'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA0MjVfMjgz%2FMDAxNzQ1NTEwMDExMzE3.fvoMulzVSMo08z9fSy0pdbTtTB4IERcVBpCYizC4j6kg.BBfZu1bS8LpRmnB3brwyWY8kMUsFau-Vzts6s1Wk6X8g.PNG%2F7.png&type=a340',
       categories: [{ categoryId: 1, categoryName: '식당' }],
       tags: [
         {
@@ -35,7 +36,8 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 2,
       placeName: '제주몰빵',
-      mainImageUrl: '/asset/place-item-card/cafe-example.jpg',
+      mainImageUrl:
+        'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA2MDVfMjg2%2FMDAxNzE3NTYxMjQ1MzM5.d02btha4jL7zbgMpZ10uPqNsDDwZHDCzzhEEpbeaIM8g.ShyiYxLutUvaoxYHESm5KM9o0euYGsyArqY3BnMdaJ8g.JPEG%2F0.jpg&type=a340',
       categories: [{ categoryId: 2, categoryName: '카페' }],
       tags: [
         {
@@ -47,7 +49,8 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 3,
       placeName: 'mock3',
-      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      mainImageUrl:
+        'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA3MDRfMTU2%2FMDAxNjU2OTMxMzcyMDk2.0FbfiI5SGnrhUBG6LMcHZFGbiG6_mqnlXr_gWGH0dkIg.5w-arGwT2Bn0PsFmtfVg81iEA9YjpCEgScF-DCw8cnAg.JPEG.rim-com4604%2FIMG_1624.jpg&type=a340',
       categories: [{ categoryId: 1, categoryName: '식당' }],
       tags: [
         {
@@ -63,7 +66,8 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 4,
       placeName: 'mock4',
-      mainImageUrl: '/asset/place-item-card/cafe-example.jpg',
+      mainImageUrl:
+        'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA2MDVfMjg2%2FMDAxNzE3NTYxMjQ1MzM5.d02btha4jL7zbgMpZ10uPqNsDDwZHDCzzhEEpbeaIM8g.ShyiYxLutUvaoxYHESm5KM9o0euYGsyArqY3BnMdaJ8g.JPEG%2F0.jpg&type=a340',
       categories: [{ categoryId: 2, categoryName: '카페' }],
       tags: [
         {
@@ -75,7 +79,8 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 5,
       placeName: 'mock5',
-      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      mainImageUrl:
+        'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDExMjNfMjkz%2FMDAxNzMyMzQ3Njk3MDA5.87N1jY3N83RzmToo8DyB5vWGPDseM-yHF65HrbUjitog.asMFw-uEGajRSko-zih-FPUG98yFxQnJMGLbUuaCJYMg.JPEG%2FIMG_8441.JPG&type=a340',
       categories: [{ categoryId: 1, categoryName: '식당' }],
       tags: [
         {
@@ -91,7 +96,8 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 6,
       placeName: 'mock6',
-      mainImageUrl: '/asset/place-item-card/cafe-example.jpg',
+      mainImageUrl:
+        'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDExMjNfMjkz%2FMDAxNzMyMzQ3Njk3MDA5.87N1jY3N83RzmToo8DyB5vWGPDseM-yHF65HrbUjitog.asMFw-uEGajRSko-zih-FPUG98yFxQnJMGLbUuaCJYMg.JPEG%2FIMG_8441.JPG&type=a340',
       categories: [{ categoryId: 2, categoryName: '카페' }],
       tags: [
         {
@@ -103,7 +109,8 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
     {
       placeId: 7,
       placeName: 'mock7',
-      mainImageUrl: '/asset/place-item-card/restaurant-example2.jpg',
+      mainImageUrl:
+        'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDExMjNfMjkz%2FMDAxNzMyMzQ3Njk3MDA5.87N1jY3N83RzmToo8DyB5vWGPDseM-yHF65HrbUjitog.asMFw-uEGajRSko-zih-FPUG98yFxQnJMGLbUuaCJYMg.JPEG%2FIMG_8441.JPG&type=a340',
       categories: [{ categoryId: 1, categoryName: '식당' }],
       tags: [
         {

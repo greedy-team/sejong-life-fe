@@ -4,7 +4,9 @@ import Layout from './layout/Layout';
 import './App.css';
 import PlaceDetailPage from './pages/PlaceDetailPage';
 import CreateReviewPage from './pages/CreateReviewPage';
+import PrepareServicePage from './pages/PrepareServicePage';
 import ExplorePage from './pages/ExplorePage';
+
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
           <Route index element={<MainPage />} />
           <Route path="detail/:id" element={<PlaceDetailPage />} />
           <Route path="write-review/:placeId" element={<CreateReviewPage />} />
+          <Route path="preparingService" element={<PrepareServicePage />} />
           <Route path="explore" element={<ExplorePage />} />
         </Route>
       </Routes>

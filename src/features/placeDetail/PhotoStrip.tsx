@@ -26,7 +26,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
 
   return (
     <>
-      <div className="mx-auto my-8 flex h-[35%] w-[90%] cursor-pointer overflow-hidden rounded-2xl bg-[#d9d9d9]">
+      <div className="relative mx-auto mt-8 flex h-[18rem] min-h-[120px] w-[90%] cursor-pointer overflow-hidden rounded-2xl bg-[#d9d9d9]">
         {[0, 1, 2].map((i) =>
           images[i] ? (
             <img
@@ -55,12 +55,14 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
             </div>
           ),
         )}
-        <button
-          className="h0ver:bg-[#e5e5e5] flex flex-1 cursor-pointer items-center justify-center text-5xl font-bold text-black"
-          onClick={() => handleMoreImageButtonClick()}
-        >
-          +
-        </button>
+        {haveImages && (
+          <button
+            className="absolute top-4 right-4 flex h-15 w-15 items-center justify-center rounded-full border border-white/50 bg-white/90 text-3xl font-bold shadow-sm"
+            onClick={() => handleMoreImageButtonClick()}
+          >
+            +
+          </button>
+        )}
       </div>
 
       {isGridOpen && haveImages && (
