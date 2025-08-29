@@ -11,7 +11,7 @@ import MoreReviewButton from './MoreReviewButton';
 export type PlaceDetail = {
   placeId: number;
   placeName: string;
-  category: {
+  categories: {
     categoryId: number;
     categoryName: string;
   };
