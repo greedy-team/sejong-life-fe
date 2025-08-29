@@ -86,7 +86,7 @@ const MainPage = () => {
             <div>룰렛</div>
           </PageRouterButton>
         </div>
-        <div className="mt-4 border-b border-gray-200"></div>
+        <div className="mt-10 mb-8 border-b border-gray-100" />
         <ItemContainer
           iconSrc="/asset/itemContainer/hotPlaceIcon.svg"
           title="Hot Places"
