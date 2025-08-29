@@ -1,6 +1,7 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { TagProps } from '../types/type';
+import { useCategory } from '../hooks/useCategory';
 
 interface TagContextType {
   selectedTags: TagProps[];
@@ -11,6 +12,12 @@ export const TagContext = createContext<TagContextType | undefined>(undefined);
 
 export const TagProvider = ({ children }: { children: ReactNode }) => {
   const [selectedTags, setSelectedTags] = useState<TagProps[]>([]);
+  const { selectedCategory } = useCategory();
+
+  useEffect(() => {
+    setSelectedTags([]);
+  }, [selectedCategory]);
+
   const toggleTag = (tag: TagProps) => {
     setSelectedTags((prevTags) => {
       const isSelected = prevTags.some((t) => t.tagId === tag.tagId);
