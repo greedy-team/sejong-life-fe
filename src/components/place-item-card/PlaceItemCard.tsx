@@ -22,15 +22,7 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
         />
         <div className="flex-1">
           <div className="m-2 rounded-md bg-[#F3F4F5] p-2">
-            <h3 className="flex items-center gap-1 text-lg font-extrabold">
-              <img
-                src="asset/place-item-card/loc.svg"
-                alt="장소 아이콘"
-                width={17}
-                height={17}
-              />
-              {placeInfo.placeName}
-            </h3>
+            <h3 className="text-lg font-extrabold">{placeInfo.placeName}</h3>
             <div className="flex gap-1 text-sm font-semibold text-[#70553D]">
               {placeInfo.categories.map((category) => (
                 <span key={category.categoryId}>{category.categoryName}</span>
