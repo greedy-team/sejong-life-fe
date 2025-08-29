@@ -11,28 +11,30 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
   const navigate = useNavigate();
   return (
     <div
-      className={`box-border aspect-[16/9] w-[430px] cursor-pointer rounded-[20px] p-3 shadow-[0_0_15px_0_rgba(0,0,0,0.1)] ${className}`}
+      className={`box-border h-fit w-[330px] cursor-pointer rounded-md transition-colors duration-150 hover:bg-[#fafafa] ${className}`}
       onClick={() => navigate(`/detail/${placeInfo.placeId}`)}
     >
-      <div className="mb-3 flex w-full gap-3">
+      <div className="flex w-full">
         <img
           src={placeInfo.mainImageUrl}
           alt="장소 대표 이미지"
-          className="aspect-square w-[30%]"
+          className="aspect-square w-[50%] rounded-md"
         />
-        <div className="flex-1 p-1">
-          <h3 className="text-lg font-extrabold">{placeInfo.placeName}</h3>
-          <div className="flex gap-1 text-xs font-semibold text-[#70553D]">
-            {placeInfo.categories.map((category) => (
-              <span key={category.categoryId}>{category.categoryName}</span>
+        <div className="flex-1">
+          <div className="m-2 rounded-md bg-[#F3F4F5] p-2">
+            <h3 className="text-lg font-extrabold">{placeInfo.placeName}</h3>
+            <div className="flex gap-1 text-sm font-semibold text-[#70553D]">
+              {placeInfo.categories.map((category) => (
+                <span key={category.categoryId}>{category.categoryName}</span>
+              ))}
+            </div>
+          </div>
+          <div className="m-2 flex flex-wrap gap-2">
+            {placeInfo.tags.map((tag) => (
+              <TagButton key={tag.tagId}>{tag.tagName}</TagButton>
             ))}
           </div>
         </div>
-      </div>
-      <div className="flex gap-2 p-2">
-        {placeInfo.tags.map((tag) => (
-          <TagButton key={tag.tagId}>{tag.tagName}</TagButton>
-        ))}
       </div>
     </div>
   );
