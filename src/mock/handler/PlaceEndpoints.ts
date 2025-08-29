@@ -157,7 +157,7 @@ export const getPlaceDetails = http.get(
           data: {
             placeId: 1,
             placeName: '그리디 카페',
-            category: { categoryId: '2', categoryName: '카페' },
+            categories: [{ categoryId: 2, categoryName: '카페' }],
             images: [
               'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA0MjVfMjgz%2FMDAxNzQ1NTEwMDExMzE3.fvoMulzVSMo08z9fSy0pdbTtTB4IERcVBpCYizC4j6kg.BBfZu1bS8LpRmnB3brwyWY8kMUsFau-Vzts6s1Wk6X8g.PNG%2F7.png&type=a340',
               'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA2MDVfMjg2%2FMDAxNzE3NTYxMjQ1MzM5.d02btha4jL7zbgMpZ10uPqNsDDwZHDCzzhEEpbeaIM8g.ShyiYxLutUvaoxYHESm5KM9o0euYGsyArqY3BnMdaJ8g.JPEG%2F0.jpg&type=a340',
