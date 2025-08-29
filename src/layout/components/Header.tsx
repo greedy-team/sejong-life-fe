@@ -7,7 +7,7 @@ const Header = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
-    <header className="flex h-14 w-full border-b-1 px-20 py-2">
+    <header className="flex h-14 w-full px-20 py-2">
       <Link to="/" className="w-fit">
         <img
           src="/asset/header/newLogo.svg"
