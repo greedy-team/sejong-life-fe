@@ -26,8 +26,8 @@ describe('Header 컴포넌트', () => {
 
     // 3. "탐색" 링크 검증
     // "탐색"이라는 텍스트를 가진 링크를 찾기
-    const discoverLink = screen.getByRole('link', { name: '탐색' });
-    expect(discoverLink).toBeInTheDocument();
-    expect(discoverLink).toHaveAttribute('href', '/discover'); // 올바른 경로를 가리키는지 확인
+    const exploreLink = screen.getByRole('link', { name: '탐색' });
+    expect(exploreLink).toBeInTheDocument();
+    expect(exploreLink).toHaveAttribute('href', '/explore'); // 올바른 경로를 가리키는지 확인
   });
 });
