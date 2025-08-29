@@ -25,6 +25,7 @@ const TagButton = ({
 
   return (
     <button
+      type="button"
       onClick={onClick}
       className={`w-fit cursor-pointer rounded-full bg-[#F3F4F5] text-[#2C3037] select-none hover:bg-[#EEEFF1] ${sizeStyle} ${className}`}
     >
