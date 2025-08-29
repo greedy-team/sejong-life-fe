@@ -2,6 +2,8 @@ import type { Review } from '../PlaceDetailContainer';
 import TagButton from '../../../components/share/TagButton';
 import { useState } from 'react';
 import LightboxViewer from '../LightboxViewer';
+import LoginModal from '../../login/components/LoginModal';
+import LoginForm from '../../login/components/LoginForm';
 
 interface ReviewCardProps {
   review: Review;
@@ -14,6 +16,8 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const isContentLong = review.content.length > 150;
+  const isLoggedIn = false;
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const formatDate = (dateString: string) => {
     try {
@@ -50,6 +54,14 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
     }
 
     return stars;
+  };
+
+  const handleIsLikeded = () => {
+    if (isLoggedIn) {
+      setIsLiked(!isLiked);
+    } else {
+      setIsLoginOpen(true);
+    }
   };
 
   return (
@@ -101,7 +113,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           ))}
         </div>
         <button
-          onClick={() => setIsLiked(!isLiked)}
+          onClick={() => handleIsLikeded()}
           className="flex cursor-pointer items-start text-base text-gray-500"
         >
           <span className={isLiked ? 'text-red-600' : 'text-gray-500'}>♥</span>
@@ -115,6 +127,14 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
         images={review.images}
         onClose={() => setIsLightboxOpen(false)}
       />
+
+      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)}>
+        <h2 className="mb-1 text-2xl font-bold text-[#8BE34A]">로그인</h2>
+        <p className="mb-4 text-xs text-gray-500">
+          이 기능을 사용하려면 로그인해주세요.
+        </p>
+        <LoginForm />
+      </LoginModal>
     </>
   );
 };
