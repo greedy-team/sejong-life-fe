@@ -7,22 +7,7 @@ import ReviewStats from './ReviewStats';
 import ReviewCard from './place-review-card/ReviewCard';
 import ReviewWriteButton from './ReviewWriteButton';
 import MoreReviewButton from './MoreReviewButton';
-
-export type PlaceDetail = {
-  placeId: number;
-  placeName: string;
-  categories: {
-    categoryId: number;
-    categoryName: string;
-  };
-  images: string[];
-  tags: { tagId: number; tagName: string }[];
-  mapLinks: {
-    naverMap: string;
-    kakaoMap: string;
-    googleMap: string;
-  };
-};
+import type { DetailPlaceProps } from '../../types/type';
 
 export type Review = {
   reviewId: number;
@@ -37,7 +22,7 @@ export type Review = {
 };
 
 const PlaceDetailContainer = () => {
-  const [place, setPlace] = useState<PlaceDetail | null>(null);
+  const [place, setPlace] = useState<DetailPlaceProps | null>(null);
   const [reviews, setReviews] = useState<Review[] | []>([]);
   const { id } = useParams<{ id: string }>();
 

@@ -1,8 +1,8 @@
-import type { PlaceDetail } from './PlaceDetailContainer';
+import type { DetailPlaceProps } from '../../types/type';
 import TagButton from '../../components/share/TagButton';
 
 interface PlaceInfoProps {
-  place: PlaceDetail;
+  place: DetailPlaceProps;
 }
 
 const PlaceInfo = ({ place }: PlaceInfoProps) => {
@@ -10,8 +10,8 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
     <div className="flex w-[90%] flex-col items-start gap-5">
       <div className="flex gap-4">
         <h1 className="text-2xl font-bold text-[#212529]">{place.placeName}</h1>
-        <div className="rounded-full bg-[#f0f0f0] px-3.5 pt-1.5 text-sm">
-          {place.categories.categoryName}
+        <div className="rounded-full bg-[#f0f0f0] px-3.5 pt-2 text-xs">
+          {place.categories[0].categoryName}
         </div>
       </div>
 
@@ -37,7 +37,7 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
             네이버맵
           </a>
           <a
-            href={place.mapLinks.kakaoMap}
+            href={place.mapLinks.kakoaMap}
             target="_blank"
             className="flex-1 rounded-2xl bg-[#FEE500] py-3 text-center text-lg transition-colors hover:bg-[#F5D400]"
           >
