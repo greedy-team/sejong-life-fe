@@ -10,20 +10,19 @@ const Header = () => {
     <header className="flex h-14 w-full border-b-1 px-20 py-2">
       <Link to="/" className="w-fit">
         <img
-          src="/asset/header/Logo.svg"
+          src="/asset/header/newLogo.svg"
           alt="로고 이미지"
-          className="h-full"
+          className="h-13"
         />
       </Link>
-      <div className="flex flex-1 items-center gap-20 px-20">
+      <div className="flex flex-1 items-center justify-end gap-20">
         <button>
-          <Link to="/" className="font-bold">
-            홈
-          </Link>
-        </button>
-        <button>
-          <Link to="/explore" className="font-bold">
-            탐색
+          <Link to="/login" className="font-bold">
+            <img
+              src="asset/header/loginIcon.svg"
+              alt="로그인 이미지"
+              className="h-8"
+            />
           </Link>
         </button>
       </div>
