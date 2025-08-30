@@ -33,7 +33,7 @@ export interface Place {
 
 export interface MapProps {
   naverMap: string;
-  kakoaMap: string;
+  kakaoMap: string;
   googleMap: string;
 }
 

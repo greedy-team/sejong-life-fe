@@ -16,7 +16,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const isContentLong = review.content.length > 150;
-  const isLoggedIn = false;
+  const isLoggedIn = !!sessionStorage.getItem('accessToken');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const formatDate = (dateString: string) => {
@@ -113,7 +113,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           ))}
         </div>
         <button
-          onClick={() => handleIsLikeded()}
+          onClick={handleIsLikeded}
           className="flex cursor-pointer items-start text-base text-gray-500"
         >
           <span className={isLiked ? 'text-red-600' : 'text-gray-500'}>♥</span>

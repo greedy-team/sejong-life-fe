@@ -37,7 +37,7 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
             네이버맵
           </a>
           <a
-            href={place.mapLinks.kakoaMap}
+            href={place.mapLinks.kakaoMap}
             target="_blank"
             className="flex-1 rounded-2xl bg-[#FEE500] py-3 text-center text-lg transition-colors hover:bg-[#F5D400]"
           >
