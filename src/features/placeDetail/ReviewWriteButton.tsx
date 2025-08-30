@@ -32,7 +32,7 @@ const ReviewWriteButton = ({ placeName }: ReviewWiteButtonProps) => {
           <div className="flex">리뷰로 경험을 남겨보세요 !</div>
         </div>
         <a
-          onClick={() => handleClickedReviewWriteButton}
+          onClick={handleClickedReviewWriteButton}
           className="flex w-full cursor-pointer items-center justify-center rounded-2xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
         >
           <div className="flex gap-2">
