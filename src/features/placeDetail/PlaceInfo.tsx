@@ -16,7 +16,14 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
       </div>
 
       <div className="text-lg font-semibold text-[#343A40]">
-        🏷️ 태그
+        <div className="flex gap-2">
+          <img
+            src="/asset/place-detail-page/tag.svg"
+            alt="tag"
+            className="text-[#77db30]"
+          />
+          태그
+        </div>
         <div className="mt-4 flex flex-wrap gap-2">
           {place.tags.map((tag) => (
             <TagButton key={tag.tagId} size="large">
@@ -26,8 +33,11 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
         </div>
       </div>
 
-      <div className="w-full text-lg font-semibold text-[#343A40]">
-        📍 지도 바로가기
+      <div className="w-full items-center text-lg font-semibold text-[#343A40]">
+        <div className="flex gap-2">
+          <img src="/asset/place-detail-page/map.svg" alt="map" />
+          지도 바로가기
+        </div>
         <div className="mt-4 flex w-full justify-between gap-3">
           <a
             href={place.mapLinks.naverMap}

@@ -19,7 +19,12 @@ const ReviewWriteButton = ({ placeName }: ReviewWiteButtonProps) => {
   return (
     <>
       <div className="flex w-[90%] flex-col items-start gap-3 text-lg">
-        <div className="flex text-xl font-bold text-[#212529]">📝 리뷰</div>
+        <div className="flex text-xl font-bold text-[#212529]">
+          <div className="flex gap-2">
+            <img src="/asset/place-detail-page/filePencil.svg" alt="review" />
+            리뷰쓰기
+          </div>
+        </div>
         <div>
           <div className="flex">
             <span className="flex font-bold">{placeName}</span>에 다녀오셨나요?
@@ -30,7 +35,10 @@ const ReviewWriteButton = ({ placeName }: ReviewWiteButtonProps) => {
           onClick={() => handleClickedReviewWriteButton}
           className="flex w-full cursor-pointer items-center justify-center rounded-2xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
         >
-          ✍️리뷰쓰기
+          <div className="flex gap-2">
+            <img src="/asset/place-detail-page/pencil.svg" alt="map" />
+            리뷰쓰기
+          </div>
         </a>
       </div>
 
