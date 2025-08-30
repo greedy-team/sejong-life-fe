@@ -60,3 +60,15 @@ export interface Tag {
   message: string;
   data: TagProps[];
 }
+
+export type Review = {
+  reviewId: number;
+  userId: number;
+  studentId: number;
+  rating: number;
+  content: string;
+  likeCount: number;
+  createdAt: string;
+  images: string[];
+  tags: { tagId: number; tagName: string }[];
+};

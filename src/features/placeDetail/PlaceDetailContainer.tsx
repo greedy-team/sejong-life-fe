@@ -9,18 +9,9 @@ import ReviewWriteButton from './ReviewWriteButton';
 import MoreReviewButton from './MoreReviewButton';
 import type { DetailPlaceProps } from '../../types/type';
 import { useNavigate } from 'react-router-dom';
-
-export type Review = {
-  reviewId: number;
-  userId: number;
-  studentId: number;
-  rating: number;
-  content: string;
-  likeCount: number;
-  createdAt: string;
-  images: string[];
-  tags: { tagId: number; tagName: string }[];
-};
+import { getPlaceDetails } from './apis/placeDetailApi';
+import type { Review } from '../../types/type';
+import { getPlaceReview } from './apis/reviewApi';
 
 const PlaceDetailContainer = () => {
   const [place, setPlace] = useState<DetailPlaceProps | null>(null);
@@ -29,15 +20,10 @@ const PlaceDetailContainer = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPlaceAndReviewDetail = async () => {
+    const fetchPlaceDetail = async () => {
       try {
-        const placeRes = await axios.get(`/sejonglife/api/places/${id}`);
-        setPlace(placeRes.data.data);
-
-        const reviewRes = await axios.get(
-          `/sejonglife/api/places/${id}/reviews`,
-        );
-        setReviews(reviewRes.data.data);
+        const placeData = await getPlaceDetails(id!);
+        setPlace(placeData);
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
           alert(err.response.data.message);
@@ -47,7 +33,19 @@ const PlaceDetailContainer = () => {
         }
       }
     };
-    fetchPlaceAndReviewDetail();
+    fetchPlaceDetail();
+  }, [id, navigate]);
+
+  useEffect(() => {
+    const fetchPlaceReview = async () => {
+      try {
+        const reviewData = await getPlaceReview(id!);
+        setReviews(reviewData);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchPlaceReview();
   }, [id]);
 
   if (!place || reviews.length === 0) return <div>로딩중...</div>;
