@@ -10,8 +10,8 @@ import MoreReviewButton from './MoreReviewButton';
 import type { DetailPlaceProps } from '../../types/type';
 import { useNavigate } from 'react-router-dom';
 import { getPlaceDetails } from './apis/placeDetailApi';
-import type { Review } from '../../types/type';
 import { getPlaceReview } from './apis/reviewApi';
+import type { Review } from '../../types/type';
 import { toast } from 'react-toastify';
 
 const PlaceDetailContainer = () => {
@@ -43,13 +43,17 @@ const PlaceDetailContainer = () => {
         const reviewData = await getPlaceReview(id!);
         setReviews(reviewData);
       } catch (err) {
-        console.error(err);
+        if (axios.isAxiosError(err) && err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          console.error(err);
+        }
       }
     };
     fetchPlaceReview();
   }, [id]);
 
-  if (!place || reviews.length === 0) return <div>로딩중...</div>;
+  if (!place) return <div>로딩중...</div>;
 
   return (
     <div className="mx-auto mt-12 flex w-[70%] flex-col items-center gap-10 overflow-y-auto">

@@ -1,4 +1,4 @@
-import type { Review } from '../PlaceDetailContainer';
+import type { Review } from '../../../types/type';
 import TagButton from '../../../components/share/TagButton';
 import { useState } from 'react';
 import LightboxViewer from '../LightboxViewer';
