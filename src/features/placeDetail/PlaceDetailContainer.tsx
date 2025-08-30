@@ -8,6 +8,7 @@ import ReviewCard from './place-review-card/ReviewCard';
 import ReviewWriteButton from './ReviewWriteButton';
 import MoreReviewButton from './MoreReviewButton';
 import type { DetailPlaceProps } from '../../types/type';
+import { useNavigate } from 'react-router-dom';
 
 export type Review = {
   reviewId: number;
@@ -25,6 +26,7 @@ const PlaceDetailContainer = () => {
   const [place, setPlace] = useState<DetailPlaceProps | null>(null);
   const [reviews, setReviews] = useState<Review[] | []>([]);
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPlaceAndReviewDetail = async () => {
@@ -39,6 +41,7 @@ const PlaceDetailContainer = () => {
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
           alert(err.response.data.message);
+          navigate(-1);
         } else {
           console.error(err);
         }
