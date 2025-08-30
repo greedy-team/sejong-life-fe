@@ -1,8 +1,8 @@
-import type { PlaceDetail } from './PlaceDetailContainer';
+import type { DetailPlaceProps } from '../../types/type';
 import TagButton from '../../components/share/TagButton';
 
 interface PlaceInfoProps {
-  place: PlaceDetail;
+  place: DetailPlaceProps;
 }
 
 const PlaceInfo = ({ place }: PlaceInfoProps) => {
@@ -10,13 +10,20 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
     <div className="flex w-[90%] flex-col items-start gap-5">
       <div className="flex gap-4">
         <h1 className="text-2xl font-bold text-[#212529]">{place.placeName}</h1>
-        <div className="rounded-full bg-[#f0f0f0] px-3.5 pt-1.5 text-sm">
-          {place.category.categoryName}
+        <div className="rounded-full bg-[#f0f0f0] px-3.5 pt-2 text-xs">
+          {place.categories[0].categoryName}
         </div>
       </div>
 
       <div className="text-lg font-semibold text-[#343A40]">
-        🏷️ 태그
+        <div className="flex gap-2">
+          <img
+            src="/asset/place-detail-page/tag.svg"
+            alt="tag"
+            className="text-[#77db30]"
+          />
+          태그
+        </div>
         <div className="mt-4 flex flex-wrap gap-2">
           {place.tags.map((tag) => (
             <TagButton key={tag.tagId} size="large">
@@ -26,8 +33,11 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
         </div>
       </div>
 
-      <div className="w-full text-lg font-semibold text-[#343A40]">
-        📍 지도 바로가기
+      <div className="w-full items-center text-lg font-semibold text-[#343A40]">
+        <div className="flex gap-2">
+          <img src="/asset/place-detail-page/map.svg" alt="map" />
+          지도 바로가기
+        </div>
         <div className="mt-4 flex w-full justify-between gap-3">
           <a
             href={place.mapLinks.naverMap}

@@ -1,33 +1,22 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-export type ReviewStats = {
-  reviewCount: number;
-  averageRate: number;
-  ratingDistribution: {
-    '5': number;
-    '4': number;
-    '3': number;
-    '2': number;
-    '1': number;
-  };
-};
+import type { ReviewStatsProps } from '../../types/type';
+import { getReviewStats } from './apis/reviewApi';
+import { toast } from 'react-toastify';
 
 const ReviewStats = () => {
   const { id } = useParams<{ id: string }>();
-  const [stats, setStats] = useState<ReviewStats | null>(null);
+  const [stats, setStats] = useState<ReviewStatsProps | null>(null);
 
   useEffect(() => {
     const fetchPlaceReviewStats = async () => {
       try {
-        const res = await axios.get(
-          `/sejonglife/api/places/${id}/reviews/summary`,
-        );
-        setStats(res.data.data);
+        const statsData = await getReviewStats(id!);
+        setStats(statsData);
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
-          alert(err.response.data.message);
+          toast.error(err.response.data.message);
         } else {
           console.error(err);
         }

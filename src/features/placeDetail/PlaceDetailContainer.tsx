@@ -7,62 +7,53 @@ import ReviewStats from './ReviewStats';
 import ReviewCard from './place-review-card/ReviewCard';
 import ReviewWriteButton from './ReviewWriteButton';
 import MoreReviewButton from './MoreReviewButton';
-
-export type PlaceDetail = {
-  placeId: number;
-  placeName: string;
-  category: {
-    categoryId: number;
-    categoryName: string;
-  };
-  images: string[];
-  tags: { tagId: number; tagName: string }[];
-  mapLinks: {
-    naverMap: string;
-    kakaoMap: string;
-    googleMap: string;
-  };
-};
-
-export type Review = {
-  reviewId: number;
-  userId: number;
-  studentId: number;
-  rating: number;
-  content: string;
-  likeCount: number;
-  createdAt: string;
-  images: string[];
-  tags: { tagId: number; tagName: string }[];
-};
+import type { DetailPlaceProps } from '../../types/type';
+import { useNavigate } from 'react-router-dom';
+import { getPlaceDetails } from './apis/placeDetailApi';
+import { getPlaceReview } from './apis/reviewApi';
+import type { Review } from '../../types/type';
+import { toast } from 'react-toastify';
 
 const PlaceDetailContainer = () => {
-  const [place, setPlace] = useState<PlaceDetail | null>(null);
+  const [place, setPlace] = useState<DetailPlaceProps | null>(null);
   const [reviews, setReviews] = useState<Review[] | []>([]);
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPlaceAndReviewDetail = async () => {
+    const fetchPlaceDetail = async () => {
       try {
-        const placeRes = await axios.get(`/sejonglife/api/places/${id}`);
-        setPlace(placeRes.data.data);
-
-        const reviewRes = await axios.get(
-          `/sejonglife/api/places/${id}/reviews`,
-        );
-        setReviews(reviewRes.data.data);
+        const placeData = await getPlaceDetails(id!);
+        setPlace(placeData);
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
-          alert(err.response.data.message);
+          toast.error(err.response.data.message);
+          navigate(-1);
         } else {
           console.error(err);
         }
       }
     };
-    fetchPlaceAndReviewDetail();
+    fetchPlaceDetail();
+  }, [id, navigate]);
+
+  useEffect(() => {
+    const fetchPlaceReview = async () => {
+      try {
+        const reviewData = await getPlaceReview(id!);
+        setReviews(reviewData);
+      } catch (err) {
+        if (axios.isAxiosError(err) && err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          console.error(err);
+        }
+      }
+    };
+    fetchPlaceReview();
   }, [id]);
 
-  if (!place || reviews.length === 0) return <div>로딩중...</div>;
+  if (!place) return <div>로딩중...</div>;
 
   return (
     <div className="mx-auto mt-12 flex w-[70%] flex-col items-center gap-10 overflow-y-auto">
