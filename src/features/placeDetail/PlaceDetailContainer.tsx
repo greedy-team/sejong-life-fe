@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { getPlaceDetails } from './apis/placeDetailApi';
 import type { Review } from '../../types/type';
 import { getPlaceReview } from './apis/reviewApi';
+import { toast } from 'react-toastify';
 
 const PlaceDetailContainer = () => {
   const [place, setPlace] = useState<DetailPlaceProps | null>(null);
@@ -26,7 +27,7 @@ const PlaceDetailContainer = () => {
         setPlace(placeData);
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
-          alert(err.response.data.message);
+          toast.error(err.response.data.message);
           navigate(-1);
         } else {
           console.error(err);
