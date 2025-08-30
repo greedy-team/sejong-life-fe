@@ -6,7 +6,7 @@ import PlaceDetailPage from './pages/PlaceDetailPage';
 import CreateReviewPage from './pages/CreateReviewPage';
 import PrepareServicePage from './pages/PrepareServicePage';
 import ExplorePage from './pages/ExplorePage';
-
+import AllReviewPage from './pages/AllReviewsPage';
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
           <Route path="preparingService" element={<PrepareServicePage />} />
           <Route path="explore" element={<ExplorePage />} />
         </Route>
+        <Route path="/detail/:id/reviews" element={<AllReviewPage />} />
       </Routes>
     </BrowserRouter>
   );
