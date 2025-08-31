@@ -60,6 +60,8 @@ const MainPage = () => {
   }, []);
   // ------------ mocking Data----------------
 
+  if (!categories || categories.length === 0) return <div>로딩중...</div>;
+
   return (
     <>
       <div className="w-full overflow-x-hidden">
