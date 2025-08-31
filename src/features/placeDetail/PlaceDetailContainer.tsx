@@ -7,11 +7,10 @@ import ReviewStats from './ReviewStats';
 import ReviewCard from './place-review-card/ReviewCard';
 import ReviewWriteButton from './ReviewWriteButton';
 import MoreReviewButton from './MoreReviewButton';
-import type { DetailPlaceProps } from '../../types/type';
+import type { DetailPlaceProps, Review } from '../../types/type';
 import { useNavigate } from 'react-router-dom';
 import { getPlaceDetails } from './apis/placeDetailApi';
 import { getPlaceReview } from './apis/reviewApi';
-import type { Review } from '../../types/type';
 import { toast } from 'react-toastify';
 
 const PlaceDetailContainer = () => {
