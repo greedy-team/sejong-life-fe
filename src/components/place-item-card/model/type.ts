@@ -17,5 +17,6 @@ export interface PlaceInfo {
 }
 
 export interface PlaceItemCardProps {
-  placeInfo: PlaceInfo;
+  message: string;
+  placeInfo: PlaceInfo[];
 }

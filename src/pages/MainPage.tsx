@@ -1,23 +1,15 @@
 import { useEffect, useState } from 'react';
 import Banner from '../components/place-item-container/Banner';
 import ItemContainer from '../components/place-item-container/ItemContainer';
-import type { PlaceItemCardProps } from '../components/place-item-card/model/type';
+import type { PlaceInfo } from '../components/place-item-card/model/type';
 import PageRouterButton from '../components/share/PageRouterButton';
 import Footer from '../layout/components/Footer';
 import { fetchCategories } from '../features/explore/apis/filterApi';
 import type { CategoryProps } from '../types/type';
-
-// ------------ mocking Data---------------- API 구현 후 지워야 함
-interface PlaceApiData {
-  placeId: number;
-  placeName: string;
-  mainImageUrl: string;
-  tags: { tagId: number; tagName: string }[];
-  categories?: { categoryId: number; categoryName: string }[];
-}
+import { fetchHotPlaces } from '../api/placeApi';
 
 const MainPage = () => {
-  const [hotPlaces, setHotPlaces] = useState<PlaceItemCardProps[]>([]);
+  const [hotPlaces, setHotPlaces] = useState<PlaceInfo[]>([]);
   const [categories, setCategories] = useState<CategoryProps[]>([]);
 
   useEffect(() => {
@@ -30,33 +22,16 @@ const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    const fetchHotPlaces = async () => {
+    const fetchHotPlace = async () => {
       try {
-        const response = await fetch('/sejonglife/api/places?category=추천');
-        const result = await response.json();
-
-        if (response.ok) {
-          const transformedData: PlaceItemCardProps[] = result.data.map(
-            (item: PlaceApiData) => ({
-              placeInfo: {
-                placeId: item.placeId,
-                placeName: item.placeName,
-                mainImageUrl: item.mainImageUrl,
-                categories: item.categories,
-                tags: item.tags,
-              },
-            }),
-          );
-          setHotPlaces(transformedData);
-        } else {
-          console.error('API Error:', result.message);
-        }
+        const response = await fetchHotPlaces();
+        setHotPlaces(response.placeInfo);
       } catch (error) {
         console.error('Failed to fetch data:', error);
       }
     };
 
-    fetchHotPlaces();
+    fetchHotPlace();
   }, []);
   // ------------ mocking Data----------------
 
