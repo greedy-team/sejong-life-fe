@@ -74,22 +74,19 @@ const MainPage = () => {
           }}
         >
           <PageRouterButton
-            category={categories[0]}
-            to="/explore"
+            to={`/explore?category=${categories[0]?.categoryName}`}
             icon="/asset/pageRouterButton/allItemIcon.svg"
           >
             <div>전체</div>
           </PageRouterButton>
           <PageRouterButton
-            category={categories[1]}
-            to="/explore"
+            to={`/explore?category=${categories[1]?.categoryName}`}
             icon="/asset/pageRouterButton/restaurantIcon.svg"
           >
             <div>식당</div>
           </PageRouterButton>
           <PageRouterButton
-            category={categories[2]}
-            to="/explore"
+            to={`/explore?category=${categories[2]?.categoryName}`}
             icon="/asset/pageRouterButton/cafeIcon.svg"
           >
             <div>카페</div>

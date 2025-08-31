@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useCategory } from '../../../hooks/useCategory';
 import type { CategoryProps } from '../../../types/type';
 import { fetchCategories } from '../apis/filterApi';
+import { useLocation } from 'react-router-dom';
 
 const CategoryFilter = () => {
-  const { selectedCategory, setSelectedCategory } = useCategory();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const categoryName = params.get('category');
+  const [selectedCategory, setSelectedCategory] = useState(categoryName);
   const [categories, setCategories] = useState<CategoryProps[]>([]);
 
   useEffect(() => {
@@ -17,11 +20,11 @@ const CategoryFilter = () => {
   }, []);
 
   const isSelected = (category: CategoryProps) => {
-    return selectedCategory?.categoryId === category.categoryId;
+    return selectedCategory === category.categoryName;
   };
 
   const handleCategoryClick = (category: CategoryProps) => {
-    setSelectedCategory(category);
+    setSelectedCategory(category.categoryName);
   };
 
   return (
