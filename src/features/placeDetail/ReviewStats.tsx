@@ -35,7 +35,7 @@ const ReviewStats = () => {
   const maxReviews = stats.reviewCount > 0 ? stats.reviewCount : 1;
 
   return (
-    <div className="flex w-[90%] flex-col items-start border-t border-gray-200 pt-5">
+    <div className="flex w-[90%] flex-col items-start">
       <div className="flex gap-4">
         <div className="flex gap-1.5">
           <div className="text-xl text-[#77db30]">★</div>

@@ -51,12 +51,15 @@ const AllReviewSection = () => {
   if (!place) return <div>로딩중...</div>;
 
   return (
-    <div className="mx-auto mt-12 flex w-[70%] flex-col items-center gap-10 overflow-y-auto">
+    <div className="mx-auto mt-12 flex w-[75%] flex-col items-center gap-10 overflow-y-auto">
       <PhotoStrip images={place.images} />
       <ReviewStats />
       <div className="flex w-[90%] flex-col">
         {reviews.map((review) => (
-          <ReviewCard key={review.reviewId} review={review} />
+          <>
+            <div className="flex w-full border border-gray-100" />
+            <ReviewCard key={review.reviewId} review={review} />
+          </>
         ))}
       </div>
     </div>
