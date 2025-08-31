@@ -3,7 +3,7 @@ import PlaceItemCard from '../place-item-card/PlaceItemCard';
 import { Link } from 'react-router-dom';
 import LogoLoop from '../../blocks/Animations/LogoLoop/LogoLoop';
 
-const ItemContainer = ({ title, items, iconSrc }: ItemContainerProps) => {
+const ItemContainer = ({ title, items = [], iconSrc }: ItemContainerProps) => {
   const logoItems = items.map((item) => ({
     node: (
       <Link to={`/detail/${item.placeId}`} className="flex-none">
