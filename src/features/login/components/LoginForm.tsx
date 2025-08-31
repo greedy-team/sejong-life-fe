@@ -17,7 +17,7 @@ const LoginForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // api post 요청
+    // API: post 요청
   };
 
   return (
