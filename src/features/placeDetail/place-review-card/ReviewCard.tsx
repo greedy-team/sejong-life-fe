@@ -4,20 +4,28 @@ import { useState } from 'react';
 import LightboxViewer from '../LightboxViewer';
 import LoginModal from '../../login/components/LoginModal';
 import LoginWidget from '../../login/components/LoginWidget';
+import { useReviewLike } from '../../../hooks/useReviewLike';
 
 interface ReviewCardProps {
   review: Review;
+  placeId: string;
 }
 
-const ReviewCard = ({ review }: ReviewCardProps) => {
+const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
   const haveImages = review.images && review.images.length > 0;
-  const [isLiked, setIsLiked] = useState(false);
   const [index, setIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const isContentLong = review.content.length > 150;
   const isLoggedIn = !!sessionStorage.getItem('accessToken');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  const { isLiked, likeCount, handleLike } = useReviewLike(
+    placeId,
+    review.reviewId,
+    review.liked,
+    review.likeCount,
+  );
 
   const formatDate = (dateString: string) => {
     try {
@@ -56,9 +64,9 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
     return stars;
   };
 
-  const handleIsLikeded = () => {
+  const handleLikeClick = () => {
     if (isLoggedIn) {
-      setIsLiked(!isLiked);
+      handleLike();
     } else {
       setIsLoginOpen(true);
     }
@@ -113,11 +121,11 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           ))}
         </div>
         <button
-          onClick={handleIsLikeded}
+          onClick={handleLikeClick}
           className="flex cursor-pointer items-start text-base text-gray-500"
         >
           <span className={isLiked ? 'text-red-600' : 'text-gray-500'}>♥</span>
-          {review.likeCount}
+          {likeCount}
         </button>
       </div>
 

@@ -72,6 +72,7 @@ export type Review = {
   userId: number;
   studentId: number;
   rating: number;
+  liked: boolean;
   content: string;
   likeCount: number;
   createdAt: string;

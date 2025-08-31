@@ -20,3 +20,36 @@ export const getReviewStats = async (
     throw err;
   }
 };
+
+export const addReviewLike = async (
+  placeId: string,
+  reviewId: number,
+  token: string,
+) => {
+  const response = await api.post(
+    `/api/places/${placeId}/reviews/${reviewId}/likes`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+  return response.data;
+};
+
+export const removeReviewLike = async (
+  placeId: string,
+  reviewId: number,
+  token: string,
+) => {
+  const response = await api.delete(
+    `/api/places/${placeId}/reviews/${reviewId}/likes`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+  return response.data;
+};
