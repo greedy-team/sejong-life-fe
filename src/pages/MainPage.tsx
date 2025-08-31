@@ -7,7 +7,6 @@ import Footer from '../layout/components/Footer';
 import { fetchCategories } from '../features/explore/apis/filterApi';
 import type { CategoryProps } from '../types/type';
 import { fetchHotPlaces } from '../api/placeApi';
-import PlaceItemCard from '../components/place-item-card/PlaceItemCard';
 
 const MainPage = () => {
   const [hotPlaces, setHotPlaces] = useState<PlaceInfo[]>([]);
