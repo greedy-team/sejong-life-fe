@@ -4,6 +4,8 @@ import ItemContainer from '../components/place-item-container/ItemContainer';
 import type { PlaceItemCardProps } from '../components/place-item-card/model/type';
 import PageRouterButton from '../components/share/PageRouterButton';
 import Footer from '../layout/components/Footer';
+import { fetchCategories } from '../features/explore/apis/filterApi';
+import type { CategoryProps } from '../types/type';
 
 // ------------ mocking Data---------------- API 구현 후 지워야 함
 interface PlaceApiData {
@@ -16,6 +18,16 @@ interface PlaceApiData {
 
 const MainPage = () => {
   const [hotPlaces, setHotPlaces] = useState<PlaceItemCardProps[]>([]);
+  const [categories, setCategories] = useState<CategoryProps[]>([]);
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      const response = await fetchCategories();
+      setCategories(response.data);
+    };
+
+    fetchCategory();
+  }, []);
 
   useEffect(() => {
     const fetchHotPlaces = async () => {
@@ -62,19 +74,19 @@ const MainPage = () => {
           }}
         >
           <PageRouterButton
-            to="/discover"
+            to={`/explore?category=${categories[0]?.categoryName}`}
             icon="/asset/pageRouterButton/allItemIcon.svg"
           >
             <div>전체</div>
           </PageRouterButton>
           <PageRouterButton
-            to="/discover"
+            to={`/explore?category=${categories[1]?.categoryName}`}
             icon="/asset/pageRouterButton/restaurantIcon.svg"
           >
             <div>식당</div>
           </PageRouterButton>
           <PageRouterButton
-            to="/discover"
+            to={`/explore?category=${categories[2]?.categoryName}`}
             icon="/asset/pageRouterButton/cafeIcon.svg"
           >
             <div>카페</div>
