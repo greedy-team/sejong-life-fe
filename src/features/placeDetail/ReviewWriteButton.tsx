@@ -45,7 +45,7 @@ const ReviewWriteButton = ({ placeName }: ReviewWiteButtonProps) => {
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)}>
         <h2 className="mb-1 text-2xl font-bold text-[#8BE34A]">로그인</h2>
         <p className="mb-4 text-xs text-gray-500">
-          리뷰작성 기능을 사용하려면 로그인해주세요.
+          리뷰를 작성하려면 로그인해주세요.
         </p>
         <LoginForm />
       </LoginModal>
