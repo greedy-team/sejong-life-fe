@@ -1,15 +1,11 @@
-import PhotoStrip from './PhotoStrip';
-import PlaceInfo from './PlaceInfo';
-
 import { useParams } from 'react-router-dom';
-import ReviewStats from './ReviewStats';
-import ReviewCard from './place-review-card/ReviewCard';
-import ReviewWriteButton from './ReviewWriteButton';
-import MoreReviewButton from './MoreReviewButton';
+import PhotoStrip from '../placeDetail/PhotoStrip';
+import ReviewStats from '../placeDetail/ReviewStats';
+import ReviewCard from '../placeDetail/place-review-card/ReviewCard';
 import { usePlaceDetail } from '../../hooks/usePlaceDetail';
 import { usePlaceReview } from '../../hooks/usePlaceReview';
 
-const PlaceDetailContainer = () => {
+const AllReviewSection = () => {
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id!);
   const { reviews } = usePlaceReview(id!);
@@ -19,22 +15,17 @@ const PlaceDetailContainer = () => {
   return (
     <div className="mx-auto mt-12 flex w-[75%] flex-col items-center gap-10 overflow-y-auto">
       <PhotoStrip images={place.images} />
-      <PlaceInfo place={place} />
-      <div className="flex w-full border border-gray-100" />
-      <ReviewWriteButton placeName={place.placeName} />
-      <div className="flex w-full border border-gray-100" />
       <ReviewStats />
       <div className="flex w-[90%] flex-col">
-        {reviews.slice(0, 2).map((review) => (
+        {reviews.map((review) => (
           <>
             <div className="flex w-full border border-gray-100" />
             <ReviewCard key={review.reviewId} review={review} />
           </>
         ))}
-        {reviews[2] && <MoreReviewButton />}
       </div>
     </div>
   );
 };
 
-export default PlaceDetailContainer;
+export default AllReviewSection;
