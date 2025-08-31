@@ -42,14 +42,7 @@ const MainPage = () => {
       <div className="w-full overflow-x-hidden">
         <Banner />
 
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '10px',
-            padding: '10px',
-          }}
-        >
+        <div className="flex justify-center gap-5 pt-10">
           <PageRouterButton
             to={`/explore?category=${categories[0]?.categoryName}`}
             icon="/asset/pageRouterButton/allItemIcon.svg"

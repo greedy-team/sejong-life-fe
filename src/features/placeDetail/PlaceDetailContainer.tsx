@@ -21,7 +21,7 @@ const PlaceDetailContainer = () => {
       <PhotoStrip images={place.images} />
       <PlaceInfo place={place} />
       <div className="flex w-full border border-gray-100" />
-      <ReviewWriteButton placeName={place.placeName} />
+      <ReviewWriteButton placeName={place.placeName} placeId={id!} />
       <div className="flex w-full border border-gray-100" />
       <ReviewStats />
       <div className="flex w-[90%] flex-col">
