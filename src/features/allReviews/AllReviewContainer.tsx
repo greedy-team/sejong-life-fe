@@ -1,5 +1,13 @@
+import HeaderWithBack from './HeaderWithBack';
+import AllReviewSection from './AllReviewSection';
+
 const AllReviewContainer = () => {
-  return <></>;
+  return (
+    <>
+      <HeaderWithBack />
+      <AllReviewSection />
+    </>
+  );
 };
 
 export default AllReviewContainer;
