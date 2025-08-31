@@ -7,6 +7,7 @@ import Footer from '../layout/components/Footer';
 import { fetchCategories } from '../features/explore/apis/filterApi';
 import type { CategoryProps } from '../types/type';
 import { fetchHotPlaces } from '../api/placeApi';
+import PlaceItemCard from '../components/place-item-card/PlaceItemCard';
 
 const MainPage = () => {
   const [hotPlaces, setHotPlaces] = useState<PlaceInfo[]>([]);
@@ -42,14 +43,7 @@ const MainPage = () => {
       <div className="w-full overflow-x-hidden">
         <Banner />
 
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '10px',
-            padding: '10px',
-          }}
-        >
+        <div className="flex justify-center gap-5 pt-10">
           <PageRouterButton
             to={`/explore?category=${categories[0]?.categoryName}`}
             icon="/asset/pageRouterButton/allItemIcon.svg"
