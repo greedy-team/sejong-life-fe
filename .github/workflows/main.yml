@@ -21,7 +21,7 @@ jobs:
 
     # deployment
       - name: S3 Deploy
-        run: aws s3 async ./build s3://sejonglife-s3/ --acl bucket-owner-full-control
+        run: aws s3 sync ./build s3://sejonglife-s3/ --acl bucket-owner-full-control
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
