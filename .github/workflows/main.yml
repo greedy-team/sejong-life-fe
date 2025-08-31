@@ -35,4 +35,3 @@ jobs:
           DISTRIBUTION: ${{ secrets.AWS_DISTRIBUTION_ID }}
           PATHS: "/*"
         continue-on-error: true
-        
