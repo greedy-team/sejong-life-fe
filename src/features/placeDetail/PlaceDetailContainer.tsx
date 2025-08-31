@@ -64,7 +64,7 @@ const PlaceDetailContainer = () => {
       <ReviewStats />
       <div className="flex w-[90%] flex-col">
         {reviews.slice(0, 2).map((review) => (
-          <ReviewCard key={review.reviewId} review={review} />
+          <ReviewCard key={review.reviewId} review={review} placeId={id!} />
         ))}
         {reviews[2] && <MoreReviewButton />}
       </div>
