@@ -33,7 +33,7 @@ export interface Place {
 
 export interface MapProps {
   naverMap: string;
-  kakoaMap: string;
+  kakaoMap: string;
   googleMap: string;
 }
 
@@ -60,3 +60,27 @@ export interface Tag {
   message: string;
   data: TagProps[];
 }
+
+export type Review = {
+  reviewId: number;
+  userId: number;
+  studentId: number;
+  rating: number;
+  content: string;
+  likeCount: number;
+  createdAt: string;
+  images: string[];
+  tags: { tagId: number; tagName: string }[];
+};
+
+export type ReviewStatsProps = {
+  reviewCount: number;
+  averageRate: number;
+  ratingDistribution: {
+    '5': number;
+    '4': number;
+    '3': number;
+    '2': number;
+    '1': number;
+  };
+};
