@@ -11,6 +11,6 @@ export const fetchPlaceDetail = async (
 };
 
 export const fetchHotPlaces = async (): Promise<HotPlaceApiResponse> => {
-  const response = await api.get('places/hot');
+  const response = await api.get('/api/places/hot');
   return response.data;
 };
