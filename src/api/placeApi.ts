@@ -6,11 +6,11 @@ import api from './api';
 export const fetchPlaceDetail = async (
   placeId: number,
 ): Promise<DetailPlace> => {
-  const response = await api.get(`/places/${placeId}`);
+  const response = await api.get(`places/${placeId}`);
   return response.data;
 };
 
 export const fetchHotPlaces = async (): Promise<HotPlaceApiResponse> => {
-  const response = await api.get('/api.sejonglife.site/api/places/hot');
+  const response = await api.get('places/hot');
   return response.data;
 };
