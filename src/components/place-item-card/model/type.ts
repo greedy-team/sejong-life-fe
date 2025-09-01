@@ -16,7 +16,8 @@ export interface PlaceInfo {
   tags: PlaceTag[];
 }
 
-export interface PlaceItemCardProps {
+// PlaceItemCardProps -> HotPlaceApiResponse
+export interface HotPlaceApiResponse {
   message: string;
-  placeInfo: PlaceInfo[];
+  data: PlaceInfo[];
 }
