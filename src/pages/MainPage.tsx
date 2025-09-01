@@ -33,7 +33,6 @@ const MainPage = () => {
 
     fetchHotPlace();
   }, []);
-  // ------------ mocking Data----------------
 
   if (!categories || categories.length === 0) return <div>로딩중...</div>;
 
