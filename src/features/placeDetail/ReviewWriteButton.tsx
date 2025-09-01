@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import LoginModal from '../login/components/LoginModal';
 import LoginForm from '../login/components/LoginForm';
+import { useNavigate } from 'react-router-dom';
 
 interface ReviewWiteButtonProps {
   placeName: string;
+  placeId: string;
 }
 
-const ReviewWriteButton = ({ placeName }: ReviewWiteButtonProps) => {
+const ReviewWriteButton = ({ placeName, placeId }: ReviewWiteButtonProps) => {
   const isLoggedIn = !!sessionStorage.getItem('accessToken');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleClickedReviewWriteButton = () => {
     if (!isLoggedIn) {
@@ -35,7 +38,10 @@ const ReviewWriteButton = ({ placeName }: ReviewWiteButtonProps) => {
           onClick={handleClickedReviewWriteButton}
           className="flex w-full cursor-pointer items-center justify-center rounded-2xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
         >
-          <div className="flex gap-2">
+          <div
+            onClick={() => navigate(`/write-review/${placeId}`)}
+            className="flex gap-2"
+          >
             <img src="/asset/place-detail-page/pencil.svg" alt="map" />
             리뷰쓰기
           </div>
