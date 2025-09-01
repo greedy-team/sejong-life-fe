@@ -74,7 +74,7 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-3 border-t border-gray-200 px-5 py-5">
+      <div className="flex flex-col gap-3 px-5 py-5">
         <div className="flex justify-between">
           <div className="text-lg font-bold">
             {String(review.studentId).slice(0, 2)}학번

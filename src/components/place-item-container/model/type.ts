@@ -1,7 +1,7 @@
-import type { PlaceItemCardProps } from '../../place-item-card/model/type';
+import type { PlaceInfo } from '../../place-item-card/model/type';
 
 export interface ItemContainerProps {
   title: string;
-  items: PlaceItemCardProps[];
+  items: PlaceInfo[];
   iconSrc?: string;
 }

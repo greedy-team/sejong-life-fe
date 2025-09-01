@@ -1,25 +1,43 @@
 import { useEffect, useState } from 'react';
 import { useTag } from '../../../hooks/useTag';
-import type { TagProps } from '../../../types/type';
-import { fetchCategoryTags } from '../apis/filterApi';
-import { useCategory } from '../../../hooks/useCategory';
+import type { CategoryProps, TagProps } from '../../../types/type';
+import { fetchCategories, fetchCategoryTags } from '../apis/filterApi';
 import TagButton from '../../../components/share/TagButton';
+import { useLocation } from 'react-router-dom';
 
 const TagFilter = () => {
-  const { selectedCategory } = useCategory();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const categoryName = params.get('category');
   const { selectedTags, toggleTag } = useTag();
   const [tags, setTags] = useState<TagProps[]>([]);
+  const [categories, setCategories] = useState<CategoryProps[]>([]);
 
   useEffect(() => {
+    const fetchCategory = async () => {
+      const res = await fetchCategories();
+      setCategories(res.data || []);
+    };
+
+    fetchCategory();
+  }, []);
+
+  useEffect(() => {
+    if (!categoryName || categories.length === 0) return;
+
+    const matchedCategory = categories.find(
+      (category) => category.categoryName === categoryName,
+    );
+
+    if (!matchedCategory) return;
+
     const fetchTag = async () => {
-      if (selectedCategory?.categoryId) {
-        const res = await fetchCategoryTags(selectedCategory.categoryId);
-        setTags(res.data || []);
-      }
+      const res = await fetchCategoryTags(matchedCategory.categoryId);
+      setTags(res.data || []);
     };
 
     fetchTag();
-  }, [selectedCategory]);
+  }, [categoryName, categories]);
 
   const isSelected = (tag: TagProps) => {
     return selectedTags.some((selectedTag) => selectedTag.tagId === tag.tagId);

@@ -1,0 +1,27 @@
+import { useState, useEffect } from 'react';
+import type { ReviewStatsProps } from '../types/type';
+import { getReviewStats } from '../features/placeDetail/apis/reviewApi';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
+export const useReviewStats = (id: string) => {
+  const [stats, setStats] = useState<ReviewStatsProps | null>(null);
+
+  useEffect(() => {
+    const fetchPlaceReviewStats = async () => {
+      try {
+        const statsData = await getReviewStats(id!);
+        setStats(statsData);
+      } catch (err) {
+        if (axios.isAxiosError(err) && err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          console.error(err);
+        }
+      }
+    };
+    fetchPlaceReviewStats();
+  }, [id]);
+
+  return { stats };
+};

@@ -7,7 +7,7 @@ const Header = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
-    <header className="flex h-14 w-full border-b-1 px-20 py-2">
+    <header className="flex h-14 w-full px-20 py-2">
       <Link to="/" className="w-fit">
         <img
           src="/asset/header/newLogo.svg"
@@ -17,19 +17,20 @@ const Header = () => {
       </Link>
       <div className="flex flex-1 items-center justify-end gap-20">
         <button>
-          <Link to="/login" className="font-bold">
-            <img
-              src="asset/header/loginIcon.svg"
-              alt="로그인 이미지"
-              className="h-8"
-            />
-          </Link>
+          <Link to="/login" className="font-bold"></Link>
         </button>
       </div>
       <button
         onClick={() => setIsLoginOpen(true)}
-        className="cursor-pointer rounded-md bg-[#8BE34A] px-3 py-1.5 text-sm font-semibold text-white transition-colors duration-100 hover:bg-[#77db30]"
+        className="flex cursor-pointer items-center gap-1 rounded-md bg-[#8BE34A] px-3 py-1.5 text-sm font-semibold text-[#2C3037] transition-colors duration-100 hover:bg-[#77db30]"
       >
+        <img
+          src="asset/header/loginIcon.svg"
+          alt="로그인 이미지"
+          width={21}
+          height={21}
+          className="h-8"
+        />
         로그인
       </button>
 

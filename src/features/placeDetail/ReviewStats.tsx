@@ -1,29 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import type { ReviewStatsProps } from '../../types/type';
-import { getReviewStats } from './apis/reviewApi';
-import { toast } from 'react-toastify';
+import { useReviewStats } from '../../hooks/useReviewStats';
 
 const ReviewStats = () => {
   const { id } = useParams<{ id: string }>();
-  const [stats, setStats] = useState<ReviewStatsProps | null>(null);
-
-  useEffect(() => {
-    const fetchPlaceReviewStats = async () => {
-      try {
-        const statsData = await getReviewStats(id!);
-        setStats(statsData);
-      } catch (err) {
-        if (axios.isAxiosError(err) && err.response) {
-          toast.error(err.response.data.message);
-        } else {
-          console.error(err);
-        }
-      }
-    };
-    fetchPlaceReviewStats();
-  }, [id]);
+  const { stats } = useReviewStats(id!);
 
   if (!stats) {
     return <div> 리뷰 통계 로딩 중...</div>;
@@ -35,7 +15,7 @@ const ReviewStats = () => {
   const maxReviews = stats.reviewCount > 0 ? stats.reviewCount : 1;
 
   return (
-    <div className="flex w-[90%] flex-col items-start border-t border-gray-200 pt-5">
+    <div className="flex w-[90%] flex-col items-start">
       <div className="flex gap-4">
         <div className="flex gap-1.5">
           <div className="text-xl text-[#77db30]">★</div>

@@ -26,7 +26,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
 
   return (
     <>
-      <div className="relative mx-auto mt-8 flex h-[18rem] min-h-[120px] w-[90%] cursor-pointer overflow-hidden rounded-2xl bg-[#d9d9d9]">
+      <div className="relative mx-auto mt-2 flex h-[15rem] min-h-[120px] w-[90%] cursor-pointer overflow-hidden rounded-2xl bg-[#d9d9d9]">
         {[0, 1, 2].map((i) =>
           images[i] ? (
             <img
@@ -57,10 +57,10 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
         )}
         {haveImages && (
           <button
-            className="absolute top-4 right-4 flex h-15 w-15 items-center justify-center rounded-full border border-white/50 bg-white/90 text-3xl font-bold shadow-sm"
+            className="absolute top-4 right-4 flex h-12 w-12 items-center justify-center rounded-full border border-white/50 bg-white/90 text-3xl font-bold shadow-sm"
             onClick={() => handleMoreImageButtonClick()}
           >
-            +
+            <img src="/asset/place-detail-page/plus.svg" alt="더보기" />
           </button>
         )}
       </div>
@@ -79,7 +79,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
                 className="cursor-pointer text-2xl font-bold text-white"
                 onClick={() => setIsGridOpen(false)}
               >
-                ✕
+                <img src="/asset/place-detail-page/x.svg" alt="닫기" />
               </button>
             </div>
             <PhotoGrid
