@@ -1,4 +1,4 @@
-import type { PlaceItemCardProps } from '../components/place-item-card/model/type';
+import type { HotPlaceApiResponse } from '../components/place-item-card/model/type';
 import type { DetailPlace } from '../types/type';
 import api from './api';
 
@@ -10,7 +10,7 @@ export const fetchPlaceDetail = async (
   return response.data;
 };
 
-export const fetchHotPlaces = async (): Promise<PlaceItemCardProps> => {
-  const response = await api.get('/place/hot');
+export const fetchHotPlaces = async (): Promise<HotPlaceApiResponse> => {
+  const response = await api.get('/api.sejonglife.site/api/places/hot');
   return response.data;
 };
