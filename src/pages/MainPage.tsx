@@ -25,7 +25,7 @@ const MainPage = () => {
     const fetchHotPlace = async () => {
       try {
         const response = await fetchHotPlaces();
-        setHotPlaces(response.placeInfo);
+        setHotPlaces(response.data);
       } catch (error) {
         console.error('Failed to fetch data:', error);
       }
@@ -33,7 +33,8 @@ const MainPage = () => {
 
     fetchHotPlace();
   }, []);
-  // ------------ mocking Data----------------
+
+  console.log('MainPage hotPlaces:', hotPlaces);
 
   if (!categories || categories.length === 0) return <div>로딩중...</div>;
 
