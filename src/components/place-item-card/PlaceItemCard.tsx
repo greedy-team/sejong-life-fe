@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import type { PlaceProps } from '../../types/type';
 import TagButton from '../share/TagButton';
 
@@ -9,10 +9,16 @@ interface PlaceItemCardProps {
 
 const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <div
       className={`box-border h-fit w-[330px] cursor-pointer rounded-md transition-colors duration-150 hover:bg-[#fafafa] ${className}`}
-      onClick={() => navigate(`/detail/${placeInfo.placeId}`)}
+      onClick={() =>
+        navigate(`/detail/${placeInfo.placeId}`, {
+          state: { from: location.pathname + location.search },
+        })
+      }
     >
       <div className="flex w-full">
         <img

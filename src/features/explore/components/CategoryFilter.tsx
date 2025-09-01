@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import type { CategoryProps } from '../../../types/type';
 import { fetchCategories } from '../apis/filterApi';
-import { useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const CategoryFilter = () => {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const categoryName = params.get('category');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryName = searchParams.get('category');
   const [selectedCategory, setSelectedCategory] = useState(categoryName);
   const [categories, setCategories] = useState<CategoryProps[]>([]);
 
@@ -19,12 +18,17 @@ const CategoryFilter = () => {
     fetchCategory();
   }, []);
 
+  useEffect(() => {
+    setSelectedCategory(categoryName);
+  }, [categoryName]);
+
   const isSelected = (category: CategoryProps) => {
     return selectedCategory === category.categoryName;
   };
 
   const handleCategoryClick = (category: CategoryProps) => {
     setSelectedCategory(category.categoryName);
+    setSearchParams({ category: category.categoryName });
   };
 
   return (
