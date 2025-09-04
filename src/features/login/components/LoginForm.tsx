@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { requestLogin } from '../api/loginApi';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../../hooks/useAuth';
 
 interface LoginFormProps {
   setIsNewUser: React.Dispatch<React.SetStateAction<boolean>>;
+  onClose: () => void;
 }
 
-const LoginForm = ({ setIsNewUser }: LoginFormProps) => {
+const LoginForm = ({ setIsNewUser, onClose }: LoginFormProps) => {
+  const { setIsLoggedIn } = useAuth();
   const [loginForm, setLoginForm] = useState({
     sejongPortalId: '',
     sejongPortalPw: '',
@@ -34,7 +37,10 @@ const LoginForm = ({ setIsNewUser }: LoginFormProps) => {
         return;
       }
       localStorage.setItem('accessToken', data.data.accessToken);
-      window.location.reload();
+
+      toast.success('로그인 성공');
+      setIsLoggedIn(true);
+      onClose();
     } catch (error) {
       console.error('로그인 실패: ', error);
       toast.error('로그인 실패');

@@ -1,21 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LoginModal from '../../features/login/components/LoginModal';
 import LoginWidget from '../../features/login/components/LoginWidget';
+import { useAuth } from '../../hooks/useAuth';
 
 const Header = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    if (token !== null) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
+    setIsLoggedIn(false);
   };
 
   return (
@@ -52,8 +47,8 @@ const Header = () => {
           className="flex cursor-pointer items-center gap-1 rounded-md bg-[#8BE34A] px-3 py-1.5 text-sm font-semibold text-[#2C3037] transition-colors duration-100 hover:bg-[#77db30]"
         >
           <img
-            src="asset/header/loginIcon.svg"
-            alt="로그인 이미지"
+            src="asset/header/logoutIcon.svg"
+            alt="로그아웃 이미지"
             width={21}
             height={21}
             className="h-8"
@@ -63,7 +58,7 @@ const Header = () => {
       )}
 
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)}>
-        <LoginWidget />
+        <LoginWidget onClose={() => setIsLoginOpen(false)} />
       </LoginModal>
     </header>
   );

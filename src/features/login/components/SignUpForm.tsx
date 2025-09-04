@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { requestSignUp } from '../api/loginApi';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../../hooks/useAuth';
 
 interface SignUpFormData {
   studentId: string;
@@ -8,7 +9,12 @@ interface SignUpFormData {
   nickname: string;
 }
 
-const SignUpForm = () => {
+interface SignUpFormProps {
+  onClose: () => void;
+}
+
+const SignUpForm = ({ onClose }: SignUpFormProps) => {
+  const { setIsLoggedIn } = useAuth();
   const [signUpForm, setSignUpForm] = useState<SignUpFormData>(() => {
     const savedStudentId = localStorage.getItem('studentId') || '';
     const savedName = localStorage.getItem('name') || '';
@@ -41,7 +47,10 @@ const SignUpForm = () => {
       localStorage.removeItem('signUpToken');
       localStorage.removeItem('name');
       localStorage.removeItem('studentId');
-      window.location.reload();
+
+      toast.success('회원가입에 성공하였습니다.');
+      setIsLoggedIn(true);
+      onClose();
     } catch (error) {
       console.error('회원가입 실패: ', error);
       toast.error('회원가입 실패');
