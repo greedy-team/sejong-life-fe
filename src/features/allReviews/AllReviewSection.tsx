@@ -14,7 +14,7 @@ const AllReviewSection = () => {
 
   return (
     <div className="mx-auto mt-12 flex w-[75%] flex-col items-center gap-10 overflow-y-auto">
-      <PhotoStrip images={place.images} />
+      <PhotoStrip images={place.images.map((image) => image.url)} />
       <ReviewStats />
       <div className="flex w-[90%] flex-col">
         {reviews.map((review) => (
