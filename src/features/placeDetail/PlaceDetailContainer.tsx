@@ -18,10 +18,10 @@ const PlaceDetailContainer = () => {
 
   return (
     <div className="mx-auto mt-12 flex w-[75%] flex-col items-center gap-10 overflow-y-auto">
-      <PhotoStrip images={place.images} />
+      <PhotoStrip images={place.images.map((image) => image.url)} />
       <PlaceInfo place={place} />
       <div className="flex w-full border border-gray-100" />
-      <ReviewWriteButton placeName={place.placeName} placeId={id!} />
+      <ReviewWriteButton placeName={place.name} placeId={id!} />
       <div className="flex w-full border border-gray-100" />
       <ReviewStats />
       <div className="flex w-[90%] flex-col">
