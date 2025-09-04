@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LoginForm from '../../features/login/components/LoginForm';
 import LoginModal from '../../features/login/components/LoginModal';
+import LoginWidget from '../../features/login/components/LoginWidget';
 
 const Header = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -35,8 +36,7 @@ const Header = () => {
       </button>
 
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)}>
-        <h2 className="mb-4 text-2xl font-bold text-[#8BE34A]">로그인</h2>
-        <LoginForm />
+        <LoginWidget />
       </LoginModal>
     </header>
   );

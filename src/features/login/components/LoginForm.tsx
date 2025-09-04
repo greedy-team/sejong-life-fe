@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { requestLogin } from '../api/loginApi';
 import { toast } from 'react-toastify';
 
-const LoginForm = () => {
+interface LoginFormProps {
+  setIsNewUser: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LoginForm = ({ setIsNewUser }: LoginFormProps) => {
   const [loginForm, setLoginForm] = useState({
     sejongPortalId: '',
     sejongPortalPw: '',
@@ -23,6 +27,9 @@ const LoginForm = () => {
       const data = await requestLogin(loginForm);
       if (data.data.newUser) {
         localStorage.setItem('signUpToken', data.data.signUpToken);
+        localStorage.setItem('name', data.data.userInfo.name);
+        localStorage.setItem('studentId', data.data.userInfo.studentId);
+        setIsNewUser(true);
         toast.info('회원가입 화면으로 이동합니다.');
         return;
       }
@@ -47,7 +54,7 @@ const LoginForm = () => {
         value={loginForm.sejongPortalId}
         onChange={handleChange}
         placeholder="학번 (ex. 12345678)"
-        className="mb-4 rounded-lg border border-black p-2 text-sm transition-all duration-100 focus:border-[#8BE34A] focus:ring-2 focus:ring-[#8BE34A] focus:outline-none"
+        className="mb-4 rounded-lg border-2 border-black p-2 text-sm transition-all duration-100 focus:border-[#8BE34A] focus:ring-2 focus:ring-[#8BE34A] focus:outline-none"
       />
       <label htmlFor="sejongPortalPw" className="mb-2 font-semibold">
         비밀번호
@@ -59,7 +66,7 @@ const LoginForm = () => {
         value={loginForm.sejongPortalPw}
         onChange={handleChange}
         placeholder="비밀번호"
-        className="mb-0.5 rounded-lg border border-black p-2 text-sm transition-all duration-100 focus:border-[#8BE34A] focus:ring-2 focus:ring-[#8BE34A] focus:outline-none"
+        className="mb-0.5 rounded-lg border-2 border-black p-2 text-sm transition-all duration-100 focus:border-[#8BE34A] focus:ring-2 focus:ring-[#8BE34A] focus:outline-none"
       />
       <span className="mb-4 indent-2 text-[10px] text-[#73bd3e]">
         학사정보시스템 비밀번호를 사용해주세요.
