@@ -14,7 +14,7 @@ const PlaceDetailContainer = () => {
   const { place } = usePlaceDetail(id!);
   const { reviews } = usePlaceReview(id!);
 
-  if (!place || reviews.length === 0) return <div>로딩중...</div>;
+  if (!place) return <div>로딩중...</div>;
 
   return (
     <div className="mx-auto mt-12 flex w-[75%] flex-col items-center gap-10 overflow-y-auto">
