@@ -41,8 +41,6 @@ const SignUpForm = () => {
       localStorage.removeItem('signUpToken');
       localStorage.removeItem('name');
       localStorage.removeItem('studentId');
-
-      toast.success('회원가입 성공');
       window.location.reload();
     } catch (error) {
       console.error('회원가입 실패: ', error);

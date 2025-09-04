@@ -34,8 +34,7 @@ const LoginForm = ({ setIsNewUser }: LoginFormProps) => {
         return;
       }
       localStorage.setItem('accessToken', data.data.accessToken);
-
-      toast.success('로그인 성공');
+      window.location.reload();
     } catch (error) {
       console.error('로그인 실패: ', error);
       toast.error('로그인 실패');
