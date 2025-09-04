@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { requestLogin } from '../api/loginApi';
+import { toast } from 'react-toastify';
 
 const LoginForm = () => {
   const [loginForm, setLoginForm] = useState({
@@ -14,10 +16,23 @@ const LoginForm = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // API: post 요청
+    try {
+      const data = await requestLogin(loginForm);
+      if (data.data.newUser) {
+        localStorage.setItem('signUpToken', data.data.signUpToken);
+        toast.info('회원가입 화면으로 이동합니다.');
+        return;
+      }
+      localStorage.setItem('accessToken', data.data.accessToken);
+
+      toast.success('로그인 성공');
+    } catch (error) {
+      console.error('로그인 실패: ', error);
+      toast.error('로그인 실패');
+    }
   };
 
   return (

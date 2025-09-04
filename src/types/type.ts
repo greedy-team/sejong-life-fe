@@ -84,3 +84,23 @@ export type ReviewStatsProps = {
     '1': number;
   };
 };
+
+export interface LoginPayload {
+  sejongPortalId: string;
+  sejongPortalPw: string;
+}
+
+export interface LoginResponseProps {
+  accessToken: string;
+  signUpToken: string;
+  userInfo: {
+    studentId: string;
+    name: string;
+  };
+  newUser: boolean;
+}
+
+export interface LoginResponse {
+  message: string;
+  data: LoginResponseProps;
+}
