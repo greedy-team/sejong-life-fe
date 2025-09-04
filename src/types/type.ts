@@ -37,12 +37,18 @@ export interface MapProps {
   googleMap: string;
 }
 
+export interface ImageProps {
+  imageId: number;
+  url: string;
+}
+
 export interface DetailPlaceProps {
-  placeId: number;
-  placeName: string;
-  images: string[];
+  id: number;
+  name: string;
+  images: ImageProps[];
   categories: CategoryProps[];
   tags: TagProps[];
+  viewCount: number;
   mapLinks: MapProps;
 }
 

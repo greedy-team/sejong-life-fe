@@ -6,7 +6,7 @@ import api from './api';
 export const fetchPlaceDetail = async (
   placeId: number,
 ): Promise<DetailPlace> => {
-  const response = await api.get(`places/${placeId}`);
+  const response = await api.get(`/api/places/${placeId}`);
   return response.data;
 };
 

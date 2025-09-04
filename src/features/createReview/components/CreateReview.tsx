@@ -116,12 +116,12 @@ const CreateReview = () => {
     <div className="flex h-fit flex-col border-2 border-gray-300">
       <div className="flex gap-5 p-10">
         <img
-          src={placeInfo.images[0]}
+          src={placeInfo.images[0].url}
           alt="대표 이미지"
           className="aspect-square w-[20%] rounded-md"
         />
         <div className="flex flex-col">
-          <h4 className="text-lg font-extrabold">{placeInfo.placeName}</h4>
+          <h4 className="text-lg font-extrabold">{placeInfo.name}</h4>
           <p className="flex gap-1 text-xs font-semibold text-[#70553D]">
             {placeInfo.categories.map((category) => (
               <span key={category.categoryId}>{category.categoryName}</span>
