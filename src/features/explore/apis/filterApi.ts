@@ -9,6 +9,8 @@ export const fetchCategories = async (): Promise<Category> => {
 
 // 카테고리별 태그 api
 export const fetchCategoryTags = async (categoryId: number): Promise<Tag> => {
-  const response = await api.get(`tags/${categoryId}`);
+  const response = await api.get(`/api/tags`, {
+    params: { categoryId },
+  });
   return response.data;
 };

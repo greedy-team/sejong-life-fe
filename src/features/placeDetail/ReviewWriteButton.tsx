@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import LoginModal from '../login/components/LoginModal';
-import LoginForm from '../login/components/LoginForm';
 import { useNavigate } from 'react-router-dom';
+import LoginWidget from '../login/components/LoginWidget';
 
 interface ReviewWiteButtonProps {
   placeName: string;
@@ -53,7 +53,7 @@ const ReviewWriteButton = ({ placeName, placeId }: ReviewWiteButtonProps) => {
         <p className="mb-4 text-xs text-gray-500">
           리뷰를 남기려면 로그인해주세요.
         </p>
-        <LoginForm />
+        <LoginWidget onClose={() => setIsLoginOpen(false)} />
       </LoginModal>
     </>
   );
