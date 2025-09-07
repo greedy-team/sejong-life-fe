@@ -9,7 +9,7 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
   return (
     <div className="flex w-[90%] flex-col items-start gap-5">
       <div className="flex gap-4">
-        <h1 className="text-2xl font-bold text-[#212529]">{place.placeName}</h1>
+        <h1 className="text-2xl font-bold text-[#212529]">{place.name}</h1>
         <div className="rounded-full bg-[#f0f0f0] px-3.5 pt-2 text-xs">
           {place.categories[0].categoryName}
         </div>
