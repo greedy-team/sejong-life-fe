@@ -1,10 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import LoginForm from '../../features/login/components/LoginForm';
 import LoginModal from '../../features/login/components/LoginModal';
+import LoginWidget from '../../features/login/components/LoginWidget';
+import { useAuth } from '../../hooks/useAuth';
 
 const Header = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    setIsLoggedIn(false);
+  };
 
   return (
     <header className="flex h-14 w-full px-20 py-2">
@@ -20,23 +27,38 @@ const Header = () => {
           <Link to="/login" className="font-bold"></Link>
         </button>
       </div>
-      <button
-        onClick={() => setIsLoginOpen(true)}
-        className="flex cursor-pointer items-center gap-1 rounded-md bg-[#8BE34A] px-3 py-1.5 text-sm font-semibold text-[#2C3037] transition-colors duration-100 hover:bg-[#77db30]"
-      >
-        <img
-          src="asset/header/loginIcon.svg"
-          alt="로그인 이미지"
-          width={21}
-          height={21}
-          className="h-8"
-        />
-        로그인
-      </button>
+      {!isLoggedIn ? (
+        <button
+          onClick={() => setIsLoginOpen(true)}
+          className="flex cursor-pointer items-center gap-1 rounded-md bg-[#8BE34A] px-3 py-1.5 text-sm font-semibold text-[#2C3037] transition-colors duration-100 hover:bg-[#77db30]"
+        >
+          <img
+            src="asset/header/loginIcon.svg"
+            alt="로그인 이미지"
+            width={21}
+            height={21}
+            className="h-8"
+          />
+          로그인
+        </button>
+      ) : (
+        <button
+          onClick={handleLogout}
+          className="flex cursor-pointer items-center gap-1 rounded-md bg-[#8BE34A] px-3 py-1.5 text-sm font-semibold text-[#2C3037] transition-colors duration-100 hover:bg-[#77db30]"
+        >
+          <img
+            src="asset/header/logoutIcon.svg"
+            alt="로그아웃 이미지"
+            width={21}
+            height={21}
+            className="h-8"
+          />
+          로그아웃
+        </button>
+      )}
 
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)}>
-        <h2 className="mb-4 text-2xl font-bold text-[#8BE34A]">로그인</h2>
-        <LoginForm />
+        <LoginWidget onClose={() => setIsLoginOpen(false)} />
       </LoginModal>
     </header>
   );

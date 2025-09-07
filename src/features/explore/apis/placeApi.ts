@@ -10,10 +10,10 @@ export const fetchFilteredPlaces = async (
   params.append('category', String(selectedCategory.categoryId));
 
   if (selectedTags.length > 0) {
-    const tagIds = selectedTags.map((tag) => tag.tagId).join(',');
-    params.append('tags', tagIds);
+    const tagNames = selectedTags.map((tag) => tag.tagName).join(',');
+    params.append('tags', tagNames);
   }
 
-  const response = await api.get(`places?${params.toString()}`);
+  const response = await api.get(`/api/places?${params.toString()}`);
   return response.data;
 };
