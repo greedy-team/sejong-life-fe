@@ -20,7 +20,7 @@ const ReviewStats = () => {
         <div className="flex gap-1.5">
           <div className="text-xl text-[#77db30]">★</div>
           <div className="text-xl font-bold text-[#212529]">
-            {stats.averageRate.toFixed(1)}점
+            {stats.averageRate?.toFixed(1) || '0.0'}점
           </div>
         </div>
         <div className="font-semibold text-[#868E96]">
