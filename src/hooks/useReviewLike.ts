@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from './useAuth';
 import {
   addReviewLike,
@@ -17,6 +17,16 @@ export const useReviewLike = (
   const [isLiked, setIsLiked] = useState(initialLiked);
   const [likeCount, setLikeCount] = useState(initialLikeCount);
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      setIsLiked(initialLiked);
+      setLikeCount(initialLikeCount);
+    } else {
+      setIsLiked(false);
+      setLikeCount(initialLikeCount);
+    }
+  }, [isLoggedIn, initialLiked, initialLikeCount]);
+
   const handleLike = async () => {
     if (!isLoggedIn) {
       toast.error('로그인이 필요합니다.');
@@ -31,6 +41,7 @@ export const useReviewLike = (
 
     const prevLiked = isLiked;
     const prevLikeCount = likeCount;
+
     setIsLiked(!isLiked);
     setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
 
@@ -43,9 +54,10 @@ export const useReviewLike = (
     } catch (err) {
       setIsLiked(prevLiked);
       setLikeCount(prevLikeCount);
+
       if (axios.isAxiosError(err) && err.response) {
-        if (err.response.status === 404) {
-          toast.error('존재하지 않는 리뷰이거나 유저입니다.');
+        if (err.response.status === 401) {
+          toast.error(err.message);
         } else {
           toast.error('리뷰 좋아요 처리 중 오류가 발생했습니다.');
         }
