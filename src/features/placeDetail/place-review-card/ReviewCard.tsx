@@ -6,6 +6,7 @@ import LoginModal from '../../login/components/LoginModal';
 import LoginWidget from '../../login/components/LoginWidget';
 import { useReviewLike } from '../../../hooks/useReviewLike';
 import { useAuth } from '../../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 interface ReviewCardProps {
   review: Review;
@@ -69,6 +70,7 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
     if (isLoggedIn) {
       handleLike();
     } else {
+      toast.error('좋아요를 남기려면 로그인해주세요');
       setIsLoginOpen(true);
     }
   };
@@ -138,10 +140,6 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
       />
 
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)}>
-        <h2 className="mb-1 text-2xl font-bold text-[#8BE34A]">로그인</h2>
-        <p className="mb-4 text-xs text-gray-500">
-          좋아요를 남기려면 로그인해주세요.
-        </p>
         <LoginWidget onClose={() => setIsLoginOpen(false)} />
       </LoginModal>
     </>

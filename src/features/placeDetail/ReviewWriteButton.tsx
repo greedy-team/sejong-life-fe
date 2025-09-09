@@ -3,6 +3,7 @@ import LoginModal from '../login/components/LoginModal';
 import { useNavigate } from 'react-router-dom';
 import LoginWidget from '../login/components/LoginWidget';
 import { useAuth } from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 interface ReviewWiteButtonProps {
   placeName: string;
@@ -16,6 +17,7 @@ const ReviewWriteButton = ({ placeName, placeId }: ReviewWiteButtonProps) => {
 
   const handleClickedReviewWriteButton = () => {
     if (!isLoggedIn) {
+      toast.error('리뷰를 남기려면 로그인해주세요');
       setIsLoginOpen(true);
     } else {
       navigate(`/write-review/${placeId}`);
@@ -49,10 +51,6 @@ const ReviewWriteButton = ({ placeName, placeId }: ReviewWiteButtonProps) => {
       </div>
 
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)}>
-        <h2 className="mb-1 text-2xl font-bold text-[#8BE34A]">로그인</h2>
-        <p className="mb-4 text-xs text-gray-500">
-          리뷰를 남기려면 로그인해주세요.
-        </p>
         <LoginWidget onClose={() => setIsLoginOpen(false)} />
       </LoginModal>
     </>
