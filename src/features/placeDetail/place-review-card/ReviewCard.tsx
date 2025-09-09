@@ -5,6 +5,7 @@ import LightboxViewer from '../LightboxViewer';
 import LoginModal from '../../login/components/LoginModal';
 import LoginWidget from '../../login/components/LoginWidget';
 import { useReviewLike } from '../../../hooks/useReviewLike';
+import { useAuth } from '../../../hooks/useAuth';
 
 interface ReviewCardProps {
   review: Review;
@@ -17,7 +18,7 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const isContentLong = review.content.length > 150;
-  const isLoggedIn = !!sessionStorage.getItem('accessToken');
+  const { isLoggedIn } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const { isLiked, likeCount, handleLike } = useReviewLike(

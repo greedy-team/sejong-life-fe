@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAuth } from './useAuth';
 import {
   addReviewLike,
   removeReviewLike,
@@ -10,33 +11,38 @@ export const useReviewLike = (
   placeId: string,
   reviewId: number,
   initialLiked: boolean,
-  initialCount: number,
+  initialLikeCount: number,
 ) => {
+  const { isLoggedIn } = useAuth();
   const [isLiked, setIsLiked] = useState(initialLiked);
-  const [likeCount, setLikeCount] = useState(initialCount);
+  const [likeCount, setLikeCount] = useState(initialLikeCount);
 
   const handleLike = async () => {
-    const token = sessionStorage.getItem('accessToken');
-    if (!token) {
+    if (!isLoggedIn) {
       toast.error('로그인이 필요합니다.');
       return;
     }
 
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      toast.error('인증 토큰이 없습니다. 로그인해주세요.');
+      return;
+    }
+
+    const prevLiked = isLiked;
+    const prevLikeCount = likeCount;
+    setIsLiked(!isLiked);
+    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+
     try {
-      if (isLiked) {
-        const res = await removeReviewLike(placeId, reviewId, token);
-        if (res.status === 200) {
-          setIsLiked(false);
-          setLikeCount((prev) => prev - 1);
-        }
+      if (prevLiked) {
+        await removeReviewLike(placeId, reviewId, token);
       } else {
-        const res = await addReviewLike(placeId, reviewId, token);
-        if (res.status === 200) {
-          setIsLiked(true);
-          setLikeCount((prev) => prev + 1);
-        }
+        await addReviewLike(placeId, reviewId, token);
       }
     } catch (err) {
+      setIsLiked(prevLiked);
+      setLikeCount(prevLikeCount);
       if (axios.isAxiosError(err) && err.response) {
         if (err.response.status === 404) {
           toast.error('존재하지 않는 리뷰이거나 유저입니다.');
