@@ -1,4 +1,4 @@
-import api from '../../../api/api';
+import { api } from '../../../api/api';
 import type { DetailPlaceProps } from '../../../types/type';
 
 export const getPlaceDetails = async (
