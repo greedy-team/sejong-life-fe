@@ -1,6 +1,5 @@
 import PhotoStrip from './PhotoStrip';
 import PlaceInfo from './PlaceInfo';
-
 import { useParams } from 'react-router-dom';
 import ReviewStats from './ReviewStats';
 import ReviewCard from './place-review-card/ReviewCard';
