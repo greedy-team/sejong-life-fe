@@ -33,7 +33,7 @@ const Header = () => {
           className="flex cursor-pointer items-center gap-1 rounded-md bg-[#8BE34A] px-3 py-1.5 text-sm font-semibold text-[#2C3037] transition-colors duration-100 hover:bg-[#77db30]"
         >
           <img
-            src="asset/header/loginIcon.svg"
+            src="/asset/header/loginIcon.svg"
             alt="로그인 이미지"
             width={21}
             height={21}
@@ -47,7 +47,7 @@ const Header = () => {
           className="flex cursor-pointer items-center gap-1 rounded-md bg-[#8BE34A] px-3 py-1.5 text-sm font-semibold text-[#2C3037] transition-colors duration-100 hover:bg-[#77db30]"
         >
           <img
-            src="asset/header/logoutIcon.svg"
+            src="/asset/header/logoutIcon.svg"
             alt="로그아웃 이미지"
             width={21}
             height={21}

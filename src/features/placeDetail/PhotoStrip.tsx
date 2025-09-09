@@ -51,7 +51,14 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
                 background: '#f0f0f0',
               }}
             >
-              📷 사진이 없습니다
+              <div className="flex gap-2">
+                <img
+                  src="/asset/place-detail-page/camera.svg"
+                  alt="camera"
+                  className="text-[#77db30]"
+                />
+                <span className="text-[#354052]">사진이 없습니다</span>
+              </div>
             </div>
           ),
         )}
