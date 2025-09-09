@@ -1,4 +1,4 @@
-import api from '../../../api/api';
+import { api } from '../../../api/api';
 import type { Category, Tag } from '../../../types/type';
 
 // 카테고리 api
