@@ -1,4 +1,4 @@
-import api from '../../../api/api';
+import { api } from '../../../api/api';
 import type { CategoryProps, Place, TagProps } from '../../../types/type';
 
 // 필터된 장소 api

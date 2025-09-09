@@ -1,5 +1,5 @@
 import type { Review, ReviewStatsProps } from '../../../types/type';
-import api from '../../../api/api';
+import { api } from '../../../api/api';
 
 export const getPlaceReview = async (placeId: string): Promise<Review[]> => {
   try {
