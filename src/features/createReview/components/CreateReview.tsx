@@ -88,11 +88,19 @@ const CreateReview = () => {
 
     try {
       const submitData = new FormData();
-      submitData.append('placeId', String(placeId));
-      submitData.append('rating', String(formData.rating));
-      submitData.append('content', formData.content);
-
-      formData.tagIds.forEach((id) => submitData.append('tagIds', String(id)));
+      submitData.append(
+        'review',
+        new Blob(
+          [
+            JSON.stringify({
+              rating: formData.rating,
+              content: formData.content,
+              tagIds: formData.tagIds,
+            }),
+          ],
+          { type: 'application/json' },
+        ),
+      );
 
       formData.images.forEach((file) => {
         submitData.append('images', file);
