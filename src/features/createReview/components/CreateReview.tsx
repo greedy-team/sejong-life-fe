@@ -6,6 +6,7 @@ import { fetchTagList } from '../../../api/tagApi';
 import TagButton from '../../../components/share/TagButton';
 import { postReview } from '../api/postReviewApi';
 import StarRating from './StarRating';
+import { toast } from 'react-toastify';
 
 const CreateReview = () => {
   const { placeId } = useParams();
@@ -88,11 +89,19 @@ const CreateReview = () => {
 
     try {
       const submitData = new FormData();
-      submitData.append('placeId', String(placeId));
-      submitData.append('rating', String(formData.rating));
-      submitData.append('content', formData.content);
-
-      formData.tagIds.forEach((id) => submitData.append('tagIds', String(id)));
+      submitData.append(
+        'review',
+        new Blob(
+          [
+            JSON.stringify({
+              rating: formData.rating,
+              content: formData.content,
+              tagIds: formData.tagIds,
+            }),
+          ],
+          { type: 'application/json' },
+        ),
+      );
 
       formData.images.forEach((file) => {
         submitData.append('images', file);
@@ -100,11 +109,11 @@ const CreateReview = () => {
 
       await postReview(Number(placeId), submitData);
 
-      alert('리뷰가 성공적으로 등록되었습니다!');
+      toast.success('리뷰가 성공적으로 등록되었습니다!');
       navigate(`/detail/${placeId}`);
     } catch (error) {
       console.error(error);
-      alert('리뷰 등록에 실패했습니다.');
+      toast.error('리뷰 등록에 실패했습니다.');
     }
   };
 
