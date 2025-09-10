@@ -1,5 +1,5 @@
-import { api } from '../../../api/api';
 import type { CategoryProps, Place, TagProps } from '../../../types/type';
+import { api } from '../../../api/api';
 
 // 필터된 장소 api
 export const fetchFilteredPlaces = async (

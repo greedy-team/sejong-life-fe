@@ -1,6 +1,5 @@
 import PhotoStrip from './PhotoStrip';
 import PlaceInfo from './PlaceInfo';
-
 import { useParams } from 'react-router-dom';
 import ReviewStats from './ReviewStats';
 import ReviewCard from './place-review-card/ReviewCard';
@@ -28,7 +27,7 @@ const PlaceDetailContainer = () => {
         {reviews.slice(0, 2).map((review) => (
           <>
             <div className="flex w-full border border-gray-100" />
-            <ReviewCard key={review.reviewId} review={review} />
+            <ReviewCard key={review.reviewId} review={review} placeId={id!} />
           </>
         ))}
         {reviews[2] && <MoreReviewButton />}
