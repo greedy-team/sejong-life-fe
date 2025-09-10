@@ -63,7 +63,7 @@ const MainPage = () => {
             <div>카페</div>
           </PageRouterButton>
           <PageRouterButton
-            to="/preparingService"
+            to={`/roulette`}
             icon="/asset/pageRouterButton/rouletteIcon.svg"
           >
             <div>룰렛</div>
