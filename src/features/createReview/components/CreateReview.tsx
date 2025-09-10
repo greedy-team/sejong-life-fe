@@ -6,6 +6,7 @@ import { fetchTagList } from '../../../api/tagApi';
 import TagButton from '../../../components/share/TagButton';
 import { postReview } from '../api/postReviewApi';
 import StarRating from './StarRating';
+import { toast } from 'react-toastify';
 
 const CreateReview = () => {
   const { placeId } = useParams();
@@ -108,11 +109,11 @@ const CreateReview = () => {
 
       await postReview(Number(placeId), submitData);
 
-      alert('리뷰가 성공적으로 등록되었습니다!');
+      toast.success('리뷰가 성공적으로 등록되었습니다!');
       navigate(`/detail/${placeId}`);
     } catch (error) {
       console.error(error);
-      alert('리뷰 등록에 실패했습니다.');
+      toast.error('리뷰 등록에 실패했습니다.');
     }
   };
 
