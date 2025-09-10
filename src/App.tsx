@@ -7,6 +7,7 @@ import CreateReviewPage from './pages/CreateReviewPage';
 import PrepareServicePage from './pages/PrepareServicePage';
 import ExplorePage from './pages/ExplorePage';
 import AllReviewPage from './pages/AllReviewsPage';
+import RoulettePage from './pages/RoulettePage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -24,6 +25,7 @@ function App() {
             />
             <Route path="preparingService" element={<PrepareServicePage />} />
             <Route path="explore" element={<ExplorePage />} />
+            <Route path="roulette" element={<RoulettePage />} />
           </Route>
           <Route path="/detail/:id/reviews" element={<AllReviewPage />} />
         </Routes>
