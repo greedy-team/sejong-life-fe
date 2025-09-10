@@ -9,7 +9,7 @@ const StarRating = ({ value, onChange }: StarRatingProps) => {
   const [hover, setHover] = useState(0);
 
   return (
-    <div className="flex w-full justify-center">
+    <div className="flex w-full">
       {Array.from({ length: 5 }).map((_, index) => {
         const starValue = index + 1;
         return (
@@ -19,7 +19,7 @@ const StarRating = ({ value, onChange }: StarRatingProps) => {
             onClick={() => onChange(starValue)}
             onMouseEnter={() => setHover(starValue)}
             onMouseLeave={() => setHover(0)}
-            className="cursor-pointer px-0.5"
+            className="cursor-pointer px-1"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

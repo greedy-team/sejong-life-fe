@@ -2,7 +2,7 @@ import CreateReview from '../features/createReview/components/CreateReview';
 
 const CreateReviewPage = () => {
   return (
-    <div className="px-[25%]">
+    <div className="bg-[#F9FAFB] px-[10%] pt-10">
       <CreateReview />
     </div>
   );
