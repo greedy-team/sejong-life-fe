@@ -151,20 +151,22 @@ const CreateReview = () => {
             }
           />
         </div>
-        <div className="space-y-2 space-x-2 p-10">
+        <div className="space-y-2 p-10">
           <h4 className="text-lg font-bold">어울리는 태그를 골라주세요!</h4>
-          {tags.map((tag) => {
-            const isSelected = formData.tagIds.includes(tag.tagId);
-            return (
-              <TagButton
-                key={tag.tagId}
-                onClick={() => handleSelectedTags(tag.tagId)}
-                className={isSelected ? 'opacity-100' : 'opacity-60'}
-              >
-                {tag.tagName}
-              </TagButton>
-            );
-          })}
+          <div className="custom-scroll max-h-28 space-y-2 space-x-3 overflow-auto rounded-md border border-gray-100 p-3">
+            {tags.map((tag) => {
+              const isSelected = formData.tagIds.includes(tag.tagId);
+              return (
+                <TagButton
+                  key={tag.tagId}
+                  onClick={() => handleSelectedTags(tag.tagId)}
+                  className={isSelected ? 'opacity-100' : 'opacity-60'}
+                >
+                  {tag.tagName}
+                </TagButton>
+              );
+            })}
+          </div>
         </div>
         <div className="flex flex-col gap-2 px-10 py-5">
           <label htmlFor="review" className="text-lg font-bold">
