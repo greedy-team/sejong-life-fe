@@ -54,22 +54,26 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
               </div>
             </div>
             <div className="flex gap-2">
-              <img
-                src="/asset/place-item-card/eye.svg"
-                alt="viewCount"
-                className="h-5 w-5 text-[#77db30]"
-              />
-              <span className="text-sm text-gray-600">
-                {placeInfo.viewCount}
-              </span>
-              <img
-                src="/asset/place-item-card/chat.svg"
-                alt="reviewCount"
-                className="h-5 w-5 text-[#77db30]"
-              />
-              <span className="text-sm text-gray-600">
-                {placeInfo.reviewCount}
-              </span>
+              <div className="flex items-center gap-0.5">
+                <img
+                  src="/asset/place-item-card/eye.svg"
+                  alt="viewCount"
+                  className="h-4 w-4 text-[#77db30]"
+                />
+                <span className="text-sm text-gray-600">
+                  {placeInfo.viewCount}
+                </span>
+              </div>
+              <div className="flex items-center gap-0.5">
+                <img
+                  src="/asset/place-item-card/chat.svg"
+                  alt="reviewCount"
+                  className="h-4 w-4 text-[#77db30]"
+                />
+                <span className="text-sm text-gray-600">
+                  {placeInfo.reviewCount}
+                </span>
+              </div>
             </div>
             <div className="flex flex-wrap gap-1">
               {placeInfo.tags.slice(0, 3).map((tag, index) => (
