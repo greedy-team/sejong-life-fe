@@ -27,14 +27,16 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
           className="aspect-[3/4] w-[50%]"
         />
         <div className="flex w-[50%] flex-col">
-          <div className="flex flex-col gap-1.5 p-2.5">
-            <h3 className="text-lg font-medium">{placeInfo.placeName}</h3>
-            <div className="text-xs text-gray-600">
-              {placeInfo.categories.map((category) => (
-                <span key={category.categoryId} className="rounded-full">
-                  {category.categoryName}
-                </span>
-              ))}
+          <div className="flex flex-col gap-2 p-2.5">
+            <div>
+              <h3 className="text-lg font-medium">{placeInfo.placeName}</h3>
+              <div className="text-xs text-gray-600">
+                {placeInfo.categories.map((category) => (
+                  <span key={category.categoryId} className="rounded-full">
+                    {category.categoryName}
+                  </span>
+                ))}
+              </div>
             </div>
             <div className="flex gap-2">
               <img
