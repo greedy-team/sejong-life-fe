@@ -7,7 +7,7 @@ import { useAuth } from './useAuth';
 
 export const usePlaceReview = (id: string) => {
   const { isLoggedIn } = useAuth();
-  const [reviews, setReviews] = useState<Review[] | []>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const token = localStorage.getItem('accessToken') ?? '';
 
   useEffect(() => {
