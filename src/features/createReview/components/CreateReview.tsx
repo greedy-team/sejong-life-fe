@@ -122,7 +122,7 @@ const CreateReview = () => {
   }
 
   return (
-    <div className="flex h-fit flex-col rounded-2xl border-2 border-gray-300 bg-white">
+    <div className="flex h-fit flex-col rounded-2xl border-2 border-gray-300 bg-white text-[#2C3037]">
       <div className="flex gap-5 p-10">
         <img
           src={placeInfo.images[0].url}
