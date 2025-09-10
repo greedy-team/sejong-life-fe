@@ -20,12 +20,27 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
         })
       }
     >
-      <div className="flex w-full">
-        <img
-          src={placeInfo.mainImageUrl}
-          alt="장소 대표 이미지"
-          className="aspect-[3/4] w-[50%]"
-        />
+      <div className="flex h-full w-full">
+        {placeInfo.mainImageUrl ? (
+          <img
+            src={placeInfo.mainImageUrl}
+            alt="장소 대표 이미지"
+            className="aspect-[3/4] w-[50%]"
+          />
+        ) : (
+          <div className="flex w-[50%] bg-[#F0F0F0]">
+            <div className="align-center flex w-full justify-center gap-2">
+              <img
+                src="/asset/place-detail-page/camera.svg"
+                alt="camera"
+                className="w-5"
+              />
+              <span className="flex items-center text-xs text-[#354052]">
+                사진이 없습니다
+              </span>
+            </div>
+          </div>
+        )}
         <div className="flex w-[50%] flex-col">
           <div className="flex flex-col gap-2 p-2.5">
             <div>
@@ -44,13 +59,17 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
                 alt="viewCount"
                 className="h-5 w-5 text-[#77db30]"
               />
-              {placeInfo.viewCount}
+              <span className="text-sm text-gray-600">
+                {placeInfo.viewCount}
+              </span>
               <img
                 src="/asset/place-item-card/chat.svg"
                 alt="reviewCount"
                 className="h-5 w-5 text-[#77db30]"
               />
-              {placeInfo.reviewCount}
+              <span className="text-sm text-gray-600">
+                {placeInfo.reviewCount}
+              </span>
             </div>
             <div className="flex flex-wrap gap-1">
               {placeInfo.tags.slice(0, 3).map((tag, index) => (
