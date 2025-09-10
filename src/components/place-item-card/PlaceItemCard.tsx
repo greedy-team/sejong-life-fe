@@ -10,7 +10,6 @@ interface PlaceItemCardProps {
 const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(placeInfo);
 
   return (
     <div

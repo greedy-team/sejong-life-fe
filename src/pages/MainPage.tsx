@@ -26,6 +26,8 @@ const MainPage = () => {
       try {
         const response = await fetchHotPlaces();
         setHotPlaces(response.data);
+        console.log('여기' + response.data);
+        console.log('WKS' + hotPlaces[0].reviewCount);
       } catch (error) {
         console.error('Failed to fetch data:', error);
       }

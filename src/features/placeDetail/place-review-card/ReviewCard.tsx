@@ -4,6 +4,7 @@ import { useState } from 'react';
 import LightboxViewer from '../LightboxViewer';
 import LoginModal from '../../login/components/LoginModal';
 import LoginWidget from '../../login/components/LoginWidget';
+import { useAuth } from '../../../hooks/useAuth';
 
 interface ReviewCardProps {
   review: Review;
@@ -16,7 +17,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const isContentLong = review.content.length > 150;
-  const isLoggedIn = !!sessionStorage.getItem('accessToken');
+  const isLoggedIn = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const formatDate = (dateString: string) => {
@@ -116,7 +117,15 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           onClick={handleIsLikeded}
           className="flex cursor-pointer items-start text-base text-gray-500"
         >
-          <span className={isLiked ? 'text-red-600' : 'text-gray-500'}>♥</span>
+          <img
+            src={
+              isLiked
+                ? '/asset/place-detail-page/heart-red.svg'
+                : '/asset/place-detail-page/heart-gray.svg'
+            }
+            alt="like"
+            className="h-5 w-5"
+          />
           {review.likeCount}
         </button>
       </div>
