@@ -24,6 +24,8 @@ const mockPlaceInfo = {
     { tagId: 1, tagName: '가성비' },
     { tagId: 7, tagName: '공부하기 좋은' },
   ],
+  reviewCount: 4,
+  viewCount: 30,
 };
 
 export const Default: Story = {
