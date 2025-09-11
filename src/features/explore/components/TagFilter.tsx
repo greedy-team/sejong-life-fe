@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useTag } from '../../../hooks/useTag';
 import type { CategoryProps, TagProps } from '../../../types/type';
 import { fetchCategories, fetchCategoryTags } from '../apis/filterApi';
 import TagButton from '../../../components/share/TagButton';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const TagFilter = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   const categoryName = params.get('category');
-  const { selectedTags, toggleTag } = useTag();
+  const [selectedTags, setSelectedTags] = useState<TagProps[]>([]);
   const [tags, setTags] = useState<TagProps[]>([]);
   const [categories, setCategories] = useState<CategoryProps[]>([]);
 
@@ -38,6 +38,31 @@ const TagFilter = () => {
 
     fetchTag();
   }, [categoryName, categories]);
+
+  const updateQueryParams = (newSelectedTags: TagProps[]) => {
+    const searchParams = new URLSearchParams(location.search);
+
+    searchParams.delete('tags');
+
+    newSelectedTags.forEach((tag) => {
+      searchParams.append('tags', tag.tagName);
+    });
+
+    navigate({ search: searchParams.toString() }, { replace: true });
+  };
+
+  const toggleTag = (tag: TagProps) => {
+    setSelectedTags((prevTags) => {
+      const isSelected = prevTags.some((t) => t.tagId === tag.tagId);
+
+      const newSelectedTags = isSelected
+        ? prevTags.filter((t) => t.tagId !== tag.tagId)
+        : [...prevTags, tag];
+
+      updateQueryParams(newSelectedTags);
+      return newSelectedTags;
+    });
+  };
 
   const isSelected = (tag: TagProps) => {
     return selectedTags.some((selectedTag) => selectedTag.tagId === tag.tagId);
