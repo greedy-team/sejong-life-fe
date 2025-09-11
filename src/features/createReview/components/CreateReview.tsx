@@ -227,7 +227,7 @@ const CreateReview = () => {
         <div className="flex justify-end px-10 py-5">
           <button
             type="submit"
-            className="rounded-lg bg-green-500 px-4 py-2 text-sm font-bold text-white"
+            className="text-md rounded-2xl bg-[#8BE34A] px-5 py-3 font-bold text-white"
           >
             등록하기
           </button>
