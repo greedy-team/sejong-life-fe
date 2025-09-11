@@ -18,14 +18,11 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPage />} />
             <Route path="detail/:id" element={<PlaceDetailPage />} />
-            <Route
-              path="write-review/:placeId"
-              element={<CreateReviewPage />}
-            />
             <Route path="preparingService" element={<PrepareServicePage />} />
             <Route path="explore" element={<ExplorePage />} />
           </Route>
-          <Route path="/detail/:id/reviews" element={<AllReviewPage />} />
+          <Route path="detail/:id/reviews" element={<AllReviewPage />} />
+          <Route path="write-review/:id" element={<CreateReviewPage />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer

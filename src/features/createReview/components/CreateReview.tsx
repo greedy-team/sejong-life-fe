@@ -7,10 +7,9 @@ import TagButton from '../../../components/share/TagButton';
 import { postReview } from '../api/postReviewApi';
 import StarRating from './StarRating';
 import { toast } from 'react-toastify';
-import HeaderWithBack from '../../allReviews/HeaderWithBack';
 
 const CreateReview = () => {
-  const { placeId } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [placeInfo, setPlaceInfo] = useState<DetailPlaceProps>();
   const [tags, setTags] = useState<TagProps[]>([]);
@@ -24,7 +23,7 @@ const CreateReview = () => {
 
   useEffect(() => {
     const fetchPlaceInfo = async () => {
-      const res = await fetchPlaceDetail(Number(placeId));
+      const res = await fetchPlaceDetail(Number(id));
       setPlaceInfo(res.data);
     };
 
@@ -108,10 +107,10 @@ const CreateReview = () => {
         submitData.append('images', file);
       });
 
-      await postReview(Number(placeId), submitData);
+      await postReview(Number(id), submitData);
 
       toast.success('리뷰가 성공적으로 등록되었습니다!');
-      navigate(`/detail/${placeId}`);
+      navigate(`/detail/${id}`);
     } catch (error) {
       console.error(error);
       toast.error('리뷰 등록에 실패했습니다.');
@@ -123,102 +122,103 @@ const CreateReview = () => {
   }
 
   return (
-    <div className="flex h-fit flex-col rounded-2xl border-2 border-gray-300 bg-white py-6 text-[#2C3037]">
-      <HeaderWithBack />
-      <form onSubmit={handleSubmit} className="py-6">
-        <div className="space-y-2 px-10 py-5">
-          <h1 className="text-lg font-bold">
-            방문하신 장소의 별점을 남겨주세요
-          </h1>
-          <StarRating
-            value={formData.rating}
-            onChange={(newRating) =>
-              setFormData((prev) => ({ ...prev, rating: newRating }))
-            }
-          />
-        </div>
-        <div className="space-y-2 p-10">
-          <h4 className="text-lg font-bold">어울리는 태그를 골라주세요!</h4>
-          <div className="custom-scroll max-h-28 space-y-2 space-x-3 overflow-auto rounded-md border border-gray-100 p-3">
-            {tags.map((tag) => {
-              const isSelected = formData.tagIds.includes(tag.tagId);
-              return (
-                <TagButton
-                  key={tag.tagId}
-                  onClick={() => handleSelectedTags(tag.tagId)}
-                  className={isSelected ? 'opacity-100' : 'opacity-60'}
-                >
-                  {tag.tagName}
-                </TagButton>
-              );
-            })}
+    <div className="bg-[#F9FAFB] px-[10%] pt-8">
+      <div className="flex h-fit flex-col rounded-2xl border border-[#EEEFF1] bg-white py-6 text-[#2C3037]">
+        <form onSubmit={handleSubmit} className="py-6">
+          <div className="space-y-2 px-10 py-5">
+            <h1 className="text-lg font-bold">
+              방문하신 장소의 별점을 남겨주세요
+            </h1>
+            <StarRating
+              value={formData.rating}
+              onChange={(newRating) =>
+                setFormData((prev) => ({ ...prev, rating: newRating }))
+              }
+            />
           </div>
-        </div>
-        <div className="flex flex-col gap-2 px-10 py-5">
-          <label htmlFor="review" className="text-lg font-bold">
-            리뷰를 작성해주세요.
-          </label>
-          <textarea
-            name="review"
-            id="review"
-            placeholder="방문한 장소의 리뷰를 남겨주세요!"
-            className="custom-scroll h-40 rounded-md bg-[#F3F3F5] p-3 text-sm"
-            onChange={handleContentChange}
-          />
-        </div>
-        <div className="flex items-center gap-2 px-10 py-5">
-          <input
-            id="imageUpload"
-            name="image"
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleImageChange}
-            className="hidden"
-          />
-          <label
-            htmlFor="imageUpload"
-            className="flex h-40 w-40 cursor-pointer items-center justify-center rounded-2xl border-3 border-dashed text-sm text-gray-500 transition-colors duration-150 hover:bg-gray-100"
-          >
-            <div className="flex flex-col items-center gap-1">
-              <img
-                src="/asset/create-review/camera.svg"
-                alt="카메라 아이콘"
-                className="mx-auto mb-1 h-8"
-              />
-              <p>사진을 추가해보세요.</p>
-              <span>사진 {previews.length}</span>
+          <div className="space-y-2 p-10">
+            <h4 className="text-lg font-bold">어울리는 태그를 골라주세요!</h4>
+            <div className="custom-scroll max-h-28 space-y-2 space-x-3 overflow-auto rounded-md border border-gray-100 p-3">
+              {tags.map((tag) => {
+                const isSelected = formData.tagIds.includes(tag.tagId);
+                return (
+                  <TagButton
+                    key={tag.tagId}
+                    onClick={() => handleSelectedTags(tag.tagId)}
+                    className={isSelected ? 'opacity-100' : 'opacity-60'}
+                  >
+                    {tag.tagName}
+                  </TagButton>
+                );
+              })}
             </div>
-          </label>
-
-          <div className="flex gap-2">
-            {previews.map((preview, index) => (
-              <div key={index} className="relative">
-                <img
-                  src={preview}
-                  alt={`preview-${index}`}
-                  className="h-24 w-24 rounded object-cover"
-                />
-                <button
-                  type="button"
-                  onClick={() => handleRemoveImage(index)}
-                  className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/50 px-1 text-xs text-white"
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
           </div>
-        </div>
-        <div className="flex justify-end px-10 py-5">
-          <button
-            type="submit"
-            className="text-md rounded-2xl bg-[#8BE34A] px-5 py-3 font-bold text-white"
-          >
-            등록하기
-          </button>
-        </div>
-      </form>
+          <div className="flex flex-col gap-2 px-10 py-5">
+            <label htmlFor="review" className="text-lg font-bold">
+              리뷰를 작성해주세요.
+            </label>
+            <textarea
+              name="review"
+              id="review"
+              placeholder="방문한 장소의 리뷰를 남겨주세요!"
+              className="custom-scroll h-40 rounded-md bg-[#F3F3F5] p-3 text-sm"
+              onChange={handleContentChange}
+            />
+          </div>
+          <div className="flex items-center gap-2 px-10 py-5">
+            <input
+              id="imageUpload"
+              name="image"
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageChange}
+              className="hidden"
+            />
+            <label
+              htmlFor="imageUpload"
+              className="flex h-40 w-40 cursor-pointer items-center justify-center rounded-2xl border-3 border-dashed text-sm text-gray-500 transition-colors duration-150 hover:bg-gray-100"
+            >
+              <div className="flex flex-col items-center gap-1">
+                <img
+                  src="/asset/create-review/camera.svg"
+                  alt="카메라 아이콘"
+                  className="mx-auto mb-1 h-8"
+                />
+                <p>사진을 추가해보세요.</p>
+                <span>사진 {previews.length}</span>
+              </div>
+            </label>
+
+            <div className="flex gap-2">
+              {previews.map((preview, index) => (
+                <div key={index} className="relative">
+                  <img
+                    src={preview}
+                    alt={`preview-${index}`}
+                    className="h-24 w-24 rounded object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveImage(index)}
+                    className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/50 px-1 text-xs text-white"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex justify-end px-10 py-5">
+            <button
+              type="submit"
+              className="text-md rounded-2xl bg-[#8BE34A] px-5 py-3 font-bold text-white"
+            >
+              등록하기
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
