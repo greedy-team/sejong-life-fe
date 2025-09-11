@@ -51,7 +51,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
                 background: '#f0f0f0',
               }}
             >
-              <div className="flex gap-2">
+              <div className="flex items-center gap-2">
                 <img
                   src="/asset/place-detail-page/camera.svg"
                   alt="camera"
