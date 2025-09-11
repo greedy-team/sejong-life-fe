@@ -7,6 +7,7 @@ import TagButton from '../../../components/share/TagButton';
 import { postReview } from '../api/postReviewApi';
 import StarRating from './StarRating';
 import { toast } from 'react-toastify';
+import HeaderWithBack from '../../allReviews/HeaderWithBack';
 
 const CreateReview = () => {
   const { placeId } = useParams();
@@ -122,23 +123,8 @@ const CreateReview = () => {
   }
 
   return (
-    <div className="flex h-fit flex-col rounded-2xl border-2 border-gray-300 bg-white text-[#2C3037]">
-      <div className="flex gap-5 p-10">
-        <img
-          src={placeInfo.images[0].url}
-          alt="대표 이미지"
-          className="aspect-square w-[20%] rounded-md"
-        />
-        <div className="flex flex-col">
-          <h4 className="text-lg font-extrabold">{placeInfo.name}</h4>
-          <p className="flex gap-1 text-xs font-semibold text-[#70553D]">
-            {placeInfo.categories.map((category) => (
-              <span key={category.categoryId}>{category.categoryName}</span>
-            ))}
-          </p>
-        </div>
-      </div>
-      <span className="h-4 w-full bg-gray-100" />
+    <div className="flex h-fit flex-col rounded-2xl border-2 border-gray-300 bg-white py-6 text-[#2C3037]">
+      <HeaderWithBack />
       <form onSubmit={handleSubmit} className="py-6">
         <div className="space-y-2 px-10 py-5">
           <h1 className="text-lg font-bold">
