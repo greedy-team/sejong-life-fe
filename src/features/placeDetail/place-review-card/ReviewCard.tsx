@@ -17,7 +17,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const isContentLong = review.content.length > 150;
-  const isLoggedIn = useAuth();
+  const { isLoggedIn } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const formatDate = (dateString: string) => {
