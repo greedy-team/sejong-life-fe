@@ -76,8 +76,8 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
               </div>
             </div>
             <div className="flex flex-wrap gap-1">
-              {placeInfo.tags.slice(0, 3).map((tag, index) => (
-                <TagButton key={index}>{tag.tagName}</TagButton>
+              {placeInfo.tags.slice(0, 3).map((tag) => (
+                <TagButton key={tag.tagId}>{tag.tagName}</TagButton>
               ))}
               {placeInfo.tags.length > 3 && (
                 <span className="w-fit cursor-pointer rounded-full bg-[#F3F4F5] px-3 py-1.5 text-[10px] font-semibold text-[#2C3037]">
