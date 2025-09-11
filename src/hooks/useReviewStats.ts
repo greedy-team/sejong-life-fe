@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import type { ReviewStatsProps } from '../types/type';
+import type { ReviewStats } from '../types/type';
 import { getReviewStats } from '../features/placeDetail/apis/reviewApi';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 export const useReviewStats = (id: string) => {
-  const [stats, setStats] = useState<ReviewStatsProps | null>(null);
+  const [stats, setStats] = useState<ReviewStats | null>(null);
 
   useEffect(() => {
     const fetchPlaceReviewStats = async () => {

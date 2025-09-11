@@ -82,7 +82,7 @@ export type Review = {
   tags: { tagId: number; tagName: string }[];
 };
 
-export type ReviewStatsProps = {
+export type ReviewStats = {
   reviewCount: number;
   averageRate: number;
   ratingDistribution: {

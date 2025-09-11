@@ -1,10 +1,9 @@
-import { useParams } from 'react-router-dom';
-import { useReviewStats } from '../../hooks/useReviewStats';
+import type { ReviewStats } from '../../types/type';
 
-const ReviewStats = () => {
-  const { id } = useParams<{ id: string }>();
-  const { stats } = useReviewStats(id!);
-
+export interface ReviewStatsProps {
+  stats: ReviewStats;
+}
+const ReviewStatsSection = ({ stats }: ReviewStatsProps) => {
   if (!stats) {
     return <div> 리뷰 통계 로딩 중...</div>;
   }
@@ -55,4 +54,4 @@ const ReviewStats = () => {
   );
 };
 
-export default ReviewStats;
+export default ReviewStatsSection;

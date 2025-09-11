@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import PhotoStrip from '../placeDetail/PhotoStrip';
-import ReviewStats from '../placeDetail/ReviewStats';
+import ReviewStats from '../placeDetail/ReviewStatsSection';
 import ReviewCard from '../placeDetail/place-review-card/ReviewCard';
 import { usePlaceDetail } from '../../hooks/usePlaceDetail';
 import { usePlaceReview } from '../../hooks/usePlaceReview';
