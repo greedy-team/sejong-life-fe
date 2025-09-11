@@ -8,7 +8,6 @@ import { useReviewLike } from '../../../hooks/useReviewLike';
 import { useAuth } from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
 
-
 interface ReviewCardProps {
   review: Review;
   placeId: string;
@@ -137,7 +136,7 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
             alt="like"
             className="h-5 w-5"
           />
-          {review.likeCount}
+          {likeCount}
         </button>
       </div>
 
