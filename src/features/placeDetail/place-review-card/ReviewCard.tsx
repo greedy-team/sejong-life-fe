@@ -4,21 +4,31 @@ import { useState } from 'react';
 import LightboxViewer from '../LightboxViewer';
 import LoginModal from '../../login/components/LoginModal';
 import LoginWidget from '../../login/components/LoginWidget';
+import { useReviewLike } from '../../../hooks/useReviewLike';
 import { useAuth } from '../../../hooks/useAuth';
+import { toast } from 'react-toastify';
+
 
 interface ReviewCardProps {
   review: Review;
+  placeId: string;
 }
 
-const ReviewCard = ({ review }: ReviewCardProps) => {
+const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
   const haveImages = review.images && review.images.length > 0;
-  const [isLiked, setIsLiked] = useState(false);
   const [index, setIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const isContentLong = review.content.length > 150;
   const { isLoggedIn } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  const { isLiked, likeCount, handleLike } = useReviewLike(
+    placeId,
+    review.reviewId,
+    review.liked,
+    review.likeCount,
+  );
 
   const formatDate = (dateString: string) => {
     try {
@@ -57,10 +67,11 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
     return stars;
   };
 
-  const handleIsLikeded = () => {
+  const handleLikeClick = () => {
     if (isLoggedIn) {
-      setIsLiked(!isLiked);
+      handleLike();
     } else {
+      toast.error('좋아요를 남기려면 로그인해주세요');
       setIsLoginOpen(true);
     }
   };
@@ -114,7 +125,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           ))}
         </div>
         <button
-          onClick={handleIsLikeded}
+          onClick={handleLikeClick}
           className="flex cursor-pointer items-start text-base text-gray-500"
         >
           <img
@@ -138,10 +149,6 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
       />
 
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)}>
-        <h2 className="mb-1 text-2xl font-bold text-[#8BE34A]">로그인</h2>
-        <p className="mb-4 text-xs text-gray-500">
-          좋아요를 남기려면 로그인해주세요.
-        </p>
         <LoginWidget onClose={() => setIsLoginOpen(false)} />
       </LoginModal>
     </>
