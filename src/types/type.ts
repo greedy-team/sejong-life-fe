@@ -24,6 +24,8 @@ export interface PlaceProps {
   mainImageUrl: string;
   categories: CategoryProps[];
   tags: TagProps[];
+  viewCount: number;
+  reviewCount: number;
 }
 
 export interface Place {

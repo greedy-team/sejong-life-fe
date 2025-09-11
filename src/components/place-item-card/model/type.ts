@@ -14,6 +14,8 @@ export interface PlaceInfo {
   mainImageUrl: string;
   categories: PlaceCategory[];
   tags: PlaceTag[];
+  viewCount: number;
+  reviewCount: number;
 }
 
 // PlaceItemCardProps -> HotPlaceApiResponse

@@ -34,8 +34,6 @@ const MainPage = () => {
     fetchHotPlace();
   }, []);
 
-  console.log('MainPage hotPlaces:', hotPlaces);
-
   if (!categories || categories.length === 0) return <div>로딩중...</div>;
 
   return (

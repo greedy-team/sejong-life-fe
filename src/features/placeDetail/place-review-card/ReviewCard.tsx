@@ -127,7 +127,15 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
           onClick={handleLikeClick}
           className="flex cursor-pointer items-start text-base text-gray-500"
         >
-          <span className={isLiked ? 'text-red-600' : 'text-gray-500'}>♥</span>
+          <img
+            src={
+              isLiked
+                ? '/asset/place-detail-page/heart-red.svg'
+                : '/asset/place-detail-page/heart-gray.svg'
+            }
+            alt="like"
+            className="h-5 w-5"
+          />
           {likeCount}
         </button>
       </div>
