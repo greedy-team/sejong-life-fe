@@ -26,8 +26,6 @@ const MainPage = () => {
       try {
         const response = await fetchHotPlaces();
         setHotPlaces(response.data);
-        console.log('여기' + response.data);
-        console.log('WKS' + hotPlaces[0].reviewCount);
       } catch (error) {
         console.error('Failed to fetch data:', error);
       }
@@ -35,8 +33,6 @@ const MainPage = () => {
 
     fetchHotPlace();
   }, []);
-
-  console.log('MainPage hotPlaces:', hotPlaces);
 
   if (!categories || categories.length === 0) return <div>로딩중...</div>;
 
