@@ -1,16 +1,16 @@
-import type { CategoryProps, Place, TagProps } from '../../../types/type';
+import type { Place } from '../../../types/type';
 import { api } from '../../../api/api';
 
 // 필터된 장소 api
 export const fetchFilteredPlaces = async (
-  selectedCategory: CategoryProps,
-  selectedTags: TagProps[],
+  selectedCategory: string,
+  selectedTags: string[],
 ): Promise<Place> => {
   const params = new URLSearchParams();
-  params.append('category', String(selectedCategory.categoryId));
+  params.append('category', String(selectedCategory));
 
   if (selectedTags.length > 0) {
-    const tagNames = selectedTags.map((tag) => tag.tagName).join(',');
+    const tagNames = selectedTags.map((tag) => tag).join(',');
     params.append('tags', tagNames);
   }
 

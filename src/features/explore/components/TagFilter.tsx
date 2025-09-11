@@ -39,6 +39,17 @@ const TagFilter = () => {
     fetchTag();
   }, [categoryName, categories]);
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tagsFromQuery = params.getAll('tags');
+
+    const newSelectedTags = tags.filter((tag) =>
+      tagsFromQuery.includes(tag.tagName),
+    );
+
+    setSelectedTags(newSelectedTags);
+  }, [location.search, tags]);
+
   const updateQueryParams = (newSelectedTags: TagProps[]) => {
     const searchParams = new URLSearchParams(location.search);
 
