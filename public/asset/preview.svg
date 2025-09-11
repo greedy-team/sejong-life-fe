@@ -1,0 +1,8 @@
+<svg width="200" height="100" viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .sejong-text { fill: #77db30; }
+    .wise-text { fill: black; }
+  </style>
+  <text x="0" y="30" font-family="Arial, sans-serif" font-size="30" font-weight="bold" class="wise-text">슬기로운</text>
+  <text x="0" y="80" font-family="Arial, sans-serif" font-size="50" font-weight="bold" class="sejong-text">세종생활</text>
+</svg>
