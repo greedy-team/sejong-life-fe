@@ -6,13 +6,19 @@ import { useSearchParams } from 'react-router-dom';
 const CategoryFilter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryName = searchParams.get('category');
-  const [selectedCategory, setSelectedCategory] = useState(categoryName);
+  const [selectedCategory, setSelectedCategory] = useState(
+    categoryName || '전체',
+  );
   const [categories, setCategories] = useState<CategoryProps[]>([]);
 
   useEffect(() => {
     const fetchCategory = async () => {
       const res = await fetchCategories();
-      setCategories(res.data || []);
+      const categoriesWithAll = [
+        { categoryId: 0, categoryName: '전체' },
+        ...(res.data || []),
+      ];
+      setCategories(categoriesWithAll);
     };
 
     fetchCategory();
