@@ -25,7 +25,7 @@ const CategoryFilter = () => {
   }, []);
 
   useEffect(() => {
-    setSelectedCategory(categoryName);
+    setSelectedCategory(categoryName || '전체');
   }, [categoryName]);
 
   const isSelected = (category: CategoryProps) => {

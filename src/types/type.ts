@@ -24,8 +24,6 @@ export interface PlaceProps {
   mainImageUrl: string;
   categories: CategoryProps[];
   tags: TagProps[];
-  viewCount: number;
-  reviewCount: number;
 }
 
 export interface Place {
@@ -39,18 +37,12 @@ export interface MapProps {
   googleMap: string;
 }
 
-export interface ImageProps {
-  imageId: number;
-  url: string;
-}
-
 export interface DetailPlaceProps {
-  id: number;
-  name: string;
-  images: ImageProps[];
+  placeId: number;
+  placeName: string;
+  images: string[];
   categories: CategoryProps[];
   tags: TagProps[];
-  viewCount: number;
   mapLinks: MapProps;
 }
 
@@ -74,7 +66,6 @@ export type Review = {
   userId: number;
   studentId: number;
   rating: number;
-  liked: boolean;
   content: string;
   likeCount: number;
   createdAt: string;

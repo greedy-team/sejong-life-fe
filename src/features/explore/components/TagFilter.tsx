@@ -29,14 +29,17 @@ const TagFilter = () => {
       (category) => category.categoryName === categoryName,
     );
 
-    if (!matchedCategory) return;
-
-    const fetchTag = async () => {
-      const res = await fetchCategoryTags(matchedCategory.categoryId);
+    const fetchTag = async (id?: number) => {
+      const res = await fetchCategoryTags(id);
       setTags(res.data || []);
     };
 
-    fetchTag();
+    if (!matchedCategory) {
+      fetchTag();
+      return;
+    }
+
+    fetchTag(matchedCategory.categoryId);
   }, [categoryName, categories]);
 
   const isSelected = (tag: TagProps) => {
