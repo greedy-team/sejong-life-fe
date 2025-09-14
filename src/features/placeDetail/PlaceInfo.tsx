@@ -42,25 +42,25 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
           <img src="/asset/place-detail-page/map.svg" alt="map" />
           <span>지도 바로가기</span>
         </div>
-        <div className="mt-4 flex w-full justify-between gap-3">
+        <div className="mt-4 grid w-full gap-3 sm:flex sm:justify-between">
           <a
             href={place.mapLinks.naverMap}
             target="_blank"
-            className="flex-1 rounded-2xl bg-[#03C75A] py-3 text-center text-lg text-white transition-colors hover:bg-[#02B350]"
+            className="flex-1 rounded-2xl bg-[#03C75A] py-2 text-center text-white transition-colors hover:bg-[#02B350] sm:py-3 sm:text-lg"
           >
             네이버맵
           </a>
           <a
             href={place.mapLinks.kakaoMap}
             target="_blank"
-            className="flex-1 rounded-2xl bg-[#FEE500] py-3 text-center text-lg transition-colors hover:bg-[#F5D400]"
+            className="flex-1 rounded-2xl bg-[#FEE500] py-2 text-center transition-colors hover:bg-[#F5D400] sm:py-3 sm:text-lg"
           >
             카카오맵
           </a>
           <a
             href={place.mapLinks.googleMap}
             target="_blank"
-            className="flex-1 rounded-2xl bg-[#868E96] py-3 text-center text-lg text-white transition-colors hover:bg-[#6C757D]"
+            className="flex-1 rounded-2xl bg-[#868E96] py-2 text-center text-white transition-colors hover:bg-[#6C757D] sm:py-3 sm:text-lg"
           >
             구글맵
           </a>
