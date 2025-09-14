@@ -1,6 +1,6 @@
 import type { Review } from '../../../types/type';
 import TagButton from '../../../components/share/TagButton';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import LightboxViewer from '../LightboxViewer';
 import LoginModal from '../../login/components/LoginModal';
 import LoginWidget from '../../login/components/LoginWidget';
@@ -18,7 +18,7 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
   const [index, setIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const isContentLong = review.content.length > 150;
+  const [isContentLong, setIsContentLong] = useState(false);
   const { isLoggedIn } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
@@ -28,6 +28,17 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
     review.liked,
     review.likeCount,
   );
+
+  const contentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (contentRef.current) {
+      const style = window.getComputedStyle(contentRef.current);
+      const lineHeight = parseFloat(style.lineHeight);
+      const lines = Math.round(contentRef.current.scrollHeight / lineHeight);
+
+      setIsContentLong(lines > 3);
+    }
+  }, [review.content]);
 
   const formatDate = (dateString: string) => {
     try {
@@ -104,16 +115,18 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
           </div>
         )}
         <div
+          ref={contentRef}
           className={`whitespace-pre-wrap ${!isExpanded ? 'line-clamp-3' : ''}`}
         >
           {review.content}
         </div>
+
         {isContentLong && (
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="-mt-2 text-left text-sm font-semibold text-gray-500"
           >
-            {isExpanded ? '간락히보기' : '더보기...'}
+            {isExpanded ? '간락히 보기' : '더보기...'}
           </button>
         )}
         <div className="flex gap-1 overflow-x-auto whitespace-nowrap">
