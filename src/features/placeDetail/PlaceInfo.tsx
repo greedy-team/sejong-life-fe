@@ -11,7 +11,11 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
       <div className="flex items-center gap-4">
         <h1 className="text-2xl font-bold text-[#212529]">{place.name}</h1>
         <div className="rounded-full bg-[#f0f0f0] px-3.5 py-1.5 text-xs">
-          {place.categories[0].categoryName}
+          {place.categories.map((category) => (
+            <span key={category.categoryId} className="rounded-full">
+              {category.categoryName}
+            </span>
+          ))}
         </div>
       </div>
 
