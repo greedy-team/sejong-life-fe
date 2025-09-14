@@ -18,7 +18,9 @@ const PlaceDetailContainer = () => {
   if (!place || !stats) return <div>로딩중...</div>;
 
   return (
+
     <div className="mx-auto mt-12 flex w-full max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">
+
       <PhotoStrip images={place.images.map((image) => image.url)} />
       <PlaceInfo place={place} />
       <div className="flex w-full border border-gray-100" />
