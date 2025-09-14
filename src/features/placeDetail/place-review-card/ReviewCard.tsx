@@ -30,7 +30,7 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
   );
 
   const contentRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
+  const checkContentLines = () => {
     if (contentRef.current) {
       const style = window.getComputedStyle(contentRef.current);
       const lineHeight = parseFloat(style.lineHeight);
@@ -38,7 +38,16 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
 
       setIsContentLong(lines > 3);
     }
+  };
+  useEffect(() => {
+    checkContentLines();
   }, [review.content]);
+  useEffect(() => {
+    window.addEventListener('resize', checkContentLines);
+    return () => {
+      window.removeEventListener('resize', checkContentLines);
+    };
+  }, []);
 
   const formatDate = (dateString: string) => {
     try {
