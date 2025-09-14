@@ -1,4 +1,4 @@
-import type { Review, ReviewStatsProps } from '../../../types/type';
+import type { Review, ReviewStats } from '../../../types/type';
 import { api } from '../../../api/api';
 
 export const getPlaceReview = async (
@@ -22,9 +22,7 @@ export const getPlaceReview = async (
   }
 };
 
-export const getReviewStats = async (
-  placeId: string,
-): Promise<ReviewStatsProps> => {
+export const getReviewStats = async (placeId: string): Promise<ReviewStats> => {
   try {
     const response = await api.get(`/api/places/${placeId}/reviews/summary`);
     return response.data.data;
