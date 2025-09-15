@@ -1,6 +1,5 @@
 import PhotoStrip from './PhotoStrip';
 import PlaceInfo from './PlaceInfo';
-
 import { useParams } from 'react-router-dom';
 import ReviewStats from './ReviewStats';
 import ReviewCard from './place-review-card/ReviewCard';
@@ -17,7 +16,7 @@ const PlaceDetailContainer = () => {
   if (!place) return <div>로딩중...</div>;
 
   return (
-    <div className="mx-auto mt-12 flex w-[75%] flex-col items-center gap-10 overflow-y-auto">
+    <div className="mx-auto mt-8 flex w-[75%] flex-col items-center gap-10 overflow-y-auto">
       <PhotoStrip images={place.images.map((image) => image.url)} />
       <PlaceInfo place={place} />
       <div className="flex w-full border border-gray-100" />
@@ -28,7 +27,7 @@ const PlaceDetailContainer = () => {
         {reviews.slice(0, 2).map((review) => (
           <>
             <div className="flex w-full border border-gray-100" />
-            <ReviewCard key={review.reviewId} review={review} />
+            <ReviewCard key={review.reviewId} review={review} placeId={id!} />
           </>
         ))}
         {reviews[2] && <MoreReviewButton />}

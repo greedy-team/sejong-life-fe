@@ -10,6 +10,7 @@ import AllReviewPage from './pages/AllReviewsPage';
 import RoulettePage from './pages/RoulettePage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BackLayout from './layout/BackLayout';
 
 function App() {
   return (
@@ -19,15 +20,14 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPage />} />
             <Route path="detail/:id" element={<PlaceDetailPage />} />
-            <Route
-              path="write-review/:placeId"
-              element={<CreateReviewPage />}
-            />
             <Route path="preparingService" element={<PrepareServicePage />} />
             <Route path="explore" element={<ExplorePage />} />
             <Route path="roulette" element={<RoulettePage />} />
           </Route>
-          <Route path="/detail/:id/reviews" element={<AllReviewPage />} />
+          <Route path="/" element={<BackLayout />}>
+            <Route path="detail/:id/reviews" element={<AllReviewPage />} />
+            <Route path="write-review/:id" element={<CreateReviewPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
       <ToastContainer

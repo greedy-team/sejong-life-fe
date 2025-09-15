@@ -34,8 +34,6 @@ const MainPage = () => {
     fetchHotPlace();
   }, []);
 
-  console.log('MainPage hotPlaces:', hotPlaces);
-
   if (!categories || categories.length === 0) return <div>로딩중...</div>;
 
   return (
@@ -45,19 +43,19 @@ const MainPage = () => {
 
         <div className="flex justify-center gap-5 pt-10">
           <PageRouterButton
-            to={`/explore?category=${categories[0]?.categoryName}`}
+            to={`/explore`}
             icon="/asset/pageRouterButton/allItemIcon.svg"
           >
             <div>전체</div>
           </PageRouterButton>
           <PageRouterButton
-            to={`/explore?category=${categories[1]?.categoryName}`}
+            to={`/explore?category=${categories[0]?.categoryName}`}
             icon="/asset/pageRouterButton/restaurantIcon.svg"
           >
             <div>식당</div>
           </PageRouterButton>
           <PageRouterButton
-            to={`/explore?category=${categories[2]?.categoryName}`}
+            to={`/explore?category=${categories[1]?.categoryName}`}
             icon="/asset/pageRouterButton/cafeIcon.svg"
           >
             <div>카페</div>

@@ -24,6 +24,8 @@ export interface PlaceProps {
   mainImageUrl: string;
   categories: CategoryProps[];
   tags: TagProps[];
+  viewCount: number;
+  reviewCount: number;
 }
 
 export interface Place {
@@ -72,6 +74,7 @@ export type Review = {
   userId: number;
   studentId: number;
   rating: number;
+  liked: boolean;
   content: string;
   likeCount: number;
   createdAt: string;

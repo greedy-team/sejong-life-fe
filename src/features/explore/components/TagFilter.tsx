@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useTag } from '../../../hooks/useTag';
 import type { CategoryProps, TagProps } from '../../../types/type';
 import { fetchCategories, fetchCategoryTags } from '../apis/filterApi';
 import TagButton from '../../../components/share/TagButton';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const TagFilter = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   const categoryName = params.get('category');
-  const { selectedTags, toggleTag } = useTag();
   const [tags, setTags] = useState<TagProps[]>([]);
   const [categories, setCategories] = useState<CategoryProps[]>([]);
 
@@ -29,18 +28,48 @@ const TagFilter = () => {
       (category) => category.categoryName === categoryName,
     );
 
-    if (!matchedCategory) return;
-
-    const fetchTag = async () => {
-      const res = await fetchCategoryTags(matchedCategory.categoryId);
+    const fetchTag = async (id?: number) => {
+      const res = await fetchCategoryTags(id);
       setTags(res.data || []);
     };
 
-    fetchTag();
+    if (!matchedCategory) {
+      fetchTag();
+      return;
+    }
+
+    fetchTag(matchedCategory.categoryId);
   }, [categoryName, categories]);
 
+  const updateQueryParams = (newSelectedTags: TagProps[]) => {
+    const searchParams = new URLSearchParams(location.search);
+
+    searchParams.delete('tags');
+    newSelectedTags.forEach((tag) => {
+      searchParams.append('tags', tag.tagName);
+    });
+
+    navigate({ search: searchParams.toString() }, { replace: true });
+  };
+
+  const toggleTag = (tag: TagProps) => {
+    const searchParams = new URLSearchParams(location.search);
+    const tagsFromQuery = new Set(searchParams.getAll('tags'));
+
+    if (tagsFromQuery.has(tag.tagName)) {
+      tagsFromQuery.delete(tag.tagName);
+    } else {
+      tagsFromQuery.add(tag.tagName);
+    }
+
+    const newSelectedTags = tags.filter((t) => tagsFromQuery.has(t.tagName));
+    updateQueryParams(newSelectedTags);
+  };
+
   const isSelected = (tag: TagProps) => {
-    return selectedTags.some((selectedTag) => selectedTag.tagId === tag.tagId);
+    const searchParams = new URLSearchParams(location.search);
+    const tagsFromQuery = searchParams.getAll('tags');
+    return tagsFromQuery.includes(tag.tagName);
   };
 
   const handleTagClick = (tag: TagProps) => {
@@ -48,7 +77,7 @@ const TagFilter = () => {
   };
 
   return (
-    <div className="mt-[-1px] flex w-full gap-2 rounded-tr-md rounded-b-md border border-[#dadada] bg-[#F7F5F5] p-10">
+    <div className="mt-[-1px] flex w-full flex-wrap gap-2 rounded-tr-md rounded-b-md border border-[#dadada] bg-[#F7F5F5] p-10">
       {tags.map((tag) => (
         <TagButton
           key={tag.tagId}
