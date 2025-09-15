@@ -34,9 +34,7 @@ const PageRouterButton = ({
       {icon && (
         <img src={icon} alt="" className="absolute top-2 left-2 h-8 w-8" />
       )}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2">
-        {children}
-      </div>
+      <div className="absolute bottom-2 left-3">{children}</div>
     </button>
   );
 };
