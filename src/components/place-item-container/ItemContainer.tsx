@@ -26,7 +26,7 @@ const ItemContainer = ({ title, items = [], iconSrc }: ItemContainerProps) => {
           logos={logoItems}
           speed={60}
           direction="left"
-          logoHeight={100}
+          logoHeight={190}
           gap={8}
           pauseOnHover
           scaleOnHover
