@@ -27,8 +27,8 @@ const DirectInput: React.FC<DirectInputProps> = ({
   };
 
   return (
-    <div className="mt-6 w-full rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
-      <h3 className="mb-4 text-center text-2xl font-bold text-gray-800">
+    <div className="w-full rounded-2xl border border-gray-200 bg-white p-4 shadow-lg sm:p-6">
+      <h3 className="mb-4 text-center text-xl font-bold text-gray-800 sm:text-2xl">
         직접 입력하기
       </h3>
       <div className="flex gap-2">
@@ -38,11 +38,11 @@ const DirectInput: React.FC<DirectInputProps> = ({
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="장소명을 입력하세요"
-          className="flex-grow rounded-lg border border-gray-300 px-4 py-2 focus:border-green-500 focus:ring-2 focus:ring-green-200 focus:outline-none"
+          className="flex-grow rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-green-500 focus:ring-2 focus:ring-green-200 focus:outline-none sm:px-4 sm:text-base"
         />
         <button
           onClick={handleAdd}
-          className="rounded-lg bg-[#8BE34A] px-6 py-2 font-semibold text-black transition-colors duration-300 hover:bg-[#7bcc42]"
+          className="rounded-lg bg-[#8BE34A] px-4 py-2 text-sm font-semibold text-black transition-colors duration-300 hover:bg-[#7bcc42] sm:px-6 sm:text-base"
         >
           추가
         </button>

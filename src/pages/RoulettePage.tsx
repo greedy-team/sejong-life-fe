@@ -141,11 +141,11 @@ const RoulettePage = () => {
         </p>
       </div>
 
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-start gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-8 lg:flex-row lg:items-start lg:justify-center">
+        <div className="w-full lg:w-7/12">
           <Roulette items={rouletteItems} colors={rouletteColors} />
         </div>
-        <div className="lg:col-span-1">
+        <div className="flex w-full flex-col gap-8 lg:w-5/12">
           <CategorySelector
             restaurants={restaurants}
             cafes={cafes}
