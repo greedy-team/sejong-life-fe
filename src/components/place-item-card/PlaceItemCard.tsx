@@ -13,7 +13,7 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
 
   return (
     <div
-      className={`h-[180px] w-[330px] cursor-pointer overflow-hidden rounded-xl shadow-sm transition-colors duration-200 hover:bg-[#fafafa] ${className}`}
+      className={`h-[180px] w-[80vw] cursor-pointer overflow-hidden rounded-xl border-2 border-transparent shadow-sm transition-all duration-200 hover:bg-[#fafafa] sm:w-[330px] ${className}`}
       onClick={() =>
         navigate(`/detail/${placeInfo.placeId}`, {
           state: { from: location.pathname + location.search },

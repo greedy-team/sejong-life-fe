@@ -40,7 +40,6 @@ const MainPage = () => {
     <>
       <div className="w-full overflow-x-hidden">
         <Banner />
-
         <div className="flex justify-center gap-5 pt-10">
           <PageRouterButton
             to={`/explore`}

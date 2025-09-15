@@ -5,7 +5,7 @@ const Banner = () => {
     <section className="relative flex h-[150px] w-full items-center justify-center bg-white text-center text-gray-800">
       <div className="relative z-20 flex flex-col items-center justify-center">
         <div className="mb-4 h-16"></div>
-        <p className="mb-6 text-4xl">
+        <p className="mb-6 text-2xl sm:text-4xl">
           세종대생의 하루를 더 편하게 <br />
           <span className="font-bold">
             <TextType
