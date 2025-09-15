@@ -89,11 +89,11 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
         <div data-testid="review-rating">{rederStartIcons(review.rating)}</div>
         {haveImages && (
           <div className="flex gap-1 overflow-x-auto">
-            {review.images.map((imgURL, i) => (
+            {review.images.map((image, i) => (
               <img
-                key={i}
-                src={imgURL}
-                alt={'리뷰 사진 ${i+1}'}
+                key={image.imageId}
+                src={image.url}
+                alt={`리뷰 사진 ${i + 1}`}
                 onClick={() => {
                   setIndex(i);
                   setIsLightboxOpen(true);
@@ -143,7 +143,7 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
       <LightboxViewer
         isLightboxOpen={isLightboxOpen}
         index={index}
-        images={review.images}
+        images={review.images.map((img) => img.url)}
         onClose={() => setIsLightboxOpen(false)}
       />
 

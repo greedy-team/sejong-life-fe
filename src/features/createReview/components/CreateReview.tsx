@@ -7,6 +7,7 @@ import TagButton from '../../../components/share/TagButton';
 import { postReview } from '../api/postReviewApi';
 import StarRating from './StarRating';
 import { toast } from 'react-toastify';
+import heic2any from 'heic2any';
 
 const CreateReview = () => {
   const { id } = useParams();
@@ -61,16 +62,43 @@ const CreateReview = () => {
     });
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files);
 
-    const newPreviews = files.map((file) => URL.createObjectURL(file));
+    const convertedFiles: File[] = [];
+
+    for (const file of files) {
+      if (file.type === 'image/heic' || file.name.endsWith('.heic')) {
+        try {
+          const convertedBlob = (await heic2any({
+            blob: file,
+            toType: 'image/jpeg',
+            quality: 0.9,
+          })) as Blob;
+
+          const jpegFile = new File(
+            [convertedBlob],
+            file.name.replace(/\.heic$/i, '.jpg'),
+            {
+              type: 'image/jpeg',
+            },
+          );
+          convertedFiles.push(jpegFile);
+        } catch (err) {
+          console.error('HEIC 변환 실패:', err);
+          convertedFiles.push(file);
+        }
+      } else {
+        convertedFiles.push(file);
+      }
+    }
+    const newPreviews = convertedFiles.map((file) => URL.createObjectURL(file));
 
     setPreviews((prev) => [...prev, ...newPreviews]);
     setFormData((prev) => ({
       ...prev,
-      images: [...prev.images, ...files],
+      images: [...prev.images, ...convertedFiles],
     }));
 
     e.target.value = '';
