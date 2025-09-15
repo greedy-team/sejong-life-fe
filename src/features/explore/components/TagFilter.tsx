@@ -9,7 +9,6 @@ const TagFilter = () => {
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   const categoryName = params.get('category');
-  const [selectedTags, setSelectedTags] = useState<TagProps[]>([]);
   const [tags, setTags] = useState<TagProps[]>([]);
   const [categories, setCategories] = useState<CategoryProps[]>([]);
 
@@ -39,22 +38,10 @@ const TagFilter = () => {
     fetchTag();
   }, [categoryName, categories]);
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const tagsFromQuery = params.getAll('tags');
-
-    const newSelectedTags = tags.filter((tag) =>
-      tagsFromQuery.includes(tag.tagName),
-    );
-
-    setSelectedTags(newSelectedTags);
-  }, [location.search, tags]);
-
   const updateQueryParams = (newSelectedTags: TagProps[]) => {
     const searchParams = new URLSearchParams(location.search);
 
     searchParams.delete('tags');
-
     newSelectedTags.forEach((tag) => {
       searchParams.append('tags', tag.tagName);
     });
@@ -63,20 +50,23 @@ const TagFilter = () => {
   };
 
   const toggleTag = (tag: TagProps) => {
-    setSelectedTags((prevTags) => {
-      const isSelected = prevTags.some((t) => t.tagId === tag.tagId);
+    const searchParams = new URLSearchParams(location.search);
+    const tagsFromQuery = new Set(searchParams.getAll('tags'));
 
-      const newSelectedTags = isSelected
-        ? prevTags.filter((t) => t.tagId !== tag.tagId)
-        : [...prevTags, tag];
+    if (tagsFromQuery.has(tag.tagName)) {
+      tagsFromQuery.delete(tag.tagName);
+    } else {
+      tagsFromQuery.add(tag.tagName);
+    }
 
-      updateQueryParams(newSelectedTags);
-      return newSelectedTags;
-    });
+    const newSelectedTags = tags.filter((t) => tagsFromQuery.has(t.tagName));
+    updateQueryParams(newSelectedTags);
   };
 
   const isSelected = (tag: TagProps) => {
-    return selectedTags.some((selectedTag) => selectedTag.tagId === tag.tagId);
+    const searchParams = new URLSearchParams(location.search);
+    const tagsFromQuery = searchParams.getAll('tags');
+    return tagsFromQuery.includes(tag.tagName);
   };
 
   const handleTagClick = (tag: TagProps) => {
