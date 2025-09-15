@@ -124,8 +124,8 @@
         <br />
       </td>
         <td align="center">
-        <a href="https://github.com/gogo1414">
-          <img src="https://github.com/user-attachments/assets/92363e6e-addb-4448-bb3c-1abce76c4e33" width="100px;" alt="염지환"/>
+        <a href="https://github.com/JIHWANYEOM">
+          <img src="https://github.com/user-attachments/assets/2365dc44-3d93-4295-95a3-08756f85b082" width="100px;" alt="염지환"/>
           <br /><sub><b>염지환(BE)</b></sub>
         </a>
         </td>
