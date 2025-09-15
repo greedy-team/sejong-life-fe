@@ -78,7 +78,7 @@ export type Review = {
   content: string;
   likeCount: number;
   createdAt: string;
-  images: string[];
+  images: ImageProps[];
   tags: { tagId: number; tagName: string }[];
 };
 
