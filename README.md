@@ -98,35 +98,41 @@
       <td align="center">
         <a href="https://github.com/developowl">
           <img src="https://github.com/user-attachments/assets/31741b00-3ce4-4c5a-94e2-dae88eb02a4b" width="100px;" alt="신지훈"/>
-          <br /><sub><b>신지훈(BE)</b></sub>
+          <br /><sub><b>신지훈(FE)</b></sub>
         </a>
         <br />
       </td>
       <td align="center">
-        <a href="https://github.com/haeyoon1">
-          <img src="https://github.com/user-attachments/assets/5eb268a3-3969-4ba8-b435-d1cda852f940" width="100px;" alt="남해윤"/>
-          <br /><sub><b>남해윤 (BE)</b></sub>
+        <a href="https://github.com/zldn109">
+          <img src="https://github.com/user-attachments/assets/21d7d5d3-f195-49af-911b-4adeea8d5d99" width="100px;" height="100px" alt="신지우"/>
+          <br /><sub><b>신지우(FE)</b></sub>
         </a>
         <br />
       </td>
        <td align="center">
         <a href="https://github.com/SANGHEEJEONG">
-          <img src="https://github.com/user-attachments/assets/a0049ddc-d39d-4968-9102-b33b456c3be5" width="100px;" alt="정상희"/>
-          <br /><sub><b>정상희 (BE)</b></sub>
+          <img src="https://github.com/user-attachments/assets/a0049ddc-d39d-4968-9102-b33b456c3be5" width="100px;" alt="정창우"/>
+          <br /><sub><b>정창우(FE)</b></sub>
         </a>
         <br />
       </td>
        <td align="center">
         <a href="https://github.com/Songhyejeong">
-          <img src="https://github.com/user-attachments/assets/8e82b639-b979-4f01-b36d-defcbf95e991" width="100px;" alt="송혜정"/>
-          <br /><sub><b>송혜정 (FE)</b></sub>
+          <img src="https://github.com/user-attachments/assets/8e82b639-b979-4f01-b36d-defcbf95e991" width="100px;" alt="김지우"/>
+          <br /><sub><b>김지우(BE)</b></sub>
         </a>
         <br />
       </td>
         <td align="center">
         <a href="https://github.com/gogo1414">
-          <img src="https://github.com/user-attachments/assets/92363e6e-addb-4448-bb3c-1abce76c4e33" width="100px;" alt="김준수"/>
-          <br /><sub><b>김준수(FE)</b></sub>
+          <img src="https://github.com/user-attachments/assets/92363e6e-addb-4448-bb3c-1abce76c4e33" width="100px;" alt="염지환"/>
+          <br /><sub><b>염지환(BE)</b></sub>
+        </a>
+        </td>
+           <td align="center">
+           <a href="https://github.com/gjtjrl303">
+          <img src="https://github.com/user-attachments/assets/3c043c8c-21fb-4689-8237-04c65ad455dd" width="100px;" height="100px" alt="허석준"/>
+          <br /><sub><b>허석준(BE)</b></sub>
         </a>
         <br />
       </td>
