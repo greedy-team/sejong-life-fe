@@ -1,42 +1,56 @@
 import { useEffect, useState } from 'react';
 import PlaceItemCard from '../../../components/place-item-card/PlaceItemCard';
 import TagButton from '../../../components/share/TagButton';
-import { useCategory } from '../../../hooks/useCategory';
-import { useTag } from '../../../hooks/useTag';
-import type { PlaceProps, TagProps } from '../../../types/type';
+import type { PlaceProps } from '../../../types/type';
 import { fetchFilteredPlaces } from '../apis/placeApi';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ExploreItem = () => {
-  const { selectedCategory } = useCategory();
-  const { selectedTags, toggleTag } = useTag();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const categoryFromQuery = params.get('category') || '';
+  const tagsFromQuery = params.getAll('tags') || '';
   const [filteredPlaces, setFilteredPlaces] = useState<PlaceProps[]>([]);
 
   useEffect(() => {
     const fetchFilterPlace = async () => {
-      if (selectedCategory && selectedTags) {
-        const res = await fetchFilteredPlaces(selectedCategory, selectedTags);
+      if (categoryFromQuery && tagsFromQuery) {
+        const res = await fetchFilteredPlaces(categoryFromQuery, tagsFromQuery);
         setFilteredPlaces(res.data || []);
       }
     };
 
     fetchFilterPlace();
-  }, [selectedCategory, selectedTags]);
+  }, [categoryFromQuery, tagsFromQuery]);
 
-  const handleTag = (tag: TagProps) => {
-    toggleTag(tag);
+  const handleTag = (tagName: string) => {
+    const newParams = new URLSearchParams(location.search);
+    const currentTags = new Set(newParams.getAll('tags'));
+
+    if (currentTags.has(tagName)) {
+      currentTags.delete(tagName);
+    } else {
+      currentTags.add(tagName);
+    }
+
+    newParams.delete('tags');
+    currentTags.forEach((tag) => newParams.append('tags', tag));
+
+    navigate({ search: newParams.toString() }, { replace: true });
   };
 
   return (
     <div className="flex w-full flex-col gap-4 py-20">
       <ul className="flex gap-2 px-2">
-        {selectedTags.map((tag) => (
+        {tagsFromQuery.map((tag) => (
           <TagButton
-            key={tag.tagId}
+            key={tag}
             size="middle"
             className="flex cursor-pointer items-center justify-center gap-3 px-1"
             onClick={() => handleTag(tag)}
           >
-            {tag.tagName}
+            {tag}
             <button>X</button>
           </TagButton>
         ))}
