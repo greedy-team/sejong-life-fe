@@ -26,16 +26,16 @@ const ExploreItem = () => {
 
   const handleTag = (tagName: string) => {
     const newParams = new URLSearchParams(location.search);
-    const currentTags = newParams.getAll('tags');
+    const currentTags = new Set(newParams.getAll('tags'));
 
-    if (currentTags.includes(tagName)) {
-      newParams.delete('tags');
-      currentTags
-        .filter((tag) => tag !== tagName)
-        .forEach((tag) => newParams.append('tags', tag));
+    if (currentTags.has(tagName)) {
+      currentTags.delete(tagName);
     } else {
-      newParams.append('tags', tagName);
+      currentTags.add(tagName);
     }
+
+    newParams.delete('tags');
+    currentTags.forEach((tag) => newParams.append('tags', tag));
 
     navigate({ search: newParams.toString() }, { replace: true });
   };
