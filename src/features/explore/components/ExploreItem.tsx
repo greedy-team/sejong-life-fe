@@ -41,7 +41,7 @@ const ExploreItem = () => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-4 py-20">
+    <div className="flex w-full flex-col gap-4 py-15">
       <ul className="flex flex-wrap gap-2 px-2">
         {tagsFromQuery.map((tag) => (
           <TagButton
