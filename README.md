@@ -117,8 +117,8 @@
         <br />
       </td>
        <td align="center">
-        <a href="https://github.com/Songhyejeong">
-          <img src="https://github.com/user-attachments/assets/8e82b639-b979-4f01-b36d-defcbf95e991" width="100px;" alt="김지우"/>
+        <a href="https://github.com/Ji-Woo-Kim">
+          <img src="https://github.com/user-attachments/assets/6ede9a4b-70f2-4cf8-a50a-361b7071a17f" width="100px;" alt="김지우"/>
           <br /><sub><b>김지우(BE)</b></sub>
         </a>
         <br />
