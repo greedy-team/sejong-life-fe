@@ -30,7 +30,7 @@ const CategoryFilter = () => {
   };
 
   return (
-    <div className="mx-auto flex w-full justify-center gap-10 select-none">
+    <div className="mx-auto flex w-[85%] justify-center gap-5 sm:gap-10">
       {categories.map((category) => (
         <button
           key={category.categoryId}
