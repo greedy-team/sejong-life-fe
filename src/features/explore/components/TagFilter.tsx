@@ -77,7 +77,7 @@ const TagFilter = () => {
   };
 
   return (
-    <div className="flex w-full flex-wrap gap-2">
+    <div className="m-auto flex w-[85%] flex-wrap gap-1.5">
       {tags.map((tag) => (
         <TagButton
           key={tag.tagId}
