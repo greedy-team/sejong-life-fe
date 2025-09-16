@@ -11,6 +11,7 @@ import RoulettePage from './pages/RoulettePage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BackLayout from './layout/BackLayout';
+import ProtectedRoute from './components/share/ProtectedRoute';
 
 function App() {
   return (
@@ -26,7 +27,14 @@ function App() {
           </Route>
           <Route path="/" element={<BackLayout />}>
             <Route path="detail/:id/reviews" element={<AllReviewPage />} />
-            <Route path="write-review/:id" element={<CreateReviewPage />} />
+            <Route
+              path="write-review/:id"
+              element={
+                <ProtectedRoute>
+                  <CreateReviewPage />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -16,7 +16,7 @@ const TagButton = ({
   let sizeStyle = 'px-3 py-1.5 text-[10px] font-semibold';
 
   if (size === 'large') {
-    sizeStyle = 'px-4 py-2 text-xs font-bold';
+    sizeStyle = 'px-4 py-2 text-sm font-bold';
   }
 
   if (size === 'middle') {

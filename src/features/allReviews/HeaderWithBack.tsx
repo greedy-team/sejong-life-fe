@@ -8,7 +8,7 @@ const HeaderWithBack = () => {
 
   return (
     <>
-      <header className="flex h-14 w-full border-b border-b-[#EEEFF1] px-15 py-2">
+      <header className="flex h-14 w-full border-b border-b-[#EEEFF1] px-[5%] py-2 lg:px-15">
         <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-5"

@@ -150,10 +150,10 @@ const CreateReview = () => {
   }
 
   return (
-    <div className="bg-[#F9FAFB] px-[10%] pt-8">
-      <div className="flex h-fit flex-col rounded-2xl border border-[#EEEFF1] bg-white py-6 text-[#2C3037]">
-        <form onSubmit={handleSubmit} className="py-6">
-          <div className="space-y-2 px-10 py-5">
+    <div className="bg-[#F9FAFB] px-[2%] pt-2 lg:px-[10%] lg:pt-8">
+      <div className="flex h-fit flex-col rounded-2xl border border-[#EEEFF1] bg-white py-2 text-[#2C3037] lg:py-6">
+        <form onSubmit={handleSubmit} className="py-2 lg:py-6">
+          <div className="space-y-2 px-8 py-5 lg:px-10">
             <h1 className="text-lg font-bold">
               방문하신 장소의 별점을 남겨주세요
             </h1>
@@ -164,14 +164,15 @@ const CreateReview = () => {
               }
             />
           </div>
-          <div className="space-y-2 p-10">
+          <div className="space-y-2 p-8 lg:p-10">
             <h4 className="text-lg font-bold">어울리는 태그를 골라주세요!</h4>
-            <div className="custom-scroll max-h-28 space-y-2 space-x-3 overflow-auto rounded-md border border-gray-100 p-3">
+            <div className="custom-scroll max-h-28 space-y-2 overflow-auto rounded-md border border-gray-100 p-3 lg:space-x-3">
               {tags.map((tag) => {
                 const isSelected = formData.tagIds.includes(tag.tagId);
                 return (
                   <TagButton
                     key={tag.tagId}
+                    size="large"
                     onClick={() => handleSelectedTags(tag.tagId)}
                     className={isSelected ? 'opacity-100' : 'opacity-60'}
                   >
@@ -181,7 +182,7 @@ const CreateReview = () => {
               })}
             </div>
           </div>
-          <div className="flex flex-col gap-2 px-10 py-5">
+          <div className="flex flex-col gap-2 px-8 py-5 lg:px-10">
             <label htmlFor="review" className="text-lg font-bold">
               리뷰를 작성해주세요.
             </label>
@@ -193,7 +194,7 @@ const CreateReview = () => {
               onChange={handleContentChange}
             />
           </div>
-          <div className="flex items-center gap-2 px-10 py-5">
+          <div className="flex items-center gap-2 px-8 py-5 lg:px-10">
             <input
               id="imageUpload"
               name="image"
@@ -218,7 +219,7 @@ const CreateReview = () => {
               </div>
             </label>
 
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {previews.map((preview, index) => (
                 <div key={index} className="relative">
                   <img
@@ -237,7 +238,7 @@ const CreateReview = () => {
               ))}
             </div>
           </div>
-          <div className="flex justify-end px-10 py-5">
+          <div className="flex justify-end px-8 py-5 lg:px-10">
             <button
               type="submit"
               className="text-md rounded-2xl bg-[#8BE34A] px-5 py-3 font-bold text-white"
