@@ -28,9 +28,9 @@ const ReviewWriteButton = ({ placeName, placeId }: ReviewWiteButtonProps) => {
     <>
       <div className="flex w-[90%] flex-col items-start gap-3 text-lg">
         <div className="flex text-xl font-bold text-[#212529]">
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <img src="/asset/place-detail-page/filePencil.svg" alt="review" />
-            리뷰쓰기
+            <span>리뷰쓰기</span>
           </div>
         </div>
         <div>
@@ -43,9 +43,9 @@ const ReviewWriteButton = ({ placeName, placeId }: ReviewWiteButtonProps) => {
           onClick={handleClickedReviewWriteButton}
           className="flex w-full cursor-pointer items-center justify-center rounded-2xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
         >
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <img src="/asset/place-detail-page/pencil.svg" alt="map" />
-            리뷰쓰기
+            <span>리뷰쓰기</span>
           </div>
         </a>
       </div>

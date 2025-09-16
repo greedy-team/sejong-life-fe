@@ -30,7 +30,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
         {[0, 1, 2].map((i) =>
           images[i] ? (
             <img
-              className="h-full w-1/4 flex-1 object-cover"
+              className="h-full flex-1 object-cover transition-transform duration-300 ease-in-out hover:scale-105"
               key={i}
               src={images[i]}
               alt={`place-${i}`}
@@ -51,7 +51,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
                 background: '#f0f0f0',
               }}
             >
-              <div className="flex gap-2">
+              <div className="flex items-center gap-2">
                 <img
                   src="/asset/place-detail-page/camera.svg"
                   alt="camera"

@@ -8,21 +8,25 @@ interface PlaceInfoProps {
 const PlaceInfo = ({ place }: PlaceInfoProps) => {
   return (
     <div className="flex w-[90%] flex-col items-start gap-5">
-      <div className="flex gap-4">
+      <div className="flex items-center gap-4">
         <h1 className="text-2xl font-bold text-[#212529]">{place.name}</h1>
-        <div className="rounded-full bg-[#f0f0f0] px-3.5 pt-2 text-xs">
-          {place.categories[0].categoryName}
+        <div className="rounded-full bg-[#f0f0f0] px-3.5 py-1.5 text-xs">
+          {place.categories.map((category) => (
+            <span key={category.categoryId} className="rounded-full">
+              {category.categoryName}
+            </span>
+          ))}
         </div>
       </div>
 
       <div className="text-lg font-semibold text-[#343A40]">
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           <img
             src="/asset/place-detail-page/tag.svg"
             alt="tag"
             className="text-[#77db30]"
           />
-          태그
+          <span>태그</span>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
           {place.tags.map((tag) => (
@@ -34,29 +38,29 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
       </div>
 
       <div className="w-full items-center text-lg font-semibold text-[#343A40]">
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           <img src="/asset/place-detail-page/map.svg" alt="map" />
-          지도 바로가기
+          <span>지도 바로가기</span>
         </div>
-        <div className="mt-4 flex w-full justify-between gap-3">
+        <div className="mt-4 grid w-full gap-3 sm:flex sm:justify-between">
           <a
             href={place.mapLinks.naverMap}
             target="_blank"
-            className="flex-1 rounded-2xl bg-[#03C75A] py-3 text-center text-lg text-white transition-colors hover:bg-[#02B350]"
+            className="flex-1 rounded-2xl bg-[#03C75A] py-2 text-center text-white transition-colors hover:bg-[#02B350] sm:py-3 sm:text-lg"
           >
             네이버맵
           </a>
           <a
             href={place.mapLinks.kakaoMap}
             target="_blank"
-            className="flex-1 rounded-2xl bg-[#FEE500] py-3 text-center text-lg transition-colors hover:bg-[#F5D400]"
+            className="flex-1 rounded-2xl bg-[#FEE500] py-2 text-center transition-colors hover:bg-[#F5D400] sm:py-3 sm:text-lg"
           >
             카카오맵
           </a>
           <a
             href={place.mapLinks.googleMap}
             target="_blank"
-            className="flex-1 rounded-2xl bg-[#868E96] py-3 text-center text-lg text-white transition-colors hover:bg-[#6C757D]"
+            className="flex-1 rounded-2xl bg-[#868E96] py-2 text-center text-white transition-colors hover:bg-[#6C757D] sm:py-3 sm:text-lg"
           >
             구글맵
           </a>

@@ -1,10 +1,9 @@
-import { useParams } from 'react-router-dom';
-import { useReviewStats } from '../../hooks/useReviewStats';
+import type { ReviewStats } from '../../types/type';
 
-const ReviewStats = () => {
-  const { id } = useParams<{ id: string }>();
-  const { stats } = useReviewStats(id!);
-
+export interface ReviewStatsProps {
+  stats: ReviewStats;
+}
+const ReviewStatsSection = ({ stats }: ReviewStatsProps) => {
   if (!stats) {
     return <div> 리뷰 통계 로딩 중...</div>;
   }
@@ -16,7 +15,7 @@ const ReviewStats = () => {
 
   return (
     <div className="flex w-[90%] flex-col items-start">
-      <div className="flex gap-4">
+      <div className="flex items-center gap-4">
         <div className="flex gap-1.5">
           <div className="text-xl text-[#77db30]">★</div>
           <div className="text-xl font-bold text-[#212529]">
@@ -55,4 +54,4 @@ const ReviewStats = () => {
   );
 };
 
-export default ReviewStats;
+export default ReviewStatsSection;
