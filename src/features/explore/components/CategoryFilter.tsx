@@ -30,11 +30,11 @@ const CategoryFilter = () => {
   };
 
   return (
-    <div className="flex select-none">
+    <div className="mx-auto flex w-full justify-center gap-10 select-none">
       {categories.map((category) => (
         <button
           key={category.categoryId}
-          className={`relative z-10 flex h-[46px] w-[145px] cursor-pointer items-center justify-center rounded-t-2xl border border-[#dadada] font-bold transition-colors duration-100 ${isSelected(category) ? 'border-b-0 bg-[#F7F5F5]' : 'bg-white hover:bg-[#fdfdfd]'} `}
+          className={`relative z-10 flex h-[46px] w-[130px] cursor-pointer items-center justify-center rounded-xl font-semibold transition-colors duration-100 hover:scale-105 ${isSelected(category) ? 'bg-gray-200' : 'bg-gray-100'} `}
           onClick={() => handleCategoryClick(category)}
         >
           {category.categoryName}
