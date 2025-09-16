@@ -42,7 +42,7 @@ const MainPage = () => {
         <Banner />
         <div className="flex justify-center gap-5 pt-10">
           <PageRouterButton
-            to={`/explore`}
+            to={`/explore?category=${'전체'}`}
             icon="/asset/pageRouterButton/allItemIcon.svg"
           >
             <div>전체</div>
