@@ -1,5 +1,5 @@
 import type { Review, ReviewStats } from '../../../types/type';
-import { api } from '../../../api/api';
+import { api, authApi } from '../../../api/api';
 
 export const getPlaceReview = async (
   placeId: string,
@@ -31,35 +31,16 @@ export const getReviewStats = async (placeId: string): Promise<ReviewStats> => {
   }
 };
 
-export const addReviewLike = async (
-  placeId: string,
-  reviewId: number,
-  token: string,
-) => {
-  const response = await api.post(
+export const addReviewLike = async (placeId: string, reviewId: number) => {
+  const response = await authApi.post(
     `/api/places/${placeId}/reviews/${reviewId}/likes`,
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
   );
   return response.data;
 };
 
-export const removeReviewLike = async (
-  placeId: string,
-  reviewId: number,
-  token: string,
-) => {
-  const response = await api.delete(
+export const removeReviewLike = async (placeId: string, reviewId: number) => {
+  const response = await authApi.delete(
     `/api/places/${placeId}/reviews/${reviewId}/likes`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
   );
   return response.data;
 };

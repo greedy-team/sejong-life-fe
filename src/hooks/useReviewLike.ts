@@ -33,12 +33,6 @@ export const useReviewLike = (
       return;
     }
 
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      toast.error('인증 토큰이 없습니다. 로그인해주세요.');
-      return;
-    }
-
     const prevLiked = isLiked;
     const prevLikeCount = likeCount;
 
@@ -47,9 +41,9 @@ export const useReviewLike = (
 
     try {
       if (prevLiked) {
-        await removeReviewLike(placeId, reviewId, token);
+        await removeReviewLike(placeId, reviewId);
       } else {
-        await addReviewLike(placeId, reviewId, token);
+        await addReviewLike(placeId, reviewId);
       }
     } catch (err) {
       setIsLiked(prevLiked);
