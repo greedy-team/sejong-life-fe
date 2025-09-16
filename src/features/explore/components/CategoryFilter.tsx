@@ -6,9 +6,6 @@ import { useSearchParams } from 'react-router-dom';
 const CategoryFilter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryName = searchParams.get('category');
-  const [selectedCategory, setSelectedCategory] = useState(
-    categoryName || '전체',
-  );
   const [categories, setCategories] = useState<CategoryProps[]>([]);
 
   useEffect(() => {
@@ -24,16 +21,11 @@ const CategoryFilter = () => {
     fetchCategory();
   }, []);
 
-  useEffect(() => {
-    setSelectedCategory(categoryName || '전체');
-  }, [categoryName]);
-
   const isSelected = (category: CategoryProps) => {
-    return selectedCategory === category.categoryName;
+    return categoryName === category.categoryName;
   };
 
   const handleCategoryClick = (category: CategoryProps) => {
-    setSelectedCategory(category.categoryName);
     setSearchParams({ category: category.categoryName });
   };
 
