@@ -69,7 +69,6 @@
 <img width="100%" height="30%" alt="image" src="https://github.com/user-attachments/assets/0b60be39-43e9-4d1d-96b9-5ff730075dae" />
  <img width="100%" height="30%" alt="image" src="https://github.com/user-attachments/assets/efddb161-d60c-44a5-99ab-0cf1723e6759" />
 <img width="9100%" height="30%" alt="image" src="https://github.com/user-attachments/assets/bc082118-51bc-48a2-8ecd-21ddd88cffb2" />
-
 </p>
 
 ## 🛠 기술 스택
@@ -77,7 +76,8 @@
 ### 프론트엔드
 
 <div align="center">
-사용한 기술 스택들 나열한 한 장의 이미지
+<img width="1640" height="1302" alt="image" src="https://github.com/user-attachments/assets/1033c174-efe5-4724-af03-45b10a66e826" />
+
 
 ## 🔧 서비스 요청 흐름도
 
