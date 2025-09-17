@@ -31,31 +31,31 @@
     <tr>
       <td style="width: 50%; text-align: center;">
         <h3>메인 페이지</h3>
-        메인 페이지 이미지 들어감
+        <img width="1510" height="786" alt="image" src="https://github.com/user-attachments/assets/1510404c-4f5a-46ef-9f11-3cb333f88f33" />
       </td>
       <td style="width: 50%; text-align: center;">
         <h3>탐색 페이지</h3>
-        탐색 페이지 이미지 들어감
+       <img width="1510" height="786" alt="image" src="https://github.com/user-attachments/assets/f1fdd26a-daf6-4952-93a7-0a4aad9e5766" />
       </td>
     </tr>
     <tr>
       <td style="width: 50%; text-align: center;">
         <h3>상세 페이지</h3>
-        사진 들어가요
+        <img width="618" height="691" alt="image" src="https://github.com/user-attachments/assets/b2f14612-5112-4889-943a-10f6f7e96d18" />
       </td>
       <td style="width: 50%; text-align: center;">
-        <h3>룰렛 페이지</h3>
-        룰렛 페이지 이미지
+        <h3>전체 리뷰 조회 페이지</h3>
+       <img width="529" height="552" alt="image" src="https://github.com/user-attachments/assets/390d8e7c-a16b-45b1-a7fa-34fbe44a9f57" />
       </td>
     </tr>
      <tr>
       <td style="width: 50%; text-align: center;">
-        <h3>리뷰 작성 페이지</h3>
-        사진 들어가요
+        <h3>룰렛 페이지</h3>
+       <img width="529" height="345" alt="image" src="https://github.com/user-attachments/assets/7c101c49-fe2a-49c3-b4f7-73206e98b3bf" />
       </td>
       <td style="width: 50%; text-align: center;">
-        <h3>전체 리뷰 조회 페이지</h3>
-        사진 들어가요
+        <h3>리뷰 작성 페이지</h3>
+      <img width="529" height="363" alt="image" src="https://github.com/user-attachments/assets/92d7f90f-0ba5-46ce-98de-1a57173df638" />
       </td>
     </tr>
   </tbody>
@@ -65,9 +65,11 @@
 ## 슬기로운 세종생활 주요 기능
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/ccee6434-e5da-4b0d-85e7-cbd8cd19a95a" width="100%" />
-  <img src="https://github.com/user-attachments/assets/49edbd5d-11cf-4775-b9e1-d17e32dd7457" width="100%" />
-  <img src="https://github.com/user-attachments/assets/423726d5-a1b3-496f-88bb-7fd911a8cdf6" width="100%" />
+ <img width="100%" height="30%" alt="image" src="https://github.com/user-attachments/assets/e0008b2c-c614-491f-a861-605b35c98d24" />
+<img width="100%" height="30%" alt="image" src="https://github.com/user-attachments/assets/0b60be39-43e9-4d1d-96b9-5ff730075dae" />
+ <img width="100%" height="30%" alt="image" src="https://github.com/user-attachments/assets/efddb161-d60c-44a5-99ab-0cf1723e6759" />
+<img width="9100%" height="30%" alt="image" src="https://github.com/user-attachments/assets/bc082118-51bc-48a2-8ecd-21ddd88cffb2" />
+
 </p>
 
 ## 🛠 기술 스택
