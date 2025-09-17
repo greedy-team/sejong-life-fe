@@ -22,7 +22,7 @@ const ExploreItem = () => {
     };
 
     fetchFilterPlace();
-  }, [categoryFromQuery]);
+  }, [categoryFromQuery, JSON.stringify(tagsFromQuery)]);
 
   const handleTag = (tagName: string) => {
     const newParams = new URLSearchParams(location.search);
