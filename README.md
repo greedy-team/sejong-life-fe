@@ -79,13 +79,6 @@
 <img width="1640" height="1302" alt="image" src="https://github.com/user-attachments/assets/1033c174-efe5-4724-af03-45b10a66e826" />
 
 
-## 🔧 서비스 요청 흐름도
-
-<div align ="center">
-![Screenshot 2025-09-17 at 13.58.49.png](attachment:f3e17edf-f0a3-4088-b4ea-2fad56c13437:Screenshot_2025-09-17_at_13.58.49.png)
-</div>
-
-
 ## FE CI/CD
 
 <img src="https://github.com/user-attachments/assets/7e2795bc-71f1-46e4-a158-2a9a999d0397"  width="800"/>
