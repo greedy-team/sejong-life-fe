@@ -21,7 +21,10 @@ const Footer = () => {
             <span className="font-pretendard-semibold font-semibold text-gray-500">
               세종생활 팀 소개
             </span>
-            <a href="" className="border-b border-b-gray-200">
+            <a
+              href="https://boulder-tarragon-1e1.notion.site/25e37c6398ec80fbad4af8be1a0e8bbe"
+              className="border-b border-b-gray-200"
+            >
               팀 소개 링크
             </a>
           </p>
