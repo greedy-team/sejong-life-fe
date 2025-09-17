@@ -76,12 +76,14 @@
 ### 프론트엔드
 
 <div align="center">
-<img width="1640" height="1302" alt="image" src="https://github.com/user-attachments/assets/1033c174-efe5-4724-af03-45b10a66e826" />
+<img width="649" height="350" alt="image" src="https://github.com/user-attachments/assets/72dca724-bc50-4b12-962d-bfcd7ae4a277" />
+
 
 
 ## FE CI/CD
 
-<img src="https://github.com/user-attachments/assets/7e2795bc-71f1-46e4-a158-2a9a999d0397"  width="800"/>
+<img width="497" height="113" alt="image" src="https://github.com/user-attachments/assets/0dff586a-7c93-4b14-94a4-d769b1c15bd5" />
+
 
 ---
 
