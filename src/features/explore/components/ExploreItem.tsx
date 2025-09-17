@@ -41,8 +41,8 @@ const ExploreItem = () => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-4 py-20">
-      <ul className="flex gap-2 px-2">
+    <div className="flex w-full flex-col gap-4 py-15">
+      <ul className="flex flex-wrap gap-2 px-2">
         {tagsFromQuery.map((tag) => (
           <TagButton
             key={tag}
@@ -55,9 +55,7 @@ const ExploreItem = () => {
           </TagButton>
         ))}
       </ul>
-      <h1 className="w-full bg-[#B2E5E880] px-3 py-2 indent-5 text-2xl font-extrabold">
-        여기가 딱!
-      </h1>
+      <div className="mb-10 flex w-full border border-gray-100" />
       <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {filteredPlaces.map((place) => (
           <PlaceItemCard
