@@ -108,7 +108,7 @@
       </td>
        <td align="center">
         <a href="https://github.com/SANGHEEJEONG">
-          <img src="https://github.com/user-attachments/assets/a0049ddc-d39d-4968-9102-b33b456c3be5" width="100px;" alt="정창우"/>
+          <img src="https://github.com/user-attachments/assets/c0629ebd-72a0-434b-b798-69ff871fa734" width="100px" height="100px" alt="정창우" />
           <br /><sub><b>정창우(FE)</b></sub>
         </a>
         <br />
