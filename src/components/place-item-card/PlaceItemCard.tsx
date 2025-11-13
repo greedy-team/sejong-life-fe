@@ -20,7 +20,7 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
         })
       }
     >
-      <div className="flex h-full w-full">
+      <div className="relative flex h-full w-full">
         {placeInfo.mainImageUrl ? (
           <img
             src={placeInfo.mainImageUrl}
@@ -39,6 +39,11 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
                 사진이 없습니다
               </span>
             </div>
+          </div>
+        )}
+        {placeInfo.isPartnership && (
+          <div className="absolute top-2 left-2 z-20 rounded-full bg-[#77db30] px-3 py-1 text-xs font-medium text-white shadow">
+            제휴
           </div>
         )}
         <div className="flex w-[50%] flex-col">

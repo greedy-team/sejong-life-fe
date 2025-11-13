@@ -26,6 +26,7 @@ export interface PlaceProps {
   tags: TagProps[];
   viewCount: number;
   reviewCount: number;
+  isPartnership: boolean;
 }
 
 export interface Place {

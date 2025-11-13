@@ -16,6 +16,7 @@ export interface PlaceInfo {
   tags: PlaceTag[];
   viewCount: number;
   reviewCount: number;
+  isPartnership: boolean;
 }
 
 // PlaceItemCardProps -> HotPlaceApiResponse
