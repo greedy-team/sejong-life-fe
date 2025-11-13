@@ -42,22 +42,28 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
           </div>
         )}
         {placeInfo.isPartnership && (
-          <>
-            <div className="absolute top-1 left-1 z-10">
-              <img
-                src="/asset/place-item-card/badgebg.svg"
-                alt="badgebg"
-                className="h-10 w-10"
-              />
-            </div>
-            <div className="absolute top-3.5 left-3.5 z-20 flex items-center justify-center">
-              <img
-                src="/asset/place-item-card/badge.svg"
-                alt="badge"
-                className="h-5 w-5"
-              />
-            </div>
-          </>
+          //   <div className="absolute top-2 left-2 z-20 rounded-md bg-[#77db30] px-2 py-0.5 text-[10px] font-semibold text-white shadow-md">
+          //     제휴
+          //   </div>
+          <div className="absolute top-2 left-2 z-20 rounded-full bg-[#77db30] px-3 py-1 text-xs font-medium text-white shadow">
+            제휴
+          </div>
+          //   <>
+          //     <div className="absolute top-1 left-1 z-10">
+          //       <img
+          //         src="/asset/place-item-card/badgebg.svg"
+          //         alt="badgebg"
+          //         className="h-10 w-10"
+          //       />
+          //     </div>
+          //     <div className="absolute top-3.5 left-3.5 z-20 flex items-center justify-center">
+          //       <img
+          //         src="/asset/place-item-card/badge.svg"
+          //         alt="badge"
+          //         className="h-5 w-5"
+          //       />
+          //     </div>
+          //   </>
         )}
         <div className="flex w-[50%] flex-col">
           <div className="flex flex-col gap-2 p-2.5">
