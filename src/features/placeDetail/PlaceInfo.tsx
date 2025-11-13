@@ -19,6 +19,22 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
         </div>
       </div>
 
+      {place.isPartnership && (
+        <div className="flex items-start justify-center gap-3">
+          <div className="h-16 w-2 bg-[#77db30]" />
+          <div className="my-auto flex flex-col justify-center gap-1.5">
+            <div className="flex items-center gap-1">
+              <span className="text-lg font-semibold text-[#343A40]">
+                제휴 혜택
+              </span>
+            </div>
+            <p className="text-m mb-1 leading-5 text-gray-700">
+              {place.partnershipContent}
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="text-lg font-semibold text-[#343A40]">
         <div className="flex items-center gap-2">
           <img

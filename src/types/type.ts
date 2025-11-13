@@ -53,6 +53,8 @@ export interface DetailPlaceProps {
   tags: TagProps[];
   viewCount: number;
   mapLinks: MapProps;
+  isPartnership: boolean;
+  partnershipContent: string;
 }
 
 export interface DetailPlace {
