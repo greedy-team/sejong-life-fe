@@ -20,7 +20,7 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
         })
       }
     >
-      <div className="flex h-full w-full">
+      <div className="relative flex h-full w-full">
         {placeInfo.mainImageUrl ? (
           <img
             src={placeInfo.mainImageUrl}
@@ -40,6 +40,24 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
               </span>
             </div>
           </div>
+        )}
+        {placeInfo.isPartnership && (
+          <>
+            <div className="absolute top-1 left-1 z-10">
+              <img
+                src="/asset/place-item-card/badgebg.svg"
+                alt="badgebg"
+                className="h-10 w-10"
+              />
+            </div>
+            <div className="absolute top-3.5 left-3.5 z-20 flex items-center justify-center">
+              <img
+                src="/asset/place-item-card/badge.svg"
+                alt="badge"
+                className="h-5 w-5"
+              />
+            </div>
+          </>
         )}
         <div className="flex w-[50%] flex-col">
           <div className="flex flex-col gap-2 p-2.5">
