@@ -12,17 +12,24 @@ const ExploreItem = () => {
   const categoryFromQuery = params.get('category') || '';
   const tagsFromQuery = params.getAll('tags') || '';
   const [filteredPlaces, setFilteredPlaces] = useState<PlaceProps[]>([]);
+  const [isPartnershipButtonOn, setIsPartnershipButtonOn] = useState(false);
 
   useEffect(() => {
     const fetchFilterPlace = async () => {
       if (categoryFromQuery && tagsFromQuery) {
         const res = await fetchFilteredPlaces(categoryFromQuery, tagsFromQuery);
-        setFilteredPlaces(res.data || []);
+        let places = res.data || [];
+
+        if (isPartnershipButtonOn) {
+          places = places.filter((place) => place.isPartnership === true);
+        }
+
+        setFilteredPlaces(places);
       }
     };
 
     fetchFilterPlace();
-  }, [categoryFromQuery, JSON.stringify(tagsFromQuery)]);
+  }, [categoryFromQuery, JSON.stringify(tagsFromQuery), isPartnershipButtonOn]);
 
   const handleTag = (tagName: string) => {
     const newParams = new URLSearchParams(location.search);
@@ -42,19 +49,28 @@ const ExploreItem = () => {
 
   return (
     <div className="flex w-full flex-col gap-4 py-15">
-      <ul className="flex flex-wrap gap-2 px-2">
-        {tagsFromQuery.map((tag) => (
-          <TagButton
-            key={tag}
-            size="middle"
-            className="flex cursor-pointer items-center justify-center gap-3 px-1"
-            onClick={() => handleTag(tag)}
-          >
-            {tag}
-            <button>X</button>
-          </TagButton>
-        ))}
-      </ul>
+      <div className="flex items-center gap-3">
+        <button
+          data-selected={isPartnershipButtonOn}
+          className="? bg-gray-100} relative z-10 flex h-[46px] w-[120px] cursor-pointer items-center justify-center rounded-xl font-semibold transition-colors duration-100 hover:scale-105 data-[selected=true]:bg-gray-200"
+          onClick={() => setIsPartnershipButtonOn(!isPartnershipButtonOn)}
+        >
+          제휴만 보기
+        </button>
+        <ul className="flex flex-wrap gap-2 px-2">
+          {tagsFromQuery.map((tag) => (
+            <TagButton
+              key={tag}
+              size="middle"
+              className="flex cursor-pointer items-center justify-center gap-3 px-1"
+              onClick={() => handleTag(tag)}
+            >
+              {tag}
+              <button>X</button>
+            </TagButton>
+          ))}
+        </ul>
+      </div>
       <div className="mb-10 flex w-full border border-gray-100" />
       <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {filteredPlaces.map((place) => (
