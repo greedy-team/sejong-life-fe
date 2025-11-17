@@ -52,7 +52,7 @@ const ExploreItem = () => {
       <div className="flex items-center gap-3">
         <button
           data-selected={isPartnershipButtonOn}
-          className="z-10 flex h-[46px] w-[120px] flex-shrink-0 cursor-pointer items-center justify-center rounded-xl bg-gray-100 font-semibold whitespace-nowrap transition-colors duration-100 hover:scale-105 data-[selected=true]:bg-[#77db30]"
+          className="z-10 flex h-[46px] w-[120px] flex-shrink-0 cursor-pointer items-center justify-center rounded-full border border-[#77db30] font-semibold whitespace-nowrap text-[#77db30] transition-colors duration-100 hover:scale-105 data-[selected=true]:bg-[#77db30] data-[selected=true]:text-[#ffffff]"
           onClick={() => setIsPartnershipButtonOn(!isPartnershipButtonOn)}
         >
           제휴만 보기
