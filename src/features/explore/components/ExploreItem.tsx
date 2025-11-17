@@ -66,7 +66,7 @@ const ExploreItem = () => {
               onClick={() => handleTag(tag)}
             >
               {tag}
-              <button>X</button>
+              <span>X</span>
             </TagButton>
           ))}
         </ul>
