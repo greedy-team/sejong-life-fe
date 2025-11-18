@@ -90,7 +90,6 @@ const TagFilter = () => {
           </TagButton>
         ))}
       </div>
-      <div className="pointer-events-none absolute bottom-0 left-0 z-10 h-8 w-full bg-gradient-to-t from-white to-transparent" />
     </div>
   );
 };
