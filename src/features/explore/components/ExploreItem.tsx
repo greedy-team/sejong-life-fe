@@ -12,17 +12,24 @@ const ExploreItem = () => {
   const categoryFromQuery = params.get('category') || '';
   const tagsFromQuery = params.getAll('tags') || '';
   const [filteredPlaces, setFilteredPlaces] = useState<PlaceProps[]>([]);
+  const [isPartnershipButtonOn, setIsPartnershipButtonOn] = useState(false);
 
   useEffect(() => {
     const fetchFilterPlace = async () => {
       if (categoryFromQuery && tagsFromQuery) {
         const res = await fetchFilteredPlaces(categoryFromQuery, tagsFromQuery);
-        setFilteredPlaces(res.data || []);
+        let places = res.data || [];
+
+        if (isPartnershipButtonOn) {
+          places = places.filter((place) => place.isPartnership);
+        }
+
+        setFilteredPlaces(places);
       }
     };
 
     fetchFilterPlace();
-  }, [categoryFromQuery, JSON.stringify(tagsFromQuery)]);
+  }, [categoryFromQuery, JSON.stringify(tagsFromQuery), isPartnershipButtonOn]);
 
   const handleTag = (tagName: string) => {
     const newParams = new URLSearchParams(location.search);
@@ -42,19 +49,47 @@ const ExploreItem = () => {
 
   return (
     <div className="flex w-full flex-col gap-4 py-15">
-      <ul className="flex flex-wrap gap-2 px-2">
-        {tagsFromQuery.map((tag) => (
-          <TagButton
-            key={tag}
-            size="middle"
-            className="flex cursor-pointer items-center justify-center gap-3 px-1"
-            onClick={() => handleTag(tag)}
-          >
-            {tag}
-            <button>X</button>
-          </TagButton>
-        ))}
-      </ul>
+      <div className="flex items-center gap-0.5">
+        <button
+          data-selected={isPartnershipButtonOn}
+          className="flex cursor-pointer transition-colors duration-100 hover:scale-105"
+          onClick={() => setIsPartnershipButtonOn(!isPartnershipButtonOn)}
+        >
+          {isPartnershipButtonOn && (
+            <img
+              src="/asset/explore-page/check.svg"
+              alt="check"
+              className="h-9 w-9"
+            />
+          )}
+          {!isPartnershipButtonOn && (
+            <img
+              src="/asset/explore-page/noneCheck.svg"
+              alt="noneCheck"
+              className="h-9 w-9"
+            />
+          )}
+        </button>
+        <span
+          data-selected={isPartnershipButtonOn}
+          className="text-xl font-semibold text-[#354052]"
+        >
+          제휴
+        </span>
+        <ul className="flex flex-wrap gap-2 px-2">
+          {tagsFromQuery.map((tag) => (
+            <TagButton
+              key={tag}
+              size="middle"
+              className="flex cursor-pointer items-center justify-center gap-3 px-1"
+              onClick={() => handleTag(tag)}
+            >
+              {tag}
+              <span>X</span>
+            </TagButton>
+          ))}
+        </ul>
+      </div>
       <div className="mb-10 flex w-full border border-gray-100" />
       <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {filteredPlaces.map((place) => (
