@@ -78,7 +78,7 @@ const TagFilter = () => {
 
   return (
     <div className="relative m-auto w-[85%] rounded-md">
-      <div className="m-auto flex max-h-[12rem] flex-wrap gap-1.5 overflow-y-scroll">
+      <div className="m-auto flex max-h-[10rem] flex-wrap gap-1.5 overflow-y-scroll">
         {tags.map((tag) => (
           <TagButton
             key={tag.tagId}
