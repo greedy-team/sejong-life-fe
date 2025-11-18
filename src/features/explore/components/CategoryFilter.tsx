@@ -55,11 +55,11 @@ const CategoryFilter = () => {
   };
   return (
     <div>
-      <div className="mx-auto flex grid w-[78%] grid-cols-3 justify-center gap-x-4 gap-y-2 sm:w-[70%] md:w-[50%] lg:w-[80%] lg:grid-cols-6">
+      <div className="mx-auto flex grid w-[90%] grid-cols-3 justify-center gap-x-4 gap-y-2 sm:w-[70%] md:w-[50%] lg:w-[80%] lg:grid-cols-6">
         {categories.map((category) => (
           <button
             key={category.categoryId}
-            className={`lg:text-m relative z-10 flex h-[46px] w-[100px] shrink-0 cursor-pointer items-center justify-center rounded-xl text-sm font-semibold transition-colors duration-100 hover:scale-105 ${isSelected(category) ? 'bg-gray-200' : 'bg-gray-100'} `}
+            className={`lg:text-m relative z-10 flex h-[46px] w-[100px] shrink-0 cursor-pointer items-center justify-center rounded-xl text-sm font-semibold transition-colors duration-100 hover:scale-105 lg:w-[120px] ${isSelected(category) ? 'bg-gray-200' : 'bg-gray-100'} `}
             onClick={() => handleCategoryClick(category)}
           >
             <div className="flex shrink-0 items-center gap-1">
