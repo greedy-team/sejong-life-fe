@@ -52,21 +52,21 @@ const ExploreItem = () => {
       <div className="flex items-center gap-0.5">
         <button
           data-selected={isPartnershipButtonOn}
-          className="flex cursor-pointer transition-colors duration-100 hover:scale-105"
+          className="flex shrink-0 cursor-pointer transition-colors duration-100 hover:scale-105"
           onClick={() => setIsPartnershipButtonOn(!isPartnershipButtonOn)}
         >
           {isPartnershipButtonOn && (
             <img
               src="/asset/explore-page/check.svg"
               alt="check"
-              className="h-9 w-9"
+              className="h-9 w-9 shrink-0"
             />
           )}
           {!isPartnershipButtonOn && (
             <img
               src="/asset/explore-page/noneCheck.svg"
               alt="noneCheck"
-              className="h-9 w-9"
+              className="h-9 w-9 shrink-0"
             />
           )}
         </button>

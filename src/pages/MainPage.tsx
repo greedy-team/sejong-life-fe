@@ -40,30 +40,48 @@ const MainPage = () => {
     <>
       <div className="w-full overflow-x-hidden">
         <Banner />
-        <div className="flex justify-center gap-5 pt-10">
+        <div className="flex flex-wrap justify-center gap-5 pt-10">
           <PageRouterButton
             to={`/explore?category=${'전체'}`}
             icon="/asset/pageRouterButton/allItemIcon.svg"
           >
-            <div>전체</div>
+            <span>전체</span>
           </PageRouterButton>
           <PageRouterButton
             to={`/explore?category=${categories[0]?.categoryName}`}
-            icon="/asset/pageRouterButton/restaurantIcon.svg"
+            icon="/asset/pageRouterButton/lifeIcon.svg"
           >
-            <div>식당</div>
+            <span>생활/문화</span>
           </PageRouterButton>
           <PageRouterButton
             to={`/explore?category=${categories[1]?.categoryName}`}
+            icon="/asset/pageRouterButton/shoppingIcon.svg"
+          >
+            <span>쇼핑</span>
+          </PageRouterButton>
+          <PageRouterButton
+            to={`/explore?category=${categories[2]?.categoryName}`}
+            icon="/asset/pageRouterButton/restaurantIcon.svg"
+          >
+            <span>식당</span>
+          </PageRouterButton>
+          <PageRouterButton
+            to={`/explore?category=${categories[3]?.categoryName}`}
+            icon="/asset/pageRouterButton/leisureIcon.svg"
+          >
+            <span>여가</span>
+          </PageRouterButton>
+          <PageRouterButton
+            to={`/explore?category=${categories[4]?.categoryName}`}
             icon="/asset/pageRouterButton/cafeIcon.svg"
           >
-            <div>카페</div>
+            <span>카페</span>
           </PageRouterButton>
           <PageRouterButton
             to={`/roulette`}
             icon="/asset/pageRouterButton/rouletteIcon.svg"
           >
-            <div>룰렛</div>
+            <span>룰렛</span>
           </PageRouterButton>
         </div>
         <div className="mt-10 mb-8 border-b border-gray-100" />
