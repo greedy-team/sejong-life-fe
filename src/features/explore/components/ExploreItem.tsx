@@ -76,7 +76,7 @@ const ExploreItem = () => {
         >
           제휴
         </span>
-        <ul className="flex flex-wrap gap-2 px-2">
+        <ul className="flex flex-nowrap gap-2 overflow-x-auto px-2 whitespace-nowrap">
           {tagsFromQuery.map((tag) => (
             <TagButton
               key={tag}
