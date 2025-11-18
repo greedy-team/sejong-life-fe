@@ -40,7 +40,7 @@ const MainPage = () => {
     <>
       <div className="w-full overflow-x-hidden">
         <Banner />
-        <div className="flex justify-center gap-5 pt-10">
+        <div className="flex flex-wrap justify-center gap-5 pt-10">
           <PageRouterButton
             to={`/explore?category=${'전체'}`}
             icon="/asset/pageRouterButton/allItemIcon.svg"
@@ -48,31 +48,31 @@ const MainPage = () => {
             <span>전체</span>
           </PageRouterButton>
           <PageRouterButton
-            to={`/explore?category=${'생활/문화'}`}
+            to={`/explore?category=${categories[0]?.categoryName}`}
             icon="/asset/pageRouterButton/lifeIcon.svg"
           >
             <span>생활/문화</span>
           </PageRouterButton>
           <PageRouterButton
-            to={`/explore?category=${'쇼핑'}`}
+            to={`/explore?category=${categories[1]?.categoryName}`}
             icon="/asset/pageRouterButton/shoppingIcon.svg"
           >
             <span>쇼핑</span>
           </PageRouterButton>
           <PageRouterButton
-            to={`/explore?category=${categories[0]?.categoryName}`}
+            to={`/explore?category=${categories[2]?.categoryName}`}
             icon="/asset/pageRouterButton/restaurantIcon.svg"
           >
             <span>식당</span>
           </PageRouterButton>
           <PageRouterButton
-            to={`/explore?category=${'여가'}`}
+            to={`/explore?category=${categories[3]?.categoryName}`}
             icon="/asset/pageRouterButton/leisureIcon.svg"
           >
             <span>여가</span>
           </PageRouterButton>
           <PageRouterButton
-            to={`/explore?category=${categories[1]?.categoryName}`}
+            to={`/explore?category=${categories[4]?.categoryName}`}
             icon="/asset/pageRouterButton/cafeIcon.svg"
           >
             <span>카페</span>

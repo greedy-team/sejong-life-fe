@@ -29,7 +29,7 @@ const PageRouterButton = ({
   return (
     <button
       onClick={() => handleMenuClick(to)}
-      className="relative h-24 w-24 cursor-pointer rounded-2xl border-none bg-gray-100 p-2 transition-all duration-200 ease-in-out hover:scale-105 hover:bg-gray-200"
+      className="relative h-22 w-22 cursor-pointer rounded-2xl border-none bg-gray-100 p-2 transition-all duration-200 ease-in-out hover:scale-105 hover:bg-gray-200"
     >
       {icon && (
         <img src={icon} alt="" className="absolute top-2 left-2 h-8 w-8" />
