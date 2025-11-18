@@ -49,14 +49,33 @@ const ExploreItem = () => {
 
   return (
     <div className="flex w-full flex-col gap-4 py-15">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-0.5">
         <button
           data-selected={isPartnershipButtonOn}
-          className="z-10 flex h-[46px] w-[120px] flex-shrink-0 cursor-pointer items-center justify-center rounded-full border border-[#77db30] font-semibold whitespace-nowrap text-[#77db30] transition-colors duration-100 hover:scale-105 data-[selected=true]:bg-[#77db30] data-[selected=true]:text-[#ffffff]"
+          className="flex cursor-pointer transition-colors duration-100 hover:scale-105"
           onClick={() => setIsPartnershipButtonOn(!isPartnershipButtonOn)}
         >
-          제휴만 보기
+          {isPartnershipButtonOn && (
+            <img
+              src="/asset/explore-page/check.svg"
+              alt="check"
+              className="h-9 w-9"
+            />
+          )}
+          {!isPartnershipButtonOn && (
+            <img
+              src="/asset/explore-page/noneCheck.svg"
+              alt="noneCheck"
+              className="h-9 w-9"
+            />
+          )}
         </button>
+        <span
+          data-selected={isPartnershipButtonOn}
+          className="text-xl font-semibold text-[#354052]"
+        >
+          제휴
+        </span>
         <ul className="flex flex-wrap gap-2 px-2">
           {tagsFromQuery.map((tag) => (
             <TagButton
