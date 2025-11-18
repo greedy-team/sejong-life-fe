@@ -21,7 +21,7 @@ const ExploreItem = () => {
         let places = res.data || [];
 
         if (isPartnershipButtonOn) {
-          places = places.filter((place) => place.isPartnership === true);
+          places = places.filter((place) => place.isPartnership);
         }
 
         setFilteredPlaces(places);
