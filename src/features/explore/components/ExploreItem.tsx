@@ -72,11 +72,11 @@ const ExploreItem = () => {
         </button>
         <span
           data-selected={isPartnershipButtonOn}
-          className="text-xl font-semibold text-[#354052]"
+          className="lg-text-xl font-semibold whitespace-nowrap text-[#354052]"
         >
           제휴
         </span>
-        <ul className="flex flex-wrap gap-2 px-2">
+        <ul className="flex flex-nowrap gap-2 overflow-x-auto px-2 whitespace-nowrap">
           {tagsFromQuery.map((tag) => (
             <TagButton
               key={tag}

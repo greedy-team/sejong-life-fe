@@ -77,17 +77,20 @@ const TagFilter = () => {
   };
 
   return (
-    <div className="m-auto flex w-[85%] flex-wrap gap-1.5">
-      {tags.map((tag) => (
-        <TagButton
-          key={tag.tagId}
-          size="large"
-          onClick={() => handleTagClick(tag)}
-          className={`transition-property cursor-pointer duration-200 ${isSelected(tag) ? 'opacity-100' : 'opacity-50'} `}
-        >
-          {tag.tagName}
-        </TagButton>
-      ))}
+    <div className="relative m-auto w-[85%] rounded-md">
+      <div className="m-auto flex max-h-[12rem] flex-wrap gap-1.5 overflow-y-scroll">
+        {tags.map((tag) => (
+          <TagButton
+            key={tag.tagId}
+            size="large"
+            onClick={() => handleTagClick(tag)}
+            className={`transition-property cursor-pointer duration-200 ${isSelected(tag) ? 'opacity-100' : 'opacity-50'} `}
+          >
+            {tag.tagName}
+          </TagButton>
+        ))}
+      </div>
+      <div className="pointer-events-none absolute bottom-0 left-0 z-10 h-8 w-full bg-gradient-to-t from-white to-transparent" />
     </div>
   );
 };
