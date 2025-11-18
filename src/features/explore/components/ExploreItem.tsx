@@ -72,7 +72,7 @@ const ExploreItem = () => {
         </button>
         <span
           data-selected={isPartnershipButtonOn}
-          className="text-xl font-semibold text-[#354052]"
+          className="lg-text-xl font-semibold whitespace-nowrap text-[#354052]"
         >
           제휴
         </span>
