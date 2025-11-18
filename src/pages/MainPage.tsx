@@ -49,34 +49,36 @@ const MainPage = () => {
           </PageRouterButton>
           <PageRouterButton
             to={`/explore?category=${categories[0]?.categoryName}`}
-            icon="/asset/pageRouterButton/lifeIcon.svg"
-          >
-            <span>생활/문화</span>
-          </PageRouterButton>
-          <PageRouterButton
-            to={`/explore?category=${categories[1]?.categoryName}`}
-            icon="/asset/pageRouterButton/shoppingIcon.svg"
-          >
-            <span>쇼핑</span>
-          </PageRouterButton>
-          <PageRouterButton
-            to={`/explore?category=${categories[2]?.categoryName}`}
             icon="/asset/pageRouterButton/restaurantIcon.svg"
           >
             <span>식당</span>
           </PageRouterButton>
           <PageRouterButton
-            to={`/explore?category=${categories[3]?.categoryName}`}
-            icon="/asset/pageRouterButton/leisureIcon.svg"
-          >
-            <span>여가</span>
-          </PageRouterButton>
-          <PageRouterButton
-            to={`/explore?category=${categories[4]?.categoryName}`}
+            to={`/explore?category=${categories[1]?.categoryName}`}
             icon="/asset/pageRouterButton/cafeIcon.svg"
           >
             <span>카페</span>
           </PageRouterButton>
+          <PageRouterButton
+            to={`/explore?category=${categories[2]?.categoryName}`}
+            icon="/asset/pageRouterButton/lifeIcon.svg"
+          >
+            <span>생활/문화</span>
+          </PageRouterButton>
+          <PageRouterButton
+            to={`/explore?category=${categories[3]?.categoryName}`}
+            icon="/asset/pageRouterButton/shoppingIcon.svg"
+          >
+            <span>쇼핑</span>
+          </PageRouterButton>
+
+          <PageRouterButton
+            to={`/explore?category=${categories[4]?.categoryName}`}
+            icon="/asset/pageRouterButton/leisureIcon.svg"
+          >
+            <span>여가</span>
+          </PageRouterButton>
+
           <PageRouterButton
             to={`/roulette`}
             icon="/asset/pageRouterButton/rouletteIcon.svg"
