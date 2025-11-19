@@ -46,7 +46,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
           </button>
         ))}
       </div>
-      <div className="flex min-h-[100px] flex-wrap items-center justify-center gap-2">
+      <div className="flex max-h-[20rem] min-h-[100px] flex-wrap items-center justify-center gap-2 overflow-y-scroll">
         {isLoading && <p className="text-gray-500">목록을 불러오는 중...</p>}
         {error && <p className="text-red-500">{error}</p>}
         {!isLoading &&
