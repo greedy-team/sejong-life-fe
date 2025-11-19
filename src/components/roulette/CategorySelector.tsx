@@ -40,7 +40,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`px-4 py-2 text-base font-semibold transition-colors duration-200 sm:text-lg ${selectedCategory === category ? 'border-b-2 border-green-500 text-black' : 'text-gray-300 hover:text-gray-400'}`}
+            className={`px-4 py-2 text-base font-semibold transition-colors duration-200 sm:text-lg ${selectedCategory === category ? 'border-b-2 border-[#77db30] text-black' : 'text-gray-300 hover:text-gray-400'}`}
           >
             {category}
           </button>
