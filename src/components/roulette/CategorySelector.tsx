@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useRef } from 'react';
 import type { CategorySelectorProps } from './model/types';
 
 const CategorySelector: React.FC<CategorySelectorProps> = ({
@@ -30,6 +30,17 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
 
   const itemsToShow = getItemsForCategory();
 
+  const [isBottom, setIsBottom] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 5;
+    setIsBottom(atBottom);
+  };
+
   return (
     <div className="w-full rounded-2xl border border-gray-200 bg-white p-4 shadow-lg sm:p-6">
       <h3 className="mb-4 text-center text-xl font-bold text-gray-800 sm:text-2xl">
@@ -46,23 +57,34 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
           </button>
         ))}
       </div>
-      <div className="flex max-h-[20rem] min-h-[100px] flex-wrap items-center justify-center gap-2 overflow-y-scroll">
-        {isLoading && <p className="text-gray-500">목록을 불러오는 중...</p>}
-        {error && <p className="text-red-500">{error}</p>}
-        {!isLoading &&
-          !error &&
-          itemsToShow.map((item) => {
-            const isAdded = currentItems.some((ci) => ci.name === item.name);
-            return (
-              <button
-                key={item.name}
-                onClick={() => onToggleItem(item)}
-                className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors duration-200 sm:px-4 sm:py-2 sm:text-sm ${isAdded ? 'bg-[#77db30] text-white' : 'bg-gray-100 text-black hover:bg-[#E4F7D2]'}`}
-              >
-                {item.name}
-              </button>
-            );
-          })}
+      <div className="relative">
+        <div
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex max-h-[20rem] min-h-[100px] flex-wrap items-center justify-center gap-2 overflow-y-scroll"
+        >
+          {isLoading && <p className="text-gray-500">목록을 불러오는 중...</p>}
+          {error && <p className="text-red-500">{error}</p>}
+          {!isLoading &&
+            !error &&
+            itemsToShow.map((item) => {
+              const isAdded = currentItems.some((ci) => ci.name === item.name);
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => onToggleItem(item)}
+                  className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors duration-200 sm:px-4 sm:py-2 sm:text-sm ${isAdded ? 'bg-[#77db30] text-white' : 'bg-gray-100 text-black hover:bg-[#E4F7D2]'}`}
+                >
+                  {item.name}
+                </button>
+              );
+            })}
+        </div>
+        <div
+          className={`pointer-events-none absolute bottom-0 left-0 h-30 w-full bg-gradient-to-t from-white to-transparent transition-opacity duration-300 ${
+            isBottom ? 'opacity-0' : 'opacity-100'
+          }`}
+        />
       </div>
     </div>
   );
