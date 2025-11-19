@@ -42,16 +42,9 @@ export const drawRoulette = (
     ctx.font = `bold ${fontSize}px 'Pretendard', sans-serif`;
 
     const maxTextHeight = radius * 0.55;
-    const lineHeight = fontSize + 2;
+    const lineHeight = fontSize * 0.9;
 
     let chars = item.name.split('');
-    // let totalHeight = chars.length * lineHeight;
-
-    // while (totalHeight > maxTextHeight && fontSize > 10) {
-    //   fontSize--;
-    //   ctx.font = `bold ${fontSize}px 'Pretendard', sans-serif`;
-    //   totalHeight = chars.length * (fontSize + 2);
-    // }
 
     const maxChars = Math.floor(maxTextHeight / lineHeight);
 
