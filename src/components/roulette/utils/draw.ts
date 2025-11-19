@@ -38,6 +38,37 @@ export const drawRoulette = (
     ctx.translate(textX, textY);
     ctx.rotate(textAngle + Math.PI / 2);
 
+    let fontSize = Math.max(12, Math.floor(radius / 14));
+    ctx.font = `bold ${fontSize}px 'Pretendard', sans-serif`;
+
+    const maxTextHeight = radius * 0.55;
+    const lineHeight = fontSize + 2;
+
+    let chars = item.name.split('');
+    // let totalHeight = chars.length * lineHeight;
+
+    // while (totalHeight > maxTextHeight && fontSize > 10) {
+    //   fontSize--;
+    //   ctx.font = `bold ${fontSize}px 'Pretendard', sans-serif`;
+    //   totalHeight = chars.length * (fontSize + 2);
+    // }
+
+    const maxChars = Math.floor(maxTextHeight / lineHeight);
+
+    if (chars.length > maxChars) {
+      chars = chars.slice(0, maxChars - 1);
+      chars.push('⁝');
+    }
+
+    const finalHeight = chars.length * (fontSize + 2);
+    const startY = -(finalHeight / 2) + fontSize / 2;
+
+    chars.forEach((c, idx) => {
+      ctx.fillText(c, 0, startY + idx * (fontSize + 2));
+    });
+
+    ctx.restore();
+
     let name = item.name;
     if (ctx.measureText(name).width > maxTextWidth) {
       let truncated = name;
