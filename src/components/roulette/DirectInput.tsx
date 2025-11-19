@@ -13,6 +13,7 @@ const DirectInput: React.FC<DirectInputProps> = ({
   manualItems,
 }) => {
   const [inputValue, setInputValue] = useState('');
+  const [isComposing, setIsComposing] = useState(false);
 
   const handleAdd = () => {
     if (inputValue.trim() === '') return;
@@ -21,7 +22,7 @@ const DirectInput: React.FC<DirectInputProps> = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !isComposing) {
       handleAdd();
     }
   };
@@ -36,6 +37,8 @@ const DirectInput: React.FC<DirectInputProps> = ({
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
+          onCompositionStart={() => setIsComposing(true)}
+          onCompositionEnd={() => setIsComposing(false)}
           onKeyDown={handleKeyDown}
           placeholder="장소명을 입력하세요"
           className="flex-grow rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-green-500 focus:ring-2 focus:ring-green-200 focus:outline-none sm:px-4 sm:text-base"
