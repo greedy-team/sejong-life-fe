@@ -40,7 +40,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`px-4 py-2 text-base font-semibold transition-colors duration-200 sm:text-lg ${selectedCategory === category ? 'border-b-2 border-green-500 text-black' : 'text-gray-300 hover:text-gray-400'}`}
+            className={`px-4 py-2 text-base font-semibold transition-colors duration-200 sm:text-lg ${selectedCategory === category ? 'border-b-2 border-[#77db30] text-black' : 'text-gray-300 hover:text-gray-400'}`}
           >
             {category}
           </button>
@@ -57,7 +57,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
               <button
                 key={item.name}
                 onClick={() => onToggleItem(item)}
-                className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors duration-200 sm:px-4 sm:py-2 sm:text-sm ${isAdded ? 'bg-green-200 text-black' : 'bg-gray-100 text-black hover:bg-green-100'}`}
+                className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors duration-200 sm:px-4 sm:py-2 sm:text-sm ${isAdded ? 'bg-[#77db30] text-white' : 'bg-gray-100 text-black hover:bg-[#E4F7D2]'}`}
               >
                 {item.name}
               </button>
