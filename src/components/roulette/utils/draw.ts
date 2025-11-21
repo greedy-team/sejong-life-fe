@@ -20,11 +20,16 @@ export const drawRoulette = (
     const nextAngle = arc * (i + 1) - Math.PI / 2;
 
     ctx.beginPath();
-    ctx.fillStyle = itemColors[i % itemColors.length];
+    ctx.fillStyle = '#F8FFF8';
     ctx.moveTo(centerX, centerY);
     ctx.arc(centerX, centerY, radius, angle, nextAngle);
-    ctx.closePath();
     ctx.fill();
+    ctx.closePath();
+    ctx.strokeStyle = '#DADADA';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    // ctx.fillStyle = itemColors[i % itemColors.length];
+    // ctx.fill();
 
     ctx.save();
     ctx.fillStyle = '#333';
@@ -79,7 +84,7 @@ export const drawRoulette = (
   });
 
   ctx.strokeStyle = '#E0E0E0';
-  ctx.lineWidth = 5;
+  ctx.lineWidth = 2;
   ctx.beginPath();
   ctx.arc(centerX, centerY, radius + 2, 0, Math.PI * 2);
   ctx.stroke();
