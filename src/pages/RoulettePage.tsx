@@ -9,7 +9,7 @@ import type {
   AllPlacesResponse,
 } from './../components/roulette/model/types';
 
-const defaultColors: string[] = ['#F8FFF8', '#E4F7D2'];
+const defaultColors: string[] = ['#F8FFF8'];
 
 const RoulettePage = () => {
   const [rouletteItems, setRouletteItems] = useState<Place[]>([]);
