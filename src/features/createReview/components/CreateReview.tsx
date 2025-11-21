@@ -21,6 +21,7 @@ const CreateReview = () => {
     images: [] as File[],
     tagIds: [] as number[],
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchPlaceInfo = async () => {
@@ -115,6 +116,9 @@ const CreateReview = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (isLoading) return;
+    setIsLoading(true);
+
     try {
       const submitData = new FormData();
       submitData.append(
@@ -143,6 +147,8 @@ const CreateReview = () => {
       console.error(error);
       toast.error('리뷰 등록에 실패했습니다.');
     }
+
+    setIsLoading(false);
   };
 
   if (!placeInfo) {
@@ -228,8 +234,8 @@ const CreateReview = () => {
                     className="h-24 w-24 rounded object-cover"
                   />
                   <button
-                    type="button"
                     onClick={() => handleRemoveImage(index)}
+                    disabled={isLoading}
                     className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/50 px-1 text-xs text-white"
                   >
                     ✕
@@ -241,6 +247,7 @@ const CreateReview = () => {
           <div className="flex justify-end px-8 py-5 lg:px-10">
             <button
               type="submit"
+              disabled={isLoading}
               className="text-md rounded-2xl bg-[#8BE34A] px-5 py-3 font-bold text-white"
             >
               등록하기
