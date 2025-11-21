@@ -34,7 +34,7 @@ const LoginModal = ({ isOpen, onClose, children }: ModalProps) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div
         ref={modalRef}
-        className="h-fit w-[30%] rounded-md bg-white p-10 shadow-lg"
+        className="h-fit rounded-md bg-white p-10 shadow-lg sm:w-[60%] lg:w-[30%]"
       >
         {children}
         <button
