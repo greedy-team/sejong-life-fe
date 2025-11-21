@@ -16,10 +16,11 @@ export const drawRoulette = (
   items.forEach((item, i) => {
     const angle = arc * i - Math.PI / 2;
     const nextAngle = arc * (i + 1) - Math.PI / 2;
+    const fillColor = itemColors?.[i % itemColors.length];
 
     //룰렛 배경색
     ctx.beginPath();
-    ctx.fillStyle = '#F8FFF8';
+    ctx.fillStyle = fillColor;
     ctx.moveTo(centerX, centerY);
     ctx.arc(centerX, centerY, radius, angle, nextAngle);
     ctx.fill();
