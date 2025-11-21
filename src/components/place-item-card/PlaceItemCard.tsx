@@ -25,7 +25,7 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
           <img
             src={placeInfo.mainImageUrl}
             alt="장소 대표 이미지"
-            className="aspect-[3/4] w-[50%]"
+            className="h-full w-[50%] object-cover"
           />
         ) : (
           <div className="flex w-[50%] bg-[#F0F0F0]">
