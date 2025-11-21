@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import type { CategoryProps, TagProps } from '../../../types/type';
 import { fetchCategories, fetchCategoryTags } from '../apis/filterApi';
 import TagButton from '../../../components/share/TagButton';
@@ -11,6 +11,8 @@ const TagFilter = () => {
   const categoryName = params.get('category');
   const [tags, setTags] = useState<TagProps[]>([]);
   const [categories, setCategories] = useState<CategoryProps[]>([]);
+  const [isBottom, setIsBottom] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -76,9 +78,21 @@ const TagFilter = () => {
     toggleTag(tag);
   };
 
+  const handleScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 5;
+    setIsBottom(atBottom);
+  };
+
   return (
     <div className="relative m-auto w-[85%] rounded-md">
-      <div className="m-auto flex max-h-[10rem] flex-wrap gap-1.5 overflow-y-scroll">
+      <div
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className="m-auto flex max-h-[10rem] flex-wrap justify-center gap-1.5 overflow-y-scroll"
+      >
         {tags.map((tag) => (
           <TagButton
             key={tag.tagId}
@@ -89,6 +103,11 @@ const TagFilter = () => {
             {tag.tagName}
           </TagButton>
         ))}
+        <div
+          className={`pointer-events-none absolute bottom-0 left-0 h-30 w-full bg-gradient-to-t from-white to-transparent transition-opacity duration-300 ${
+            isBottom ? 'opacity-0' : 'opacity-100'
+          }`}
+        />
       </div>
     </div>
   );
