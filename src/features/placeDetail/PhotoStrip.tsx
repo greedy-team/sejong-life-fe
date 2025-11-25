@@ -10,7 +10,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [isGridOpen, setIsGridOpen] = useState(false);
-  const haveImages = images && images.length > 0;
+  const haveImages = images && images.length > 3;
 
   const handleMoreImageButtonClick = () => {
     if (haveImages) {
