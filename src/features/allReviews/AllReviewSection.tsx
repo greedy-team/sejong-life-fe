@@ -5,14 +5,25 @@ import { usePlaceDetail } from '../../hooks/usePlaceDetail';
 import { usePlaceReview } from '../../hooks/usePlaceReview';
 import { useReviewStats } from '../../hooks/useReviewStats';
 import ReviewStatsSection from '../placeDetail/ReviewStatsSection';
+import { useEffect, useState } from 'react';
+import type { Review } from '../../types/type';
 
 const AllReviewSection = () => {
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id!);
-  const { reviews } = usePlaceReview(id!);
+  const { reviews: initialReviews } = usePlaceReview(id!);
   const { stats } = useReviewStats(id!);
+  const [reviews, setReviews] = useState<Review[]>([]);
+
+  useEffect(() => {
+    if (initialReviews) setReviews(initialReviews);
+  }, [initialReviews]);
 
   if (!place || !stats) return <div>로딩중...</div>;
+
+  const handleDeleteReview = (reviewId: number) => {
+    setReviews((prev) => prev.filter((r) => r.reviewId !== reviewId));
+  };
 
   const reverseReviews = [...reviews].reverse();
 
@@ -24,7 +35,12 @@ const AllReviewSection = () => {
         {reverseReviews.map((review) => (
           <>
             <div className="flex w-full border border-gray-100" />
-            <ReviewCard key={review.reviewId} review={review} placeId={id!} />
+            <ReviewCard
+              key={review.reviewId}
+              review={review}
+              placeId={id!}
+              onDelete={handleDeleteReview}
+            />
           </>
         ))}
       </div>
