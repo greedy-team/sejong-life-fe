@@ -64,7 +64,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
         )}
         {haveImages && (
           <button
-            className="absolute top-4 right-4 flex h-12 w-12 items-center justify-center rounded-full border border-white/50 bg-white/90 text-3xl font-bold shadow-sm"
+            className="absolute top-4 right-4 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-white/50 bg-white/90 text-3xl font-bold shadow-sm"
             onClick={() => handleMoreImageButtonClick()}
           >
             <img src="/asset/place-detail-page/plus.svg" alt="더보기" />
