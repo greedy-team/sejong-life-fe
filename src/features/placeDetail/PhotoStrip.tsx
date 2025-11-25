@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LightboxViewer from './LightboxViewer';
 import PhotoGrid from './PhotoGrid';
 
@@ -10,7 +10,20 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [isGridOpen, setIsGridOpen] = useState(false);
-  const haveImages = images && images.length > 0;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640); // sm 기준
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxCount = isMobile ? 2 : 3;
+  const haveImages = images && images.length > maxCount;
 
   const handleMoreImageButtonClick = () => {
     if (haveImages) {
@@ -27,19 +40,25 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
   return (
     <>
       <div className="relative mx-auto mt-2 flex h-[15rem] min-h-[120px] w-[90%] cursor-pointer overflow-hidden rounded-2xl bg-[#d9d9d9]">
-        {[0, 1, 2].map((i) =>
+        {Array.from({ length: maxCount }).map((_, i) =>
           images[i] ? (
-            <img
-              className="h-full flex-1 object-cover transition-transform duration-300 ease-in-out hover:scale-105"
+            <div
               key={i}
-              src={images[i]}
-              alt={`place-${i}`}
-              onClick={() => {
-                setIndex(i);
-                setIsLightboxOpen(true);
-              }}
-              onError={handledError}
-            />
+              className="h-full overflow-hidden"
+              style={{ flex: `0 0 calc(${100 / maxCount}%)` }}
+            >
+              <img
+                className="h-full w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
+                key={i}
+                src={images[i]}
+                alt={`place-${i}`}
+                onClick={() => {
+                  setIndex(i);
+                  setIsLightboxOpen(true);
+                }}
+                onError={handledError}
+              />
+            </div>
           ) : (
             <div
               key={i}
@@ -64,7 +83,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
         )}
         {haveImages && (
           <button
-            className="absolute top-4 right-4 flex h-12 w-12 items-center justify-center rounded-full border border-white/50 bg-white/90 text-3xl font-bold shadow-sm"
+            className="absolute top-4 right-4 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-white/50 bg-white/90 text-3xl font-bold shadow-sm"
             onClick={() => handleMoreImageButtonClick()}
           >
             <img src="/asset/place-detail-page/plus.svg" alt="더보기" />

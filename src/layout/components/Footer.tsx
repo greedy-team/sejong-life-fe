@@ -32,7 +32,10 @@ const Footer = () => {
             <span className="font-pretendard-semibold font-semibold text-gray-500">
               버그 문의 및 장소 데이터 요청
             </span>
-            <a href="" className="border-b border-b-gray-200">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLScpnCnlraSR9LUuVlxFHieM-rFU2A_XlHdCum3mqYfDzXZe3w/viewform"
+              className="border-b border-b-gray-200"
+            >
               구글 폼 링크
             </a>
           </p>
