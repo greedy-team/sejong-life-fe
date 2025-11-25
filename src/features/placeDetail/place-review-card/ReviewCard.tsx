@@ -12,9 +12,10 @@ import { deleteReview } from '../apis/deleteReview';
 interface ReviewCardProps {
   review: Review;
   placeId: string;
+  onDelete: (reviewId: number) => void;
 }
 
-const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
+const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
   const haveImages = review.images && review.images.length > 0;
   const [index, setIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -115,6 +116,7 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
 
       if (response.status === 200) {
         toast.success('리뷰가 삭제되었습니다!');
+        onDelete(review.reviewId);
       } else {
         toast.error('삭제에 실패했습니다.');
       }

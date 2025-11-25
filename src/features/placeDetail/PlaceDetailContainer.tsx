@@ -8,14 +8,25 @@ import MoreReviewButton from './MoreReviewButton';
 import { usePlaceDetail } from '../../hooks/usePlaceDetail';
 import { usePlaceReview } from '../../hooks/usePlaceReview';
 import { useReviewStats } from '../../hooks/useReviewStats';
+import { useEffect, useState } from 'react';
+import type { Review } from '../../types/type';
 
 const PlaceDetailContainer = () => {
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id!);
-  const { reviews } = usePlaceReview(id!);
+  const { reviews: initialReviews } = usePlaceReview(id!);
   const { stats } = useReviewStats(id!);
+  const [reviews, setReviews] = useState<Review[]>([]);
+
+  useEffect(() => {
+    if (initialReviews) setReviews(initialReviews);
+  }, [initialReviews]);
 
   if (!place || !stats) return <div>로딩중...</div>;
+
+  const handleDeleteReview = (reviewId: number) => {
+    setReviews((prev) => prev.filter((r) => r.reviewId !== reviewId));
+  };
 
   const reverseReviews = [...reviews].reverse();
 
@@ -31,7 +42,12 @@ const PlaceDetailContainer = () => {
         {reverseReviews.slice(0, 2).map((review) => (
           <>
             <div className="flex w-full border border-gray-100" />
-            <ReviewCard key={review.reviewId} review={review} placeId={id!} />
+            <ReviewCard
+              key={review.reviewId}
+              review={review}
+              placeId={id!}
+              onDelete={handleDeleteReview}
+            />
           </>
         ))}
         {reviews.length > 2 && (
