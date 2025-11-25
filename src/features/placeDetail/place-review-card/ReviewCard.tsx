@@ -19,8 +19,9 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isContentLong, setIsContentLong] = useState(false);
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, studentId } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isMyReview, setIsMyReview] = useState(false);
 
   const { isLiked, likeCount, handleLike } = useReviewLike(
     placeId,
@@ -39,15 +40,25 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
       setIsContentLong(lines > 3);
     }
   };
+
   useEffect(() => {
     checkContentLines();
   }, [review.content]);
+
   useEffect(() => {
     window.addEventListener('resize', checkContentLines);
     return () => {
       window.removeEventListener('resize', checkContentLines);
     };
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn && studentId) {
+      setIsMyReview(String(review.studentId) === String(studentId));
+    } else {
+      setIsMyReview(false);
+    }
+  }, [isLoggedIn, studentId, review.studentId]);
 
   const formatDate = (dateString: string) => {
     try {
@@ -145,21 +156,26 @@ const ReviewCard = ({ review, placeId }: ReviewCardProps) => {
             </TagButton>
           ))}
         </div>
-        <button
-          onClick={handleLikeClick}
-          className="flex cursor-pointer items-start text-base text-gray-500"
-        >
-          <img
-            src={
-              isLiked
-                ? '/asset/place-detail-page/heart-red.svg'
-                : '/asset/place-detail-page/heart-gray.svg'
-            }
-            alt="like"
-            className="h-5 w-5"
-          />
-          {likeCount}
-        </button>
+        <div className="flex justify-between">
+          <button
+            onClick={handleLikeClick}
+            className="flex cursor-pointer items-start text-base text-gray-500"
+          >
+            <img
+              src={
+                isLiked
+                  ? '/asset/place-detail-page/heart-red.svg'
+                  : '/asset/place-detail-page/heart-gray.svg'
+              }
+              alt="like"
+              className="h-5 w-5"
+            />
+            {likeCount}
+          </button>
+          {isMyReview && (
+            <button className="text-small text-gray-500">삭제</button>
+          )}
+        </div>
       </div>
 
       <LightboxViewer
