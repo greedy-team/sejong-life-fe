@@ -1,5 +1,6 @@
 import type { DetailPlaceProps } from '../../types/type';
 import TagButton from '../../components/share/TagButton';
+import { toast } from 'react-toastify';
 
 interface PlaceInfoProps {
   place: DetailPlaceProps;
@@ -62,6 +63,12 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
           <a
             href={place.mapLinks.naverMap}
             target="_blank"
+            onClick={(e) => {
+              if (!place.mapLinks.naverMap) {
+                e.preventDefault();
+                toast.error('네이버맵에서는 이 장소 정보를 제공하지 않습니다.');
+              }
+            }}
             className="flex-1 rounded-2xl bg-[#03C75A] py-2 text-center text-white transition-colors hover:bg-[#02B350] sm:py-3 sm:text-lg"
           >
             네이버맵
@@ -69,6 +76,12 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
           <a
             href={place.mapLinks.kakaoMap}
             target="_blank"
+            onClick={(e) => {
+              if (!place.mapLinks.kakaoMap) {
+                e.preventDefault();
+                toast.error('카카오맵에서는 이 장소 정보를 제공하지 않습니다.');
+              }
+            }}
             className="flex-1 rounded-2xl bg-[#FEE500] py-2 text-center transition-colors hover:bg-[#F5D400] sm:py-3 sm:text-lg"
           >
             카카오맵
@@ -76,6 +89,12 @@ const PlaceInfo = ({ place }: PlaceInfoProps) => {
           <a
             href={place.mapLinks.googleMap}
             target="_blank"
+            onClick={(e) => {
+              if (!place.mapLinks.googleMap) {
+                e.preventDefault();
+                toast.error('구글맵에서는 이 장소 정보를 제공하지 않습니다.');
+              }
+            }}
             className="flex-1 rounded-2xl bg-[#868E96] py-2 text-center text-white transition-colors hover:bg-[#6C757D] sm:py-3 sm:text-lg"
           >
             구글맵
