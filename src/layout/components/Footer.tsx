@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
-    <footer className="mt-15 flex h-44 w-full flex-col items-center justify-center gap-6 bg-gray-100 text-gray-400">
-      <div className="flex w-[43.75rem] flex-col items-center gap-6 p-6 sm:flex-row sm:items-start sm:justify-between">
+    <footer className="mt-40 flex h-44 w-full flex-col items-center justify-center gap-6 bg-gray-100 text-gray-400">
+      <div className="flex w-full flex-col items-center gap-6 px-4 py-6 sm:flex-row sm:items-start sm:justify-between sm:p-10 lg:p-50">
         <div className="flex flex-col gap-6">
           <p className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
             <span className="font-pretendard-semibold font-semibold text-gray-500">

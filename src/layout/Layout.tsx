@@ -3,9 +3,13 @@ import Header from './components/Header';
 
 const Layout = () => {
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <Outlet />
+      <main className="w-full flex-1">
+        <div className="w-full max-w-[1920px]">
+          <Outlet />
+        </div>
+      </main>
     </div>
   );
 };
