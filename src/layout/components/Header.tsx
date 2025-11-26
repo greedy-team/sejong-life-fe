@@ -14,7 +14,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex h-20 w-full items-center px-4 py-2 sm:px-8 md:px-20">
+    <header className="flex h-20 w-full items-center px-8 py-2 md:px-20">
       <Link to="/" className="w-fit">
         <img
           src="/asset/header/newLogo.svg"
