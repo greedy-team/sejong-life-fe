@@ -7,7 +7,6 @@ import LoginWidget from '../../login/components/LoginWidget';
 import { useReviewLike } from '../../../hooks/useReviewLike';
 import { useAuth } from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
-import { deleteReview } from '../apis/deleteReview';
 
 interface ReviewCardProps {
   review: Review;
@@ -107,25 +106,6 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
     }
   };
 
-  const handleDeleteButtonClicked = async () => {
-    const ok = confirm('정말 삭제하시겠습니까?');
-    if (!ok) return false;
-
-    try {
-      const response = await deleteReview(placeId, review.reviewId);
-
-      if (response.status === 200) {
-        toast.success('리뷰가 삭제되었습니다!');
-        onDelete(review.reviewId);
-      } else {
-        toast.error('삭제에 실패했습니다.');
-      }
-    } catch (err) {
-      toast.error('삭제 중 오류가 발생했습니다.');
-      console.error(err);
-    }
-  };
-
   return (
     <>
       <div className="flex flex-col gap-3 px-5 py-5">
@@ -195,7 +175,7 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
           {isMyReview && (
             <button
               className="cursor-pointer rounded-full border border-gray-400 px-2 text-xs text-gray-500"
-              onClick={handleDeleteButtonClicked}
+              onClick={() => onDelete(review.reviewId)}
             >
               삭제
             </button>

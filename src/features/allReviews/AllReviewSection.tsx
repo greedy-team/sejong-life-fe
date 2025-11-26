@@ -5,25 +5,14 @@ import { usePlaceDetail } from '../../hooks/usePlaceDetail';
 import { usePlaceReview } from '../../hooks/usePlaceReview';
 import { useReviewStats } from '../../hooks/useReviewStats';
 import ReviewStatsSection from '../placeDetail/ReviewStatsSection';
-import { useEffect, useState } from 'react';
-import type { Review } from '../../types/type';
 
 const AllReviewSection = () => {
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id!);
-  const { reviews: initialReviews } = usePlaceReview(id!);
+  const { reviews, handleDeleteReview } = usePlaceReview(id!);
   const { stats } = useReviewStats(id!);
-  const [reviews, setReviews] = useState<Review[]>([]);
-
-  useEffect(() => {
-    if (initialReviews) setReviews(initialReviews);
-  }, [initialReviews]);
 
   if (!place || !stats) return <div>로딩중...</div>;
-
-  const handleDeleteReview = (reviewId: number) => {
-    setReviews((prev) => prev.filter((r) => r.reviewId !== reviewId));
-  };
 
   const reverseReviews = [...reviews].reverse();
 
