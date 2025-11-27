@@ -49,6 +49,12 @@ const LoginForm = ({ setIsNewUser, onClose }: LoginFormProps) => {
 
   return (
     <form className="flex flex-col" onSubmit={handleSubmit}>
+      <span className="] text-[12px]">
+        로그인 시 대양휴머니티칼리지를 통해 학번만 받아옵니다.
+      </span>
+      <span className="mb-4 text-[12px]">
+        사용자의 세종대학교 포털 비밀번호는 절대 저장되지않습니다.
+      </span>
       <label htmlFor="sejongPortalId" className="mb-2 font-semibold">
         학번
       </label>
