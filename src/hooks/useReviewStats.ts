@@ -3,9 +3,11 @@ import type { ReviewStats } from '../types/type';
 import { getReviewStats } from '../features/placeDetail/apis/reviewApi';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { usePlaceReview } from './usePlaceReview';
 
 export const useReviewStats = (id: string) => {
   const [stats, setStats] = useState<ReviewStats | null>(null);
+  const { reviews } = usePlaceReview(id!);
 
   useEffect(() => {
     const fetchPlaceReviewStats = async () => {
@@ -21,7 +23,7 @@ export const useReviewStats = (id: string) => {
       }
     };
     fetchPlaceReviewStats();
-  }, [id]);
+  }, [id, reviews]);
 
   return { stats };
 };

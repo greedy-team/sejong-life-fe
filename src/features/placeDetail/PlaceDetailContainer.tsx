@@ -8,16 +8,22 @@ import MoreReviewButton from './MoreReviewButton';
 import { usePlaceDetail } from '../../hooks/usePlaceDetail';
 import { usePlaceReview } from '../../hooks/usePlaceReview';
 import { useReviewStats } from '../../hooks/useReviewStats';
+// import {fetchPlaceReviewStats}
 
 const PlaceDetailContainer = () => {
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id!);
-  const { reviews } = usePlaceReview(id!);
+  const { reviews, handleDeleteReview } = usePlaceReview(id!);
   const { stats } = useReviewStats(id!);
 
   if (!place || !stats) return <div>로딩중...</div>;
 
   const reverseReviews = [...reviews].reverse();
+
+  //   const handleDelete = async (reviewId: number) => {
+  //     await handleDeleteReview(reviewId);
+  //     await fetchPlaceReviewStats(); // ⭐ 삭제 후 통계 새로 불러오기
+  //   };
 
   return (
     <div className="mx-auto mt-12 flex w-full max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">
@@ -29,10 +35,14 @@ const PlaceDetailContainer = () => {
       <ReviewStatsSection stats={stats} />
       <div className="flex w-full flex-col sm:w-[90%]">
         {reverseReviews.slice(0, 2).map((review) => (
-          <>
+          <div key={review.reviewId}>
             <div className="flex w-full border border-gray-100" />
-            <ReviewCard key={review.reviewId} review={review} placeId={id!} />
-          </>
+            <ReviewCard
+              review={review}
+              placeId={id!}
+              onDelete={handleDeleteReview}
+            />
+          </div>
         ))}
         {reviews.length > 2 && (
           <MoreReviewButton reviewCount={stats.reviewCount} />

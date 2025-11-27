@@ -9,7 +9,7 @@ import ReviewStatsSection from '../placeDetail/ReviewStatsSection';
 const AllReviewSection = () => {
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id!);
-  const { reviews } = usePlaceReview(id!);
+  const { reviews, handleDeleteReview } = usePlaceReview(id!);
   const { stats } = useReviewStats(id!);
 
   if (!place || !stats) return <div>로딩중...</div>;
@@ -24,7 +24,12 @@ const AllReviewSection = () => {
         {reverseReviews.map((review) => (
           <>
             <div className="flex w-full border border-gray-100" />
-            <ReviewCard key={review.reviewId} review={review} placeId={id!} />
+            <ReviewCard
+              key={review.reviewId}
+              review={review}
+              placeId={id!}
+              onDelete={handleDeleteReview}
+            />
           </>
         ))}
       </div>

@@ -14,7 +14,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 640); // sm 기준
+      setIsMobile(window.innerWidth < 640); //sm기준
     };
 
     handleResize();
