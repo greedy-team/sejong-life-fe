@@ -8,6 +8,7 @@ import { postReview } from '../api/postReviewApi';
 import StarRating from './StarRating';
 import { toast } from 'react-toastify';
 import heic2any from 'heic2any';
+import imageCompression from 'browser-image-compression';
 
 const CreateReview = () => {
   const { id } = useParams();
@@ -67,40 +68,67 @@ const CreateReview = () => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files);
 
-    const convertedFiles: File[] = [];
+    try {
+      const convertedFiles = await Promise.all(
+        files.map(async (file) => {
+          if (
+            file.type === 'image/heic' ||
+            file.name.toLowerCase().endsWith('.heic')
+          ) {
+            try {
+              const convertedBlob = (await heic2any({
+                blob: file,
+                toType: 'image/jpeg',
+                quality: 0.8,
+              })) as Blob;
 
-    for (const file of files) {
-      if (file.type === 'image/heic' || file.name.endsWith('.heic')) {
-        try {
-          const convertedBlob = (await heic2any({
-            blob: file,
-            toType: 'image/jpeg',
-            quality: 0.9,
-          })) as Blob;
+              return new File(
+                [convertedBlob],
+                file.name.replace(/\.heic$/i, '.jpg'),
+                { type: 'image/jpeg' },
+              );
+            } catch (err) {
+              console.error('HEIC 변환 실패:', err);
+              return file;
+            }
+          }
+          return file;
+        }),
+      );
 
-          const jpegFile = new File(
-            [convertedBlob],
-            file.name.replace(/\.heic$/i, '.jpg'),
-            {
-              type: 'image/jpeg',
-            },
-          );
-          convertedFiles.push(jpegFile);
-        } catch (err) {
-          console.error('HEIC 변환 실패:', err);
-          convertedFiles.push(file);
-        }
-      } else {
-        convertedFiles.push(file);
-      }
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1600,
+        useWebWorker: true,
+      };
+
+      const compressedFiles = await Promise.all(
+        convertedFiles.map(async (file) => {
+          if (file.size < 1024 * 1024) return file;
+
+          try {
+            const compressed = await imageCompression(file, options);
+            return new File([compressed], file.name, { type: compressed.type });
+          } catch (err) {
+            console.error('압축 실패:', err);
+            return file;
+          }
+        }),
+      );
+
+      const newPreviews = compressedFiles.map((file) =>
+        URL.createObjectURL(file),
+      );
+
+      setPreviews((prev) => [...prev, ...newPreviews]);
+      setFormData((prev) => ({
+        ...prev,
+        images: [...prev.images, ...compressedFiles],
+      }));
+    } catch (err) {
+      console.error('이미지 처리 중 오류:', err);
+      toast.error('이미지 처리 중 문제가 발생했습니다.');
     }
-    const newPreviews = convertedFiles.map((file) => URL.createObjectURL(file));
-
-    setPreviews((prev) => [...prev, ...newPreviews]);
-    setFormData((prev) => ({
-      ...prev,
-      images: [...prev.images, ...convertedFiles],
-    }));
 
     e.target.value = '';
   };
