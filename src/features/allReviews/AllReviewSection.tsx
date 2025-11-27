@@ -9,8 +9,8 @@ import ReviewStatsSection from '../placeDetail/ReviewStatsSection';
 const AllReviewSection = () => {
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id!);
-  const { reviews, handleDeleteReview } = usePlaceReview(id!);
-  const { stats } = useReviewStats(id!);
+  const { stats, refetchStats } = useReviewStats(id!);
+  const { reviews, handleDeleteReview } = usePlaceReview(id!, refetchStats);
 
   if (!place || !stats) return <div>로딩중...</div>;
 

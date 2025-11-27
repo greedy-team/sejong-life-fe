@@ -20,7 +20,7 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isContentLong, setIsContentLong] = useState(false);
-  const { isLoggedIn, studentId } = useAuth();
+  const { isLoggedIn } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const { isLiked, likeCount, handleLike } = useReviewLike(
     placeId,
@@ -28,7 +28,6 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
     review.liked,
     review.likeCount,
   );
-  const [isMyReview, setIsMyReview] = useState(false);
 
   const contentRef = useRef<HTMLDivElement>(null);
   const checkContentLines = () => {
@@ -52,13 +51,13 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (isLoggedIn && studentId) {
-      setIsMyReview(String(review.studentId) === String(studentId));
-    } else {
-      setIsMyReview(false);
-    }
-  }, [isLoggedIn, studentId, review.studentId]);
+  //   useEffect(() => {
+  //     if (isLoggedIn && studentId) {
+  //       setIsMyReview(String(review.studentId) === String(studentId));
+  //     } else {
+  //       setIsMyReview(false);
+  //     }
+  //   }, [isLoggedIn, studentId, review.studentId]);
 
   const formatDate = (dateString: string) => {
     try {
@@ -172,7 +171,7 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
             />
             {likeCount}
           </button>
-          {isMyReview && (
+          {review.isAuthor && (
             <button
               className="cursor-pointer rounded-full border border-gray-400 px-2 text-xs text-gray-500"
               onClick={() => onDelete(review.reviewId)}

@@ -12,8 +12,8 @@ import { useReviewStats } from '../../hooks/useReviewStats';
 const PlaceDetailContainer = () => {
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id!);
-  const { reviews, handleDeleteReview } = usePlaceReview(id!);
-  const { stats } = useReviewStats(id!);
+  const { stats, refetchStats } = useReviewStats(id!);
+  const { reviews, handleDeleteReview } = usePlaceReview(id!, refetchStats);
 
   if (!place || !stats) return <div>로딩중...</div>;
 

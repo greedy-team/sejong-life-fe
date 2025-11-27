@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useAuth } from './useAuth';
 import { deleteReview } from '../features/placeDetail/apis/deleteReview';
 
-export const usePlaceReview = (id: string) => {
+export const usePlaceReview = (id: string, refetchStats?: () => void) => {
   const { isLoggedIn } = useAuth();
   const [reviews, setReviews] = useState<Review[]>([]);
   const token = localStorage.getItem('accessToken') ?? '';
@@ -25,7 +25,7 @@ export const usePlaceReview = (id: string) => {
       }
     };
     fetchPlaceReview();
-  }, [isLoggedIn, id, reviews]);
+  }, [isLoggedIn, id]);
 
   const handleDeleteReview = async (reviewId: number) => {
     const ok = confirm('정말 삭제하시겠습니까?');
@@ -37,6 +37,8 @@ export const usePlaceReview = (id: string) => {
       if (response.status === 200) {
         toast.success('리뷰가 삭제되었습니다.');
         setReviews((prev) => prev.filter((r) => r.reviewId !== reviewId));
+
+        refetchStats?.();
       } else {
         toast.error('리뷰 삭제에 실패했습니다.');
       }
