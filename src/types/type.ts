@@ -83,6 +83,7 @@ export type Review = {
   createdAt: string;
   images: ImageProps[];
   tags: { tagId: number; tagName: string }[];
+  isAuthor: boolean;
 };
 
 export type ReviewStats = {
