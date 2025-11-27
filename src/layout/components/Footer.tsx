@@ -13,7 +13,7 @@ const Footer = () => {
             <span className="font-pretendard-semibold font-semibold text-gray-500">
               Contact
             </span>
-            sejonglife@gmail.com
+            sejonglife2025@gmail.com
           </p>
         </div>
         <div className="flex flex-col gap-6">
@@ -33,7 +33,7 @@ const Footer = () => {
               버그 문의 및 장소 데이터 요청
             </span>
             <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLScpnCnlraSR9LUuVlxFHieM-rFU2A_XlHdCum3mqYfDzXZe3w/viewform"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfKxqv3DOODXozNiTVC9rmVv5KcUV6pnBeyFjUtgqjdilUCCQ/viewform?usp=dialog"
               className="border-b border-b-gray-200"
             >
               구글 폼 링크
