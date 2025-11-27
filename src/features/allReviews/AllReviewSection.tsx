@@ -17,10 +17,10 @@ const AllReviewSection = () => {
   const reverseReviews = [...reviews].reverse();
 
   return (
-    <div className="mx-auto mt-12 flex w-[75%] flex-col items-center gap-10 overflow-y-auto">
+    <div className="mx-auto mt-12 flex w-[75%] max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">
       <PhotoStrip images={place.images.map((image) => image.url)} />
       <ReviewStatsSection stats={stats} />
-      <div className="flex w-[90%] flex-col">
+      <div className="flex w-full flex-col">
         {reverseReviews.map((review) => (
           <>
             <div className="flex w-full border border-gray-100" />
