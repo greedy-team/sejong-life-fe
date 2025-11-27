@@ -51,14 +51,6 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
     };
   }, []);
 
-  //   useEffect(() => {
-  //     if (isLoggedIn && studentId) {
-  //       setIsMyReview(String(review.studentId) === String(studentId));
-  //     } else {
-  //       setIsMyReview(false);
-  //     }
-  //   }, [isLoggedIn, studentId, review.studentId]);
-
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(dateString);
