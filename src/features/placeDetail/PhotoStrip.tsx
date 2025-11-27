@@ -124,6 +124,7 @@ const PhotoStrip = ({ images }: PhotoStripProps) => {
         index={index}
         images={images}
         onClose={() => setIsLightboxOpen(false)}
+        setIndex={setIndex}
       />
     </>
   );

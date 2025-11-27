@@ -8,7 +8,6 @@ import MoreReviewButton from './MoreReviewButton';
 import { usePlaceDetail } from '../../hooks/usePlaceDetail';
 import { usePlaceReview } from '../../hooks/usePlaceReview';
 import { useReviewStats } from '../../hooks/useReviewStats';
-// import {fetchPlaceReviewStats}
 
 const PlaceDetailContainer = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,11 +18,6 @@ const PlaceDetailContainer = () => {
   if (!place || !stats) return <div>로딩중...</div>;
 
   const reverseReviews = [...reviews].reverse();
-
-  //   const handleDelete = async (reviewId: number) => {
-  //     await handleDeleteReview(reviewId);
-  //     await fetchPlaceReviewStats(); // ⭐ 삭제 후 통계 새로 불러오기
-  //   };
 
   return (
     <div className="mx-auto mt-12 flex w-full max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">
