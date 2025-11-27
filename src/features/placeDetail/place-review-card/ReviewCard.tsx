@@ -188,6 +188,7 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
         index={index}
         images={review.images.map((img) => img.url)}
         onClose={() => setIsLightboxOpen(false)}
+        setIndex={setIndex}
       />
 
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)}>
