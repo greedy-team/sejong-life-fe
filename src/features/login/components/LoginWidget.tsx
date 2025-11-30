@@ -11,7 +11,7 @@ const LoginWidget = ({ onClose }: LoginWidgetProps) => {
 
   return (
     <>
-      {isNewUser ? (
+      {!isNewUser ? (
         <>
           <h2 className="mb-4 text-2xl font-bold text-[#8BE34A]">로그인</h2>
           <LoginForm setIsNewUser={setIsNewUser} onClose={onClose} />
