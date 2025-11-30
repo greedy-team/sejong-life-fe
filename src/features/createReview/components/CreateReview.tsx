@@ -173,7 +173,7 @@ const CreateReview = () => {
       navigate(`/detail/${id}`);
     } catch (error) {
       console.error(error);
-      toast.error('리뷰 등록에 실패했습니다.');
+      toast.error('필수 항목을 입력해주세요.');
     }
 
     setIsLoading(false);
