@@ -84,6 +84,7 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
       <label htmlFor="nickname" className="mb-1 font-semibold">
         닉네임
       </label>
+
       <input
         type="text"
         id="nickname"
@@ -91,8 +92,11 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
         value={signUpForm.nickname}
         onChange={handleChange}
         placeholder="닉네임"
-        className="mb-3 rounded-lg border-2 border-black p-2 text-sm transition-all duration-100 focus:border-[#8BE34A] focus:ring-2 focus:ring-[#8BE34A] focus:outline-none"
+        className="mb-1 rounded-lg border-2 border-black p-2 text-sm transition-all duration-100 focus:border-[#8BE34A] focus:ring-2 focus:ring-[#8BE34A] focus:outline-none"
       />
+      <span className="mb-4 indent-2 text-[10px] text-[#73bd3e]">
+        한글로 된 닉네임을 적어주세요.
+      </span>
       <button
         type="submit"
         className="cursor-pointer rounded-md bg-[#8BE34A] p-2 font-semibold text-white hover:bg-[#77db30]"
