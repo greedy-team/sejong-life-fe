@@ -104,7 +104,7 @@ const TagFilter = () => {
           </TagButton>
         ))}
         <div
-          className={`pointer-events-none absolute bottom-0 left-0 h-30 w-full bg-gradient-to-t from-white to-transparent transition-opacity duration-300 ${
+          className={`pointer-events-none absolute bottom-0 left-0 h-10 w-full bg-gradient-to-t from-white to-transparent transition-opacity duration-300 ${
             isBottom ? 'opacity-0' : 'opacity-100'
           }`}
         />
