@@ -188,9 +188,16 @@ const CreateReview = () => {
       <div className="flex h-fit flex-col rounded-2xl border border-[#EEEFF1] bg-white py-2 text-[#2C3037] lg:py-6">
         <form onSubmit={handleSubmit} className="py-2 lg:py-6">
           <div className="space-y-2 px-8 py-5 lg:px-10">
-            <h1 className="text-lg font-bold">
-              방문하신 장소의 별점을 남겨주세요
-            </h1>
+            <div className="flex items-center gap-1">
+              <h1 className="text-lg font-bold">
+                방문하신 장소의 별점을 남겨주세요
+              </h1>
+              <img
+                src="/asset/create-review/requireStar.svg"
+                alt="필수별표"
+                className="mb-3 h-2.5"
+              />
+            </div>
             <StarRating
               value={formData.rating}
               onChange={(newRating) =>
@@ -217,9 +224,17 @@ const CreateReview = () => {
             </div>
           </div>
           <div className="flex flex-col gap-2 px-8 py-5 lg:px-10">
-            <label htmlFor="review" className="text-lg font-bold">
-              리뷰를 작성해주세요.
-            </label>
+            <div className="flex items-center">
+              <label htmlFor="review" className="text-lg font-bold">
+                리뷰를 작성해주세요.
+              </label>
+              <img
+                src="/asset/create-review/requireStar.svg"
+                alt="필수별표"
+                className="mb-3 h-2.5"
+              />
+            </div>
+
             <textarea
               name="review"
               id="review"
