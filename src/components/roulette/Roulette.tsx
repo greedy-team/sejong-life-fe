@@ -101,7 +101,7 @@ const Roulette: React.FC<RouletteProps> = ({ items, colors }) => {
                   onClick={handleGoToReview}
                   className="rounded-full bg-[#8BE34A] px-6 py-3 font-semibold text-black shadow-md transition-colors duration-300 hover:bg-[#7bcc42]"
                 >
-                  리뷰 보러가기
+                  장소 보러가기
                 </button>
               )}
             </div>
