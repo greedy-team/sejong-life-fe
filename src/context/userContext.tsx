@@ -40,18 +40,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-
-    if (token && !isTokenExpired(token)) {
-      setIsLoggedIn(true);
-      const id = decodeToken(token);
-      setStudentId(id);
-    } else {
-      setIsLoggedIn(false);
-      setStudentId(null);
-      localStorage.removeItem('accessToken');
-    }
-
     const handleStorageChange = () => {
       const token = localStorage.getItem('accessToken');
 
@@ -65,6 +53,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.removeItem('accessToken');
       }
     };
+
+    handleStorageChange();
 
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
