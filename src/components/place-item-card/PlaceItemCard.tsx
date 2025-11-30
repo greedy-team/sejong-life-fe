@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import type { PlaceProps } from '../../types/type';
 import TagButton from '../share/TagButton';
 
@@ -10,6 +11,22 @@ interface PlaceItemCardProps {
 const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const placeNameRef = useRef<HTMLHeadingElement | null>(null);
+  const [tagMaxCount, setTagMaxCount] = useState(3);
+
+  useEffect(() => {
+    if (placeNameRef.current) {
+      const element = placeNameRef.current;
+      const style = window.getComputedStyle(element);
+      const nameLineHeight = parseFloat(style.lineHeight);
+      const nameHeight = element.clientHeight;
+
+      const nameLineCount = Math.round(nameHeight / nameLineHeight);
+      const tagCount = Math.max(1, 4 - nameLineCount);
+
+      setTagMaxCount(tagCount);
+    }
+  }, [placeInfo.placeName]);
 
   return (
     <div
@@ -49,7 +66,9 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
         <div className="flex w-[50%] flex-col">
           <div className="flex flex-col gap-2 p-2.5">
             <div>
-              <h3 className="text-lg font-medium">{placeInfo.placeName}</h3>
+              <h3 ref={placeNameRef} className="text-lg font-medium">
+                {placeInfo.placeName}
+              </h3>
               <div className="text-xs text-gray-600">
                 {placeInfo.categories.map((category) => (
                   <span key={category.categoryId} className="rounded-full">
@@ -81,12 +100,12 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
               </div>
             </div>
             <div className="flex flex-wrap gap-1">
-              {placeInfo.tags.slice(0, 3).map((tag) => (
+              {placeInfo.tags.slice(0, tagMaxCount).map((tag) => (
                 <TagButton key={tag.tagId}>{tag.tagName}</TagButton>
               ))}
-              {placeInfo.tags.length > 3 && (
+              {placeInfo.tags.length > tagMaxCount && (
                 <span className="w-fit cursor-pointer rounded-full bg-[#F3F4F5] px-3 py-1.5 text-[10px] font-semibold text-[#2C3037]">
-                  +{placeInfo.tags.length - 3}
+                  +{placeInfo.tags.length - tagMaxCount}
                 </span>
               )}
             </div>
