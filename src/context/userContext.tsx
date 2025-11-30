@@ -25,27 +25,36 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+  const isTokenExpired = (token: string) => {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const exp = payload.exp;
 
-    if (token) {
-      setIsLoggedIn(true);
-      const id = decodeToken(token);
-      setStudentId(id);
+      if (!exp) return true;
+
+      const now = Math.floor(Date.now() / 1000);
+      return exp < now;
+    } catch (e) {
+      return true;
     }
+  };
 
+  useEffect(() => {
     const handleStorageChange = () => {
       const token = localStorage.getItem('accessToken');
 
-      if (token) {
+      if (token && !isTokenExpired(token)) {
         setIsLoggedIn(true);
         const id = decodeToken(token);
         setStudentId(id);
       } else {
         setIsLoggedIn(false);
         setStudentId(null);
+        localStorage.removeItem('accessToken');
       }
     };
+
+    handleStorageChange();
 
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
