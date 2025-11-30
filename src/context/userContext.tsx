@@ -25,25 +25,44 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const isTokenExpired = (token: string) => {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const exp = payload.exp;
+
+      if (!exp) return true;
+
+      const now = Math.floor(Date.now() / 1000);
+      return exp < now;
+    } catch (e) {
+      return true;
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
 
-    if (token) {
+    if (token && !isTokenExpired(token)) {
       setIsLoggedIn(true);
       const id = decodeToken(token);
       setStudentId(id);
+    } else {
+      setIsLoggedIn(false);
+      setStudentId(null);
+      localStorage.removeItem('accessToken');
     }
 
     const handleStorageChange = () => {
       const token = localStorage.getItem('accessToken');
 
-      if (token) {
+      if (token && !isTokenExpired(token)) {
         setIsLoggedIn(true);
         const id = decodeToken(token);
         setStudentId(id);
       } else {
         setIsLoggedIn(false);
         setStudentId(null);
+        localStorage.removeItem('accessToken');
       }
     };
 
