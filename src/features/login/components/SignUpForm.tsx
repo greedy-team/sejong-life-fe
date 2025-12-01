@@ -25,6 +25,13 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
       nickname: '',
     };
   });
+  const [isNicknameValid, setIsNicknameValid] = useState(true);
+
+  const isKoreanOnly = (text: string) => {
+    if (!text) return true;
+    const koreanRegex = /^[가-힣\s]+$/;
+    return koreanRegex.test(text);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -32,6 +39,10 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
       ...prev,
       [name]: value,
     }));
+
+    if (name === 'nickname') {
+      setIsNicknameValid(isKoreanOnly(value));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -91,15 +102,18 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
         name="nickname"
         value={signUpForm.nickname}
         onChange={handleChange}
-        placeholder="닉네임"
+        placeholder="한글로 된 닉네임을 적어주세요."
         className="mb-1 rounded-lg border-2 border-black p-2 text-sm transition-all duration-100 focus:border-[#8BE34A] focus:ring-2 focus:ring-[#8BE34A] focus:outline-none"
       />
-      <span className="mb-4 indent-2 text-[10px] text-[#73bd3e]">
-        한글로 된 닉네임을 적어주세요.
-      </span>
+      {!isNicknameValid && signUpForm.nickname && (
+        <span className="mb-1 indent-2 text-[12px] text-red-500">
+          닉네임은 한글로만 설정 가능합니다.
+        </span>
+      )}
       <button
         type="submit"
-        className="cursor-pointer rounded-md bg-[#8BE34A] p-2 font-semibold text-white hover:bg-[#77db30]"
+        disabled={!signUpForm.nickname || !isNicknameValid}
+        className="cursor-pointer rounded-md bg-[#8BE34A] p-2 font-semibold text-white hover:bg-[#77db30] disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:bg-gray-400"
       >
         회원가입
       </button>
