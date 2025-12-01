@@ -17,8 +17,6 @@ const PlaceDetailContainer = () => {
 
   if (!place || !stats) return <div>로딩중...</div>;
 
-  const reverseReviews = [...reviews].reverse();
-
   return (
     <div className="mx-auto mt-12 flex w-full max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">
       <PhotoStrip images={place.images.map((image) => image.url)} />
@@ -28,7 +26,7 @@ const PlaceDetailContainer = () => {
       <div className="flex w-full border border-gray-100" />
       <ReviewStatsSection stats={stats} />
       <div className="flex w-full flex-col sm:w-[90%]">
-        {reverseReviews.slice(0, 2).map((review) => (
+        {reviews.slice(0, 2).map((review) => (
           <div key={review.reviewId}>
             <div className="flex w-full border border-gray-100" />
             <ReviewCard
