@@ -14,14 +14,12 @@ const AllReviewSection = () => {
 
   if (!place || !stats) return <div>로딩중...</div>;
 
-  const reverseReviews = [...reviews].reverse();
-
   return (
     <div className="mx-auto mt-12 flex w-[75%] max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">
       <PhotoStrip images={place.images.map((image) => image.url)} />
       <ReviewStatsSection stats={stats} />
       <div className="flex w-full flex-col">
-        {reverseReviews.map((review) => (
+        {reviews.map((review) => (
           <>
             <div className="flex w-full border border-gray-100" />
             <ReviewCard
