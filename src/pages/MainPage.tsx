@@ -7,7 +7,7 @@ import Footer from '../layout/components/Footer';
 import { fetchCategories } from '../features/explore/apis/filterApi';
 import type { CategoryProps } from '../types/type';
 import { fetchHotPlaces } from '../api/placeApi';
-import SearchBar from '../components/share/Searchbar';
+import SearchBar from '../components/share/SearchBar';
 
 const MainPage = () => {
   const [hotPlaces, setHotPlaces] = useState<PlaceInfo[]>([]);

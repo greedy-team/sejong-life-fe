@@ -20,7 +20,7 @@ export const fetchSearchResult = async ({
       },
     });
 
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.error('검색 실패', error);
     return [];

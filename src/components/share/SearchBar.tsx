@@ -1,14 +1,17 @@
 import { useState } from 'react';
-import { fetchSearchResult } from '../../api/searchResultApi';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const response = await fetchSearchResult({ keyword });
-    console.log(response);
+    const trimmed = keyword.trim();
+    if (!trimmed) return [];
+
+    navigate(`/search?keyword=${trimmed}`);
   };
 
   return (
