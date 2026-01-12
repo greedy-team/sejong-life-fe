@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import TagButton from '../../../components/share/TagButton';
+import Spinner from '../../../components/share/Spinner';
 import { useCreateReview } from '../hooks/mutations';
 import { useTagLists } from '../../../hooks/queries';
 import StarRating from './StarRating';
@@ -146,7 +147,7 @@ const CreateReview = () => {
   };
 
   if (isTagLoading) {
-    return <div>로딩중...</div>;
+    return <Spinner />;
   }
 
   return (

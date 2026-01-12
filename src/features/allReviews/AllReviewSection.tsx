@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import Spinner from '../../components/share/Spinner';
 import PhotoStrip from '../placeDetail/PhotoStrip';
 import ReviewCard from '../placeDetail/place-review-card/ReviewCard';
 import { usePlaceDetail } from '../../hooks/usePlaceDetail';
@@ -12,7 +13,7 @@ const AllReviewSection = () => {
   const { stats, refetchStats } = useReviewStats(id!);
   const { reviews, handleDeleteReview } = usePlaceReview(id!, refetchStats);
 
-  if (!place || !stats) return <div>로딩중...</div>;
+  if (!place || !stats) return <Spinner />;
 
   return (
     <div className="mx-auto mt-12 flex w-[75%] max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">

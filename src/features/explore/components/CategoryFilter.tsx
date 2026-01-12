@@ -1,5 +1,6 @@
 import type { CategoryProps } from '../../../types/type';
 import { useSearchParams } from 'react-router-dom';
+import Spinner from '../../../components/share/Spinner';
 import { useCategoryLists } from '../hooks/queries';
 
 const CategoryFilter = () => {
@@ -42,7 +43,7 @@ const CategoryFilter = () => {
   };
 
   if (isCategoriesLoading) {
-    return <div>로딩중...</div>;
+    return <Spinner />;
   }
 
   return (

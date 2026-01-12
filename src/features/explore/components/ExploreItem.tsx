@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PlaceItemCard from '../../../components/place-item-card/PlaceItemCard';
 import TagButton from '../../../components/share/TagButton';
+import Spinner from '../../../components/share/Spinner';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useFilteredPlaces } from '../hooks/queries';
 
@@ -34,7 +35,7 @@ const ExploreItem = () => {
   };
 
   if (isLoading) {
-    return <div className="flex w-full justify-center py-15">로딩중...</div>;
+    return <Spinner />;
   }
 
   return (

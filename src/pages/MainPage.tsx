@@ -1,6 +1,7 @@
 import Banner from '../components/place-item-container/Banner';
 import ItemContainer from '../components/place-item-container/ItemContainer';
 import PageRouterButton from '../components/share/PageRouterButton';
+import Spinner from '../components/share/Spinner';
 import Footer from '../layout/components/Footer';
 import { useCategoryLists } from '../features/explore/hooks/queries';
 import { useHotPlaces } from '../hooks/queries';
@@ -13,7 +14,7 @@ const MainPage = () => {
   const hotPlaces = hotPlacesData?.data || [];
 
   if (isCategoriesLoading || isHotPlacesLoading) {
-    return <div>로딩중...</div>;
+    return <Spinner />;
   }
 
   return (
