@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { type DetailPlaceProps, type TagProps } from '../../../types/type';
-import { fetchPlaceDetail } from '../../../api/placeApi';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchTagList } from '../../../api/tagApi';
 import TagButton from '../../../components/share/TagButton';
 import { postReview } from '../api/postReviewApi';
 import StarRating from './StarRating';
 import { toast } from 'react-toastify';
 import heic2any from 'heic2any';
 import imageCompression from 'browser-image-compression';
+import { fetchPlaceDetail, fetchTagList } from '../../../api';
 
 const CreateReview = () => {
   const { id } = useParams();

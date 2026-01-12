@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import type { Review } from '../types/type';
-import { getPlaceReview } from '../features/placeDetail/apis/reviewApi';
+import {
+  deleteReview,
+  getPlaceReview,
+} from '../features/placeDetail/apis/reviewApi';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useAuth } from './useAuth';
-import { deleteReview } from '../features/placeDetail/apis/deleteReview';
 
 export const usePlaceReview = (id: string, refetchStats?: () => void) => {
   const { isLoggedIn } = useAuth();

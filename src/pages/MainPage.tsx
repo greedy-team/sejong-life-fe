@@ -6,7 +6,7 @@ import PageRouterButton from '../components/share/PageRouterButton';
 import Footer from '../layout/components/Footer';
 import { fetchCategories } from '../features/explore/apis/filterApi';
 import type { CategoryProps } from '../types/type';
-import { fetchHotPlaces } from '../api/placeApi';
+import { fetchHotPlaces } from '../api';
 
 const MainPage = () => {
   const [hotPlaces, setHotPlaces] = useState<PlaceInfo[]>([]);

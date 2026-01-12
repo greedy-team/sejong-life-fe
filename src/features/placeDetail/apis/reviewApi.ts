@@ -44,3 +44,11 @@ export const removeReviewLike = async (placeId: string, reviewId: number) => {
   );
   return response.data;
 };
+
+export const deleteReview = async (placeId: string, reviewId: number) => {
+  const response = await authApi.delete(
+    `/api/places/${placeId}/reviews/${reviewId}`,
+  );
+
+  return response;
+};
