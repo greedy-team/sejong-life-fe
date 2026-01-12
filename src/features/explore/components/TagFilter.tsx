@@ -1,47 +1,27 @@
-import { useEffect, useState, useRef } from 'react';
-import type { CategoryProps, TagProps } from '../../../types/type';
-import { fetchCategories, fetchCategoryTags } from '../apis/filterApi';
+import { useState, useRef, useMemo } from 'react';
+import type { TagProps } from '../../../types/type';
 import TagButton from '../../../components/share/TagButton';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useCategoryLists, useCategoryTagLists } from '../hooks/queries';
 
 const TagFilter = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   const categoryName = params.get('category');
-  const [tags, setTags] = useState<TagProps[]>([]);
-  const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [isBottom, setIsBottom] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { data: categories = [] } = useCategoryLists();
 
-  useEffect(() => {
-    const fetchCategory = async () => {
-      const res = await fetchCategories();
-      setCategories(res.data || []);
-    };
-
-    fetchCategory();
-  }, []);
-
-  useEffect(() => {
-    if (!categoryName || categories.length === 0) return;
-
+  const categoryId = useMemo(() => {
+    if (!categoryName || categories.length === 0) return undefined;
     const matchedCategory = categories.find(
       (category) => category.categoryName === categoryName,
     );
-
-    const fetchTag = async (id?: number) => {
-      const res = await fetchCategoryTags(id);
-      setTags(res.data || []);
-    };
-
-    if (!matchedCategory) {
-      fetchTag();
-      return;
-    }
-
-    fetchTag(matchedCategory.categoryId);
+    return matchedCategory?.categoryId;
   }, [categoryName, categories]);
+
+  const { data: tags = [] } = useCategoryTagLists(categoryId);
 
   const updateQueryParams = (newSelectedTags: TagProps[]) => {
     const searchParams = new URLSearchParams(location.search);

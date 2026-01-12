@@ -7,18 +7,33 @@ import { api } from './api';
 export const fetchPlaceDetail = async (
   placeId: number,
 ): Promise<DetailPlace> => {
-  const response = await api.get(`/api/places/${placeId}`);
-  return response.data;
+  try {
+    const response = await api.get(`/api/places/${placeId}`);
+    return response.data;
+  } catch (error) {
+    console.error('장소 상세 정보 조회 실패:', error);
+    throw error;
+  }
 };
 
 // 인기 장소 api
 export const fetchHotPlaces = async (): Promise<HotPlaceApiResponse> => {
-  const response = await api.get('/api/places/hot');
-  return response.data;
+  try {
+    const response = await api.get('/api/places/hot');
+    return response.data;
+  } catch (error) {
+    console.error('인기 장소 조회 실패:', error);
+    throw error;
+  }
 };
 
 // 태그 api
 export const fetchTagList = async (): Promise<Tag> => {
-  const response = await api.get('/api/tags');
-  return response.data;
+  try {
+    const response = await api.get('/api/tags');
+    return response.data;
+  } catch (error) {
+    console.error('태그 조회 실패:', error);
+    throw error;
+  }
 };

@@ -1,19 +1,15 @@
-import { useEffect, useState } from 'react';
-import { type DetailPlaceProps, type TagProps } from '../../../types/type';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import TagButton from '../../../components/share/TagButton';
-import { postReview } from '../api/postReviewApi';
+import { useCreateReview } from '../hooks/mutations';
+import { useTagLists } from '../../../hooks/queries';
 import StarRating from './StarRating';
 import { toast } from 'react-toastify';
 import heic2any from 'heic2any';
 import imageCompression from 'browser-image-compression';
-import { fetchPlaceDetail, fetchTagList } from '../../../api';
 
 const CreateReview = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [placeInfo, setPlaceInfo] = useState<DetailPlaceProps>();
-  const [tags, setTags] = useState<TagProps[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     rating: 0,
@@ -21,25 +17,9 @@ const CreateReview = () => {
     images: [] as File[],
     tagIds: [] as number[],
   });
-  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchPlaceInfo = async () => {
-      const res = await fetchPlaceDetail(Number(id));
-      setPlaceInfo(res.data);
-    };
-
-    fetchPlaceInfo();
-  }, []);
-
-  useEffect(() => {
-    const fetchTagLists = async () => {
-      const res = await fetchTagList();
-      setTags(res.data);
-    };
-
-    fetchTagLists();
-  }, []);
+  const { data: tags, isLoading: isTagLoading } = useTagLists();
+  const createReviewMutation = useCreateReview(Number(id));
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFormData({
@@ -140,45 +120,32 @@ const CreateReview = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (isLoading) return;
-    setIsLoading(true);
+    const submitData = new FormData();
+    submitData.append(
+      'review',
+      new Blob(
+        [
+          JSON.stringify({
+            rating: formData.rating,
+            content: formData.content,
+            tagIds: formData.tagIds,
+          }),
+        ],
+        { type: 'application/json' },
+      ),
+    );
 
-    try {
-      const submitData = new FormData();
-      submitData.append(
-        'review',
-        new Blob(
-          [
-            JSON.stringify({
-              rating: formData.rating,
-              content: formData.content,
-              tagIds: formData.tagIds,
-            }),
-          ],
-          { type: 'application/json' },
-        ),
-      );
+    formData.images.forEach((file) => {
+      submitData.append('images', file);
+    });
 
-      formData.images.forEach((file) => {
-        submitData.append('images', file);
-      });
-
-      await postReview(Number(id), submitData);
-
-      toast.success('리뷰가 성공적으로 등록되었습니다!');
-      navigate(`/detail/${id}`);
-    } catch (error) {
-      console.error(error);
-      toast.error('필수 항목을 입력해주세요.');
-    }
-
-    setIsLoading(false);
+    createReviewMutation.mutate(submitData);
   };
 
-  if (!placeInfo) {
+  if (isTagLoading) {
     return <div>로딩중...</div>;
   }
 
@@ -207,7 +174,7 @@ const CreateReview = () => {
           <div className="space-y-2 p-8 lg:p-10">
             <h4 className="text-lg font-bold">어울리는 태그를 골라주세요!</h4>
             <div className="custom-scroll max-h-28 space-y-2 overflow-auto rounded-md border border-gray-100 p-3 lg:space-x-3">
-              {tags.map((tag) => {
+              {tags?.data.map((tag) => {
                 const isSelected = formData.tagIds.includes(tag.tagId);
                 return (
                   <TagButton
@@ -277,7 +244,7 @@ const CreateReview = () => {
                   />
                   <button
                     onClick={() => handleRemoveImage(index)}
-                    disabled={isLoading}
+                    disabled={createReviewMutation.isPending}
                     className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/50 px-1 text-xs text-white"
                   >
                     ✕
@@ -289,10 +256,10 @@ const CreateReview = () => {
           <div className="flex justify-end px-8 py-5 lg:px-10">
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={createReviewMutation.isPending}
               className="text-md rounded-2xl bg-[#8BE34A] px-5 py-3 font-bold text-white"
             >
-              등록하기
+              {createReviewMutation.isPending ? '등록 중...' : '등록하기'}
             </button>
           </div>
         </form>
