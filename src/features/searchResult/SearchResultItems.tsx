@@ -31,11 +31,10 @@ const SearchResultItems = () => {
     search();
   }, [keyword]);
 
-  if (loading)
-    return <div className="mt-50 flex justify-center">검색 중...</div>;
+  if (loading) return <div>검색 중...</div>;
   if (places.length === 0)
     return (
-      <div className="mt-50 flex justify-center">검색 결과가 없습니다.</div>
+      <div className="mt-25 flex justify-center">검색 결과가 없습니다</div>
     );
 
   return (
