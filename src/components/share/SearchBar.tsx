@@ -22,12 +22,12 @@ const SearchBar = () => {
       <input
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
-        className="text- flex-1 px-5 py-4 outline-none"
+        className="flex-1 px-5 py-4 text-sm outline-none lg:text-base"
         placeholder="궁금한 장소를 검색해보세요 !"
       />
       <button
         type="submit"
-        className="flex items-center justify-center bg-[#8BE34A] px-7"
+        className="flex items-center justify-center bg-[#8BE34A] px-4.5 lg:px-7"
       >
         <img src="/asset/searchbar/search.svg" alt="search"></img>
       </button>
