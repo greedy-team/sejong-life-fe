@@ -24,14 +24,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<MainPage />} />
-              <Route path="detail/:id" element={<PlaceDetailPage />} />
               <Route path="preparingService" element={<PrepareServicePage />} />
               <Route path="explore" element={<ExplorePage />} />
               <Route path="roulette" element={<RoulettePage />} />
-              <Route path="search" element={<SearchResultPage />} />
             </Route>
             <Route path="/" element={<BackLayout />}>
               <Route path="detail/:id/reviews" element={<AllReviewPage />} />
+
               <Route
                 path="write-review/:id"
                 element={
@@ -40,6 +39,8 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="detail/:id" element={<PlaceDetailPage />} />
+              <Route path="search" element={<SearchResultPage />} />
             </Route>
           </Routes>
         </Suspense>
