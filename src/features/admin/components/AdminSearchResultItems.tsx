@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import PlaceItemCard from '../../components/place-item-card/PlaceItemCard';
+import PlaceItemCard from '../../../components/place-item-card/PlaceItemCard';
 import { useSearchParams } from 'react-router-dom';
-import type { PlaceProps } from '../../types/type';
-import { fetchSearchResult } from '../../api/searchResultApi';
+import type { PlaceProps } from '../../../types/type';
+import { fetchSearchResult } from '../../../api/searchResultApi';
 
-const SearchResultItems = () => {
+const AdminSearchResultItems = () => {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get('keyword') ?? '';
   const [places, setPlaces] = useState<PlaceProps[]>([]);
@@ -31,7 +31,12 @@ const SearchResultItems = () => {
     return <div className="mt-25 flex justify-center">검색 중...</div>;
   if (places.length === 0 && keyword)
     return (
-      <div className="mt-25 flex justify-center">검색 결과가 없습니다.</div>
+      <div className="mt-55 flex flex-col items-center gap-5">
+        <span>검색결과가 없습니다</span>
+        <a className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]">
+          + 장소 추가하기
+        </a>
+      </div>
     );
   if (places.length === 0) return null;
 
@@ -79,4 +84,4 @@ const SearchResultItems = () => {
   );
 };
 
-export default SearchResultItems;
+export default AdminSearchResultItems;

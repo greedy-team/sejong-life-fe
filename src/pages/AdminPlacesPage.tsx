@@ -1,4 +1,6 @@
-function AdminPlaces() {
-  return <></>;
+import PlaceSearchContainer from '../features/admin/components/PlaceSearchContainer';
+
+function AdminPlacesPage() {
+  return <PlaceSearchContainer />;
 }
-export default AdminPlaces;
+export default AdminPlacesPage;
