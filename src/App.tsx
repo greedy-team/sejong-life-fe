@@ -20,6 +20,7 @@ import BackLayout from './layout/BackLayout';
 import ProtectedRoute from './components/share/ProtectedRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PlaceRegisterPage from './pages/PlaceRegisterPage';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -52,6 +53,12 @@ function App() {
                     <CreateReviewPage />
                   </ProtectedRoute>
                 }
+              />
+            </Route>
+            <Route path="/">
+              <Route
+                path="admin/placeRegister"
+                element={<PlaceRegisterPage />}
               />
             </Route>
           </Routes>
