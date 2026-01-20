@@ -35,12 +35,13 @@ const AdminSearchResultItems = () => {
       <>
         <div className="mt-55 flex flex-col items-center gap-5">
           <span>검색결과가 없습니다</span>
-          <a
+          <button
+            type="button"
             onClick={() => setIsFormOpen(true)}
             className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
           >
             + 장소 추가하기
-          </a>
+          </button>
         </div>
 
         {isFormOpen && <PlaceRegisterForm setIsFormOpen={setIsFormOpen} />}

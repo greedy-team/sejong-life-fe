@@ -5,7 +5,6 @@ import BackLayout from './layout/BackLayout';
 import ProtectedRoute from './components/share/ProtectedRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import PlaceRegisterPage from './pages/PlaceRegisterPage';
 import SearchResultPage from './pages/SearchResultPage';
 import AdminPlacesPage from './pages/AdminPlacesPage';
 import AdminPage from './pages/AdminPage';
@@ -43,14 +42,10 @@ function App() {
               />
               <Route path="detail/:id" element={<PlaceDetailPage />} />
               <Route path="search" element={<SearchResultPage />} />
+              <Route path="admin/places" element={<AdminPlacesPage />} />
             </Route>
 
             <Route path="/admin" element={<AdminPage />} />
-            <Route path="/admin/places" element={<AdminPlacesPage />} />
-            <Route
-              path="/admin/placeRegister"
-              element={<PlaceRegisterPage />}
-            />
           </Routes>
         </Suspense>
       </BrowserRouter>

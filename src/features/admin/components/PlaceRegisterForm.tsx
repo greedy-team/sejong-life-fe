@@ -11,6 +11,7 @@ interface PlaceRegisterFormProps {
 const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
   const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [tags, setTags] = useState<TagProps[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -57,11 +58,11 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
         aria-label="close"
       />
 
-      <div className="relative mx-auto w-[600px] rounded-xl bg-white px-10 py-10">
+      <div className="relative mx-auto max-h-[800px] w-[80%] overflow-scroll rounded-xl bg-white px-10 py-10">
         <button
           type="button"
           onClick={() => setIsFormOpen(false)}
-          className="absolute top-7 right-7"
+          className="absolute top-7 right-10"
           aria-label="close"
         >
           ✕
@@ -125,7 +126,53 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
           </div>
           <div>
             <div className="text-lg">이미지</div>
+            <div className="flex items-center gap-2 px-8 py-5 lg:px-10">
+              <input
+                id="imageUpload"
+                name="image"
+                type="file"
+                accept="image/*"
+                multiple
+                className="hidden"
+              />
+              <label
+                htmlFor="imageUpload"
+                className="flex h-40 w-40 cursor-pointer items-center justify-center rounded-2xl border-3 border-dashed text-sm text-gray-500 transition-colors duration-150 hover:bg-gray-100"
+              >
+                <div className="flex flex-col items-center gap-1">
+                  <img
+                    src="/asset/create-review/camera.svg"
+                    alt="카메라 아이콘"
+                    className="mx-auto mb-1 h-8"
+                  />
+                  <p>사진을 추가해보세요.</p>
+                  <span>사진 {previews.length}</span>
+                </div>
+              </label>
+
+              <div className="flex flex-wrap gap-2">
+                {previews.map((preview, index) => (
+                  <div key={index} className="relative">
+                    <img
+                      src={preview}
+                      alt={`preview-${index}`}
+                      className="h-24 w-24 rounded object-cover"
+                    />
+                    <button className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/50 px-1 text-xs text-white">
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
+          <button
+            type="button"
+            onClick={() => setIsFormOpen(false)}
+            className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
+          >
+            추가하기
+          </button>
         </div>
       </div>
     </div>

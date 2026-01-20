@@ -8,15 +8,19 @@ function AdminPage() {
         관리자 페이지
       </h1>
       <div className="mt-50 flex flex-col items-center">
-        <a
+        <button
+          type="button"
           onClick={() => navigate(`/admin/places`)}
           className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
         >
           장소 관리 →
-        </a>
-        <a className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]">
+        </button>
+        <button
+          type="button"
+          className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
+        >
           리뷰 관리 →
-        </a>
+        </button>
       </div>
     </div>
   );

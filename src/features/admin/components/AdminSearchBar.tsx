@@ -1,19 +1,16 @@
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const AdminSearchBar = () => {
   const [searchParams] = useSearchParams();
   const initial = searchParams.get('keyword') ?? '';
   const [keyword, setKeyword] = useState(initial);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const trimmed = keyword.trim();
     if (!trimmed) return [];
-
-    navigate(`/admin/places?keyword=${trimmed}`);
   };
 
   return (

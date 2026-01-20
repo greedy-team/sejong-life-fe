@@ -1,10 +1,12 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { usePlaceDetail } from '../../hooks/usePlaceDetail';
 
 const HeaderWithBack = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id);
+  const location = useLocation();
+  const title = (location.state as { title?: string })?.title;
 
   return (
     <>
@@ -19,7 +21,10 @@ const HeaderWithBack = () => {
               <span className="font-semibold text-[#354052]">{place.name}</span>
             )}
             {!id && (
-              <span className="font-semibold text-[#354052]">검색결과</span>
+              <span className="font-semibold text-[#354052]">{title}</span>
+            )}
+            {location.pathname.startsWith('/admin/places') && (
+              <span className="font-semibold text-[#354052]">장소 관리</span>
             )}
           </div>
         </button>

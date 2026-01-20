@@ -13,7 +13,9 @@ const SearchBar = () => {
     const trimmed = keyword.trim();
     if (!trimmed) return [];
 
-    navigate(`/search?keyword=${trimmed}`);
+    navigate(`/search?keyword=${trimmed}`, {
+      state: { title: '검색결과' },
+    });
   };
 
   return (
