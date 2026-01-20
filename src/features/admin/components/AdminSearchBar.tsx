@@ -19,13 +19,13 @@ const AdminSearchBar = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-10 flex w-[80%] overflow-hidden rounded-2xl border border-[#8BE34A] lg:w-[60%]"
+      className="mt-10 flex w-[80%] overflow-hidden rounded-2xl border border-[#8BE34A]"
     >
       <input
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
         className="flex-1 px-5 py-4 text-sm outline-none lg:text-base"
-        placeholder="장소명을 입력하세요"
+        placeholder="추가하거나 삭제할 장소명을 입력하세요"
       />
       <button
         type="submit"

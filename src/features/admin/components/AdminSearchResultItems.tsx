@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import PlaceItemCard from '../../../components/place-item-card/PlaceItemCard';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { PlaceProps } from '../../../types/type';
 import { fetchSearchResult } from '../../../api/searchResultApi';
 
@@ -9,8 +9,8 @@ const AdminSearchResultItems = () => {
   const keyword = searchParams.get('keyword') ?? '';
   const [places, setPlaces] = useState<PlaceProps[]>([]);
   const [loading, setLoading] = useState(false);
-
   const [isPartnershipButtonOn, setIsPartnershipButtonOn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const search = async () => {
@@ -33,7 +33,10 @@ const AdminSearchResultItems = () => {
     return (
       <div className="mt-55 flex flex-col items-center gap-5">
         <span>검색결과가 없습니다</span>
-        <a className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]">
+        <a
+          onClick={() => navigate('/admin/placeRegister')}
+          className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
+        >
           + 장소 추가하기
         </a>
       </div>

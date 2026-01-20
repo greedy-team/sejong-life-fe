@@ -1,6 +1,10 @@
 import PlaceSearchContainer from '../features/admin/components/PlaceSearchContainer';
 
 function AdminPlacesPage() {
-  return <PlaceSearchContainer />;
+  return (
+    <>
+      <PlaceSearchContainer />;
+    </>
+  );
 }
 export default AdminPlacesPage;
