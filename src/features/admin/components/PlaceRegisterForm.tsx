@@ -4,6 +4,9 @@ import { fetchCategories } from '../../explore/apis/filterApi';
 import { fetchTagList } from '../../../api/tagApi';
 import TagButton from '../../../components/share/TagButton';
 import { useSearchParams } from 'react-router-dom';
+import imageCompression from 'browser-image-compression';
+import { toast } from 'react-toastify';
+import heic2any from 'heic2any';
 
 interface PlaceRegisterFormProps {
   setIsFormOpen: (value: boolean) => void;
@@ -15,6 +18,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
   const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [tags, setTags] = useState<TagProps[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState({
     name: initial,
     category: '',
@@ -58,6 +62,84 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
         ...prev,
         tagIds: newTagIds,
       };
+    });
+  };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const files = Array.from(e.target.files);
+
+    try {
+      const convertedFiles = await Promise.all(
+        files.map(async (file) => {
+          if (
+            file.type === 'image/heic' ||
+            file.name.toLowerCase().endsWith('.heic')
+          ) {
+            try {
+              const convertedBlob = (await heic2any({
+                blob: file,
+                toType: 'image/jpeg',
+                quality: 0.8,
+              })) as Blob;
+
+              return new File(
+                [convertedBlob],
+                file.name.replace(/\.heic$/i, '.jpg'),
+                { type: 'image/jpeg' },
+              );
+            } catch (err) {
+              console.error('HEIC 변환 실패:', err);
+              return file;
+            }
+          }
+          return file;
+        }),
+      );
+
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1600,
+        useWebWorker: true,
+      };
+
+      const compressedFiles = await Promise.all(
+        convertedFiles.map(async (file) => {
+          if (file.size < 1024 * 1024) return file;
+
+          try {
+            const compressed = await imageCompression(file, options);
+            return new File([compressed], file.name, { type: compressed.type });
+          } catch (err) {
+            console.error('압축 실패:', err);
+            return file;
+          }
+        }),
+      );
+
+      const newPreviews = compressedFiles.map((file) =>
+        URL.createObjectURL(file),
+      );
+
+      setPreviews((prev) => [...prev, ...newPreviews]);
+      setFormData((prev) => ({
+        ...prev,
+        images: [...prev.images, ...compressedFiles],
+      }));
+    } catch (err) {
+      console.error('이미지 처리 중 오류:', err);
+      toast.error('이미지 처리 중 문제가 발생했습니다.');
+    }
+
+    e.target.value = '';
+  };
+
+  const removeImage = (index: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+    setPreviews((prev) => {
+      const removed = prev[index];
+      if (removed) URL.revokeObjectURL(removed);
+      return prev.filter((_, i) => i !== index);
     });
   };
 
@@ -170,7 +252,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                 accept="image/*"
                 multiple
                 className="hidden"
-                // onChange={handleFiles}
+                onChange={handleImageChange}
               />
               <label
                 htmlFor="imageUpload"
@@ -195,7 +277,11 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                       alt={`preview-${index}`}
                       className="h-24 w-24 rounded object-cover"
                     />
-                    <button className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/50 px-1 text-xs text-white">
+                    <button
+                      type="button"
+                      onClick={() => removeImage(index)}
+                      className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/50 px-1 text-xs text-white"
+                    >
                       ✕
                     </button>
                   </div>
