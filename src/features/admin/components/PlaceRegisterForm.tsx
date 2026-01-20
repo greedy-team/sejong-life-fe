@@ -68,7 +68,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
           ✕
         </button>
         <h1 className="flex w-full border-b py-7 text-4xl text-[#8BE24A]">
-          장소등록
+          장소 추가
         </h1>
 
         <div className="mt-5 flex flex-col gap-7 px-7">
@@ -167,7 +167,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
             </div>
           </div>
           <button
-            type="button"
+            type="submit"
             onClick={() => setIsFormOpen(false)}
             className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
           >
