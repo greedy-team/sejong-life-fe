@@ -3,20 +3,24 @@ import type { TagProps, CategoryProps } from '../../../types/type';
 import { fetchCategories } from '../../explore/apis/filterApi';
 import { fetchTagList } from '../../../api/tagApi';
 import TagButton from '../../../components/share/TagButton';
+import { useSearchParams } from 'react-router-dom';
 
 interface PlaceRegisterFormProps {
   setIsFormOpen: (value: boolean) => void;
 }
 
 const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
+  const [searchParams] = useSearchParams();
+  const initial = searchParams.get('keyword') ?? '';
   const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [tags, setTags] = useState<TagProps[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [formData, setFormData] = useState({
-    name: '',
+    name: initial,
     category: '',
-    content: '',
+    partnershipContent: '',
     tagIds: [] as number[],
+    images: [] as File[],
   });
 
   useEffect(() => {
@@ -58,7 +62,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
         aria-label="close"
       />
 
-      <div className="relative mx-auto max-h-[800px] w-[80%] overflow-scroll rounded-xl bg-white px-10 py-10">
+      <div className="relative mx-auto max-h-[600px] w-[95%] overflow-scroll rounded-xl bg-white px-10 py-10 lg:max-h-[800px] lg:w-[80%]">
         <button
           type="button"
           onClick={() => setIsFormOpen(false)}
@@ -71,17 +75,38 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
           장소 추가
         </h1>
 
-        <div className="mt-5 flex flex-col gap-7 px-7">
+        <form
+          //   onSubmit={handleSubmit}
+          className="mt-5 flex flex-col gap-7 px-7"
+        >
           <div className="flex flex-col gap-2">
-            <div className="text-lg">장소명</div>
+            <div className="flex items-center gap-1">
+              <div className="text-lg">장소명</div>
+              <img
+                src="/asset/create-review/requireStar.svg"
+                alt="필수별표"
+                className="mb-3 h-2"
+              />
+            </div>
             <input
+              name="name"
+              value={formData.name}
+              //   onChange={handleChange}
               className="x-2 rounded-lg border px-2 py-1 placeholder:text-sm"
               placeholder="장소명을 입력하세요"
             ></input>
           </div>
+
           <div className="flex flex-col gap-2">
-            <div className="text-lg">카테고리</div>
-            <div className="flex gap-4">
+            <div className="flex items-center gap-1">
+              <div className="text-lg">카테고리</div>
+              <img
+                src="/asset/create-review/requireStar.svg"
+                alt="필수별표"
+                className="mb-3 h-2"
+              />
+            </div>
+            <div className="flex flex-wrap gap-4">
               {categories.map((category) => (
                 <label
                   key={category.categoryName}
@@ -91,6 +116,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                     type="radio"
                     name="category"
                     value={category.categoryName}
+                    // onChange={handleChange}
                     className="h-4 w-4 appearance-none rounded-full bg-[#EAEAEA] checked:border-none checked:bg-[#8BE34A]"
                   ></input>
                   {category.categoryName}
@@ -98,10 +124,12 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
               ))}
             </div>
           </div>
-
           <div className="flex flex-col gap-2">
             <div className="text-lg">제휴내용</div>
             <input
+              name="partnershipContent"
+              value={formData.partnershipContent}
+              //   onChange={handleChange}
               className="rounded-lg border px-2 py-1 placeholder:text-sm"
               placeholder="제휴가 있다면 제휴내용을 입력하세요"
             ></input>
@@ -134,6 +162,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                 accept="image/*"
                 multiple
                 className="hidden"
+                // onChange={handleFiles}
               />
               <label
                 htmlFor="imageUpload"
@@ -173,7 +202,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
           >
             추가하기
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
