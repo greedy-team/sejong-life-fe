@@ -38,6 +38,14 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
     fetchTags();
   }, []);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleSelectedTags = (tagId: number) => {
     setFormData((prev) => {
       const isTagSelected = prev.tagIds.includes(tagId);
@@ -91,7 +99,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
             <input
               name="name"
               value={formData.name}
-              //   onChange={handleChange}
+              onChange={handleChange}
               className="x-2 rounded-lg border px-2 py-1 placeholder:text-sm"
               placeholder="장소명을 입력하세요"
             ></input>
@@ -116,7 +124,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                     type="radio"
                     name="category"
                     value={category.categoryName}
-                    // onChange={handleChange}
+                    onChange={handleChange}
                     className="h-4 w-4 appearance-none rounded-full bg-[#EAEAEA] checked:border-none checked:bg-[#8BE34A]"
                   ></input>
                   {category.categoryName}
@@ -129,7 +137,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
             <input
               name="partnershipContent"
               value={formData.partnershipContent}
-              //   onChange={handleChange}
+              onChange={handleChange}
               className="rounded-lg border px-2 py-1 placeholder:text-sm"
               placeholder="제휴가 있다면 제휴내용을 입력하세요"
             ></input>
@@ -174,7 +182,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                     alt="카메라 아이콘"
                     className="mx-auto mb-1 h-8"
                   />
-                  <p>사진을 추가해보세요.</p>
+                  <p>사진을 추가하세요.</p>
                   <span>사진 {previews.length}</span>
                 </div>
               </label>
