@@ -3,10 +3,11 @@ import type { TagProps, CategoryProps } from '../../../types/type';
 import { fetchCategories } from '../../explore/apis/filterApi';
 import { fetchTagList } from '../../../api/tagApi';
 import TagButton from '../../../components/share/TagButton';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import imageCompression from 'browser-image-compression';
 import { toast } from 'react-toastify';
 import heic2any from 'heic2any';
+import { postPlace } from '../api/postPlace';
 
 interface PlaceRegisterFormProps {
   setIsFormOpen: (value: boolean) => void;
@@ -32,6 +33,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
     partnershipContent: '',
     thumbnail: null as File | null,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -163,6 +165,44 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
     }));
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const placePayload = {
+        placeName: formData.placeName,
+        address: formData.address,
+        categoryIds: formData.categoryIds,
+        tagIds: formData.tagIds,
+        mapLinks: formData.mapLinks,
+        isPartnership: formData.isPartnership,
+        partnershipContent: formData.partnershipContent,
+      };
+
+      const submitData = new FormData();
+
+      submitData.append(
+        'place',
+        new Blob([JSON.stringify(placePayload)], {
+          type: 'application/json',
+        }),
+      );
+
+      if (formData.thumbnail) {
+        submitData.append('thumbnail', formData.thumbnail);
+      }
+
+      await postPlace(submitData);
+
+      toast.success('리뷰가 성공적으로 등록되었습니다!');
+      setIsFormOpen(false);
+      navigate(`/admin/places`);
+    } catch (error: any) {
+      console.log('등록실패:', error);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <button
@@ -185,10 +225,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
           장소 추가
         </h1>
 
-        <form
-          //   onSubmit={handleSubmit}
-          className="mt-5 flex flex-col gap-7 px-7"
-        >
+        <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-7 px-7">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-1">
               <div className="text-lg">장소명</div>
@@ -248,6 +285,11 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-1">
               <div className="text-lg">주소</div>
+              <img
+                src="/asset/create-review/requireStar.svg"
+                alt="필수별표"
+                className="mb-3 h-2"
+              />
             </div>
             <input
               name="address"
@@ -286,7 +328,14 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
           </div>
 
           <div>
-            <div className="text-lg">태그</div>
+            <div className="flex gap-1">
+              <div className="text-lg">태그</div>
+              <img
+                src="/asset/create-review/requireStar.svg"
+                alt="필수별표"
+                className="mb-3 h-2"
+              />
+            </div>
             <div className="custom-scroll max-h-40 space-y-2 overflow-auto rounded-md border border-gray-100 p-3 lg:space-x-3">
               {tags.map((tag) => {
                 const isSelected = formData.tagIds.includes(tag.tagId);
@@ -351,7 +400,6 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
           </div>
           <button
             type="submit"
-            onClick={() => setIsFormOpen(false)}
             className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
           >
             추가하기
