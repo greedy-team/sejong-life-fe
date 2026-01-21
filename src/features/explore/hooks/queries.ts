@@ -50,7 +50,7 @@ export const useFilteredPlaces = (
       }
       return places;
     },
-    enabled: !!category && !!tags,
+    enabled: !!category,
     staleTime: 5 * 60 * 1000,
   });
 };
