@@ -194,9 +194,11 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
 
       await postPlace(submitData);
 
-      toast.success('리뷰가 성공적으로 등록되었습니다!');
+      toast.success('리뷰가 성공적으로 등록되었습니다');
       setIsFormOpen(false);
-      navigate(`/admin/places`);
+      navigate(
+        `/admin/places?keyword=${encodeURIComponent(formData.placeName)}`,
+      );
     } catch (error: any) {
       console.log('등록실패:', error);
       toast.error(error?.response?.data?.message);
