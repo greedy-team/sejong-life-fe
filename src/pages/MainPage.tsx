@@ -5,6 +5,7 @@ import Spinner from '../components/share/Spinner';
 import Footer from '../layout/components/Footer';
 import { useCategoryLists } from '../features/explore/hooks/queries';
 import { useHotPlaces } from '../hooks/queries';
+import SearchBar from '../components/share/SearchBar';
 
 const MainPage = () => {
   const { data: categories = [], isLoading: isCategoriesLoading } =
@@ -21,6 +22,10 @@ const MainPage = () => {
     <>
       <div className="w-full overflow-x-hidden">
         <Banner />
+        <div className="flex justify-center">
+          <SearchBar />
+        </div>
+
         <div className="flex flex-wrap justify-center gap-5 pt-10">
           <PageRouterButton
             to={`/explore?category=${'전체'}`}
