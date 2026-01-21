@@ -26,7 +26,7 @@ const AdminSearchResultItems = () => {
     };
 
     search();
-  }, [keyword]);
+  }, [keyword, isFormOpen]);
 
   if (loading)
     return <div className="mt-25 flex justify-center">검색 중...</div>;

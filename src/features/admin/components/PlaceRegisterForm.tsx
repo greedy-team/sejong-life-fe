@@ -17,14 +17,20 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
   const initial = searchParams.get('keyword') ?? '';
   const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [tags, setTags] = useState<TagProps[]>([]);
-  const [previews, setPreviews] = useState<string[]>([]);
-  const [files, setFiles] = useState<File[]>([]);
+  const [preview, setPreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
-    name: initial,
-    category: '',
-    partnershipContent: '',
+    placeName: initial,
+    address: '',
+    categoryIds: [] as number[],
     tagIds: [] as number[],
-    images: [] as File[],
+    mapLinks: {
+      naverMap: '',
+      kakaoMap: '',
+      googleMap: '',
+    },
+    isPartnership: false,
+    partnershipContent: '',
+    thumbnail: null as File | null,
   });
 
   useEffect(() => {
@@ -42,11 +48,34 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
     fetchTags();
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+      ...(name === 'partnershipContent' && {
+        isPartnership: value.trim() !== '',
+      }),
+    }));
+  };
+
+  const handleCategoryClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const categoryId = Number(e.target.value);
+    const checked = e.target.checked; //boolean값
+
+    setFormData((prev) => ({
+      ...prev,
+      categoryIds: checked
+        ? [...prev.categoryIds, categoryId]
+        : prev.categoryIds.filter((id) => id !== categoryId),
+    }));
+  };
+
+  const handleMapLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      mapLinks: { ...prev.mapLinks, [name]: value },
     }));
   };
 
@@ -66,81 +95,72 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
   };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    const files = Array.from(e.target.files);
+    const file = e.target.files?.[0];
+    if (!file) return;
 
     try {
-      const convertedFiles = await Promise.all(
-        files.map(async (file) => {
-          if (
-            file.type === 'image/heic' ||
-            file.name.toLowerCase().endsWith('.heic')
-          ) {
-            try {
-              const convertedBlob = (await heic2any({
-                blob: file,
-                toType: 'image/jpeg',
-                quality: 0.8,
-              })) as Blob;
+      //HEIC → JPG 변환
+      let processedFile = file;
 
-              return new File(
-                [convertedBlob],
-                file.name.replace(/\.heic$/i, '.jpg'),
-                { type: 'image/jpeg' },
-              );
-            } catch (err) {
-              console.error('HEIC 변환 실패:', err);
-              return file;
-            }
-          }
-          return file;
-        }),
-      );
+      if (
+        file.type === 'image/heic' ||
+        file.name.toLowerCase().endsWith('.heic')
+      ) {
+        const convertedBlob = (await heic2any({
+          blob: file,
+          toType: 'image/jpeg',
+          quality: 0.8,
+        })) as Blob;
 
+        processedFile = new File(
+          [convertedBlob],
+          file.name.replace(/\.heic$/i, '.jpg'),
+          { type: 'image/jpeg' },
+        );
+      }
+
+      //압축
       const options = {
         maxSizeMB: 1,
         maxWidthOrHeight: 1600,
         useWebWorker: true,
       };
 
-      const compressedFiles = await Promise.all(
-        convertedFiles.map(async (file) => {
-          if (file.size < 1024 * 1024) return file;
+      if (processedFile.size >= 1024 * 1024) {
+        const compressed = await imageCompression(processedFile, options);
+        processedFile = new File([compressed], processedFile.name, {
+          type: compressed.type,
+        });
+      }
 
-          try {
-            const compressed = await imageCompression(file, options);
-            return new File([compressed], file.name, { type: compressed.type });
-          } catch (err) {
-            console.error('압축 실패:', err);
-            return file;
-          }
-        }),
-      );
+      const url = URL.createObjectURL(processedFile);
+      setPreview((prev) => {
+        if (prev) URL.revokeObjectURL(prev);
+        return url;
+      });
 
-      const newPreviews = compressedFiles.map((file) =>
-        URL.createObjectURL(file),
-      );
-
-      setPreviews((prev) => [...prev, ...newPreviews]);
       setFormData((prev) => ({
         ...prev,
-        images: [...prev.images, ...compressedFiles],
+        thumbnail: processedFile,
       }));
     } catch (err) {
       console.error('이미지 처리 중 오류:', err);
       toast.error('이미지 처리 중 문제가 발생했습니다.');
+    } finally {
+      e.target.value = '';
     }
-
-    e.target.value = '';
   };
 
-  const removeImage = (index: number) => {
-    setFiles((prev) => prev.filter((_, i) => i !== index));
-    setPreviews((prev) => {
-      const removed = prev[index];
-      if (removed) URL.revokeObjectURL(removed);
-      return prev.filter((_, i) => i !== index);
+  const removeImage = () => {
+    setPreview((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
     });
+
+    setFormData((prev) => ({
+      ...prev,
+      thumbnail: null,
+    }));
   };
 
   return (
@@ -152,7 +172,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
         aria-label="close"
       />
 
-      <div className="relative mx-auto max-h-[600px] w-[95%] overflow-scroll rounded-xl bg-white px-10 py-10 lg:max-h-[800px] lg:w-[80%]">
+      <div className="relative mx-auto max-h-[700px] w-[95%] overflow-scroll rounded-xl bg-white px-10 py-10 lg:max-h-[800px] lg:w-[80%]">
         <button
           type="button"
           onClick={() => setIsFormOpen(false)}
@@ -179,12 +199,12 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
               />
             </div>
             <input
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
+              name="placeName"
+              value={formData.placeName}
+              onChange={handleTextChange}
               className="x-2 rounded-lg border px-2 py-1 placeholder:text-sm"
               placeholder="장소명을 입력하세요"
-            ></input>
+            />
           </div>
 
           <div className="flex flex-col gap-2">
@@ -199,16 +219,16 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
             <div className="flex flex-wrap gap-4">
               {categories.map((category) => (
                 <label
-                  key={category.categoryName}
+                  key={category.categoryId}
                   className="flex cursor-pointer items-center gap-1 text-base"
                 >
                   <input
-                    type="radio"
-                    name="category"
-                    value={category.categoryName}
-                    onChange={handleChange}
+                    type="checkbox"
+                    value={category.categoryId}
+                    checked={formData.categoryIds.includes(category.categoryId)}
+                    onChange={handleCategoryClick}
                     className="h-4 w-4 appearance-none rounded-full bg-[#EAEAEA] checked:border-none checked:bg-[#8BE34A]"
-                  ></input>
+                  />
                   {category.categoryName}
                 </label>
               ))}
@@ -219,11 +239,52 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
             <input
               name="partnershipContent"
               value={formData.partnershipContent}
-              onChange={handleChange}
+              onChange={handleTextChange}
               className="rounded-lg border px-2 py-1 placeholder:text-sm"
               placeholder="제휴가 있다면 제휴내용을 입력하세요"
-            ></input>
+            />
           </div>
+
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-1">
+              <div className="text-lg">주소</div>
+            </div>
+            <input
+              name="address"
+              value={formData.address}
+              onChange={handleTextChange}
+              className="x-2 rounded-lg border px-2 py-1 placeholder:text-sm"
+              placeholder="주소명을 입력하세요"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-1">
+              <div className="text-lg">맵링크</div>
+            </div>
+            <input
+              name="naverMap"
+              value={formData.mapLinks.naverMap}
+              onChange={handleMapLinkChange}
+              className="x-2 rounded-lg border px-2 py-1 placeholder:text-sm"
+              placeholder="네이버 맵링크을 입력하세요"
+            />
+            <input
+              name="kakaoMap"
+              value={formData.mapLinks.kakaoMap}
+              onChange={handleMapLinkChange}
+              className="x-2 rounded-lg border px-2 py-1 placeholder:text-sm"
+              placeholder="카카오 맵링크을 입력하세요"
+            />
+            <input
+              name="googleMap"
+              value={formData.mapLinks.googleMap}
+              onChange={handleMapLinkChange}
+              className="x-2 rounded-lg border px-2 py-1 placeholder:text-sm"
+              placeholder="구글 맵링크을 입력하세요"
+            />
+          </div>
+
           <div>
             <div className="text-lg">태그</div>
             <div className="custom-scroll max-h-40 space-y-2 overflow-auto rounded-md border border-gray-100 p-3 lg:space-x-3">
@@ -242,6 +303,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
               })}
             </div>
           </div>
+
           <div>
             <div className="text-lg">이미지</div>
             <div className="flex items-center gap-2 px-8 py-5 lg:px-10">
@@ -250,7 +312,6 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                 name="image"
                 type="file"
                 accept="image/*"
-                multiple
                 className="hidden"
                 onChange={handleImageChange}
               />
@@ -265,27 +326,26 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                     className="mx-auto mb-1 h-8"
                   />
                   <p>사진을 추가하세요.</p>
-                  <span>사진 {previews.length}</span>
                 </div>
               </label>
 
               <div className="flex flex-wrap gap-2">
-                {previews.map((preview, index) => (
-                  <div key={index} className="relative">
+                {preview && (
+                  <div className="relative">
                     <img
                       src={preview}
-                      alt={`preview-${index}`}
+                      alt={`preview`}
                       className="h-24 w-24 rounded object-cover"
                     />
                     <button
                       type="button"
-                      onClick={() => removeImage(index)}
+                      onClick={() => removeImage()}
                       className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/50 px-1 text-xs text-white"
                     >
                       ✕
                     </button>
                   </div>
-                ))}
+                )}
               </div>
             </div>
           </div>
