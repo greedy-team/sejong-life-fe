@@ -3,8 +3,8 @@ import { usePlaceDetail } from '../../hooks/usePlaceDetail';
 
 const HeaderWithBack = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const { place } = usePlaceDetail(id!);
+  const { id } = useParams<{ id: string }>();
+  const { place } = usePlaceDetail(id);
 
   return (
     <>
@@ -13,9 +13,14 @@ const HeaderWithBack = () => {
           onClick={() => navigate(-1)}
           className="flex items-center gap-5"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-5">
             <img src="/asset/all-review/backArrow.svg" alt="뒤로가기"></img>
-            <span className="font-semibold text-[#354052]">{place?.name}</span>
+            {id && place?.name && (
+              <span className="font-semibold text-[#354052]">{place.name}</span>
+            )}
+            {!id && (
+              <span className="font-semibold text-[#354052]">검색결과</span>
+            )}
           </div>
         </button>
       </header>
