@@ -20,6 +20,7 @@ import BackLayout from './layout/BackLayout';
 import ProtectedRoute from './components/share/ProtectedRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MyPage from './pages/MyPage';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -42,6 +43,7 @@ function App() {
               <Route path="preparingService" element={<PrepareServicePage />} />
               <Route path="explore" element={<ExplorePage />} />
               <Route path="roulette" element={<RoulettePage />} />
+              <Route path="myPage" element={<MyPage />} />
             </Route>
             <Route path="/" element={<BackLayout />}>
               <Route path="detail/:id/reviews" element={<AllReviewPage />} />
