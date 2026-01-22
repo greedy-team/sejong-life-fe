@@ -34,6 +34,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
     thumbnail: null as File | null,
   });
   const navigate = useNavigate();
+  const [isImageProcessing, setIsImageProcessing] = useState(false);
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -100,6 +101,8 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    setIsImageProcessing(true);
+
     try {
       //HEIC → JPG 변환
       let processedFile = file;
@@ -149,6 +152,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
       console.error('이미지 처리 중 오류:', err);
       toast.error('이미지 처리 중 문제가 발생했습니다.');
     } finally {
+      setIsImageProcessing(false);
       e.target.value = '';
     }
   };
@@ -194,7 +198,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
 
       await postPlace(submitData);
 
-      toast.success('리뷰가 성공적으로 등록되었습니다');
+      toast.success('장소가 성공적으로 등록되었습니다');
       setIsFormOpen(false);
       navigate(
         `/admin/places?keyword=${encodeURIComponent(formData.placeName)}`,
@@ -402,7 +406,14 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
           </div>
           <button
             type="submit"
-            className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
+            onClick={(e) => {
+              if (isImageProcessing) {
+                e.preventDefault();
+                toast.info('이미지 처리 중입니다. 잠시만 기다려주세요.');
+              }
+            }}
+            data-selected={isImageProcessing}
+            className="mb-10 cursor-pointer rounded-xl border px-6 py-3 font-semibold text-white data-[selected=false]:bg-[#77db30] data-[selected=true]:bg-gray-300"
           >
             추가하기
           </button>
