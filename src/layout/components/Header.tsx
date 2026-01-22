@@ -6,13 +6,8 @@ import { useAuth } from '../../hooks/useAuth';
 
 const Header = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    setIsLoggedIn(false);
-  };
 
   return (
     <header className="flex h-20 w-full items-center px-8 py-2 md:px-20">
