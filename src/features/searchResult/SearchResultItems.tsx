@@ -60,7 +60,7 @@ const SearchResultItems = () => {
         </button>
         <span
           data-selected={isPartnershipButtonOn}
-          className="lg-text-xl font-semibold whitespace-nowrap text-[#354052]"
+          className="font-semibold whitespace-nowrap text-[#354052] lg:text-lg"
         >
           제휴
         </span>

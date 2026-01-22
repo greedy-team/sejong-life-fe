@@ -7,7 +7,7 @@ const SearchBar = () => {
   const [keyword, setKeyword] = useState(initial);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const trimmed = keyword.trim();
