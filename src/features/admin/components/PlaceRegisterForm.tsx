@@ -35,6 +35,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
   });
   const navigate = useNavigate();
   const [isImageProcessing, setIsImageProcessing] = useState(false);
+  const [isSubmitProcessing, setIsSubmitProcessing] = useState(false);
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -172,6 +173,8 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setIsSubmitProcessing(true);
+
     try {
       const placePayload = {
         placeName: formData.placeName,
@@ -200,6 +203,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
 
       toast.success('장소가 성공적으로 등록되었습니다');
       setIsFormOpen(false);
+      setIsSubmitProcessing(false);
       navigate(
         `/admin/places?keyword=${encodeURIComponent(formData.placeName)}`,
       );
@@ -411,8 +415,12 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                 e.preventDefault();
                 toast.info('이미지 처리 중입니다. 잠시만 기다려주세요.');
               }
+              if (isSubmitProcessing) {
+                e.preventDefault();
+                toast.info('등록 중입니다. 잠시만 기다려주세요.');
+              }
             }}
-            data-selected={isImageProcessing}
+            data-selected={isImageProcessing || isSubmitProcessing}
             className="mb-10 cursor-pointer rounded-xl border px-6 py-3 font-semibold text-white data-[selected=false]:bg-[#77db30] data-[selected=true]:bg-gray-300"
           >
             추가하기
