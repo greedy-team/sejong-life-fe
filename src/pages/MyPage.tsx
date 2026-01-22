@@ -25,10 +25,15 @@ function MyPage() {
       </div>
 
       <div className="mt-15 flex flex-col gap-3 text-xs">
-        <button onClick={() => handleLogout()} className="lg:text-xl">
+        <button
+          onClick={() => handleLogout()}
+          className="cursor-pointer lg:text-xl"
+        >
           로그아웃하기
         </button>
-        <button className="text-gray-400 lg:text-xl">탈퇴하기</button>
+        <button className="cursor-pointer text-gray-400 lg:text-xl">
+          탈퇴하기
+        </button>
       </div>
     </div>
   );
