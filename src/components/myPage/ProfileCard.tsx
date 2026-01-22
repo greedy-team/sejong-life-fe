@@ -1,6 +1,6 @@
 const ProfileCard = () => {
   return (
-    <div className="mx-auto flex w-[85%] gap-7 rounded-3xl bg-gradient-to-r from-[#8BE34A]/70 via-[#8BE34A]/40 to-[#8BE34A]/10 p-5 shadow-lg lg:w-[60%] lg:gap-15 lg:p-10">
+    <div className="mx-auto flex w-full gap-7 rounded-3xl bg-gradient-to-r from-[#8BE34A]/70 via-[#8BE34A]/40 to-[#8BE34A]/10 p-5 shadow-lg lg:gap-15 lg:p-10">
       <div className="flex w-[30%] shrink-0 items-center justify-center lg:w-[40%]">
         <img src="/asset/mypage/user.svg" className="w-50 lg:h-50" />
       </div>
