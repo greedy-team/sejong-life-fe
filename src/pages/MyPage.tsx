@@ -1,5 +1,6 @@
 import ProfileCard from '../components/myPage/ProfileCard';
 import MyReviews from '../components/myPage/MyReviews';
+import LikePlaces from '../components/myPage/LikePlaces';
 
 function MyPage() {
   return (
@@ -7,8 +8,8 @@ function MyPage() {
       <ProfileCard />
 
       <div className="flex grid grid-cols-2 gap-5 lg:gap-8">
-        <MyReviews></MyReviews>
-        <div className="h-40 rounded-3xl bg-white drop-shadow-[0_10px_15px_rgba(139,227,74,0.4)]"></div>
+        <MyReviews />
+        <LikePlaces />
       </div>
     </div>
   );
