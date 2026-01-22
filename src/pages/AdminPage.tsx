@@ -29,17 +29,14 @@ function AdminPage() {
       <div className="mt-50 flex flex-col items-center">
         <button
           type="button"
-          onClick={() =>
-            navigate(`/admin/places`, {
-              state: { title: '장소관리', from: '/admin' },
-            })
-          }
+          onClick={() => navigate(`/admin/places`)}
           className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
         >
           장소 관리 →
         </button>
         <button
           type="button"
+          onClick={() => navigate(`/admin/reviews`)}
           className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
         >
           리뷰 관리 →

@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import SearchResultPage from './pages/SearchResultPage';
 import AdminPlacesPage from './pages/AdminPlacesPage';
 import AdminPage from './pages/AdminPage';
+import AdminReviewsPage from './pages/AdminReviewsPage';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -43,6 +44,7 @@ function App() {
               <Route path="detail/:id" element={<PlaceDetailPage />} />
               <Route path="search" element={<SearchResultPage />} />
               <Route path="admin/places" element={<AdminPlacesPage />} />
+              <Route path="admin/reviews" element={<AdminReviewsPage />} />
             </Route>
 
             <Route path="/admin" element={<AdminPage />} />
