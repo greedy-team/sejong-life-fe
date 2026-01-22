@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { USER_ROLE, type UserRole } from '../types/role';
+// import { USER_ROLE, type UserRole } from '../types/role';
 
-function AdminPage({ role }: { role?: UserRole }) {
+function AdminPage() {
   const navigate = useNavigate();
 
   //   if (role !== USER_ROLE.ADMIN) {
