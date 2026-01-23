@@ -6,9 +6,7 @@ import ReviewStatsSection from './ReviewStatsSection';
 import ReviewCard from './place-review-card/ReviewCard';
 import ReviewWriteButton from './ReviewWriteButton';
 import MoreReviewButton from './MoreReviewButton';
-import { usePlaceDetail } from '../../hooks/usePlaceDetail';
-import { usePlaceReview } from '../../hooks/usePlaceReview';
-import { useReviewStats } from '../../hooks/useReviewStats';
+import { usePlaceDetail, usePlaceReview, useReviewStats } from './hooks';
 
 const PlaceDetailContainer = () => {
   const { id } = useParams<{ id: string }>();

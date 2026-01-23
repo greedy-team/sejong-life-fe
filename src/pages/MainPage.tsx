@@ -4,7 +4,7 @@ import PageRouterButton from '../components/share/PageRouterButton';
 import Spinner from '../components/share/Spinner';
 import Footer from '../layout/components/Footer';
 import { useCategoryLists } from '../features/explore/hooks/queries';
-import { useHotPlaces } from '../hooks/queries';
+import { useHotPlaces } from '../features/main/hooks';
 import SearchBar from '../components/share/SearchBar';
 
 const MainPage = () => {

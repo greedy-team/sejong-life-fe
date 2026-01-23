@@ -2,9 +2,11 @@ import { useParams } from 'react-router-dom';
 import Spinner from '../../components/share/Spinner';
 import PhotoStrip from '../placeDetail/PhotoStrip';
 import ReviewCard from '../placeDetail/place-review-card/ReviewCard';
-import { usePlaceDetail } from '../../hooks/usePlaceDetail';
-import { usePlaceReview } from '../../hooks/usePlaceReview';
-import { useReviewStats } from '../../hooks/useReviewStats';
+import {
+  usePlaceDetail,
+  usePlaceReview,
+  useReviewStats,
+} from '../placeDetail/hooks';
 import ReviewStatsSection from '../placeDetail/ReviewStatsSection';
 
 const AllReviewSection = () => {

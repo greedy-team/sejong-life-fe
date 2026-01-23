@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import TagButton from '../../../components/share/TagButton';
 import Spinner from '../../../components/share/Spinner';
 import { useCreateReview } from '../hooks/mutations';
-import { useTagLists } from '../../../hooks/queries';
+import { useTagLists } from '../hooks';
 import StarRating from './StarRating';
 import { toast } from 'react-toastify';
 import heic2any from 'heic2any';
