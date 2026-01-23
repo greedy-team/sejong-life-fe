@@ -1,41 +1,22 @@
-import { useEffect, useState } from 'react';
 import Banner from '../components/place-item-container/Banner';
 import ItemContainer from '../components/place-item-container/ItemContainer';
-import type { PlaceInfo } from '../components/place-item-card/model/type';
 import PageRouterButton from '../components/share/PageRouterButton';
+import Spinner from '../components/share/Spinner';
 import Footer from '../layout/components/Footer';
-import { fetchCategories } from '../features/explore/apis/filterApi';
-import type { CategoryProps } from '../types/type';
-import { fetchHotPlaces } from '../api/placeApi';
+import { useCategoryLists } from '../features/explore/hooks/queries';
+import { useHotPlaces } from '../features/main/hooks';
 import SearchBar from '../components/share/SearchBar';
 
 const MainPage = () => {
-  const [hotPlaces, setHotPlaces] = useState<PlaceInfo[]>([]);
-  const [categories, setCategories] = useState<CategoryProps[]>([]);
+  const { data: categories = [], isLoading: isCategoriesLoading } =
+    useCategoryLists();
+  const { data: hotPlacesData, isLoading: isHotPlacesLoading } = useHotPlaces();
 
-  useEffect(() => {
-    const fetchCategory = async () => {
-      const response = await fetchCategories();
-      setCategories(response.data);
-    };
+  const hotPlaces = hotPlacesData?.data || [];
 
-    fetchCategory();
-  }, []);
-
-  useEffect(() => {
-    const fetchHotPlace = async () => {
-      try {
-        const response = await fetchHotPlaces();
-        setHotPlaces(response.data);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
-
-    fetchHotPlace();
-  }, []);
-
-  if (!categories || categories.length === 0) return <div>로딩중...</div>;
+  if (isCategoriesLoading || isHotPlacesLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>

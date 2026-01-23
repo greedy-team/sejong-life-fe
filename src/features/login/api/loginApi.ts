@@ -15,18 +15,28 @@ interface SignUpResponse {
 export const requestLogin = async (
   payload: LoginPayload,
 ): Promise<LoginResponse> => {
-  const response = await api.post('/api/auth/login', payload);
-  return response.data;
+  try {
+    const response = await api.post('/api/auth/login', payload);
+    return response.data;
+  } catch (error) {
+    console.error('로그인 실패:', error);
+    throw error;
+  }
 };
 
 export const requestSignUp = async (
   payload: SignUpPayload,
 ): Promise<SignUpResponse> => {
-  const signUpToken = localStorage.getItem('signUpToken');
-  const response = await api.post('/api/users/signup', payload, {
-    headers: {
-      Authorization: `Bearer ${signUpToken}`,
-    },
-  });
-  return response.data;
+  try {
+    const signUpToken = localStorage.getItem('signUpToken');
+    const response = await api.post('/api/users/signup', payload, {
+      headers: {
+        Authorization: `Bearer ${signUpToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('회원가입 실패:', error);
+    throw error;
+  }
 };

@@ -3,14 +3,24 @@ import type { Category, Tag } from '../../../types/type';
 
 // 카테고리 api
 export const fetchCategories = async (): Promise<Category> => {
-  const response = await api.get('/api/categories');
-  return response.data;
+  try {
+    const response = await api.get('/api/categories');
+    return response.data;
+  } catch (error) {
+    console.error('카테고리 조회 실패:', error);
+    throw error;
+  }
 };
 
 // 카테고리별 태그 api
 export const fetchCategoryTags = async (categoryId?: number): Promise<Tag> => {
-  const response = await api.get(`/api/tags`, {
-    params: categoryId !== undefined ? { categoryId } : {},
-  });
-  return response.data;
+  try {
+    const response = await api.get(`/api/tags`, {
+      params: categoryId !== undefined ? { categoryId } : {},
+    });
+    return response.data;
+  } catch (error) {
+    console.error('태그 조회 실패:', error);
+    throw error;
+  }
 };

@@ -1,3 +1,4 @@
+import Spinner from '../../components/share/Spinner';
 import type { ReviewStats } from '../../types/type';
 
 export interface ReviewStatsProps {
@@ -5,7 +6,7 @@ export interface ReviewStatsProps {
 }
 const ReviewStatsSection = ({ stats }: ReviewStatsProps) => {
   if (!stats) {
-    return <div> 리뷰 통계 로딩 중...</div>;
+    return <Spinner />;
   }
 
   const sortedRatings = Object.keys(stats.ratingDistribution).sort((a, b) =>
