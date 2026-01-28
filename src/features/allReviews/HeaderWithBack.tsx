@@ -5,7 +5,7 @@ const HeaderWithBack = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id);
-  const isMyReviewPage = location.pathname.startsWith('/mypage/myreviews');
+  const isMyReviewPage = location.pathname.startsWith('/mypage/myReviews');
 
   return (
     <>
