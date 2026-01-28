@@ -5,10 +5,10 @@ import LightboxViewer from '../../features/placeDetail/LightboxViewer';
 
 interface MyReviewCardProps {
   myReview: MyReview;
-  //   onDelete: (reviewId: number) => void;
+  onDelete: (reviewId: number) => void;
 }
 
-const MyReviewCard = ({ myReview }: MyReviewCardProps) => {
+const MyReviewCard = ({ myReview, onDelete }: MyReviewCardProps) => {
   const haveImages = myReview.images && myReview.images.length > 0;
   const [index, setIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -130,7 +130,7 @@ const MyReviewCard = ({ myReview }: MyReviewCardProps) => {
           {myReview.isAuthor && (
             <button
               className="cursor-pointer rounded-full border border-gray-400 px-2 text-xs text-gray-500"
-              //   onClick={() => onDelete(myReview.reviewId)}
+              onClick={() => onDelete(myReview.reviewId)}
             >
               삭제
             </button>

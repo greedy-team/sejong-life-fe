@@ -2,8 +2,7 @@ import useMyReview from '../../hooks/useMyReviews';
 import MyReviewCard from './myReviewCard';
 
 const MyReviewList = () => {
-  //   const { myReviews, handleDeleteMyReview } = useMyReview();
-  const myReviews = useMyReview();
+  const { myReviews, handleDeleteMyReview } = useMyReview();
 
   return (
     <div className="mx-auto mt-12 flex w-[75%] max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">
@@ -14,8 +13,7 @@ const MyReviewList = () => {
             <MyReviewCard
               key={review.reviewId}
               myReview={review}
-              //   placeId={id!}
-              //   onDelete={handleDeleteReview}
+              onDelete={handleDeleteMyReview}
             />
           </>
         ))}
