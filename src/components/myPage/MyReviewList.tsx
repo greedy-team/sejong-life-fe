@@ -5,7 +5,7 @@ const MyReviewList = () => {
   const { myReviews, handleDeleteMyReview } = useMyReview();
 
   return (
-    <div className="mx-auto mt-12 flex w-[75%] max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">
+    <div className="mx-auto -mt-1 flex w-[75%] max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">
       <div className="flex w-full flex-col">
         {myReviews.map((review) => (
           <>
