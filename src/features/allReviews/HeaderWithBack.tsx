@@ -5,6 +5,7 @@ const HeaderWithBack = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id);
+  const isMyReviewPage = location.pathname.startsWith('/mypage/myreviews');
 
   return (
     <>
@@ -15,10 +16,13 @@ const HeaderWithBack = () => {
         >
           <div className="flex items-center gap-5">
             <img src="/asset/all-review/backArrow.svg" alt="뒤로가기"></img>
-            {id && place?.name && (
+            {isMyReviewPage && (
+              <span className="font-semibold text-[#354052]">내가 쓴 리뷰</span>
+            )}
+            {!isMyReviewPage && id && place?.name && (
               <span className="font-semibold text-[#354052]">{place.name}</span>
             )}
-            {!id && (
+            {!isMyReviewPage && !id && (
               <span className="font-semibold text-[#354052]">검색결과</span>
             )}
           </div>

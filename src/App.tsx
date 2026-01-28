@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyPage from './pages/MyPage';
 import SearchResultPage from './pages/SearchResultPage';
+import MyReviewPage from './pages/MyReviewPage';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -28,8 +29,9 @@ function App() {
               <Route path="preparingService" element={<PrepareServicePage />} />
               <Route path="explore" element={<ExplorePage />} />
               <Route path="roulette" element={<RoulettePage />} />
-              <Route path="myPage" element={<MyPage />} />
+              <Route path="mypage" element={<MyPage />} />
             </Route>
+
             <Route path="/" element={<BackLayout />}>
               <Route path="detail/:id/reviews" element={<AllReviewPage />} />
 
@@ -43,6 +45,7 @@ function App() {
               />
               <Route path="detail/:id" element={<PlaceDetailPage />} />
               <Route path="search" element={<SearchResultPage />} />
+              <Route path="mypage/myReviews" element={<MyReviewPage />} />
             </Route>
           </Routes>
         </Suspense>
