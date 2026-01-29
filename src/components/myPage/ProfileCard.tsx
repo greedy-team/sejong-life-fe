@@ -23,7 +23,6 @@ const ProfileCard = () => {
             <div className="lg:text-2xl">소프트웨어학과</div>
           </div>
         </div>
-        <div></div>
       </div>
     </div>
   );
