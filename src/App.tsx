@@ -6,6 +6,7 @@ import ProtectedRoute from './components/share/ProtectedRoute';
 import Spinner from './components/share/Spinner';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MyPage from './pages/MyPage';
 import SearchResultPage from './pages/SearchResultPage';
 
 // lazy import
@@ -28,6 +29,7 @@ function App() {
               <Route path="preparingService" element={<PrepareServicePage />} />
               <Route path="explore" element={<ExplorePage />} />
               <Route path="roulette" element={<RoulettePage />} />
+              <Route path="myPage" element={<MyPage />} />
             </Route>
             <Route path="/" element={<BackLayout />}>
               <Route path="detail/:id/reviews" element={<AllReviewPage />} />
