@@ -7,6 +7,7 @@ import Footer from '../layout/components/Footer';
 import { fetchCategories } from '../features/explore/apis/filterApi';
 import type { CategoryProps } from '../types/type';
 import { fetchHotPlaces } from '../api/placeApi';
+import SearchBar from '../components/share/SearchBar';
 
 const MainPage = () => {
   const [hotPlaces, setHotPlaces] = useState<PlaceInfo[]>([]);
@@ -40,6 +41,10 @@ const MainPage = () => {
     <>
       <div className="w-full overflow-x-hidden">
         <Banner />
+        <div className="flex justify-center">
+          <SearchBar />
+        </div>
+
         <div className="flex flex-wrap justify-center gap-5 pt-10">
           <PageRouterButton
             to={`/explore?category=${'전체'}`}
