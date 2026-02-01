@@ -12,6 +12,7 @@ import AdminPlacesPage from './pages/AdminPlacesPage';
 import AdminPage from './pages/AdminPage';
 import AdminReviewsPage from './pages/AdminReviewsPage';
 import AdminProtectedRoute from './features/admin/components/AdminProtectedRoute';
+import MyReviewPage from './pages/MyReviewPage';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -33,8 +34,9 @@ function App() {
               <Route path="preparingService" element={<PrepareServicePage />} />
               <Route path="explore" element={<ExplorePage />} />
               <Route path="roulette" element={<RoulettePage />} />
-              <Route path="myPage" element={<MyPage />} />
+              <Route path="mypage" element={<MyPage />} />
             </Route>
+
             <Route path="/" element={<BackLayout />}>
               <Route path="detail/:id/reviews" element={<AllReviewPage />} />
               <Route
@@ -67,6 +69,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="mypage/myReviews" element={<MyReviewPage />} />
             </Route>
 
             <Route
