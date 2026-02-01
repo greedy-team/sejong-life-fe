@@ -92,6 +92,7 @@ const AdminSearchResultItems = () => {
             key={place.placeId}
             placeInfo={place}
             className="w-full"
+            showDeleteButton={true}
           />
         ))}
       </div>

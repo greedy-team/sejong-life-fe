@@ -8,9 +8,14 @@ import { toast } from 'react-toastify';
 interface PlaceItemCardProps {
   placeInfo: PlaceProps;
   className?: string;
+  showDeleteButton?: boolean;
 }
 
-const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
+const PlaceItemCard = ({
+  placeInfo,
+  className,
+  showDeleteButton = false,
+}: PlaceItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const placeNameRef = useRef<HTMLHeadingElement | null>(null);
@@ -80,19 +85,21 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
             제휴
           </div>
         )}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            handleDeleteButtonClick(placeInfo.placeId);
-          }}
-          className="absolute right-3 bottom-3 z-30"
-        >
-          <img
-            src="/asset/place-item-card/trashcan.svg"
-            alt="delete"
-            className="h-5 w-5 text-[#77db30]"
-          />
-        </button>
+        {showDeleteButton && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteButtonClick(placeInfo.placeId);
+            }}
+            className="absolute right-3 bottom-3 z-30"
+          >
+            <img
+              src="/asset/place-item-card/trashcan.svg"
+              alt="delete"
+              className="h-5 w-5 text-[#77db30]"
+            />
+          </button>
+        )}
         <div className="flex w-[50%] flex-col">
           <div className="flex flex-col gap-2 p-2.5">
             <div>
