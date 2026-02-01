@@ -12,7 +12,7 @@ interface PlaceItemCardProps {
   showDeleteButton?: boolean;
   showFavoriteButton?: boolean;
   isFavorite?: boolean;
-  onToggleFavorite: (placeId: number) => void;
+  onToggleFavorite?: (placeId: number) => void;
 }
 
 const PlaceItemCard = ({
@@ -97,7 +97,7 @@ const PlaceItemCard = ({
             isFavorite={isFavorite}
             onToggleFavorite={(e) => {
               e.stopPropagation();
-              onToggleFavorite(placeInfo.placeId);
+              onToggleFavorite?.(placeInfo.placeId);
             }}
             className="absolute right-0 bottom-2.5 z-30"
           />

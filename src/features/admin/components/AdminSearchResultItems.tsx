@@ -93,6 +93,7 @@ const AdminSearchResultItems = () => {
             placeInfo={place}
             className="w-full"
             showDeleteButton={true}
+            showFavoriteButton={false}
           />
         ))}
       </div>
