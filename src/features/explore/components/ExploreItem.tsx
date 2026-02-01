@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PlaceItemCard from '../../../components/place-item-card/PlaceItemCard';
 import TagButton from '../../../components/share/TagButton';
 import Spinner from '../../../components/share/Spinner';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useFilteredPlaces } from '../hooks/queries';
+import { getFavoritePlaces } from '../apis/getFavoritePlaces';
+import { toast } from 'react-toastify';
+import { addFavoritePlace } from '../apis/addFavoritePlace';
+import { deleteFavoritePlace } from '../apis/deleteFavoritePlace';
 
 const ExploreItem = () => {
   const navigate = useNavigate();
@@ -17,6 +21,25 @@ const ExploreItem = () => {
     tagsFromQuery,
     isPartnershipButtonOn,
   );
+  const [favoriteSet, setFavoriteSet] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    const getFavorites = async () => {
+      try {
+        const favorites = await getFavoritePlaces();
+
+        const set = new Set<number>(
+          favorites.map((fav: { placeId: number }) => fav.placeId),
+        );
+
+        setFavoriteSet(set);
+      } catch (e) {
+        console.error('즐겨찾기 불러오기 실패', e);
+      }
+    };
+
+    getFavorites();
+  }, []);
 
   const handleTag = (tagName: string) => {
     const newParams = new URLSearchParams(location.search);
@@ -37,6 +60,40 @@ const ExploreItem = () => {
   if (isLoading) {
     return <Spinner />;
   }
+
+  const handleToggleFavorite = async (placeId: number) => {
+    const isFav = favoriteSet.has(placeId);
+
+    //낙관적 업데이트
+    setFavoriteSet((prev) => {
+      const next = new Set(prev);
+      if (isFav) next.delete(placeId);
+      else next.add(placeId);
+      return next;
+    });
+
+    try {
+      if (isFav) {
+        await deleteFavoritePlace(placeId);
+        toast.success('즐겨찾기에서 제거했어요.');
+      } else {
+        await addFavoritePlace(placeId);
+        toast.success('즐겨찾기에 추가했어요.');
+      }
+    } catch (e) {
+      console.error('즐겨찾기 토글 실패', e);
+
+      //실패하면 롤백
+      setFavoriteSet((prev) => {
+        const next = new Set(prev);
+        if (isFav) next.add(placeId);
+        else next.delete(placeId);
+        return next;
+      });
+
+      toast.error('즐겨찾기 처리에 실패했습니다.');
+    }
+  };
 
   return (
     <div className="flex w-full flex-col gap-4 py-15">
@@ -88,6 +145,8 @@ const ExploreItem = () => {
             key={place.placeId}
             placeInfo={place}
             className="w-full"
+            isFavorite={favoriteSet.has(place.placeId)}
+            onToggleFavorite={handleToggleFavorite}
           />
         ))}
       </div>

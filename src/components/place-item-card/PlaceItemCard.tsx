@@ -4,17 +4,24 @@ import type { PlaceProps } from '../../types/type';
 import TagButton from '../share/TagButton';
 import { deletePlace } from '../../features/admin/api/deletePlace';
 import { toast } from 'react-toastify';
+import FavoriteButton from '../share/FavoriteButton';
 
 interface PlaceItemCardProps {
   placeInfo: PlaceProps;
   className?: string;
   showDeleteButton?: boolean;
+  showFavoriteButton?: boolean;
+  isFavorite?: boolean;
+  onToggleFavorite: (placeId: number) => void;
 }
 
 const PlaceItemCard = ({
   placeInfo,
   className,
   showDeleteButton = false,
+  showFavoriteButton = true,
+  isFavorite = false,
+  onToggleFavorite,
 }: PlaceItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -84,6 +91,16 @@ const PlaceItemCard = ({
           <div className="absolute top-2 left-2 z-20 rounded-full bg-[#77db30] px-3 py-1 text-xs font-medium text-white shadow">
             제휴
           </div>
+        )}
+        {showFavoriteButton && (
+          <FavoriteButton
+            isFavorite={isFavorite}
+            onToggleFavorite={(e) => {
+              e.stopPropagation();
+              onToggleFavorite(placeInfo.placeId);
+            }}
+            className="absolute right-0 bottom-2.5 z-30"
+          />
         )}
         {showDeleteButton && (
           <button
