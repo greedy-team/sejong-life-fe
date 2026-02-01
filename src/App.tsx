@@ -9,6 +9,7 @@ import SearchResultPage from './pages/SearchResultPage';
 import AdminPlacesPage from './pages/AdminPlacesPage';
 import AdminPage from './pages/AdminPage';
 import AdminReviewsPage from './pages/AdminReviewsPage';
+import AdminProtectedRoute from './features/admin/components/AdminProtectedRoute';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -43,11 +44,38 @@ function App() {
               />
               <Route path="detail/:id" element={<PlaceDetailPage />} />
               <Route path="search" element={<SearchResultPage />} />
-              <Route path="admin/places" element={<AdminPlacesPage />} />
-              <Route path="admin/reviews" element={<AdminReviewsPage />} />
+              <Route
+                path="admin/places"
+                element={
+                  <ProtectedRoute>
+                    <AdminProtectedRoute>
+                      <AdminPlacesPage />
+                    </AdminProtectedRoute>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/reviews"
+                element={
+                  <ProtectedRoute>
+                    <AdminProtectedRoute>
+                      <AdminReviewsPage />
+                    </AdminProtectedRoute>
+                  </ProtectedRoute>
+                }
+              />
             </Route>
 
-            <Route path="/admin" element={<AdminPage />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminProtectedRoute>
+                    <AdminPage />
+                  </AdminProtectedRoute>
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Suspense>
       </BrowserRouter>
