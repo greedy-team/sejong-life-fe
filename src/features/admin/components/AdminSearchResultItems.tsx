@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
-import PlaceItemCard from '../../components/place-item-card/PlaceItemCard';
+import PlaceItemCard from '../../../components/place-item-card/PlaceItemCard';
 import { useSearchParams } from 'react-router-dom';
-import type { PlaceProps } from '../../types/type';
-import { fetchSearchResult } from '../../api/searchResultApi';
+import type { PlaceProps } from '../../../types/type';
+import { fetchSearchResult } from '../../../api/searchResultApi';
+import PlaceRegisterForm from './PlaceRegisterForm';
 
-const SearchResultItems = () => {
+const AdminSearchResultItems = () => {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get('keyword') ?? '';
   const [places, setPlaces] = useState<PlaceProps[]>([]);
   const [loading, setLoading] = useState(false);
-
   const [isPartnershipButtonOn, setIsPartnershipButtonOn] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     const search = async () => {
@@ -23,6 +24,7 @@ const SearchResultItems = () => {
         if (isPartnershipButtonOn) {
           places = places.filter((place: PlaceProps) => place.isPartnership);
         }
+
         setPlaces(places ?? []);
       } finally {
         setLoading(false);
@@ -30,13 +32,26 @@ const SearchResultItems = () => {
     };
 
     search();
-  }, [keyword, isPartnershipButtonOn]);
+  }, [keyword, isFormOpen, isPartnershipButtonOn]);
 
   if (loading)
     return <div className="mt-25 flex justify-center">검색 중...</div>;
   if (places.length === 0 && keyword)
     return (
-      <div className="mt-25 flex justify-center">검색 결과가 없습니다.</div>
+      <>
+        <div className="mt-55 flex flex-col items-center gap-5">
+          <span>검색결과가 없습니다</span>
+          <button
+            type="button"
+            onClick={() => setIsFormOpen(true)}
+            className="mb-10 cursor-pointer rounded-xl border border-[#8BE34A] bg-[#77db30] px-6 py-3 font-semibold text-white hover:bg-[#8BE34A]"
+          >
+            + 장소 추가하기
+          </button>
+        </div>
+
+        {isFormOpen && <PlaceRegisterForm setIsFormOpen={setIsFormOpen} />}
+      </>
     );
   if (places.length === 0) return null;
 
@@ -65,7 +80,7 @@ const SearchResultItems = () => {
         </button>
         <span
           data-selected={isPartnershipButtonOn}
-          className="font-semibold whitespace-nowrap text-[#354052] lg:text-lg"
+          className="lg-text-xl font-semibold whitespace-nowrap text-[#354052]"
         >
           제휴
         </span>
@@ -77,6 +92,7 @@ const SearchResultItems = () => {
             key={place.placeId}
             placeInfo={place}
             className="w-full"
+            showDeleteButton={true}
           />
         ))}
       </div>
@@ -84,4 +100,4 @@ const SearchResultItems = () => {
   );
 };
 
-export default SearchResultItems;
+export default AdminSearchResultItems;
