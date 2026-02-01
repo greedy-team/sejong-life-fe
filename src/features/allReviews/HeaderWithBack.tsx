@@ -1,5 +1,5 @@
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { usePlaceDetail } from '../../hooks/usePlaceDetail';
+import { usePlaceDetail } from '../placeDetail/hooks';
 
 const HeaderWithBack = () => {
   const navigate = useNavigate();

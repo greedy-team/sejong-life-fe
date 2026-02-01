@@ -32,15 +32,37 @@ export const getReviewStats = async (placeId: string): Promise<ReviewStats> => {
 };
 
 export const addReviewLike = async (placeId: string, reviewId: number) => {
-  const response = await authApi.post(
-    `/api/places/${placeId}/reviews/${reviewId}/likes`,
-  );
-  return response.data;
+  try {
+    const response = await authApi.post(
+      `/api/places/${placeId}/reviews/${reviewId}/likes`,
+    );
+    return response.data;
+  } catch (error) {
+    console.error('리뷰 좋아요 추가 실패:', error);
+    throw error;
+  }
 };
 
 export const removeReviewLike = async (placeId: string, reviewId: number) => {
-  const response = await authApi.delete(
-    `/api/places/${placeId}/reviews/${reviewId}/likes`,
-  );
-  return response.data;
+  try {
+    const response = await authApi.delete(
+      `/api/places/${placeId}/reviews/${reviewId}/likes`,
+    );
+    return response.data;
+  } catch (error) {
+    console.error('리뷰 좋아요 삭제 실패:', error);
+    throw error;
+  }
+};
+
+export const deleteReview = async (placeId: string, reviewId: number) => {
+  try {
+    const response = await authApi.delete(
+      `/api/places/${placeId}/reviews/${reviewId}`,
+    );
+    return response;
+  } catch (error) {
+    console.error('리뷰 삭제 실패:', error);
+    throw error;
+  }
 };

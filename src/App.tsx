@@ -3,8 +3,10 @@ import { Suspense, lazy } from 'react';
 import Layout from './layout/Layout';
 import BackLayout from './layout/BackLayout';
 import ProtectedRoute from './components/share/ProtectedRoute';
+import Spinner from './components/share/Spinner';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MyPage from './pages/MyPage';
 import SearchResultPage from './pages/SearchResultPage';
 import AdminPlacesPage from './pages/AdminPlacesPage';
 import AdminPage from './pages/AdminPage';
@@ -24,13 +26,14 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Spinner />}>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<MainPage />} />
               <Route path="preparingService" element={<PrepareServicePage />} />
               <Route path="explore" element={<ExplorePage />} />
               <Route path="roulette" element={<RoulettePage />} />
+              <Route path="myPage" element={<MyPage />} />
             </Route>
             <Route path="/" element={<BackLayout />}>
               <Route path="detail/:id/reviews" element={<AllReviewPage />} />

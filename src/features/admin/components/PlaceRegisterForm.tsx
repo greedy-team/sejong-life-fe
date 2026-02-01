@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { TagProps, CategoryProps } from '../../../types/type';
 import { fetchCategories } from '../../explore/apis/filterApi';
-import { fetchTagList } from '../../../api/tagApi';
+import { fetchTagList } from '../../createReview/apis/tagApi';
 import TagButton from '../../../components/share/TagButton';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import imageCompression from 'browser-image-compression';
