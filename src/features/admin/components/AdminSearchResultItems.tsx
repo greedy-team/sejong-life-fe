@@ -19,14 +19,20 @@ const AdminSearchResultItems = () => {
 
       try {
         const data = await fetchSearchResult({ keyword });
-        setPlaces(data ?? []);
+        let places = data || [];
+
+        if (isPartnershipButtonOn) {
+          places = places.filter((place: PlaceProps) => place.isPartnership);
+        }
+
+        setPlaces(places ?? []);
       } finally {
         setLoading(false);
       }
     };
 
     search();
-  }, [keyword, isFormOpen]);
+  }, [keyword, isFormOpen, isPartnershipButtonOn]);
 
   if (loading)
     return <div className="mt-25 flex justify-center">검색 중...</div>;
