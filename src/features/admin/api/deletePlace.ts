@@ -6,5 +6,6 @@ export const deletePlace = async (placeId: number) => {
     return response;
   } catch (error) {
     console.log('삭제실패:', error);
+    throw error;
   }
 };
