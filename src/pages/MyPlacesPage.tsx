@@ -20,7 +20,7 @@ function MyPlacesPage() {
   }, []);
 
   return (
-    <div className="mx-auto mt-10 mb-20 grid w-[80%] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="mx-auto mt-10 mb-20 grid w-[90%] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {myPlaces.map((place) => (
         <PlaceItemCard
           key={place.placeId}
