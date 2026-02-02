@@ -5,8 +5,18 @@ import { USER_ROLE } from '../../../types/role';
 
 function AdminReviewContainer() {
   const auth = useContext(AuthContext);
-  const { reviews, isConnected, isLoading, error, connect } =
+  const { reviews, isConnected, isLoading, error, connect, removeReview } =
     useAdminReviewStream();
+
+  const handleDelete = async (placeId: number, reviewId: number) => {
+    if (!confirm('정말 이 리뷰를 삭제하시겠습니까?')) return;
+
+    try {
+      await removeReview(placeId, reviewId);
+    } catch (err) {
+      alert('리뷰 삭제에 실패했습니다.');
+    }
+  };
 
   useEffect(() => {
     if (auth?.studentId) {
@@ -115,7 +125,18 @@ function AdminReviewContainer() {
                     {review.imagesCount}
                   </span>
                 </div>
-                <span className="text-xs">ID: {review.reviewId}</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm">ID: {review.reviewId}</span>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleDelete(review.placeId, review.reviewId)
+                    }
+                    className="text-sm text-red-500 hover:text-red-700"
+                  >
+                    삭제하기
+                  </button>
+                </div>
               </div>
             </div>
           ))

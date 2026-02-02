@@ -1,5 +1,9 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { connectLogStream, fetchAdminReviews } from '../api/logApi';
+import {
+  connectLogStream,
+  fetchAdminReviews,
+  deleteAdminReview,
+} from '../api/logApi';
 import type {
   AdminReview,
   LogStreamParams,
@@ -77,6 +81,16 @@ export const useAdminReviewStream = (): UseAdminReviewStreamReturn => {
     fetchReviews();
   }, [fetchReviews]);
 
+  const removeReview = useCallback(
+    async (placeId: number, reviewId: number) => {
+      if (!paramsRef.current) return;
+
+      await deleteAdminReview(placeId, reviewId, paramsRef.current);
+      setReviews((prev) => prev.filter((r) => r.reviewId !== reviewId));
+    },
+    [],
+  );
+
   useEffect(() => {
     return () => {
       disconnect();
@@ -91,5 +105,6 @@ export const useAdminReviewStream = (): UseAdminReviewStreamReturn => {
     connect,
     disconnect,
     refresh,
+    removeReview,
   };
 };

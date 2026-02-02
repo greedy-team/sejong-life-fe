@@ -40,4 +40,5 @@ export interface UseAdminReviewStreamReturn {
   connect: (params: LogStreamParams) => void;
   disconnect: () => void;
   refresh: () => void;
+  removeReview: (placeId: number, reviewId: number) => Promise<void>;
 }

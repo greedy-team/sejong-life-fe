@@ -16,6 +16,23 @@ export const fetchAdminReviews = async (
   return response.data;
 };
 
+export const deleteAdminReview = async (
+  placeId: number,
+  reviewId: number,
+  params: LogStreamParams,
+) => {
+  const response = await authApi.delete(
+    `/api/places/${placeId}/reviews/${reviewId}`,
+    {
+      params: {
+        studentId: params.studentId,
+        role: params.role,
+      },
+    },
+  );
+  return response.data;
+};
+
 interface LogStreamCallbacks {
   onTrigger: () => void;
   onOpen?: () => void;
