@@ -6,6 +6,7 @@ const HeaderWithBack = () => {
   const { id } = useParams<{ id: string }>();
   const { place } = usePlaceDetail(id);
   const isMyReviewPage = location.pathname.startsWith('/mypage/myReviews');
+  const isMyPlacePage = location.pathname.startsWith('/mypage/myPlaces');
 
   return (
     <>
@@ -19,10 +20,15 @@ const HeaderWithBack = () => {
             {isMyReviewPage && (
               <span className="font-semibold text-[#354052]">내가 쓴 리뷰</span>
             )}
-            {!isMyReviewPage && id && place?.name && (
+            {!isMyReviewPage && isMyPlacePage && (
+              <span className="font-semibold text-[#354052]">
+                내가 저장한 장소
+              </span>
+            )}
+            {!isMyReviewPage && !isMyPlacePage && id && place?.name && (
               <span className="font-semibold text-[#354052]">{place.name}</span>
             )}
-            {!isMyReviewPage && !id && (
+            {!isMyReviewPage && !isMyPlacePage && !id && (
               <span className="font-semibold text-[#354052]">검색결과</span>
             )}
           </div>
