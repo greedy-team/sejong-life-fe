@@ -1,10 +1,23 @@
 import { fetchEventSource } from '@microsoft/fetch-event-source';
-import type { LogStreamParams, LogEvent } from '../model/types';
+import { authApi } from '../../../api/api';
+import type { LogStreamParams, AdminReviewsResponse } from '../model/types';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
+export const fetchAdminReviews = async (
+  params: LogStreamParams,
+): Promise<AdminReviewsResponse> => {
+  const response = await authApi.get('/api/admin/reviews', {
+    params: {
+      studentId: params.studentId,
+      role: params.role,
+    },
+  });
+  return response.data;
+};
+
 interface LogStreamCallbacks {
-  onMessage: (event: LogEvent) => void;
+  onTrigger: () => void;
   onOpen?: () => void;
   onError?: (error: Error) => void;
   onClose?: () => void;
@@ -36,12 +49,7 @@ export const connectLogStream = (
     onmessage: (event) => {
       if (!event.data) return;
 
-      try {
-        const logEvent: LogEvent = JSON.parse(event.data);
-        callbacks.onMessage(logEvent);
-      } catch {
-        console.log('SSE 시스템 메시지:', event.data);
-      }
+      callbacks.onTrigger();
     },
     onerror: (error) => {
       callbacks.onError?.(
