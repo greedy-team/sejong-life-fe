@@ -1,7 +1,7 @@
-import type { Place } from '../../../types/type';
+import type { PlaceProps } from '../../../types/type';
 import { authApi } from '../../../api/api';
 
-export const getMyPlaces = async (): Promise<Place[]> => {
+export const getMyPlaces = async (): Promise<PlaceProps[]> => {
   try {
     const response = await authApi.get('/api/places/favorites/me');
     return response.data.data;

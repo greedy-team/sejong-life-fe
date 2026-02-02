@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getMyPlaces } from '../features/myPage/apis/getMyPlaces';
-import type { Place } from '../types/type';
+import type { PlaceProps } from '../types/type';
 
 function MyPlacesPage() {
-  const [myPlaces, setMyPlaces] = useState<Place[]>([]);
+  const [myPlaces, setMyPlaces] = useState<PlaceProps[]>([]);
 
   useEffect(() => {
     const fetchMyPlaces = async () => {
