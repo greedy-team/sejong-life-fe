@@ -8,11 +8,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyPage from './pages/MyPage';
 import SearchResultPage from './pages/SearchResultPage';
+import MyReviewPage from './pages/MyReviewPage';
 import AdminPlacesPage from './pages/AdminPlacesPage';
 import AdminPage from './pages/AdminPage';
 import AdminReviewsPage from './pages/AdminReviewsPage';
 import AdminProtectedRoute from './features/admin/components/AdminProtectedRoute';
-import MyReviewPage from './pages/MyReviewPage';
 import MyPlacesPage from './pages/MyPlacesPage';
 
 // lazy import

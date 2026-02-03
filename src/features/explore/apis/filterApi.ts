@@ -16,7 +16,7 @@ export const fetchCategories = async (): Promise<Category> => {
 export const fetchCategoryTags = async (categoryId?: number): Promise<Tag> => {
   try {
     const response = await api.get(`/api/tags`, {
-      params: categoryId !== undefined ? { categoryId } : {},
+      params: categoryId ? { categoryId } : {},
     });
     return response.data;
   } catch (error) {

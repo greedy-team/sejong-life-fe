@@ -1,9 +1,10 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { usePlaceDetail } from '../placeDetail/hooks';
 
 const HeaderWithBack = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
   const { place } = usePlaceDetail(id);
   const isMyReviewPage = location.pathname.startsWith('/mypage/myReviews');
   const isMyPlacePage = location.pathname.startsWith('/mypage/myPlaces');
