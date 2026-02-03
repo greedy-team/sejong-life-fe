@@ -2,15 +2,16 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getPlaceDetails } from '../features/placeDetail/apis/placeDetailApi';
-import type { DetailPlaceProps } from '../types/type';
+import { getPlaceDetails } from '../apis/placeDetailApi';
+import type { DetailPlaceProps } from '../../../types/type';
 
-export const usePlaceDetail = (id: string) => {
+export const usePlaceDetail = (id?: string) => {
   const [place, setPlace] = useState<DetailPlaceProps | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    if (!id) return;
     const fetchPlaceDetail = async () => {
       try {
         const placeData = await getPlaceDetails(id);

@@ -14,6 +14,7 @@ const LoginForm = ({ setIsNewUser, onClose }: LoginFormProps) => {
     sejongPortalId: '',
     sejongPortalPw: '',
   });
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -25,6 +26,8 @@ const LoginForm = ({ setIsNewUser, onClose }: LoginFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isLoggingIn) return;
+    setIsLoggingIn(true);
 
     try {
       const data = await requestLogin(loginForm);
@@ -44,6 +47,8 @@ const LoginForm = ({ setIsNewUser, onClose }: LoginFormProps) => {
     } catch (error) {
       console.error('로그인 실패: ', error);
       toast.error('로그인 실패');
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
@@ -84,6 +89,7 @@ const LoginForm = ({ setIsNewUser, onClose }: LoginFormProps) => {
       </span>
       <button
         type="submit"
+        disabled={isLoggingIn}
         className="cursor-pointer rounded-md bg-[#8BE34A] p-2 font-semibold text-white hover:bg-[#77db30]"
       >
         로그인

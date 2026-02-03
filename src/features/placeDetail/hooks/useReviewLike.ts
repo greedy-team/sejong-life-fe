@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useAuth } from './useAuth';
-import {
-  addReviewLike,
-  removeReviewLike,
-} from '../features/placeDetail/apis/reviewApi';
+import { useAuth } from '../../../hooks/useAuth';
+import { addReviewLike, removeReviewLike } from '../apis/reviewApi';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 

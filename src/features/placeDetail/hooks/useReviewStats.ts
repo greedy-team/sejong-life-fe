@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import type { ReviewStats } from '../types/type';
-import { getReviewStats } from '../features/placeDetail/apis/reviewApi';
+import type { ReviewStats } from '../../../types/type';
+import { getReviewStats } from '../apis/reviewApi';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 

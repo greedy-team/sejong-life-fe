@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { CategoryProps } from '../../types/type';
-import { useCategory } from '../../hooks/useCategory';
+import { useCategory } from '../../features/explore/hooks';
 
 interface PageRouterButtonProps {
   category?: CategoryProps;
