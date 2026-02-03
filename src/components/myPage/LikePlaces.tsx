@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-const LikePlaces = () => {
+interface LikePlacesProps {
+  favoriteCount: number;
+}
+const LikePlaces = ({ favoriteCount }: LikePlacesProps) => {
   const navigate = useNavigate();
 
   return (
@@ -17,7 +20,7 @@ const LikePlaces = () => {
         <div className="text-xl font-semibold text-[#222222] lg:text-2xl">
           내가 저장한 장소
         </div>
-        <div className="text-gray-700 lg:text-lg">총 n개</div>
+        <div className="text-gray-700 lg:text-lg">총 {favoriteCount}개</div>
       </div>
     </button>
   );

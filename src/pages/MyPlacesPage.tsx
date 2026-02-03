@@ -11,8 +11,6 @@ function MyPlacesPage() {
   useEffect(() => {
     const fetchMyPlaces = async () => {
       const res = await getMyPlaces();
-      console.log(res);
-
       setMyPlaces(res);
     };
 

@@ -6,7 +6,7 @@ export const getMyPlaces = async (): Promise<PlaceProps[]> => {
     const response = await authApi.get('/api/places/favorites/me');
     return response.data.data;
   } catch (err) {
-    console.error('내 즐겨찾기 조회 실패', err);
+    console.error('저장된 장소 조회 실패', err);
     throw err;
   }
 };
