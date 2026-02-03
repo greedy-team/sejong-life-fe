@@ -11,7 +11,9 @@ const TagFilter = () => {
   const categoryName = params.get('category');
   const [isBottom, setIsBottom] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { data: categories = [] } = useCategoryLists();
+  const { data: categories = [], isLoading } = useCategoryLists();
+
+  if (isLoading) return null;
 
   const categoryId = useMemo(() => {
     if (!categoryName || categories.length === 0) return undefined;
