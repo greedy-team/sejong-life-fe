@@ -86,6 +86,21 @@ export type Review = {
   isAuthor: boolean;
 };
 
+export type MyReview = {
+  reviewId: number;
+  rating: number;
+  userId: number;
+  userName: string;
+  studentId: string;
+  content: string;
+  likeCount: number;
+  createdAt: string;
+  images: ImageProps[];
+  tags: { tagId: number; tagName: string }[];
+  isAuthor: boolean;
+  place: { placeId: number; placeName: string }[];
+};
+
 export type ReviewStats = {
   reviewCount: number;
   averageRate: number;
