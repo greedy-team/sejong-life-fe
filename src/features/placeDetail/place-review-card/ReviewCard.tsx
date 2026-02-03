@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import LightboxViewer from '../LightboxViewer';
 import LoginModal from '../../login/components/LoginModal';
 import LoginWidget from '../../login/components/LoginWidget';
-import { useReviewLike } from '../../../hooks/useReviewLike';
+import { useReviewLike } from '../hooks';
 import { useAuth } from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
 

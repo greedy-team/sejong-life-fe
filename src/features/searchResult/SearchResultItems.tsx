@@ -14,29 +14,31 @@ const SearchResultItems = () => {
 
   useEffect(() => {
     const search = async () => {
-      const trimmed = keyword.trim();
-      if (!trimmed) {
-        setPlaces([]);
-        return;
-      }
-
       setLoading(true);
-      const data = await fetchSearchResult({
-        keyword: trimmed,
-      });
-      setPlaces(data ?? []);
-      setLoading(false);
+
+      try {
+        const data = await fetchSearchResult({ keyword });
+        let places = data || [];
+
+        if (isPartnershipButtonOn) {
+          places = places.filter((place: PlaceProps) => place.isPartnership);
+        }
+        setPlaces(places ?? []);
+      } finally {
+        setLoading(false);
+      }
     };
 
     search();
-  }, [keyword]);
+  }, [keyword, isPartnershipButtonOn]);
 
   if (loading)
     return <div className="mt-25 flex justify-center">검색 중...</div>;
-  if (places.length === 0)
+  if (places.length === 0 && keyword)
     return (
       <div className="mt-25 flex justify-center">검색 결과가 없습니다.</div>
     );
+  if (places.length === 0) return null;
 
   return (
     <div className="flex w-full flex-col gap-4 py-15">
@@ -63,7 +65,7 @@ const SearchResultItems = () => {
         </button>
         <span
           data-selected={isPartnershipButtonOn}
-          className="lg-text-xl font-semibold whitespace-nowrap text-[#354052]"
+          className="font-semibold whitespace-nowrap text-[#354052] lg:text-lg"
         >
           제휴
         </span>

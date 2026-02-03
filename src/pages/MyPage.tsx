@@ -2,22 +2,20 @@ import ProfileCard from '../components/myPage/ProfileCard';
 import MyReviews from '../components/myPage/MyReviews';
 import LikePlaces from '../components/myPage/LikePlaces';
 import { useAuth } from '../hooks/useAuth';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import ProtectedRoute from '../components/share/ProtectedRoute';
 import deleteUser from '../features/myPage/apis/deleteUser';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
 function MyPage() {
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
-
-  if (!isLoggedIn) {
-    return <Navigate to="/" replace />;
-  }
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     setIsLoggedIn(false);
+    navigate('/', { replace: true });
   };
 
   const handleMembershipCancellation = async () => {
@@ -43,29 +41,31 @@ function MyPage() {
   };
 
   return (
-    <div className="mx-auto mt-10 flex w-[85%] flex-col gap-8 lg:w-[60%] lg:gap-8">
-      <ProfileCard />
+    <ProtectedRoute>
+      <div className="mx-auto mt-10 flex w-[85%] flex-col gap-8 lg:w-[60%] lg:gap-8">
+        <ProfileCard />
 
-      <div className="grid grid-cols-2 gap-5 lg:gap-8">
-        <MyReviews />
-        <LikePlaces />
-      </div>
+        <div className="grid grid-cols-2 gap-5 lg:gap-8">
+          <MyReviews />
+          <LikePlaces />
+        </div>
 
-      <div className="mt-15 flex flex-col gap-3 text-xs">
-        <button
-          onClick={() => handleLogout()}
-          className="cursor-pointer lg:text-xl"
-        >
-          로그아웃하기
-        </button>
-        <button
-          onClick={() => handleMembershipCancellation()}
-          className="cursor-pointer text-gray-400 lg:text-xl"
-        >
-          탈퇴하기
-        </button>
+        <div className="mt-15 flex flex-col gap-3 text-xs">
+          <button
+            onClick={() => handleLogout()}
+            className="cursor-pointer lg:text-xl"
+          >
+            로그아웃하기
+          </button>
+          <button
+            onClick={() => handleMembershipCancellation()}
+            className="cursor-pointer text-gray-400 lg:text-xl"
+          >
+            탈퇴하기
+          </button>
+        </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 }
 
