@@ -3,11 +3,16 @@ import { Suspense, lazy } from 'react';
 import Layout from './layout/Layout';
 import BackLayout from './layout/BackLayout';
 import ProtectedRoute from './components/share/ProtectedRoute';
+import Spinner from './components/share/Spinner';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyPage from './pages/MyPage';
 import SearchResultPage from './pages/SearchResultPage';
 import MyReviewPage from './pages/MyReviewPage';
+import AdminPlacesPage from './pages/AdminPlacesPage';
+import AdminPage from './pages/AdminPage';
+import AdminReviewsPage from './pages/AdminReviewsPage';
+import AdminProtectedRoute from './features/admin/components/AdminProtectedRoute';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -22,7 +27,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Spinner />}>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<MainPage />} />
@@ -34,7 +39,6 @@ function App() {
 
             <Route path="/" element={<BackLayout />}>
               <Route path="detail/:id/reviews" element={<AllReviewPage />} />
-
               <Route
                 path="write-review/:id"
                 element={
@@ -46,7 +50,38 @@ function App() {
               <Route path="detail/:id" element={<PlaceDetailPage />} />
               <Route path="search" element={<SearchResultPage />} />
               <Route path="mypage/myReviews" element={<MyReviewPage />} />
+              <Route
+                path="admin/places"
+                element={
+                  <ProtectedRoute>
+                    <AdminProtectedRoute>
+                      <AdminPlacesPage />
+                    </AdminProtectedRoute>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/reviews"
+                element={
+                  <ProtectedRoute>
+                    <AdminProtectedRoute>
+                      <AdminReviewsPage />
+                    </AdminProtectedRoute>
+                  </ProtectedRoute>
+                }
+              />
             </Route>
+
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminProtectedRoute>
+                    <AdminPage />
+                  </AdminProtectedRoute>
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Suspense>
       </BrowserRouter>

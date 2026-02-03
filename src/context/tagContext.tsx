@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { TagProps } from '../types/type';
-import { useCategory } from '../hooks/useCategory';
+import { useCategory } from '../features/explore/hooks';
 
 interface TagContextType {
   selectedTags: TagProps[];

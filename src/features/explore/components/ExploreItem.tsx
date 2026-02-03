@@ -1,35 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PlaceItemCard from '../../../components/place-item-card/PlaceItemCard';
 import TagButton from '../../../components/share/TagButton';
-import type { PlaceProps } from '../../../types/type';
-import { fetchFilteredPlaces } from '../apis/placeApi';
+import Spinner from '../../../components/share/Spinner';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useFilteredPlaces } from '../hooks/queries';
 
 const ExploreItem = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const categoryFromQuery = params.get('category') || '';
-  const tagsFromQuery = params.getAll('tags') || '';
-  const [filteredPlaces, setFilteredPlaces] = useState<PlaceProps[]>([]);
+  const tagsFromQuery = params.getAll('tags') || [];
   const [isPartnershipButtonOn, setIsPartnershipButtonOn] = useState(false);
-
-  useEffect(() => {
-    const fetchFilterPlace = async () => {
-      if (categoryFromQuery && tagsFromQuery) {
-        const res = await fetchFilteredPlaces(categoryFromQuery, tagsFromQuery);
-        let places = res.data || [];
-
-        if (isPartnershipButtonOn) {
-          places = places.filter((place) => place.isPartnership);
-        }
-
-        setFilteredPlaces(places);
-      }
-    };
-
-    fetchFilterPlace();
-  }, [categoryFromQuery, JSON.stringify(tagsFromQuery), isPartnershipButtonOn]);
+  const { data: filteredPlaces = [], isLoading } = useFilteredPlaces(
+    categoryFromQuery,
+    tagsFromQuery,
+    isPartnershipButtonOn,
+  );
 
   const handleTag = (tagName: string) => {
     const newParams = new URLSearchParams(location.search);
@@ -46,6 +33,10 @@ const ExploreItem = () => {
 
     navigate({ search: newParams.toString() }, { replace: true });
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="flex w-full flex-col gap-4 py-15">
