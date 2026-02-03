@@ -11,18 +11,29 @@ function MyPage() {
   const { setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
-  const [myProfile, setMyProfile] = useState<UserProfileResponseProps | null>(
-    null,
-  );
+  const [myProfile, setMyProfile] = useState<UserProfileResponseProps>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const res = await getMyProfile();
-      setMyProfile(res);
+      try {
+        setLoading(true);
+        const res = await getMyProfile();
+        setMyProfile(res);
+      } catch (e) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchProfile();
   }, []);
+
+  if (loading) return <div>로딩 중...</div>;
+  if (error) return <div>유저 정보를 불러오지 못했어요</div>;
+  if (!myProfile) return null;
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
@@ -32,11 +43,11 @@ function MyPage() {
 
   return (
     <div className="mx-auto mt-10 flex w-[85%] flex-col gap-8 lg:w-[60%] lg:gap-8">
-      <ProfileCard myProfile={myProfile!} />
+      <ProfileCard myProfile={myProfile} />
 
       <div className="grid grid-cols-2 gap-5 lg:gap-8">
-        <MyReviews reviewCount={myProfile?.reviewCount || 0} />
-        <LikePlaces favoriteCount={myProfile?.favoriteCount || 0} />
+        <MyReviews reviewCount={myProfile.reviewCount} />
+        <LikePlaces favoriteCount={myProfile.favoriteCount} />
       </div>
 
       <div className="mt-15 flex flex-col gap-3 text-xs">
