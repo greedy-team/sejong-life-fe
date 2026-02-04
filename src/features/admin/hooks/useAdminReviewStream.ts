@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import {
   connectLogStream,
   fetchAdminReviews,
@@ -85,8 +86,13 @@ export const useAdminReviewStream = (): UseAdminReviewStreamReturn => {
     async (placeId: number, reviewId: number) => {
       if (!paramsRef.current) return;
 
-      await deleteAdminReview(placeId, reviewId, paramsRef.current);
-      setReviews((prev) => prev.filter((r) => r.reviewId !== reviewId));
+      try {
+        await deleteAdminReview(placeId, reviewId, paramsRef.current);
+        setReviews((prev) => prev.filter((r) => r.reviewId !== reviewId));
+        toast.success('리뷰가 삭제되었습니다.');
+      } catch {
+        toast.error('리뷰 삭제에 실패했습니다.');
+      }
     },
     [],
   );
