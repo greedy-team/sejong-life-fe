@@ -1,5 +1,5 @@
 import type { AdminReview } from '../model/types';
-import { formatDate } from '../../../utils/format';
+import { formatDateDot } from '../../../utils/format';
 import { ICONS } from '../constants/icons';
 import IconText from '../../../components/share/IconText';
 import Rating from '../../../components/share/Rating';
@@ -20,7 +20,7 @@ function AdminReviewCard({ review, onDelete }: AdminReviewCardProps) {
         <div className="flex items-center gap-2">
           <Rating rating={review.rating} />
           <time dateTime={review.createdAt} className="text-sm text-gray-500">
-            {formatDate(review.createdAt)}
+            {formatDateDot(review.createdAt)}
           </time>
         </div>
       </header>
