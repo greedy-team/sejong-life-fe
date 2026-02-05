@@ -11,7 +11,7 @@ const TagFilter = () => {
   const categoryName = params.get('category');
   const [isBottom, setIsBottom] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { data: categories = [], isLoading } = useCategoryLists();
+  const { data: categories = [] } = useCategoryLists();
 
   const categoryId = useMemo(() => {
     if (!categoryName || categories.length === 0) return undefined;
@@ -65,8 +65,6 @@ const TagFilter = () => {
     const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 5;
     setIsBottom(atBottom);
   };
-
-  if (isLoading) return null;
 
   return (
     <div className="relative m-auto w-[85%] rounded-md">
