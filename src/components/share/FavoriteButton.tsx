@@ -25,7 +25,7 @@ const FavoriteButton = ({
     if (isLoggedIn) {
       onToggleFavorite(e);
     } else {
-      toast.error('좋아요를 남기려면 로그인해주세요');
+      toast.error('장소를 저장하려면 로그인해주세요');
       setIsLoginOpen(true);
     }
   };
