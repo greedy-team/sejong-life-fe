@@ -13,8 +13,6 @@ const TagFilter = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { data: categories = [], isLoading } = useCategoryLists();
 
-  if (isLoading) return null;
-
   const categoryId = useMemo(() => {
     if (!categoryName || categories.length === 0) return undefined;
     const matchedCategory = categories.find(
@@ -67,6 +65,8 @@ const TagFilter = () => {
     const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 5;
     setIsBottom(atBottom);
   };
+
+  if (isLoading) return null;
 
   return (
     <div className="relative m-auto w-[85%] rounded-md">
