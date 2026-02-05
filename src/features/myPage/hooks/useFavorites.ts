@@ -3,10 +3,12 @@ import { getMyPlaces } from '../apis/getMyPlaces';
 import { toast } from 'react-toastify';
 import { deleteFavoritePlace } from '../../explore/apis/deleteFavoritePlace';
 import { addFavoritePlace } from '../../explore/apis/addFavoritePlace';
+import { useAuth } from '../../../hooks/useAuth';
 
 export function useFavorites() {
   const [favoriteSet, setFavoriteSet] = useState<Set<number>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
+  const { isLoggedIn } = useAuth();
 
   const refresh = useCallback(async () => {
     const favorites = await getMyPlaces();
@@ -15,16 +17,20 @@ export function useFavorites() {
   }, []);
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      setIsLoading(false);
+      return;
+    }
     (async () => {
       try {
         await refresh();
       } catch (e) {
-        console.error('즐겨찾기 로딩 실패', e);
+        console.error('저장된 장소 로딩 실패', e);
       } finally {
         setIsLoading(false);
       }
     })();
-  }, [refresh]);
+  }, [refresh, isLoggedIn]);
 
   const handleToggleFavorite = useCallback(
     async (placeId: number) => {
@@ -41,13 +47,13 @@ export function useFavorites() {
       try {
         if (isFav) {
           await deleteFavoritePlace(placeId);
-          toast.success('즐겨찾기에서 제거했어요.');
+          toast.success('장소를 저장했어요.');
         } else {
           await addFavoritePlace(placeId);
-          toast.success('즐겨찾기에 추가했어요.');
+          toast.success('장소를 저장했어요.');
         }
       } catch (e) {
-        console.error('즐겨찾기 토글 실패', e);
+        console.error('장소 저장 실패', e);
 
         // 실패하면 되돌리기
         setFavoriteSet((prev) => {
@@ -57,7 +63,7 @@ export function useFavorites() {
           return next;
         });
 
-        toast.error('즐겨찾기 처리에 실패했습니다.');
+        toast.error('장소 저장을 실패했어요.');
       }
     },
     [favoriteSet],

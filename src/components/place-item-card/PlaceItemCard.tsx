@@ -95,8 +95,7 @@ const PlaceItemCard = ({
         {showFavoriteButton && (
           <FavoriteButton
             isFavorite={isFavorite}
-            onToggleFavorite={(e) => {
-              e.stopPropagation();
+            onToggleFavorite={() => {
               onToggleFavorite?.(placeInfo.placeId);
             }}
             className="absolute right-0 bottom-2.5 z-30"
