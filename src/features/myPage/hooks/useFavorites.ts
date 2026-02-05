@@ -3,10 +3,12 @@ import { getMyPlaces } from '../apis/getMyPlaces';
 import { toast } from 'react-toastify';
 import { deleteFavoritePlace } from '../../explore/apis/deleteFavoritePlace';
 import { addFavoritePlace } from '../../explore/apis/addFavoritePlace';
+import { useAuth } from '../../../hooks/useAuth';
 
 export function useFavorites() {
   const [favoriteSet, setFavoriteSet] = useState<Set<number>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
+  const { isLoggedIn } = useAuth();
 
   const refresh = useCallback(async () => {
     const favorites = await getMyPlaces();
@@ -15,6 +17,10 @@ export function useFavorites() {
   }, []);
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      setIsLoading(false);
+      return;
+    }
     (async () => {
       try {
         await refresh();
@@ -24,7 +30,7 @@ export function useFavorites() {
         setIsLoading(false);
       }
     })();
-  }, [refresh]);
+  }, [refresh, isLoggedIn]);
 
   const handleToggleFavorite = useCallback(
     async (placeId: number) => {
