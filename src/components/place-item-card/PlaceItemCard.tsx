@@ -2,13 +2,20 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import type { PlaceProps } from '../../types/type';
 import TagButton from '../share/TagButton';
+import { deletePlace } from '../../features/admin/api/deletePlace';
+import { toast } from 'react-toastify';
 
 interface PlaceItemCardProps {
   placeInfo: PlaceProps;
   className?: string;
+  showDeleteButton?: boolean;
 }
 
-const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
+const PlaceItemCard = ({
+  placeInfo,
+  className,
+  showDeleteButton = false,
+}: PlaceItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const placeNameRef = useRef<HTMLHeadingElement | null>(null);
@@ -28,9 +35,24 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
     }
   }, [placeInfo.placeName]);
 
+  const handleDeleteButtonClick = async (placeId: number) => {
+    const ok = confirm('정말 삭제하시겠습니까?');
+    if (!ok) return false;
+
+    try {
+      await deletePlace(placeId);
+
+      toast.success('장소를 삭제했습니다.');
+      navigate(0); //임시방편
+    } catch (error) {
+      console.log('삭제실패:', error);
+      toast.error('장소 삭제에 실패했습니다.');
+    }
+  };
+
   return (
     <div
-      className={`h-[190px] w-[80vw] cursor-pointer overflow-hidden rounded-xl border-2 border-transparent shadow-sm transition-all duration-200 hover:bg-[#fafafa] sm:w-[330px] ${className}`}
+      className={`relative h-[190px] w-[80vw] cursor-pointer overflow-hidden rounded-xl border-2 border-transparent shadow-sm transition-all duration-200 hover:bg-[#fafafa] sm:w-[330px] ${className}`}
       onClick={() =>
         navigate(`/detail/${placeInfo.placeId}`, {
           state: { from: location.pathname + location.search },
@@ -62,6 +84,21 @@ const PlaceItemCard = ({ placeInfo, className }: PlaceItemCardProps) => {
           <div className="absolute top-2 left-2 z-20 rounded-full bg-[#77db30] px-3 py-1 text-xs font-medium text-white shadow">
             제휴
           </div>
+        )}
+        {showDeleteButton && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteButtonClick(placeInfo.placeId);
+            }}
+            className="absolute right-3 bottom-3 z-30"
+          >
+            <img
+              src="/asset/place-item-card/trashcan.svg"
+              alt="delete"
+              className="h-5 w-5 text-[#77db30]"
+            />
+          </button>
         )}
         <div className="flex w-[50%] flex-col">
           <div className="flex flex-col gap-2 p-2.5">

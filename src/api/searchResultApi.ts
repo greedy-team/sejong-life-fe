@@ -10,17 +10,13 @@ export const fetchSearchResult = async ({
   category = '전체',
 }: SearchParams) => {
   const trimmed = keyword.trim();
-  if (!trimmed) return [];
 
   try {
-    const response = await api.get('/api/places', {
-      params: {
-        category,
-        keyword: trimmed,
-      },
-    });
+    const params: Record<string, string> = { category };
+    if (trimmed) params.keyword = trimmed;
 
-    return response.data.data;
+    const response = await api.get('/api/places', { params });
+    return response.data.data ?? [];
   } catch (error) {
     console.error('검색 실패', error);
     return [];

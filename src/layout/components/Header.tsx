@@ -40,7 +40,7 @@ const Header = () => {
       ) : (
         <button
           //   onClick={handleLogout}
-          onClick={() => navigate('/myPage')}
+          onClick={() => navigate('/mypage')}
           className="flex cursor-pointer items-center gap-1 rounded-md bg-[#8BE34A] px-3 py-1.5 text-sm font-semibold text-[#2C3037] transition-colors duration-100 hover:bg-[#77db30]"
         >
           <img

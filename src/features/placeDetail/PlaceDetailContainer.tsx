@@ -1,13 +1,12 @@
 import PhotoStrip from './PhotoStrip';
 import PlaceInfo from './PlaceInfo';
 import { useParams } from 'react-router-dom';
+import Spinner from '../../components/share/Spinner';
 import ReviewStatsSection from './ReviewStatsSection';
 import ReviewCard from './place-review-card/ReviewCard';
 import ReviewWriteButton from './ReviewWriteButton';
 import MoreReviewButton from './MoreReviewButton';
-import { usePlaceDetail } from '../../hooks/usePlaceDetail';
-import { usePlaceReview } from '../../hooks/usePlaceReview';
-import { useReviewStats } from '../../hooks/useReviewStats';
+import { usePlaceDetail, usePlaceReview, useReviewStats } from './hooks';
 
 const PlaceDetailContainer = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,7 +14,7 @@ const PlaceDetailContainer = () => {
   const { stats, refetchStats } = useReviewStats(id!);
   const { reviews, handleDeleteReview } = usePlaceReview(id!, refetchStats);
 
-  if (!place || !stats) return <div>로딩중...</div>;
+  if (!place || !stats) return <Spinner />;
 
   return (
     <div className="mx-auto mt-12 flex w-full max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">

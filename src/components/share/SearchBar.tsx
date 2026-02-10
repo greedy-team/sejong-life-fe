@@ -7,13 +7,15 @@ const SearchBar = () => {
   const [keyword, setKeyword] = useState(initial);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const trimmed = keyword.trim();
     if (!trimmed) return [];
 
-    navigate(`/search?keyword=${trimmed}`);
+    navigate(`/search?keyword=${trimmed}`, {
+      state: { title: '검색결과' },
+    });
   };
 
   return (
