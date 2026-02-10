@@ -1,9 +1,10 @@
 import type { MyReview } from '../../types/type';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import TagButton from '../share/TagButton';
 import LightboxViewer from '../../features/placeDetail/LightboxViewer';
 import { formatDate } from '../../utils/format';
 import Rating from '../share/Rating';
+import useIsContentLong from '../../hooks/useIsContentLong';
 
 interface MyReviewCardProps {
   myReview: MyReview;
@@ -15,29 +16,10 @@ const MyReviewCard = ({ myReview, onDelete }: MyReviewCardProps) => {
   const [index, setIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isContentLong, setIsContentLong] = useState(false);
-
-  const contentRef = useRef<HTMLDivElement>(null);
-  const checkContentLines = () => {
-    if (contentRef.current) {
-      const style = window.getComputedStyle(contentRef.current);
-      const lineHeight = parseFloat(style.lineHeight);
-      const lines = Math.round(contentRef.current.scrollHeight / lineHeight);
-
-      setIsContentLong(lines > 3);
-    }
-  };
-
-  useEffect(() => {
-    checkContentLines();
-  }, [myReview.content]);
-
-  useEffect(() => {
-    window.addEventListener('resize', checkContentLines);
-    return () => {
-      window.removeEventListener('resize', checkContentLines);
-    };
-  }, []);
+  const { contentRef, isContentLong } = useIsContentLong({
+    maxLines: 3,
+    deps: [myReview.content],
+  });
 
   return (
     <>
