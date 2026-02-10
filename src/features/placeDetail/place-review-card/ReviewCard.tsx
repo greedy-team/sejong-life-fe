@@ -1,5 +1,7 @@
 import type { Review } from '../../../types/type';
 import TagButton from '../../../components/share/TagButton';
+import Rating from '../../../components/share/Rating';
+import { formatDateDot } from '../../../utils/format';
 import { useState, useEffect, useRef } from 'react';
 import LightboxViewer from '../LightboxViewer';
 import LoginModal from '../../login/components/LoginModal';
@@ -51,43 +53,6 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
     };
   }, []);
 
-  const formatDate = (dateString: string) => {
-    try {
-      const date = new Date(dateString);
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const day = date.getDate().toString().padStart(2, '0');
-      return `${year}.${month}.${day}`;
-    } catch (error) {
-      console.error('날짜 형식 오류:', error);
-      return '';
-    }
-  };
-
-  const rederStartIcons = (rating: number) => {
-    const fullStars = Math.floor(rating);
-    const stars = [];
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(
-        <span key={`full-${i}`} className="text-[#77db30]">
-          ★
-        </span>,
-      );
-    }
-
-    const emptyStars = 5 - stars.length;
-    for (let i = 0; i < emptyStars; i++) {
-      stars.push(
-        <span key={`empty-${i}`} className="text-gray-300">
-          ★
-        </span>,
-      );
-    }
-
-    return stars;
-  };
-
   const handleLikeClick = () => {
     if (isLoggedIn) {
       handleLike();
@@ -105,10 +70,12 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
             {String(review.studentId).slice(0, 2)}학번
           </div>
           <div className="text-small text-gray-500">
-            {formatDate(review.createdAt)}
+            {formatDateDot(review.createdAt)}
           </div>
         </div>
-        <div data-testid="review-rating">{rederStartIcons(review.rating)}</div>
+        <div data-testid="review-rating">
+          <Rating rating={review.rating} />
+        </div>
         {haveImages && (
           <div className="flex gap-1 overflow-x-auto">
             {review.images.map((image, i) => (

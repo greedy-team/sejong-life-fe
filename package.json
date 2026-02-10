@@ -21,6 +21,7 @@
     ]
   },
   "dependencies": {
+    "@microsoft/fetch-event-source": "^2.0.1",
     "@storybook/react-vite": "^9.1.2",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/vite": "^4.1.11",

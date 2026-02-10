@@ -8,12 +8,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyPage from './pages/MyPage';
 import SearchResultPage from './pages/SearchResultPage';
+import MyReviewPage from './pages/MyReviewPage';
 import AdminPlacesPage from './pages/AdminPlacesPage';
 import AdminPage from './pages/AdminPage';
 import AdminReviewsPage from './pages/AdminReviewsPage';
 import AdminProtectedRoute from './features/admin/components/AdminProtectedRoute';
-import MyReviewPage from './pages/MyReviewPage';
-import MyPlacesPage from './pages/MyPlacesPage';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -57,6 +56,7 @@ function App() {
               />
               <Route path="detail/:id" element={<PlaceDetailPage />} />
               <Route path="search" element={<SearchResultPage />} />
+              <Route path="mypage/myReviews" element={<MyReviewPage />} />
               <Route
                 path="admin/places"
                 element={
@@ -74,22 +74,6 @@ function App() {
                     <AdminProtectedRoute>
                       <AdminReviewsPage />
                     </AdminProtectedRoute>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="mypage/myReviews"
-                element={
-                  <ProtectedRoute>
-                    <MyReviewPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="mypage/myPlaces"
-                element={
-                  <ProtectedRoute>
-                    <MyPlacesPage />
                   </ProtectedRoute>
                 }
               />
