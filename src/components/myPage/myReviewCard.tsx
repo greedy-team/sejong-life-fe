@@ -2,6 +2,8 @@ import type { MyReview } from '../../types/type';
 import { useState, useRef, useEffect } from 'react';
 import TagButton from '../share/TagButton';
 import LightboxViewer from '../../features/placeDetail/LightboxViewer';
+import { formatDate } from '../../utils/format';
+import Rating from '../share/Rating';
 
 interface MyReviewCardProps {
   myReview: MyReview;
@@ -37,43 +39,6 @@ const MyReviewCard = ({ myReview, onDelete }: MyReviewCardProps) => {
     };
   }, []);
 
-  const formatDate = (dateString: string) => {
-    try {
-      const date = new Date(dateString);
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const day = date.getDate().toString().padStart(2, '0');
-      return `${year}.${month}.${day}`;
-    } catch (error) {
-      console.error('날짜 형식 오류:', error);
-      return '';
-    }
-  };
-
-  const rederStartIcons = (rating: number) => {
-    const fullStars = Math.floor(rating);
-    const stars = [];
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(
-        <span key={`full-${i}`} className="text-[#77db30]">
-          ★
-        </span>,
-      );
-    }
-
-    const emptyStars = 5 - stars.length;
-    for (let i = 0; i < emptyStars; i++) {
-      stars.push(
-        <span key={`empty-${i}`} className="text-gray-300">
-          ★
-        </span>,
-      );
-    }
-
-    return stars;
-  };
-
   return (
     <>
       <div className="flex flex-col gap-3 px-5 py-5">
@@ -85,9 +50,7 @@ const MyReviewCard = ({ myReview, onDelete }: MyReviewCardProps) => {
             {formatDate(myReview.createdAt)}
           </div>
         </div>
-        <div data-testid="review-rating">
-          {rederStartIcons(myReview.rating)}
-        </div>
+        <Rating rating={myReview.rating} />
         {haveImages && (
           <div className="flex gap-1 overflow-x-auto">
             {myReview.images.map((image, i) => (
