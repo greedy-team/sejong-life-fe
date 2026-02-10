@@ -2,13 +2,14 @@ import type { Review } from '../../../types/type';
 import TagButton from '../../../components/share/TagButton';
 import Rating from '../../../components/share/Rating';
 import { formatDateDot } from '../../../utils/format';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import LightboxViewer from '../LightboxViewer';
 import LoginModal from '../../login/components/LoginModal';
 import LoginWidget from '../../login/components/LoginWidget';
 import { useReviewLike } from '../hooks';
 import { useAuth } from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
+import useIsContentLong from '../../../hooks/useIsContentLong';
 
 interface ReviewCardProps {
   review: Review;
@@ -21,7 +22,10 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
   const [index, setIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isContentLong, setIsContentLong] = useState(false);
+  const { contentRef, isContentLong } = useIsContentLong({
+    maxLines: 3,
+    deps: [review.content],
+  });
   const { isLoggedIn } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const { isLiked, likeCount, handleLike } = useReviewLike(
@@ -30,28 +34,6 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
     review.liked,
     review.likeCount,
   );
-
-  const contentRef = useRef<HTMLDivElement>(null);
-  const checkContentLines = () => {
-    if (contentRef.current) {
-      const style = window.getComputedStyle(contentRef.current);
-      const lineHeight = parseFloat(style.lineHeight);
-      const lines = Math.round(contentRef.current.scrollHeight / lineHeight);
-
-      setIsContentLong(lines > 3);
-    }
-  };
-
-  useEffect(() => {
-    checkContentLines();
-  }, [review.content]);
-
-  useEffect(() => {
-    window.addEventListener('resize', checkContentLines);
-    return () => {
-      window.removeEventListener('resize', checkContentLines);
-    };
-  }, []);
 
   const handleLikeClick = () => {
     if (isLoggedIn) {
