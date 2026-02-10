@@ -55,6 +55,7 @@ const MyReviewCard = ({ myReview, onDelete }: MyReviewCardProps) => {
           <div className="flex gap-1 overflow-x-auto">
             {myReview.images.map((image, i) => (
               <img
+                role="button"
                 key={image.imageId}
                 src={image.url}
                 alt={`리뷰 사진 ${i + 1}`}
