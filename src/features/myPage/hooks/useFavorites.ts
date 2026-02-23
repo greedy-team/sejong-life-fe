@@ -34,15 +34,16 @@ export function useFavorites() {
 
       try {
         if (isFav) {
-          await deleteFavoritePlace(placeId);
+          await deleteMutation.mutateAsync(placeId);
           toast.success('장소 저장을 취소했어요.');
         } else {
-          await addFavoritePlace(placeId);
+          await addMutation.mutateAsync(placeId);
           toast.success('장소를 저장했어요.');
         }
         await refresh();
       } catch (e) {
         console.error('장소 저장 실패', e);
+        toast.error('장소 저장을 실패했어요.');
       }
     },
     [favoriteSet, addMutation, deleteMutation, refresh],
