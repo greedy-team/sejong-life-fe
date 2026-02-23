@@ -23,7 +23,7 @@ const MyReviewCard = ({ myReview, onDelete }: MyReviewCardProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-3 px-5 py-5">
+      <article className="flex flex-col gap-3 px-5 py-5">
         <div className="flex justify-between">
           <div className="text-lg font-bold">
             {String(myReview.studentId).slice(0, 2)}학번
@@ -82,7 +82,7 @@ const MyReviewCard = ({ myReview, onDelete }: MyReviewCardProps) => {
             </button>
           )}
         </div>
-      </div>
+      </article>
 
       <LightboxViewer
         isLightboxOpen={isLightboxOpen}

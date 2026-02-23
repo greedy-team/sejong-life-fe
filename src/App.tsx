@@ -13,6 +13,7 @@ import AdminPlacesPage from './pages/AdminPlacesPage';
 import AdminPage from './pages/AdminPage';
 import AdminReviewsPage from './pages/AdminReviewsPage';
 import AdminProtectedRoute from './features/admin/components/AdminProtectedRoute';
+import MyPlacesPage from './pages/MyPlacesPage';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -57,6 +58,7 @@ function App() {
               <Route path="detail/:id" element={<PlaceDetailPage />} />
               <Route path="search" element={<SearchResultPage />} />
               <Route path="mypage/myReviews" element={<MyReviewPage />} />
+              <Route path="mypage/myPlaces" element={<MyPlacesPage />} />
               <Route
                 path="admin/places"
                 element={
