@@ -1,7 +1,3 @@
-export const formatDate = (dateString: string): string => {
-  return new Date(dateString).toLocaleDateString('ko-KR');
-};
-
 export const formatDateDot = (dateString: string): string => {
   try {
     const date = new Date(dateString);

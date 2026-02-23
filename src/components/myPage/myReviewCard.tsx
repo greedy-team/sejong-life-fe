@@ -2,7 +2,7 @@ import type { MyReview } from '../../types/type';
 import { useState } from 'react';
 import TagButton from '../share/TagButton';
 import LightboxViewer from '../../features/placeDetail/LightboxViewer';
-import { formatDate } from '../../utils/format';
+import { formatDateDot } from '../../utils/format';
 import Rating from '../share/Rating';
 import useIsContentLong from '../../hooks/useIsContentLong';
 
@@ -29,7 +29,7 @@ const MyReviewCard = ({ myReview, onDelete }: MyReviewCardProps) => {
             {String(myReview.studentId).slice(0, 2)}학번
           </div>
           <div className="text-small text-gray-500">
-            {formatDate(myReview.createdAt)}
+            {formatDateDot(myReview.createdAt)}
           </div>
         </div>
         <Rating rating={myReview.rating} />
