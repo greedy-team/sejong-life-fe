@@ -1,12 +1,15 @@
 import type { Review } from '../../../types/type';
 import TagButton from '../../../components/share/TagButton';
-import { useState, useEffect, useRef } from 'react';
+import Rating from '../../../components/share/Rating';
+import { formatDateDot } from '../../../utils/format';
+import { useState } from 'react';
 import LightboxViewer from '../LightboxViewer';
 import LoginModal from '../../login/components/LoginModal';
 import LoginWidget from '../../login/components/LoginWidget';
 import { useReviewLike } from '../hooks';
 import { useAuth } from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
+import useIsContentLong from '../../../hooks/useIsContentLong';
 
 interface ReviewCardProps {
   review: Review;
@@ -19,7 +22,10 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
   const [index, setIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isContentLong, setIsContentLong] = useState(false);
+  const { contentRef, isContentLong } = useIsContentLong({
+    maxLines: 3,
+    deps: [review.content],
+  });
   const { isLoggedIn } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const { isLiked, likeCount, handleLike } = useReviewLike(
@@ -28,65 +34,6 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
     review.liked,
     review.likeCount,
   );
-
-  const contentRef = useRef<HTMLDivElement>(null);
-  const checkContentLines = () => {
-    if (contentRef.current) {
-      const style = window.getComputedStyle(contentRef.current);
-      const lineHeight = parseFloat(style.lineHeight);
-      const lines = Math.round(contentRef.current.scrollHeight / lineHeight);
-
-      setIsContentLong(lines > 3);
-    }
-  };
-
-  useEffect(() => {
-    checkContentLines();
-  }, [review.content]);
-
-  useEffect(() => {
-    window.addEventListener('resize', checkContentLines);
-    return () => {
-      window.removeEventListener('resize', checkContentLines);
-    };
-  }, []);
-
-  const formatDate = (dateString: string) => {
-    try {
-      const date = new Date(dateString);
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const day = date.getDate().toString().padStart(2, '0');
-      return `${year}.${month}.${day}`;
-    } catch (error) {
-      console.error('날짜 형식 오류:', error);
-      return '';
-    }
-  };
-
-  const rederStartIcons = (rating: number) => {
-    const fullStars = Math.floor(rating);
-    const stars = [];
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(
-        <span key={`full-${i}`} className="text-[#77db30]">
-          ★
-        </span>,
-      );
-    }
-
-    const emptyStars = 5 - stars.length;
-    for (let i = 0; i < emptyStars; i++) {
-      stars.push(
-        <span key={`empty-${i}`} className="text-gray-300">
-          ★
-        </span>,
-      );
-    }
-
-    return stars;
-  };
 
   const handleLikeClick = () => {
     if (isLoggedIn) {
@@ -105,10 +52,12 @@ const ReviewCard = ({ review, placeId, onDelete }: ReviewCardProps) => {
             {String(review.studentId).slice(0, 2)}학번
           </div>
           <div className="text-small text-gray-500">
-            {formatDate(review.createdAt)}
+            {formatDateDot(review.createdAt)}
           </div>
         </div>
-        <div data-testid="review-rating">{rederStartIcons(review.rating)}</div>
+        <div data-testid="review-rating">
+          <Rating rating={review.rating} />
+        </div>
         {haveImages && (
           <div className="flex gap-1 overflow-x-auto">
             {review.images.map((image, i) => (

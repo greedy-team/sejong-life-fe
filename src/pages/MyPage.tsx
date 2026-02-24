@@ -67,7 +67,7 @@ function MyPage() {
   };
 
   return (
-    <div className="mx-auto mt-10 flex w-[85%] flex-col gap-8 lg:w-[60%] lg:gap-8">
+    <div className="0 mx-auto mt-30 flex w-[85%] flex-col gap-8 lg:w-[60%] lg:gap-8">
       <ProfileCard myProfile={myProfile} />
 
       <div className="grid grid-cols-2 gap-5 lg:gap-8">

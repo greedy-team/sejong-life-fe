@@ -21,17 +21,32 @@ export interface Tag {
 export interface PlaceProps {
   placeId: number;
   placeName: string;
+  address?: string;
+  latitude?: number;
+  longitude?: number;
   mainImageUrl: string;
   categories: CategoryProps[];
   tags: TagProps[];
   viewCount: number;
   reviewCount: number;
   isPartnership: boolean;
+  partnershipContent?: string;
+}
+
+export interface PageInfo {
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  hasNext: boolean;
 }
 
 export interface Place {
   message: string;
-  data: PlaceProps[];
+  data: {
+    places: PlaceProps[];
+    page: PageInfo;
+  };
 }
 
 export interface MapProps {

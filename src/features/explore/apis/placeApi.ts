@@ -5,6 +5,8 @@ import { api } from '../../../api/api';
 export const fetchFilteredPlaces = async (
   selectedCategory: string,
   selectedTags: string[],
+  page: number = 0,
+  size: number = 9,
 ): Promise<Place> => {
   try {
     const params = new URLSearchParams();
@@ -14,6 +16,9 @@ export const fetchFilteredPlaces = async (
       const tagNames = selectedTags.map((tag) => tag).join(',');
       params.append('tags', tagNames);
     }
+
+    params.append('page', String(page));
+    params.append('size', String(size));
 
     const response = await api.get(`/api/places?${params.toString()}`);
     return response.data;
