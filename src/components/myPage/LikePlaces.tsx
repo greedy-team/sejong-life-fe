@@ -1,6 +1,13 @@
+import { useNavigate } from 'react-router-dom';
+
 const LikePlaces = () => {
+  const navigate = useNavigate();
+
   return (
-    <button className="flex h-38 cursor-pointer flex-col items-center justify-center gap-3 rounded-3xl bg-white drop-shadow-[0_6px_12px_rgba(139,227,74,0.4)] transition-shadow duration-200 hover:shadow-[0_8px_18px_rgba(139,227,74,0.35)] lg:h-60">
+    <button
+      onClick={() => navigate('/mypage/myPlaces')}
+      className="flex h-38 cursor-pointer flex-col items-center justify-center gap-3 rounded-3xl bg-white drop-shadow-[0_6px_12px_rgba(139,227,74,0.4)] transition-shadow duration-200 hover:shadow-[0_8px_18px_rgba(139,227,74,0.35)] lg:h-60"
+    >
       <img
         src="/asset/mypage/bookmark.svg"
         alt="저장한 장소"

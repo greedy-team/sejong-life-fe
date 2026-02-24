@@ -3,7 +3,6 @@ import MyReviews from '../components/myPage/MyReviews';
 import LikePlaces from '../components/myPage/LikePlaces';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import ProtectedRoute from '../components/share/ProtectedRoute';
 import deleteUser from '../features/myPage/apis/deleteUser';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -41,31 +40,28 @@ function MyPage() {
   };
 
   return (
-    <ProtectedRoute>
-      <div className="mx-auto mt-10 flex w-[85%] flex-col gap-8 lg:w-[60%] lg:gap-8">
-        <ProfileCard />
-
-        <div className="grid grid-cols-2 gap-5 lg:gap-8">
-          <MyReviews />
-          <LikePlaces />
-        </div>
-
-        <div className="mt-15 flex flex-col gap-3 text-xs">
-          <button
-            onClick={() => handleLogout()}
-            className="cursor-pointer lg:text-xl"
-          >
-            로그아웃하기
-          </button>
-          <button
-            onClick={() => handleMembershipCancellation()}
-            className="cursor-pointer text-gray-400 lg:text-xl"
-          >
-            탈퇴하기
-          </button>
-        </div>
+    <div className="mx-auto mt-10 flex w-[85%] flex-col gap-8 lg:w-[60%] lg:gap-8">
+      <ProfileCard />
+      <div className="grid grid-cols-2 gap-5 lg:gap-8">
+        <MyReviews />
+        <LikePlaces />
       </div>
-    </ProtectedRoute>
+
+      <div className="mt-15 flex flex-col gap-3 text-xs">
+        <button
+          onClick={() => handleLogout()}
+          className="cursor-pointer lg:text-xl"
+        >
+          로그아웃하기
+        </button>
+        <button
+          onClick={() => handleMembershipCancellation()}
+          className="cursor-pointer text-gray-400 lg:text-xl"
+        >
+          탈퇴하기
+        </button>
+      </div>
+    </div>
   );
 }
 

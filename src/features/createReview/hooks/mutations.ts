@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { postReview } from '../api/postReviewApi';
 import { queryKeys } from '../../../lib/query/queryKeys';
+import { myReviewsQueryKey } from '../../myPage/queries/useMyReviewsQuery';
 
 export const useCreateReview = (placeId: number) => {
   const queryClient = useQueryClient();
@@ -20,6 +21,7 @@ export const useCreateReview = (placeId: number) => {
       });
 
       toast.success('리뷰가 성공적으로 등록되었습니다!');
+      queryClient.invalidateQueries({ queryKey: myReviewsQueryKey });
       navigate(`/detail/${placeId}`);
     },
     onError: (error) => {

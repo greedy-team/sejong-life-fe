@@ -1,4 +1,4 @@
-import useMyReview from '../../hooks/useMyReviews';
+import useMyReview from '../../features/myPage/hooks/useMyReviews';
 import MyReviewCard from './myReviewCard';
 
 const MyReviewList = () => {
