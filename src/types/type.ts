@@ -147,3 +147,16 @@ export interface LoginResponse {
   message: string;
   data: LoginResponseProps;
 }
+
+export interface UserProfileResponseProps {
+  name: string;
+  nickname: string;
+  studentId: string;
+  department: string;
+  favoriteCount: number;
+  reviewCount: number;
+}
+export interface UserProfileResponse {
+  message: string;
+  data: UserProfileResponseProps;
+}

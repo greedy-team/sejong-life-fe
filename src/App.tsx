@@ -57,8 +57,6 @@ function App() {
               />
               <Route path="detail/:id" element={<PlaceDetailPage />} />
               <Route path="search" element={<SearchResultPage />} />
-              <Route path="mypage/myReviews" element={<MyReviewPage />} />
-              <Route path="mypage/myPlaces" element={<MyPlacesPage />} />
               <Route
                 path="admin/places"
                 element={
@@ -76,6 +74,22 @@ function App() {
                     <AdminProtectedRoute>
                       <AdminReviewsPage />
                     </AdminProtectedRoute>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="mypage/myReviews"
+                element={
+                  <ProtectedRoute>
+                    <MyReviewPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="mypage/myPlaces"
+                element={
+                  <ProtectedRoute>
+                    <MyPlacesPage />
                   </ProtectedRoute>
                 }
               />

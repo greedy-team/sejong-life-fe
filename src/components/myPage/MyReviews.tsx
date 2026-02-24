@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-const MyReviews = () => {
+interface MyReviewsProps {
+  reviewCount: number;
+}
+
+const MyReviews = ({ reviewCount }: MyReviewsProps) => {
   const navigate = useNavigate();
 
   return (
@@ -17,7 +21,7 @@ const MyReviews = () => {
         <div className="text-xl font-semibold text-[#222222] lg:text-2xl">
           내가 쓴 리뷰
         </div>
-        <div className="text-gray-700 lg:text-lg">총 n개</div>
+        <div className="text-gray-700 lg:text-lg">총 {reviewCount}개</div>
       </div>
     </button>
   );
