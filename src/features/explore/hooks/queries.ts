@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import type {
   Category,
   CategoryProps,
+  PageInfo,
   Place,
   PlaceProps,
   Tag,
@@ -37,18 +38,24 @@ export const useFilteredPlaces = (
   category: string,
   tags: string[],
   isPartnershipOnly: boolean,
+  page: number = 0,
+  size: number = 10,
 ) => {
-  return useQuery<Place, Error, PlaceProps[]>({
+  return useQuery<Place, Error, { places: PlaceProps[]; pageInfo: PageInfo }>({
     queryKey: queryKeys.places.list(
-      `${category}-${tags.join(',')}-${isPartnershipOnly}`,
+      `${category}-${tags.join(',')}-${isPartnershipOnly}-${page}-${size}`,
     ),
-    queryFn: () => fetchFilteredPlaces(category, tags),
+    queryFn: () => fetchFilteredPlaces(category, tags, page, size),
     select: (data) => {
-      const places = data.data || [];
+      const places = data.data?.places || [];
+      const pageInfo = data.data?.page;
       if (isPartnershipOnly) {
-        return places.filter((place) => place.isPartnership);
+        return {
+          places: places.filter((place) => place.isPartnership),
+          pageInfo,
+        };
       }
-      return places;
+      return { places, pageInfo };
     },
     enabled: !!category,
     staleTime: 5 * 60 * 1000,
