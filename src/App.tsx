@@ -14,6 +14,7 @@ import AdminPage from './pages/AdminPage';
 import AdminReviewsPage from './pages/AdminReviewsPage';
 import AdminProtectedRoute from './features/admin/components/AdminProtectedRoute';
 import MyPlacesPage from './pages/MyPlacesPage';
+import KakaoMapPage from './pages/KakaoMapPage';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -105,6 +106,8 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
+            <Route path="/map" element={<KakaoMapPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
