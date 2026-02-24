@@ -132,7 +132,7 @@ const ExploreItem = () => {
                 key={item}
                 className={`flex h-9 w-9 items-center justify-center rounded text-sm font-semibold ${
                   currentPage === item
-                    ? 'bg-[#2DB400] text-white'
+                    ? 'bg-[#8BE34A] text-white'
                     : 'text-gray-500 hover:bg-gray-100'
                 }`}
                 onClick={() => setCurrentPage(item)}
