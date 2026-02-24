@@ -23,7 +23,7 @@ export interface AdminReview {
   createdAt: string;
   placeId: number;
   placeName: string;
-  imagesCount: number;
+  images: { imageId: number; url: string }[];
   tags: ReviewTag[];
 }
 
