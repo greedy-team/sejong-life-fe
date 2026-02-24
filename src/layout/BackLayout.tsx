@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import HeaderWithBack from '../features/allReviews/HeaderWithBack';
+import HeaderWithBack from '../components/share/HeaderWithBack';
 
 const BackLayout = () => {
   return (

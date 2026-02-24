@@ -4,6 +4,7 @@ import TagButton from '../../../components/share/TagButton';
 import Spinner from '../../../components/share/Spinner';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useFilteredPlaces } from '../hooks/queries';
+import { useFavorites } from '../../myPage/hooks/useFavorites';
 import { getPageNumbers } from '../../../utils/pagination';
 
 const PAGE_SIZE = 9;
@@ -28,6 +29,7 @@ const ExploreItem = () => {
     currentPage,
     PAGE_SIZE,
   );
+  const { isFavorite, handleToggleFavorite } = useFavorites();
 
   const filteredPlaces = data?.places || [];
   const pageInfo = data?.pageInfo;
@@ -102,6 +104,8 @@ const ExploreItem = () => {
             key={place.placeId}
             placeInfo={place}
             className="w-full"
+            isFavorite={isFavorite(place.placeId)}
+            onToggleFavorite={handleToggleFavorite}
           />
         ))}
       </div>
