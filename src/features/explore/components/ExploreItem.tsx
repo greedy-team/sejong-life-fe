@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PlaceItemCard from '../../../components/place-item-card/PlaceItemCard';
 import TagButton from '../../../components/share/TagButton';
 import Spinner from '../../../components/share/Spinner';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useFilteredPlaces } from '../hooks/queries';
+import { getPageNumbers } from '../../../utils/pagination';
+
+const PAGE_SIZE = 9;
 
 const ExploreItem = () => {
   const navigate = useNavigate();
@@ -12,11 +15,22 @@ const ExploreItem = () => {
   const categoryFromQuery = params.get('category') || '';
   const tagsFromQuery = params.getAll('tags') || [];
   const [isPartnershipButtonOn, setIsPartnershipButtonOn] = useState(false);
-  const { data: filteredPlaces = [], isLoading } = useFilteredPlaces(
+  const [currentPage, setCurrentPage] = useState(0);
+
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [categoryFromQuery, tagsFromQuery.join(','), isPartnershipButtonOn]);
+
+  const { data, isLoading } = useFilteredPlaces(
     categoryFromQuery,
     tagsFromQuery,
     isPartnershipButtonOn,
+    currentPage,
+    PAGE_SIZE,
   );
+
+  const filteredPlaces = data?.places || [];
+  const pageInfo = data?.pageInfo;
 
   const handleTag = (tagName: string) => {
     const newParams = new URLSearchParams(location.search);
@@ -91,6 +105,47 @@ const ExploreItem = () => {
           />
         ))}
       </div>
+
+      {pageInfo && pageInfo.totalPages > 1 && (
+        <div className="mt-8 flex items-center justify-center gap-1">
+          <button
+            className="flex h-9 w-9 items-center justify-center rounded text-lg text-gray-400 hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent"
+            disabled={currentPage === 0}
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+          >
+            &lsaquo;
+          </button>
+          {getPageNumbers(currentPage, pageInfo.totalPages).map((item, idx) =>
+            item === 'ellipsis' ? (
+              <span
+                key={`ellipsis-${idx}`}
+                className="flex h-9 w-9 items-center justify-center text-sm text-gray-400"
+              >
+                &middot;&middot;&middot;
+              </span>
+            ) : (
+              <button
+                key={item}
+                className={`flex h-9 w-9 items-center justify-center rounded text-sm font-semibold ${
+                  currentPage === item
+                    ? 'bg-[#2DB400] text-white'
+                    : 'text-gray-500 hover:bg-gray-100'
+                }`}
+                onClick={() => setCurrentPage(item)}
+              >
+                {item + 1}
+              </button>
+            ),
+          )}
+          <button
+            className="flex h-9 w-9 items-center justify-center rounded text-lg text-gray-400 hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent"
+            disabled={!pageInfo.hasNext}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+          >
+            &rsaquo;
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -16,7 +16,7 @@ export const fetchSearchResult = async ({
     if (trimmed) params.keyword = trimmed;
 
     const response = await api.get('/api/places', { params });
-    return response.data.data ?? [];
+    return response.data.data?.places ?? [];
   } catch (error) {
     console.error('검색 실패', error);
     return [];
