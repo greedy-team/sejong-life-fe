@@ -37,8 +37,8 @@ export default function KakaoMapView({
         const clusterer = new kakao.maps.MarkerClusterer({
           map: map, // 마커들이 클러스터링 될 지도 객체
           averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-          minLevel: 5, // 클러스터 할 최소 지도 레벨
-          gridSize: 80,
+          minLevel: 3, // 클러스터 할 최소 지도 레벨
+          gridSize: 6,
           styles: [
             {
               width: '45px',
