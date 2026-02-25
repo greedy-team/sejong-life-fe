@@ -3,6 +3,7 @@ import { loadKakaoMap } from '../../lib/map/loadKakaoMap';
 import MapNavigateButton from '../share/MapNavigateButton';
 import { useNavigate } from 'react-router-dom';
 import { usePartnershipPlacesForMap } from '../../features/map/hooks/usePartnershipPlacesForMap';
+import { ICONS } from '../../features/share/constants/icons';
 
 type Props = {
   lat?: number;
@@ -17,8 +18,8 @@ export default function KakaoMapView({
 }: Props) {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
-
   const { data: places } = usePartnershipPlacesForMap();
+  const pinImage = ICONS.greenPin;
 
   useEffect(() => {
     const key = import.meta.env.VITE_KAKAO_JS_KEY as string | undefined;
@@ -36,8 +37,28 @@ export default function KakaoMapView({
         const clusterer = new kakao.maps.MarkerClusterer({
           map: map, // 마커들이 클러스터링 될 지도 객체
           averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-          minLevel: 6, // 클러스터 할 최소 지도 레벨
+          minLevel: 5, // 클러스터 할 최소 지도 레벨
+          gridSize: 80,
+          styles: [
+            {
+              width: '45px',
+              height: '45px',
+              background: '#8BE34A',
+              borderRadius: '50%',
+              color: '#354052',
+              textAlign: 'center',
+              lineHeight: '40px',
+              fontWeight: 'bold',
+              boxShadow: '0 0 0 10px rgba(139,227,74,0.55)',
+            },
+          ],
         });
+
+        const markerImage = new kakao.maps.MarkerImage(
+          pinImage,
+          new kakao.maps.Size(35, 55),
+          { offset: new kakao.maps.Point(12, 24) },
+        );
 
         if (places && places.length > 0) {
           // 위도, 경도가 있는 데이터만 필터링
@@ -49,6 +70,7 @@ export default function KakaoMapView({
                   place.latitude,
                   place.longitude,
                 ),
+                image: markerImage,
               });
             });
 
