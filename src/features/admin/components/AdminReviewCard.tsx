@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { AdminReview } from '../model/types';
 import { formatDateDot } from '../../../utils/format';
-import { ICONS } from '../constants/icons';
+import { ICONS } from '../../share/constants/icons';
 import IconText from '../../../components/share/IconText';
 import Rating from '../../../components/share/Rating';
 import LightboxViewer from '../../placeDetail/LightboxViewer';

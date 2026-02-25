@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { loadKakaoMap } from '../../lib/map/loadKakaoMap';
+import MapNavigateButton from '../share/MapNavigateButton';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   lat?: number;
@@ -13,6 +15,7 @@ export default function KakaoMapView({
   level = 4,
 }: Props) {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const key = import.meta.env.VITE_KAKAO_JS_KEY as string | undefined;
@@ -30,5 +33,15 @@ export default function KakaoMapView({
       .catch((err) => console.error('카카오맵 로드 실패', err));
   }, [lat, lng, level]);
 
-  return <div ref={mapRef} style={{ width: '100%', height: '100vh' }} />;
+  return (
+    <>
+      <div ref={mapRef} style={{ width: '100%', height: '100vh' }} />
+      <div
+        onClick={() => navigate('/explore?category=전체')}
+        className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2"
+      >
+        <MapNavigateButton />
+      </div>
+    </>
+  );
 }
