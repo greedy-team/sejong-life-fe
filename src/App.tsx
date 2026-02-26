@@ -44,6 +44,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="/map" element={<KakaoMapPage />} />
             </Route>
 
             <Route path="/" element={<BackLayout />}>
@@ -106,8 +107,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
-            <Route path="/map" element={<KakaoMapPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

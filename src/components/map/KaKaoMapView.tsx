@@ -118,7 +118,7 @@ export default function KakaoMapView({
         onClick={() => navigate('/explore?category=전체')}
         className="fixed left-1/2 z-50 -translate-x-1/2"
         style={{
-          bottom: selectedPlace && isSheetOpen ? 180 : 30,
+          bottom: selectedPlace && isSheetOpen ? 180 : 40,
         }}
       >
         <MapNavigateButton />
