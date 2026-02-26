@@ -4,26 +4,29 @@ declare global {
   }
 }
 
+let kakaoPromise: Promise<any> | null = null;
+
 export function loadKakaoMap(appKey: string): Promise<any> {
-  return new Promise((resolve, reject) => {
-    //이미 있는 경우
-    if (
-      window.kakao &&
-      window.kakao.maps &&
-      window.kakao.maps.MarkerClusterer
-    ) {
-      resolve(window.kakao);
-      return;
-    }
+  if (window.kakao?.maps?.MarkerClusterer) return Promise.resolve(window.kakao);
+  if (kakaoPromise) return kakaoPromise;
+
+  kakaoPromise = new Promise((resolve, reject) => {
+    const onReady = () => {
+      window.kakao.maps.load(() => {
+        if (!window.kakao.maps.MarkerClusterer) {
+          reject(new Error('Clusterer library failed to load'));
+          return;
+        }
+        resolve(window.kakao);
+      });
+    };
 
     //중복방지
     const existing = document.querySelector<HTMLScriptElement>(
       'script[data-kakao-maps="true"]',
     );
     if (existing) {
-      existing.addEventListener('load', () => {
-        window.kakao.maps.load(() => resolve(window.kakao));
-      });
+      existing.addEventListener('load', onReady);
       existing.addEventListener('error', reject);
       return;
     }
@@ -32,17 +35,11 @@ export function loadKakaoMap(appKey: string): Promise<any> {
     script.dataset.kakaoMaps = 'true';
     script.async = true;
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&autoload=false&libraries=clusterer`;
-    script.onload = () => {
-      if (window.kakao.maps.MarkerClusterer) {
-        window.kakao.maps.load(() => {
-          resolve(window.kakao);
-        });
-      } else {
-        reject(new Error('Clusterer library failed to load'));
-      }
-    };
+    script.onload = onReady;
     script.onerror = reject;
 
     document.head.appendChild(script);
   });
+
+  return kakaoPromise;
 }
