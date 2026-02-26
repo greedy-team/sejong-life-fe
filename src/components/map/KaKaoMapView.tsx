@@ -6,6 +6,7 @@ import { usePartnershipPlacesForMap } from '../../features/map/hooks/usePartners
 import { ICONS } from '../../features/share/constants/icons';
 import { PartnershipPlaceCard } from './PartnershipPlaceCard';
 import type { PlaceProps } from '../../types/type';
+import Spinner from '../share/Spinner';
 
 type Props = {
   lat?: number;
@@ -32,6 +33,8 @@ export default function KakaoMapView({
   const [mapReady, setMapReady] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
   const myOverlayLocationRef = useRef<any>(null);
+  const [isMapLoading, setIsMapLoading] = useState(true);
+
   const content = `
   <div style="
     position: relative;
@@ -125,7 +128,10 @@ export default function KakaoMapView({
       return;
     }
     if (!mapRef.current) return;
+
     let cancelled = false;
+
+    setIsMapLoading(true);
 
     loadKakaoMap(key)
       .then((kakao) => {
@@ -165,13 +171,16 @@ export default function KakaoMapView({
         });
         clustererRef.current = clusterer;
         setMapReady(true);
+        setIsMapLoading(false);
 
         kakao.maps.event.addListener(map, 'click', () => {
           closeCard();
         });
-        // }
       })
-      .catch((err) => console.error('카카오맵 로드 실패', err));
+      .catch((err) => {
+        console.error('카카오맵 로드 실패', err);
+        setIsMapLoading(false);
+      });
 
     return () => {
       cancelled = true;
@@ -219,7 +228,11 @@ export default function KakaoMapView({
   return (
     <>
       <div ref={mapRef} style={{ width: '100%', height: '100vh' }} />
-
+      {isMapLoading && (
+        <div className="absolute inset-0 z-40 flex items-center justify-center bg-white/60">
+          <Spinner />
+        </div>
+      )}
       {selectedPlace && (
         <PartnershipPlaceCard isSheetOpen={isSheetOpen} place={selectedPlace} />
       )}
