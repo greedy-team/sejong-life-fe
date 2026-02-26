@@ -30,6 +30,8 @@ export default function KakaoMapView({
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<PlaceProps | null>(null);
   const [mapReady, setMapReady] = useState(false);
+  const myMarkerRef = useRef<any>(null);
+  const [isLocating, setIsLocating] = useState(false);
 
   const openCard = (place: PlaceProps) => {
     setSelectedPlace(place);
@@ -39,6 +41,53 @@ export default function KakaoMapView({
   const closeCard = () => {
     setIsSheetOpen(false);
     setSelectedPlace(null);
+  };
+
+  const moveToMyLocation = () => {
+    if (!mapReady || !mapObjRef.current || !kakaoRef.current) return;
+
+    if (!navigator.geolocation) {
+      alert('이 브라우저는 위치 기능을 지원하지 않아요!');
+      return;
+    }
+
+    setIsLocating(true);
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        const kakao = kakaoRef.current;
+
+        const latlng = new kakao.maps.LatLng(latitude, longitude);
+
+        mapObjRef.current.setCenter(latlng);
+        mapObjRef.current.setLevel(3);
+
+        if (myMarkerRef.current) {
+          myMarkerRef.current.setPosition(latlng);
+        } else {
+          myMarkerRef.current = new kakao.maps.Marker({
+            position: latlng,
+          });
+          myMarkerRef.current.setMap(mapObjRef.current);
+        }
+
+        setIsLocating(false);
+      },
+      (err) => {
+        setIsLocating(false);
+
+        if (err.code === err.PERMISSION_DENIED) {
+          alert('위치 권한이 거부되어 내 위치로 이동할 수 없어요.');
+        } else {
+          alert('위치 정보를 가져오지 못했어요. 잠시 후 시조해주세요.');
+        }
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 8000,
+      },
+    );
   };
 
   useEffect(() => {
@@ -154,6 +203,18 @@ export default function KakaoMapView({
         }}
       >
         <MapNavigateButton />
+      </div>
+      <div
+        className="fixed left-4 z-50"
+        style={{ bottom: selectedPlace && isSheetOpen ? 180 : 40 }}
+      >
+        <button
+          onClick={moveToMyLocation}
+          disabled={isLocating}
+          className="cursor-pointer rounded-full bg-white p-3 text-sm font-semibold shadow-md active:scale-95 disabled:opacity-60"
+        >
+          <img src={ICONS.locaion} alt="내 위치" />
+        </button>
       </div>
     </>
   );

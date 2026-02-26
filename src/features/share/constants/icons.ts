@@ -6,4 +6,5 @@ export const ICONS = {
   greenPin: '/asset/map-page/greenPin.svg',
   speaker: '/asset/map-page/speaker.svg',
   arrow: '/asset/map-page/arrow.svg',
+  locaion: '/asset/map-page/location.svg',
 } as const;
