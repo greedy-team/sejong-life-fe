@@ -30,8 +30,34 @@ export default function KakaoMapView({
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<PlaceProps | null>(null);
   const [mapReady, setMapReady] = useState(false);
-  const myMarkerRef = useRef<any>(null);
   const [isLocating, setIsLocating] = useState(false);
+  const myOverlayLocationRef = useRef<any>(null);
+  const content = `
+  <div style="
+    position: relative;
+    width: 36px;
+    height: 36px;
+  ">
+    <div style="
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      background: rgba(66,133,244,0.25);
+      border-radius: 50%;
+    "></div>
+
+    <div style="
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 16px;
+      height: 16px;
+      background: #4285F4;
+      border: 2px solid white;
+      border-radius: 50%;
+    "></div>
+  </div>
+`;
 
   const openCard = (place: PlaceProps) => {
     setSelectedPlace(place);
@@ -63,13 +89,15 @@ export default function KakaoMapView({
         mapObjRef.current.setCenter(latlng);
         mapObjRef.current.setLevel(3);
 
-        if (myMarkerRef.current) {
-          myMarkerRef.current.setPosition(latlng);
+        if (myOverlayLocationRef.current) {
+          myOverlayLocationRef.current.setPosition(latlng);
         } else {
-          myMarkerRef.current = new kakao.maps.Marker({
+          myOverlayLocationRef.current = new kakao.maps.CustomOverlay({
             position: latlng,
+            content,
+            yAnchor: 0.5,
           });
-          myMarkerRef.current.setMap(mapObjRef.current);
+          myOverlayLocationRef.current.setMap(mapObjRef.current);
         }
 
         setIsLocating(false);
