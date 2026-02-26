@@ -4,4 +4,6 @@ export const ICONS = {
   image: '/asset/place-detail-page/imageIcon.svg',
   list: '/asset/explore-page/list.svg',
   greenPin: '/asset/map-page/greenPin.svg',
+  speaker: '/asset/map-page/speaker.svg',
+  arrow: '/asset/map-page/arrow.svg',
 } as const;
