@@ -1,24 +1,25 @@
-// import { useNavigate } from 'react-router-dom';
-// import type { PlaceProps } from '../../types/type';
+import { useNavigate } from 'react-router-dom';
+import type { PlaceProps } from '../../types/type';
 import { ICONS } from '../../features/share/constants/icons';
 
 interface PartnershipPlaceCardProps {
   isSheetOpen: boolean;
-  //   place: PlaceProps;
+  place: PlaceProps;
 }
 
 export function PartnershipPlaceCard({
   isSheetOpen,
+  place,
 }: PartnershipPlaceCardProps) {
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  if (!isSheetOpen) return null;
+  if (!isSheetOpen || !place) return null;
 
   return (
     <button
       type="button"
-      //   key={place.placeId}
-      //   onClick={() => navigate(`/place/${place.placeId}`)}
+      key={place.placeId}
+      onClick={() => navigate(`/detail/${place.placeId}`)}
       className="fixed right-0 bottom-0 left-0 z-[60] m-4 flex h-[150px] cursor-pointer items-center rounded-2xl bg-white shadow-[0_-8px_30px_rgba(0,0,0,0.15)] hover:bg-gray-50"
     >
       <div className="mx-auto w-[90%] text-left sm:w-[95%]">
@@ -33,13 +34,13 @@ export function PartnershipPlaceCard({
 
           <div className="min-w-0 flex-1 text-left">
             <div className="truncate text-[18px] font-semibold text-[#354052]">
-              멘츠루 어린이대공원점
+              {place.placeName}
             </div>
 
             <div className="mt-1 flex items-center gap-2">
-              <div className="h-4 w-1 bg-[#8BE34A]" />
+              <div className="h-4 w-1 shrink-0 bg-[#8BE34A]" />
               <span className="truncate text-[15px] font-medium text-[#354052]">
-                최대 4만원dgsdgfdgdgdgdgdg
+                {place.partnershipContent}
               </span>
             </div>
 
@@ -47,9 +48,7 @@ export function PartnershipPlaceCard({
               <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#8BE34A]/20">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#8BE34A]" />
               </span>
-              <span className="truncate">
-                어린이대공원역 · 서울 광진구 dkdkdkdkd
-              </span>
+              <span className="truncate">{place.address}</span>
             </div>
           </div>
 

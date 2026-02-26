@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { loadKakaoMap } from '../../lib/map/loadKakaoMap';
 import MapNavigateButton from '../share/MapNavigateButton';
 import { useNavigate } from 'react-router-dom';
 import { usePartnershipPlacesForMap } from '../../features/map/hooks/usePartnershipPlacesForMap';
 import { ICONS } from '../../features/share/constants/icons';
 import { PartnershipPlaceCard } from './PartnershipPlaceCard';
+import type { PlaceProps } from '../../types/type';
 
 type Props = {
   lat?: number;
@@ -21,6 +22,18 @@ export default function KakaoMapView({
   const navigate = useNavigate();
   const { data: places } = usePartnershipPlacesForMap();
   const pinImage = ICONS.greenPin;
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [selectedPlace, setSelectedPlace] = useState<PlaceProps | null>(null);
+
+  const openCard = (place: PlaceProps) => {
+    setSelectedPlace(place);
+    setIsSheetOpen(true);
+  };
+
+  const closeCard = () => {
+    setIsSheetOpen(false);
+    setSelectedPlace(null);
+  };
 
   useEffect(() => {
     const key = import.meta.env.VITE_KAKAO_JS_KEY as string | undefined;
@@ -60,22 +73,35 @@ export default function KakaoMapView({
           new kakao.maps.Size(35, 55),
           { offset: new kakao.maps.Point(12, 24) },
         );
+        clusterer.clear();
 
         if (places && places.length > 0) {
           // 위도, 경도가 있는 데이터만 필터링
           const markers = places
-            .filter((place) => place.latitude && place.longitude) // null/undefined 체크
+            .filter(
+              (place) => place.latitude != null && place.longitude != null,
+            )
             .map((place) => {
-              return new kakao.maps.Marker({
+              const marker = new kakao.maps.Marker({
                 position: new kakao.maps.LatLng(
                   place.latitude,
                   place.longitude,
                 ),
                 image: markerImage,
               });
+
+              kakao.maps.event.addListener(marker, 'click', () => {
+                openCard(place);
+              });
+
+              return marker;
             });
 
           clusterer.addMarkers(markers);
+
+          kakao.maps.event.addListener(map, 'click', () => {
+            closeCard();
+          });
         }
       })
       .catch((err) => console.error('카카오맵 로드 실패', err));
@@ -84,9 +110,16 @@ export default function KakaoMapView({
   return (
     <>
       <div ref={mapRef} style={{ width: '100%', height: '100vh' }} />
+
+      {selectedPlace && (
+        <PartnershipPlaceCard isSheetOpen={isSheetOpen} place={selectedPlace} />
+      )}
       <div
         onClick={() => navigate('/explore?category=전체')}
-        className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2"
+        className="fixed left-1/2 z-50 -translate-x-1/2"
+        style={{
+          bottom: selectedPlace && isSheetOpen ? 180 : 30,
+        }}
       >
         <MapNavigateButton />
       </div>
