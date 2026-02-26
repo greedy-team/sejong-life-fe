@@ -19,11 +19,17 @@ export default function KakaoMapView({
   level = 4,
 }: Props) {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const kakaoRef = useRef<any>(null);
+  const mapObjRef = useRef<any>(null);
+  const clustererRef = useRef<any>(null);
+  const markersRef = useRef<any[]>([]);
+
   const navigate = useNavigate();
   const { data: places } = usePartnershipPlacesForMap();
   const pinImage = ICONS.greenPin;
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<PlaceProps | null>(null);
+  const [mapReady, setMapReady] = useState(false);
 
   const openCard = (place: PlaceProps) => {
     setSelectedPlace(place);
@@ -42,11 +48,24 @@ export default function KakaoMapView({
       return;
     }
     if (!mapRef.current) return;
+    let cancelled = false;
 
     loadKakaoMap(key)
       .then((kakao) => {
+        if (cancelled) return;
+
+        kakaoRef.current = kakao;
+
         const center = new kakao.maps.LatLng(lat, lng);
+
+        if (mapObjRef.current) {
+          mapObjRef.current.setCenter(center);
+          mapObjRef.current.setLevel(level);
+          return;
+        }
+
         const map = new kakao.maps.Map(mapRef.current, { center, level });
+        mapObjRef.current = map;
 
         const clusterer = new kakao.maps.MarkerClusterer({
           map: map, // 마커들이 클러스터링 될 지도 객체
@@ -67,45 +86,58 @@ export default function KakaoMapView({
             },
           ],
         });
+        clustererRef.current = clusterer;
+        setMapReady(true);
 
-        const markerImage = new kakao.maps.MarkerImage(
-          pinImage,
-          new kakao.maps.Size(35, 55),
-          { offset: new kakao.maps.Point(12, 24) },
-        );
-        clusterer.clear();
-
-        if (places && places.length > 0) {
-          // 위도, 경도가 있는 데이터만 필터링
-          const markers = places
-            .filter(
-              (place) => place.latitude != null && place.longitude != null,
-            )
-            .map((place) => {
-              const marker = new kakao.maps.Marker({
-                position: new kakao.maps.LatLng(
-                  place.latitude,
-                  place.longitude,
-                ),
-                image: markerImage,
-              });
-
-              kakao.maps.event.addListener(marker, 'click', () => {
-                openCard(place);
-              });
-
-              return marker;
-            });
-
-          clusterer.addMarkers(markers);
-
-          kakao.maps.event.addListener(map, 'click', () => {
-            closeCard();
-          });
-        }
+        kakao.maps.event.addListener(map, 'click', () => {
+          closeCard();
+        });
+        // }
       })
       .catch((err) => console.error('카카오맵 로드 실패', err));
-  }, [lat, lng, level, places]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [lat, lng, level]);
+
+  useEffect(() => {
+    if (!mapReady) return;
+
+    const kakao = kakaoRef.current;
+    const clusterer = clustererRef.current;
+    if (!kakao || !clusterer) return;
+
+    // 기존 마커 제거
+    clusterer.clear();
+    markersRef.current = [];
+
+    if (!places || places.length === 0) return;
+
+    const markerImage = new kakao.maps.MarkerImage(
+      pinImage,
+      new kakao.maps.Size(35, 55),
+      { offset: new kakao.maps.Point(12, 24) },
+    );
+
+    const markers = places
+      .filter((place) => place.latitude != null && place.longitude != null)
+      .map((place) => {
+        const marker = new kakao.maps.Marker({
+          position: new kakao.maps.LatLng(place.latitude, place.longitude),
+          image: markerImage,
+        });
+
+        kakao.maps.event.addListener(marker, 'click', () => {
+          openCard(place);
+        });
+
+        return marker;
+      });
+
+    markersRef.current = markers;
+    clusterer.addMarkers(markers);
+  }, [places, pinImage, mapReady]);
 
   return (
     <>
