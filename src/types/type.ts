@@ -160,3 +160,16 @@ export interface UserProfileResponse {
   message: string;
   data: UserProfileResponseProps;
 }
+
+export interface PlaceLookUpItemResponseProps {
+  id: string;
+  name: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+}
+
+export interface PlaceLookUpItemResponse {
+  message: string;
+  data: PlaceLookUpItemResponseProps[];
+}

@@ -245,13 +245,22 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                 className="mb-3 h-2"
               />
             </div>
-            <input
-              name="placeName"
-              value={formData.placeName}
-              onChange={handleTextChange}
-              className="x-2 rounded-lg border px-2 py-1 placeholder:text-sm"
-              placeholder="장소명을 입력하세요"
-            />
+            <div className="flex gap-2">
+              <input
+                name="placeName"
+                value={formData.placeName}
+                onChange={handleTextChange}
+                className="x-2 flex-1 cursor-pointer rounded-lg border px-2 py-2 placeholder:text-sm"
+                placeholder="장소명을 입력하세요"
+              />
+              <button
+                type="button"
+                className="cursor-pointer rounded-lg border bg-[#77db30] px-4 py-2 whitespace-nowrap text-white"
+                // onClick={handlePlaceLookup}
+              >
+                장소 확인하기
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-2">
