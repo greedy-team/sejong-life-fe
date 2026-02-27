@@ -173,3 +173,14 @@ export interface PlaceLookUpItemResponse {
   message: string;
   data: PlaceLookUpItemResponseProps[];
 }
+
+export interface PlaceUrlResponseProps {
+  kakaoUrl: string;
+  naverUrl: string;
+  googleUrl: string;
+}
+
+export interface PlaceUrlResponse {
+  message: string;
+  data: PlaceUrlResponseProps;
+}
