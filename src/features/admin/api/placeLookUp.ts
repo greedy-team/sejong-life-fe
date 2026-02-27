@@ -3,9 +3,9 @@ import type { PlaceLookUpItemResponseProps } from '../../../types/type';
 
 export const getPlaceLookup = async (
   placeName: string,
-): Promise<PlaceLookUpItemResponseProps> => {
+): Promise<PlaceLookUpItemResponseProps[]> => {
   const response = await api.get(`/api/places/search`, {
     params: { query: placeName },
   });
-  return response.data;
+  return response.data.data;
 };

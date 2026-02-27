@@ -8,6 +8,8 @@ import imageCompression from 'browser-image-compression';
 import { toast } from 'react-toastify';
 import heic2any from 'heic2any';
 import { postPlace } from '../api/postPlace';
+import { usePlaceLookUp } from '../hooks/usePlaceLookUp';
+import PlaceLookUpModal from './PlaceLookUpModal';
 
 interface PlaceRegisterFormProps {
   setIsFormOpen: (value: boolean) => void;
@@ -213,6 +215,12 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
     }
   };
 
+  const { results, isOpen, isLoading, runLookUp, close } = usePlaceLookUp();
+
+  const handlePlaceLookUp = async () => {
+    await runLookUp(formData.placeName);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <button
@@ -236,7 +244,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
         </h1>
 
         <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-7 px-7">
-          <div className="flex flex-col gap-2">
+          <div className="relative flex flex-col gap-2">
             <div className="flex items-center gap-1">
               <div className="text-lg">장소명</div>
               <img
@@ -256,11 +264,12 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
               <button
                 type="button"
                 className="cursor-pointer rounded-lg border bg-[#77db30] px-4 py-2 whitespace-nowrap text-white"
-                // onClick={handlePlaceLookup}
+                onClick={handlePlaceLookUp}
               >
-                장소 확인하기
+                {isLoading ? '검색중...' : '장소 확인하기'}
               </button>
             </div>
+            {isOpen && <PlaceLookUpModal items={results} onClose={close} />}
           </div>
 
           <div className="flex flex-col gap-2">
