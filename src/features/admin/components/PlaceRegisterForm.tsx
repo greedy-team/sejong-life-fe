@@ -39,6 +39,8 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
     isPartnership: false,
     partnershipContent: '',
     thumbnail: null as File | null,
+    latitude: null as number | null,
+    longitude: null as number | null,
   });
   const navigate = useNavigate();
   const [isImageProcessing, setIsImageProcessing] = useState(false);
@@ -191,6 +193,8 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
         mapLinks: formData.mapLinks,
         isPartnership: formData.isPartnership,
         partnershipContent: formData.partnershipContent,
+        latitude: formData.latitude,
+        longitude: formData.longitude,
       };
 
       const submitData = new FormData();
@@ -231,6 +235,8 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
       ...prev,
       placeName: place.name,
       address: place.address,
+      latitude: place.latitude,
+      longitude: place.longitude,
     }));
 
     const url = await createPlaceUrl({
