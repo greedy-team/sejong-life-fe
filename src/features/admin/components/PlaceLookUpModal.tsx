@@ -3,9 +3,10 @@ import type { PlaceLookUpItemResponseProps } from '../../../types/type';
 type Props = {
   items: PlaceLookUpItemResponseProps[];
   onClose: () => void;
+  onSelect: (place: PlaceLookUpItemResponseProps) => void;
 };
 
-export default function PlaceLookUpModal({ items, onClose }: Props) {
+export default function PlaceLookUpModal({ items, onClose, onSelect }: Props) {
   if (items.length === 0) {
     return (
       <>
@@ -28,6 +29,7 @@ export default function PlaceLookUpModal({ items, onClose }: Props) {
             <li key={place.id}>
               <button
                 type="button"
+                onClick={() => onSelect(place)}
                 className="w-full cursor-pointer px-3 py-2 text-left hover:bg-gray-50"
               >
                 <div className="font-medium">{place.name}</div>

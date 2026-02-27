@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import type { TagProps, CategoryProps } from '../../../types/type';
+import type {
+  TagProps,
+  CategoryProps,
+  PlaceLookUpItemResponseProps,
+} from '../../../types/type';
 import { fetchCategories } from '../../explore/apis/filterApi';
 import { fetchTagList } from '../../createReview/apis/tagApi';
 import TagButton from '../../../components/share/TagButton';
@@ -10,6 +14,7 @@ import heic2any from 'heic2any';
 import { postPlace } from '../api/postPlace';
 import { usePlaceLookUp } from '../hooks/usePlaceLookUp';
 import PlaceLookUpModal from './PlaceLookUpModal';
+import { createPlaceUrl } from '../api/createPlaceUrl';
 
 interface PlaceRegisterFormProps {
   setIsFormOpen: (value: boolean) => void;
@@ -221,6 +226,30 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
     await runLookUp(formData.placeName);
   };
 
+  const handleSelectPlace = async (place: PlaceLookUpItemResponseProps) => {
+    setFormData((prev) => ({
+      ...prev,
+      placeName: place.name,
+      address: place.address,
+    }));
+
+    const url = await createPlaceUrl({
+      id: place.id,
+      name: place.name,
+    });
+
+    setFormData((prev) => ({
+      ...prev,
+      mapLinks: {
+        kakaoMap: url.kakaoUrl,
+        naverMap: url.naverUrl,
+        googleMap: url.googleUrl,
+      },
+    }));
+
+    close();
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <button
@@ -269,7 +298,13 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                 {isLoading ? '검색중...' : '장소 확인하기'}
               </button>
             </div>
-            {isOpen && <PlaceLookUpModal items={results} onClose={close} />}
+            {isOpen && (
+              <PlaceLookUpModal
+                items={results}
+                onClose={close}
+                onSelect={handleSelectPlace}
+              />
+            )}
           </div>
 
           <div className="flex flex-col gap-2">
