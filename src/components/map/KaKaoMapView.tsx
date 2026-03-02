@@ -14,9 +14,11 @@ type Props = {
   level?: number;
 };
 
+const DEFAULT_MAP_CENTER = { lat: 37.5519, lng: 127.0738 };
+
 export default function KakaoMapView({
-  lat = 37.5519,
-  lng = 127.0738,
+  lat = DEFAULT_MAP_CENTER.lat,
+  lng = DEFAULT_MAP_CENTER.lng,
   level = 4,
 }: Props) {
   const mapRef = useRef<HTMLDivElement | null>(null);
