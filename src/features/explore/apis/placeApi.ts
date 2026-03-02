@@ -6,7 +6,7 @@ export const fetchFilteredPlaces = async (
   selectedCategory: string,
   selectedTags: string[],
   isPartnershipOnly: boolean = false,
-  page: number = 1,
+  page: number = 0,
   size: number = 9,
 ): Promise<Place> => {
   try {

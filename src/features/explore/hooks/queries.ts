@@ -46,7 +46,7 @@ export const useFilteredPlaces = (
       `${category}-${tags.join(',')}-${isPartnershipOnly}-${page}-${size}`,
     ),
     queryFn: () =>
-      fetchFilteredPlaces(category, tags, isPartnershipOnly, page + 1, size),
+      fetchFilteredPlaces(category, tags, isPartnershipOnly, page, size),
     select: (data) => ({
       places: data.data?.places || [],
       pageInfo: data.data?.page,
