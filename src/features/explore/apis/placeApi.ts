@@ -5,17 +5,17 @@ import { api } from '../../../api/api';
 export const fetchFilteredPlaces = async (
   selectedCategory: string,
   selectedTags: string[],
-  page: number = 0,
+  isPartnershipOnly: boolean = false,
+  page: number = 1,
   size: number = 9,
 ): Promise<Place> => {
   try {
     const params = new URLSearchParams();
-    params.append('category', String(selectedCategory));
+    params.append('category', selectedCategory);
 
-    if (selectedTags.length > 0) {
-      const tagNames = selectedTags.map((tag) => tag).join(',');
-      params.append('tags', tagNames);
-    }
+    selectedTags.forEach((tag) => params.append('tags', tag));
+
+    params.append('partnershipOnly', String(isPartnershipOnly));
 
     params.append('page', String(page));
     params.append('size', String(size));

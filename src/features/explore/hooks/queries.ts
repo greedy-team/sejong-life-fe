@@ -45,18 +45,12 @@ export const useFilteredPlaces = (
     queryKey: queryKeys.places.list(
       `${category}-${tags.join(',')}-${isPartnershipOnly}-${page}-${size}`,
     ),
-    queryFn: () => fetchFilteredPlaces(category, tags, page, size),
-    select: (data) => {
-      const places = data.data?.places || [];
-      const pageInfo = data.data?.page;
-      if (isPartnershipOnly) {
-        return {
-          places: places.filter((place) => place.isPartnership),
-          pageInfo,
-        };
-      }
-      return { places, pageInfo };
-    },
+    queryFn: () =>
+      fetchFilteredPlaces(category, tags, isPartnershipOnly, page + 1, size),
+    select: (data) => ({
+      places: data.data?.places || [],
+      pageInfo: data.data?.page,
+    }),
     enabled: !!category,
     staleTime: 5 * 60 * 1000,
   });
