@@ -4,10 +4,9 @@ import { fetchFilteredPlaces } from '../../explore/apis/placeApi';
 export const usePartnershipPlacesForMap = () => {
   return useQuery({
     queryKey: ['places', 'map', 'partnership'],
-    queryFn: () => fetchFilteredPlaces('전체', [], 0, 1000),
+    queryFn: () => fetchFilteredPlaces('전체', [], true, 0, 1000),
     select: (data) => {
-      const places = data.data?.places || [];
-      return places.filter((place) => place.isPartnership === true);
+      return data.data?.places ?? [];
     },
     staleTime: 5 * 60 * 1000,
   });
