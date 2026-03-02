@@ -24,12 +24,16 @@ export function PartnershipPlaceCard({
     >
       <div className="mx-auto w-[90%] text-left sm:w-[95%]">
         <div className="flex items-center gap-4">
-          <div className="h-[110px] w-[110px] overflow-hidden rounded-xl bg-gray-100">
-            <img
-              src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=600&q=70"
-              alt=""
-              className="h-full w-full object-cover"
-            />
+          <div className="flex h-[110px] w-[110px] items-center justify-center overflow-hidden rounded-xl bg-gray-100">
+            {place.mainImageUrl ? (
+              <img
+                src={place.mainImageUrl}
+                alt="장소썸네일"
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <img src={ICONS.camera} alt="기본 이미지" className="h-10 w-10" />
+            )}
           </div>
 
           <div className="min-w-0 flex-1 text-left">

@@ -7,4 +7,5 @@ export const ICONS = {
   speaker: '/asset/map-page/speaker.svg',
   arrow: '/asset/map-page/arrow.svg',
   locaion: '/asset/map-page/location.svg',
+  camera: '/asset/place-detail-page/camera.svg',
 } as const;
