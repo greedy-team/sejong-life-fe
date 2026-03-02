@@ -112,7 +112,7 @@ export default function KakaoMapView({
         if (err.code === err.PERMISSION_DENIED) {
           alert('위치 권한이 거부되어 내 위치로 이동할 수 없어요.');
         } else {
-          alert('위치 정보를 가져오지 못했어요. 잠시 후 시조해주세요.');
+          alert('위치 정보를 가져오지 못했어요. 잠시 후 시도해주세요.');
         }
       },
       {
@@ -238,13 +238,10 @@ export default function KakaoMapView({
         <PartnershipPlaceCard isSheetOpen={isSheetOpen} place={selectedPlace} />
       )}
       <div
-        onClick={() => navigate('/explore?category=전체')}
         className="fixed left-1/2 z-50 -translate-x-1/2"
-        style={{
-          bottom: selectedPlace && isSheetOpen ? 180 : 40,
-        }}
+        style={{ bottom: selectedPlace && isSheetOpen ? 180 : 40 }}
       >
-        <MapNavigateButton />
+        <MapNavigateButton onClick={() => navigate('/explore?category=전체')} />
       </div>
       <div
         className="fixed left-4 z-50"
