@@ -77,16 +77,6 @@ export interface DetailPlace {
   data: DetailPlaceProps;
 }
 
-export interface TagProps {
-  tagId: number;
-  tagName: string;
-}
-
-export interface Tag {
-  message: string;
-  data: TagProps[];
-}
-
 export type Review = {
   reviewId: number;
   userId: number;

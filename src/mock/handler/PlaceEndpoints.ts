@@ -128,7 +128,16 @@ export const getPlaces = http.get('/sejonglife/api/places', ({ request }) => {
   return HttpResponse.json(
     {
       message: '장소 목록 조회 성공',
-      data: mockPlaces,
+      data: {
+        places: mockPlaces,
+        page: {
+          page: 0,
+          size: mockPlaces.length,
+          totalElements: mockPlaces.length,
+          totalPages: 1,
+          hasNext: false,
+        },
+      },
     },
     { status: 200 },
   );

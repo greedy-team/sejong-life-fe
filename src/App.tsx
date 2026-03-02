@@ -14,6 +14,7 @@ import AdminPage from './pages/AdminPage';
 import AdminReviewsPage from './pages/AdminReviewsPage';
 import AdminProtectedRoute from './features/admin/components/AdminProtectedRoute';
 import MyPlacesPage from './pages/MyPlacesPage';
+import PrivacyPolicy from './pages/PrivacyPolicyPage';
 import KakaoMapPage from './pages/KakaoMapPage';
 import ScrollToTop from './components/share/ScrollToTop';
 
@@ -109,6 +110,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
