@@ -14,6 +14,7 @@ import AdminPage from './pages/AdminPage';
 import AdminReviewsPage from './pages/AdminReviewsPage';
 import AdminProtectedRoute from './features/admin/components/AdminProtectedRoute';
 import MyPlacesPage from './pages/MyPlacesPage';
+import PrivacyPolicy from './pages/PrivacyPolicyPage';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -105,6 +106,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
