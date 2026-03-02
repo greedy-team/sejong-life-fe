@@ -15,7 +15,7 @@ const PrivacyPolicy = () => {
             1. 수집하는 개인정보 항목
           </h2>
           <ul className="list-disc space-y-2 pl-6">
-            <li>이메일 주소 및 닉네임 (회원가입 시)</li>
+            <li>닉네임 (회원가입 시)</li>
             <li>접속 로그, IP 주소, 브라우저 정보</li>
             <li>쿠키 정보</li>
             <li>리뷰 내용, 평점, 업로드 이미지</li>
