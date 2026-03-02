@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PlaceItemCard from '../../../components/place-item-card/PlaceItemCard';
 import TagButton from '../../../components/share/TagButton';
 import Spinner from '../../../components/share/Spinner';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useFilteredPlaces } from '../hooks/queries';
 import { useFavorites } from '../../myPage/hooks/useFavorites';
 import { getPageNumbers } from '../../../utils/pagination';
@@ -10,16 +10,35 @@ import { getPageNumbers } from '../../../utils/pagination';
 const PAGE_SIZE = 9;
 
 const ExploreItem = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const categoryFromQuery = params.get('category') || '';
-  const tagsFromQuery = params.getAll('tags') || [];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryFromQuery = searchParams.get('category') || '';
+  const tagsFromQuery = searchParams.getAll('tags') || [];
+  const currentPage = Number(searchParams.get('page') || '0');
   const [isPartnershipButtonOn, setIsPartnershipButtonOn] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
+  const prevCategory = useRef(categoryFromQuery);
+  const prevTags = useRef(tagsFromQuery.join(','));
+  const prevPartnership = useRef(isPartnershipButtonOn);
 
   useEffect(() => {
-    setCurrentPage(0);
+    const categoryChanged = prevCategory.current !== categoryFromQuery;
+    const tagsChanged = prevTags.current !== tagsFromQuery.join(',');
+    const partnershipChanged =
+      prevPartnership.current !== isPartnershipButtonOn;
+
+    prevCategory.current = categoryFromQuery;
+    prevTags.current = tagsFromQuery.join(',');
+    prevPartnership.current = isPartnershipButtonOn;
+
+    if (categoryChanged || tagsChanged || partnershipChanged) {
+      setSearchParams(
+        (prev) => {
+          const newParams = new URLSearchParams(prev);
+          newParams.delete('page');
+          return newParams;
+        },
+        { replace: true },
+      );
+    }
   }, [categoryFromQuery, tagsFromQuery.join(','), isPartnershipButtonOn]);
 
   const { data, isLoading } = useFilteredPlaces(
@@ -35,19 +54,38 @@ const ExploreItem = () => {
   const pageInfo = data?.pageInfo;
 
   const handleTag = (tagName: string) => {
-    const newParams = new URLSearchParams(location.search);
-    const currentTags = new Set(newParams.getAll('tags'));
+    setSearchParams(
+      (prev) => {
+        const newParams = new URLSearchParams(prev);
+        const currentTags = new Set(newParams.getAll('tags'));
 
-    if (currentTags.has(tagName)) {
-      currentTags.delete(tagName);
-    } else {
-      currentTags.add(tagName);
-    }
+        if (currentTags.has(tagName)) {
+          currentTags.delete(tagName);
+        } else {
+          currentTags.add(tagName);
+        }
 
-    newParams.delete('tags');
-    currentTags.forEach((tag) => newParams.append('tags', tag));
+        newParams.delete('tags');
+        currentTags.forEach((tag) => newParams.append('tags', tag));
+        return newParams;
+      },
+      { replace: true },
+    );
+  };
 
-    navigate({ search: newParams.toString() }, { replace: true });
+  const handlePageChange = (newPage: number) => {
+    setSearchParams(
+      (prev) => {
+        const newParams = new URLSearchParams(prev);
+        if (newPage === 0) {
+          newParams.delete('page');
+        } else {
+          newParams.set('page', String(newPage));
+        }
+        return newParams;
+      },
+      { replace: true },
+    );
   };
 
   if (isLoading) {
@@ -115,7 +153,7 @@ const ExploreItem = () => {
           <button
             className="flex h-9 w-9 items-center justify-center rounded text-lg text-gray-400 hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent"
             disabled={currentPage === 0}
-            onClick={() => setCurrentPage((prev) => prev - 1)}
+            onClick={() => handlePageChange(currentPage - 1)}
           >
             &lsaquo;
           </button>
@@ -135,7 +173,7 @@ const ExploreItem = () => {
                     ? 'bg-[#8BE34A] text-white'
                     : 'text-gray-500 hover:bg-gray-100'
                 }`}
-                onClick={() => setCurrentPage(item)}
+                onClick={() => handlePageChange(item as number)}
               >
                 {item + 1}
               </button>
@@ -144,7 +182,7 @@ const ExploreItem = () => {
           <button
             className="flex h-9 w-9 items-center justify-center rounded text-lg text-gray-400 hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent"
             disabled={!pageInfo.hasNext}
-            onClick={() => setCurrentPage((prev) => prev + 1)}
+            onClick={() => handlePageChange(currentPage + 1)}
           >
             &rsaquo;
           </button>
