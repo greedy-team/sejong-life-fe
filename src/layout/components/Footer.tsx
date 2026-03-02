@@ -9,13 +9,27 @@ const Footer = () => {
             </span>
             sejonglife. All rights reserved
           </p>
+
           <p className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
             <span className="font-pretendard-semibold font-semibold text-gray-500">
               Contact
             </span>
             sejonglife2025@gmail.com
           </p>
+
+          <p className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+            <span className="font-pretendard-semibold font-semibold text-gray-500">
+              개인정보처리방침
+            </span>
+            <a
+              href="/privacy"
+              className="border-b border-b-gray-200 transition hover:text-gray-600"
+            >
+              바로가기
+            </a>
+          </p>
         </div>
+
         <div className="flex flex-col gap-6">
           <p className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
             <span className="font-pretendard-semibold font-semibold text-gray-500">
@@ -28,6 +42,7 @@ const Footer = () => {
               팀 소개 링크
             </a>
           </p>
+
           <p className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
             <span className="font-pretendard-semibold font-semibold text-gray-500">
               버그 문의 및 장소 데이터 요청
