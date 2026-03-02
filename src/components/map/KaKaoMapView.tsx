@@ -15,29 +15,7 @@ type Props = {
 };
 
 const DEFAULT_MAP_CENTER = { lat: 37.5519, lng: 127.0738 };
-
-export default function KakaoMapView({
-  lat = DEFAULT_MAP_CENTER.lat,
-  lng = DEFAULT_MAP_CENTER.lng,
-  level = 4,
-}: Props) {
-  const mapRef = useRef<HTMLDivElement | null>(null);
-  const kakaoRef = useRef<any>(null);
-  const mapObjRef = useRef<any>(null);
-  const clustererRef = useRef<any>(null);
-  const markersRef = useRef<any[]>([]);
-
-  const navigate = useNavigate();
-  const { data: places } = usePartnershipPlacesForMap();
-  const pinImage = ICONS.greenPin;
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [selectedPlace, setSelectedPlace] = useState<PlaceProps | null>(null);
-  const [mapReady, setMapReady] = useState(false);
-  const [isLocating, setIsLocating] = useState(false);
-  const myOverlayLocationRef = useRef<any>(null);
-  const [isMapLoading, setIsMapLoading] = useState(true);
-
-  const content = `
+const MY_LOCATION_OVERLAY_CONTENT = `
   <div style="
     position: relative;
     width: 36px;
@@ -63,6 +41,27 @@ export default function KakaoMapView({
     "></div>
   </div>
 `;
+
+export default function KakaoMapView({
+  lat = DEFAULT_MAP_CENTER.lat,
+  lng = DEFAULT_MAP_CENTER.lng,
+  level = 4,
+}: Props) {
+  const mapRef = useRef<HTMLDivElement | null>(null);
+  const kakaoRef = useRef<any>(null);
+  const mapObjRef = useRef<any>(null);
+  const clustererRef = useRef<any>(null);
+  const markersRef = useRef<any[]>([]);
+
+  const navigate = useNavigate();
+  const { data: places } = usePartnershipPlacesForMap();
+  const pinImage = ICONS.greenPin;
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [selectedPlace, setSelectedPlace] = useState<PlaceProps | null>(null);
+  const [mapReady, setMapReady] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
+  const myOverlayLocationRef = useRef<any>(null);
+  const [isMapLoading, setIsMapLoading] = useState(true);
 
   const openCard = (place: PlaceProps) => {
     setSelectedPlace(place);
@@ -99,7 +98,7 @@ export default function KakaoMapView({
         } else {
           myOverlayLocationRef.current = new kakao.maps.CustomOverlay({
             position: latlng,
-            content,
+            content: MY_LOCATION_OVERLAY_CONTENT,
             yAnchor: 0.5,
           });
           myOverlayLocationRef.current.setMap(mapObjRef.current);
