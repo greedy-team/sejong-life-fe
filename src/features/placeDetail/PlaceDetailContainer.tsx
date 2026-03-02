@@ -17,7 +17,7 @@ const PlaceDetailContainer = () => {
   if (!place || !stats) return <Spinner />;
 
   return (
-    <div className="mx-auto mt-12 flex w-full max-w-screen-lg flex-col items-center gap-10 overflow-y-auto">
+    <div className="mx-auto mt-6 flex w-full max-w-screen-lg flex-col items-center gap-10 overflow-y-auto lg:mt-10">
       <PhotoStrip images={place.images.map((image) => image.url)} />
       <PlaceInfo place={place} />
       <div className="flex w-full border border-gray-100" />
