@@ -103,7 +103,7 @@ export type MyReview = {
   images: ImageProps[];
   tags: { tagId: number; tagName: string }[];
   isAuthor: boolean;
-  place: { placeId: number; placeName: string }[];
+  place: { placeId: number; placeName: string };
 };
 
 export type ReviewStats = {
