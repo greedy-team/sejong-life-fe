@@ -150,3 +150,27 @@ export interface UserProfileResponse {
   message: string;
   data: UserProfileResponseProps;
 }
+
+export interface PlaceLookUpItemResponseProps {
+  id: string;
+  name: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+}
+
+export interface PlaceLookUpItemResponse {
+  message: string;
+  data: PlaceLookUpItemResponseProps[];
+}
+
+export interface PlaceUrlResponseProps {
+  kakaoUrl: string;
+  naverUrl: string;
+  googleUrl: string;
+}
+
+export interface PlaceUrlResponse {
+  message: string;
+  data: PlaceUrlResponseProps;
+}

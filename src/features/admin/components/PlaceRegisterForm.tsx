@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import type { TagProps, CategoryProps } from '../../../types/type';
+import type {
+  TagProps,
+  CategoryProps,
+  PlaceLookUpItemResponseProps,
+} from '../../../types/type';
 import { fetchCategories } from '../../explore/apis/filterApi';
 import { fetchTagList } from '../../createReview/apis/tagApi';
 import TagButton from '../../../components/share/TagButton';
@@ -8,6 +12,9 @@ import imageCompression from 'browser-image-compression';
 import { toast } from 'react-toastify';
 import heic2any from 'heic2any';
 import { postPlace } from '../api/postPlace';
+import { usePlaceLookUp } from '../hooks/usePlaceLookUp';
+import PlaceLookUpModal from './PlaceLookUpModal';
+import { CreatePlaceUrl } from '../api/createPlaceUrl';
 
 interface PlaceRegisterFormProps {
   setIsFormOpen: (value: boolean) => void;
@@ -32,6 +39,8 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
     isPartnership: false,
     partnershipContent: '',
     thumbnail: null as File | null,
+    latitude: null as number | null,
+    longitude: null as number | null,
   });
   const navigate = useNavigate();
   const [isImageProcessing, setIsImageProcessing] = useState(false);
@@ -184,6 +193,8 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
         mapLinks: formData.mapLinks,
         isPartnership: formData.isPartnership,
         partnershipContent: formData.partnershipContent,
+        latitude: formData.latitude,
+        longitude: formData.longitude,
       };
 
       const submitData = new FormData();
@@ -213,6 +224,38 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
     }
   };
 
+  const { results, isOpen, isLoading, runLookUp, close } = usePlaceLookUp();
+
+  const handlePlaceLookUp = async () => {
+    await runLookUp(formData.placeName);
+  };
+
+  const handleSelectPlace = async (place: PlaceLookUpItemResponseProps) => {
+    setFormData((prev) => ({
+      ...prev,
+      placeName: place.name,
+      address: place.address,
+      latitude: place.latitude,
+      longitude: place.longitude,
+    }));
+
+    const url = await CreatePlaceUrl({
+      id: place.id,
+      name: place.name,
+    });
+
+    setFormData((prev) => ({
+      ...prev,
+      mapLinks: {
+        kakaoMap: url.kakaoUrl,
+        naverMap: url.naverUrl,
+        googleMap: url.googleUrl,
+      },
+    }));
+
+    close();
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <button
@@ -236,7 +279,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
         </h1>
 
         <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-7 px-7">
-          <div className="flex flex-col gap-2">
+          <div className="relative flex flex-col gap-2">
             <div className="flex items-center gap-1">
               <div className="text-lg">장소명</div>
               <img
@@ -245,13 +288,29 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
                 className="mb-3 h-2"
               />
             </div>
-            <input
-              name="placeName"
-              value={formData.placeName}
-              onChange={handleTextChange}
-              className="x-2 rounded-lg border px-2 py-1 placeholder:text-sm"
-              placeholder="장소명을 입력하세요"
-            />
+            <div className="flex gap-2">
+              <input
+                name="placeName"
+                value={formData.placeName}
+                onChange={handleTextChange}
+                className="x-2 flex-1 cursor-pointer rounded-lg border px-2 py-2 placeholder:text-sm"
+                placeholder="장소명을 입력하세요"
+              />
+              <button
+                type="button"
+                className="cursor-pointer rounded-lg border bg-[#77db30] px-4 py-2 whitespace-nowrap text-white"
+                onClick={handlePlaceLookUp}
+              >
+                {isLoading ? '검색중...' : '장소 확인하기'}
+              </button>
+            </div>
+            {isOpen && (
+              <PlaceLookUpModal
+                items={results}
+                onClose={close}
+                onSelect={handleSelectPlace}
+              />
+            )}
           </div>
 
           <div className="flex flex-col gap-2">

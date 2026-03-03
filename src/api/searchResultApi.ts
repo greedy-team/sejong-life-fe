@@ -12,7 +12,11 @@ export const fetchSearchResult = async ({
   const trimmed = keyword.trim();
 
   try {
-    const params: Record<string, string> = { category };
+    const params: Record<string, string | boolean> = {
+      category,
+      partnershipOnly: false,
+    };
+
     if (trimmed) params.keyword = trimmed;
 
     const response = await api.get('/api/places', { params });
