@@ -6,6 +6,8 @@ export const queryKeys = {
     details: () => [...queryKeys.places.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.places.details(), id] as const,
     hot: () => [...queryKeys.places.all, 'hot'] as const,
+    partnershipMap: () =>
+      [...queryKeys.places.all, 'map', 'partnership'] as const,
   },
   reviews: {
     all: ['reviews'] as const,
