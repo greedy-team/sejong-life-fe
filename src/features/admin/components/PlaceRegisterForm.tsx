@@ -14,7 +14,7 @@ import heic2any from 'heic2any';
 import { postPlace } from '../api/postPlace';
 import { usePlaceLookUp } from '../hooks/usePlaceLookUp';
 import PlaceLookUpModal from './PlaceLookUpModal';
-import { createPlaceUrl } from '../api/createPlaceUrl';
+import { CreatePlaceUrl } from '../api/createPlaceUrl';
 
 interface PlaceRegisterFormProps {
   setIsFormOpen: (value: boolean) => void;
@@ -239,7 +239,7 @@ const PlaceRegisterForm = ({ setIsFormOpen }: PlaceRegisterFormProps) => {
       longitude: place.longitude,
     }));
 
-    const url = await createPlaceUrl({
+    const url = await CreatePlaceUrl({
       id: place.id,
       name: place.name,
     });

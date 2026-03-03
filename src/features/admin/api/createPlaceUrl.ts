@@ -1,15 +1,15 @@
 import { api } from '../../../api/api';
 import type { PlaceUrlResponseProps } from '../../../types/type';
 
-interface createPlaceUrlProps {
+interface CreatePlaceUrlProps {
   id: string;
   name: string;
 }
 
-export const createPlaceUrl = async ({
+export const CreatePlaceUrl = async ({
   id,
   name,
-}: createPlaceUrlProps): Promise<PlaceUrlResponseProps> => {
+}: CreatePlaceUrlProps): Promise<PlaceUrlResponseProps> => {
   const response = await api.post(`/api/places/urls`, {
     kakaoId: id,
     name: name,
