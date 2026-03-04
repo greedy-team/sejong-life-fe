@@ -5,6 +5,7 @@ import LightboxViewer from '../../features/placeDetail/LightboxViewer';
 import { formatDateDot } from '../../utils/format';
 import Rating from '../share/Rating';
 import useIsContentLong from '../../hooks/useIsContentLong';
+import { useNavigate } from 'react-router-dom';
 
 interface MyReviewCardProps {
   myReview: MyReview;
@@ -20,13 +21,22 @@ const MyReviewCard = ({ myReview, onDelete }: MyReviewCardProps) => {
     maxLines: 3,
     deps: [myReview.content],
   });
+  const navigate = useNavigate();
 
   return (
     <>
       <article className="flex flex-col gap-3 px-5 py-5">
+        <button
+          className="inline-flex w-fit max-w-[240px] items-center overflow-hidden text-xs font-semibold whitespace-nowrap text-[#2F7D32] active:scale-95"
+          onClick={() => navigate(`/detail/${myReview.place.placeId}`)}
+        >
+          📍 {myReview.place?.placeName} &gt;
+        </button>
         <div className="flex justify-between">
-          <div className="text-lg font-bold">
-            {String(myReview.studentId).slice(0, 2)}학번
+          <div className="flex min-w-0 items-center gap-2">
+            <div className="shrink-0 text-lg font-bold">
+              {String(myReview.studentId).slice(0, 2)}학번
+            </div>
           </div>
           <div className="text-small text-gray-500">
             {formatDateDot(myReview.createdAt)}
