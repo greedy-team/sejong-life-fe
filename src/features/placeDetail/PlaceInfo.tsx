@@ -1,17 +1,30 @@
 import type { DetailPlaceProps } from '../../types/type';
 import TagButton from '../../components/share/TagButton';
 import { toast } from 'react-toastify';
+import FavoriteButton from '../../components/share/FavoriteButton';
+import { useFavorites } from '../myPage/hooks/useFavorites';
 
 interface PlaceInfoProps {
   place: DetailPlaceProps;
 }
 
 const PlaceInfo = ({ place }: PlaceInfoProps) => {
+  const { isFavorite, handleToggleFavorite } = useFavorites();
+
   return (
     <div className="flex w-[90%] flex-col items-start gap-5">
-      <div className="flex items-center gap-4">
-        <h1 className="text-2xl font-bold text-[#212529]">{place.name}</h1>
-        <div className="rounded-full bg-[#f0f0f0] px-3.5 py-1.5 text-xs">
+      <div className="flex w-full items-center gap-2 lg:gap-4">
+        <div className="-ml-2 flex gap-1">
+          <FavoriteButton
+            isFavorite={isFavorite(place.id)}
+            onToggleFavorite={() => handleToggleFavorite(place.id)}
+          />
+
+          <h1 className="min-w-0 truncate text-2xl font-bold text-[#212529]">
+            {place.name}
+          </h1>
+        </div>
+        <div className="shrink-0 rounded-full bg-[#f0f0f0] px-3.5 py-1.5 text-xs">
           {place.categories.map((category) => (
             <span key={category.categoryId} className="rounded-full">
               {category.categoryName}
