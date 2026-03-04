@@ -14,11 +14,8 @@ const ExplorePage = () => {
       <Filter />
       <ExploreItem />
 
-      <div
-        onClick={() => navigate('/map')}
-        className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2"
-      >
-        <MapNavigateButton />
+      <div className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2">
+        <MapNavigateButton onClick={() => navigate('/map')} />
       </div>
     </div>
   );
