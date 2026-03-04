@@ -6,6 +6,8 @@ import Footer from '../layout/components/Footer';
 import { useCategoryLists } from '../features/explore/hooks/queries';
 import { useHotPlaces } from '../features/main/hooks';
 import SearchBar from '../components/share/SearchBar';
+import { useNavigate } from 'react-router-dom';
+import MapNavigateButton from '../components/share/MapNavigateButton';
 
 const menus = [
   {
@@ -44,8 +46,8 @@ const MainPage = () => {
   const { data: categories = [], isLoading: isCategoriesLoading } =
     useCategoryLists();
   const { data: hotPlacesData, isLoading: isHotPlacesLoading } = useHotPlaces();
-
   const hotPlaces = hotPlacesData?.data || [];
+  const navigate = useNavigate();
 
   const categoryNameByLabel = (name: string) =>
     categories.find((c) => c.categoryName === name)?.categoryName ?? name;
@@ -87,6 +89,9 @@ const MainPage = () => {
           title="Hot Places"
           items={hotPlaces}
         />
+      </div>
+      <div className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2">
+        <MapNavigateButton onClick={() => navigate('/map')} />
       </div>
       <Footer />
     </>
