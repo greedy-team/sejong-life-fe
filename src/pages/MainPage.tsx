@@ -7,12 +7,48 @@ import { useCategoryLists } from '../features/explore/hooks/queries';
 import { useHotPlaces } from '../features/main/hooks';
 import SearchBar from '../components/share/SearchBar';
 
+const menus = [
+  {
+    label: '전체',
+    icon: '/asset/pageRouterButton/allItemIcon.svg',
+    category: '전체',
+  },
+  {
+    label: '식당',
+    icon: '/asset/pageRouterButton/restaurantIcon.svg',
+    category: '식당',
+  },
+  {
+    label: '카페',
+    icon: '/asset/pageRouterButton/cafeIcon.svg',
+    category: '카페',
+  },
+  {
+    label: '생활/문화',
+    icon: '/asset/pageRouterButton/lifeIcon.svg',
+    category: '생활/문화',
+  },
+  {
+    label: '쇼핑',
+    icon: '/asset/pageRouterButton/shoppingIcon.svg',
+    category: '쇼핑',
+  },
+  {
+    label: '여가',
+    icon: '/asset/pageRouterButton/leisureIcon.svg',
+    category: '여가',
+  },
+];
+
 const MainPage = () => {
   const { data: categories = [], isLoading: isCategoriesLoading } =
     useCategoryLists();
   const { data: hotPlacesData, isLoading: isHotPlacesLoading } = useHotPlaces();
 
   const hotPlaces = hotPlacesData?.data || [];
+
+  const categoryNameByLabel = (name: string) =>
+    categories.find((c) => c.categoryName === name)?.categoryName ?? name;
 
   if (isCategoriesLoading || isHotPlacesLoading) {
     return <Spinner />;
@@ -27,51 +63,24 @@ const MainPage = () => {
         </div>
 
         <div className="flex flex-wrap justify-center gap-5 pt-10">
-          <PageRouterButton
-            to={`/explore?category=${'전체'}`}
-            icon="/asset/pageRouterButton/allItemIcon.svg"
-          >
-            <span>전체</span>
-          </PageRouterButton>
-          <PageRouterButton
-            to={`/explore?category=${categories[0]?.categoryName}`}
-            icon="/asset/pageRouterButton/restaurantIcon.svg"
-          >
-            <span>식당</span>
-          </PageRouterButton>
-          <PageRouterButton
-            to={`/explore?category=${categories[1]?.categoryName}`}
-            icon="/asset/pageRouterButton/cafeIcon.svg"
-          >
-            <span>카페</span>
-          </PageRouterButton>
-          <PageRouterButton
-            to={`/explore?category=${categories[2]?.categoryName}`}
-            icon="/asset/pageRouterButton/lifeIcon.svg"
-          >
-            <span>생활/문화</span>
-          </PageRouterButton>
-          <PageRouterButton
-            to={`/explore?category=${categories[3]?.categoryName}`}
-            icon="/asset/pageRouterButton/shoppingIcon.svg"
-          >
-            <span>쇼핑</span>
-          </PageRouterButton>
+          {menus.map((m) => (
+            <PageRouterButton
+              key={m.label}
+              to={`/explore?category=${encodeURIComponent(categoryNameByLabel(m.category))}`}
+              icon={m.icon}
+            >
+              <span>{m.label}</span>
+            </PageRouterButton>
+          ))}
 
           <PageRouterButton
-            to={`/explore?category=${categories[4]?.categoryName}`}
-            icon="/asset/pageRouterButton/leisureIcon.svg"
-          >
-            <span>여가</span>
-          </PageRouterButton>
-
-          <PageRouterButton
-            to={`/roulette`}
+            to="/roulette"
             icon="/asset/pageRouterButton/rouletteIcon.svg"
           >
             <span>룰렛</span>
           </PageRouterButton>
         </div>
+
         <div className="mt-10 mb-8 border-b border-gray-100" />
         <ItemContainer
           iconSrc="/asset/itemContainer/hotPlaceIcon.svg"
