@@ -136,16 +136,18 @@ const ExploreItem = () => {
         </ul>
       </div>
       <div className="mb-10 flex w-full border border-gray-100" />
-      <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredPlaces.map((place) => (
-          <PlaceItemCard
-            key={place.placeId}
-            placeInfo={place}
-            className="w-full"
-            isFavorite={isFavorite(place.placeId)}
-            onToggleFavorite={handleToggleFavorite}
-          />
-        ))}
+      <div className="mx-auto flex max-w-6xl">
+        <div className="flex grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredPlaces.map((place) => (
+            <PlaceItemCard
+              key={place.placeId}
+              placeInfo={place}
+              className="w-full"
+              isFavorite={isFavorite(place.placeId)}
+              onToggleFavorite={handleToggleFavorite}
+            />
+          ))}
+        </div>
       </div>
 
       {pageInfo && pageInfo.totalPages > 1 && (
