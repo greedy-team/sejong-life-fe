@@ -14,7 +14,7 @@ type Props = {
   level?: number;
 };
 
-const DEFAULT_MAP_CENTER = { lat: 37.5519, lng: 127.0738 };
+const DEFAULT_MAP_CENTER = { lat: 37.5499, lng: 127.0738 };
 const MY_LOCATION_OVERLAY_CONTENT = `
   <div style="
     position: relative;
