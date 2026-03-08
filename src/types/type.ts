@@ -63,6 +63,9 @@ export interface ImageProps {
 export interface DetailPlaceProps {
   id: number;
   name: string;
+  address: string;
+  latitude: number | null;
+  longitude: number | null;
   images: ImageProps[];
   categories: CategoryProps[];
   tags: TagProps[];
@@ -70,6 +73,22 @@ export interface DetailPlaceProps {
   mapLinks: MapProps;
   isPartnership: boolean;
   partnershipContent: string;
+}
+
+export interface EditPlaceRequest {
+  latitude: number | null;
+  longitude: number | null;
+  placeName: string;
+  address: string;
+  partnershipContent: string;
+  categoryIds: number[];
+  isPartnership: boolean;
+  mapLinks: {
+    naverMap: string;
+    kakaoMap: string;
+    googleMap: string;
+  };
+  tagIds: number[];
 }
 
 export interface DetailPlace {
