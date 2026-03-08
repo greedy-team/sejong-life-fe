@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import PlaceItemCard from '../../../components/place-item-card/PlaceItemCard';
 import { useSearchParams } from 'react-router-dom';
-import type { PlaceProps } from '../../../types/type';
+import type { PlaceProps, DetailPlaceProps } from '../../../types/type';
 import { fetchSearchResult } from '../../../api/searchResultApi';
 import PlaceRegisterForm from './PlaceRegisterForm';
+import PlaceEditForm from './PlaceEditForm';
+import { getPlaceDetail } from '../api/getPlaceDetail';
 
 const AdminSearchResultItems = () => {
   const [searchParams] = useSearchParams();
@@ -12,6 +14,8 @@ const AdminSearchResultItems = () => {
   const [loading, setLoading] = useState(false);
   const [isPartnershipButtonOn, setIsPartnershipButtonOn] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingPlaceDetail, setEditingPlaceDetail] =
+    useState<DetailPlaceProps | null>(null);
 
   useEffect(() => {
     const search = async () => {
@@ -33,6 +37,19 @@ const AdminSearchResultItems = () => {
 
     search();
   }, [keyword, isFormOpen, isPartnershipButtonOn]);
+
+  const handleEditButtonClick = async (placeId: number) => {
+    try {
+      const detail = await getPlaceDetail(placeId);
+      setEditingPlaceDetail(detail);
+    } catch (error) {
+      console.error('장소 상세 조회 실패:', error);
+    }
+  };
+
+  const handleEditFormClose = () => {
+    setEditingPlaceDetail(null);
+  };
 
   if (loading)
     return <div className="mt-25 flex justify-center">검색 중...</div>;
@@ -93,10 +110,19 @@ const AdminSearchResultItems = () => {
             placeInfo={place}
             className="w-full"
             showDeleteButton={true}
+            showEditButton={true}
             showFavoriteButton={false}
+            onEditButtonClick={handleEditButtonClick}
           />
         ))}
       </div>
+
+      {editingPlaceDetail && (
+        <PlaceEditForm
+          placeDetail={editingPlaceDetail}
+          onClose={handleEditFormClose}
+        />
+      )}
     </div>
   );
 };

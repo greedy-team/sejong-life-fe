@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import type { PlaceProps } from '../../types/type';
 import TagButton from '../share/TagButton';
-import { deletePlace } from '../../features/admin/api/deletePlace';
+import { deletePlace } from '../../features/admin-place/api/deletePlace';
 import { toast } from 'react-toastify';
 import FavoriteButton from '../share/FavoriteButton';
 
@@ -10,18 +10,22 @@ interface PlaceItemCardProps {
   placeInfo: PlaceProps;
   className?: string;
   showDeleteButton?: boolean;
+  showEditButton?: boolean;
   showFavoriteButton?: boolean;
   isFavorite?: boolean;
   onToggleFavorite?: (placeId: number) => void;
+  onEditButtonClick?: (placeId: number) => void;
 }
 
 const PlaceItemCard = ({
   placeInfo,
   className,
   showDeleteButton = false,
+  showEditButton = false,
   showFavoriteButton = true,
   isFavorite = false,
   onToggleFavorite,
+  onEditButtonClick,
 }: PlaceItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -100,6 +104,17 @@ const PlaceItemCard = ({
             }}
             className="absolute right-0 bottom-2.5 z-30"
           />
+        )}
+        {showEditButton && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onEditButtonClick?.(placeInfo.placeId);
+            }}
+            className="absolute right-3 bottom-10 z-30"
+          >
+            <img src="/asset/admin/edit.svg" alt="edit" className="h-5 w-5" />
+          </button>
         )}
         {showDeleteButton && (
           <button
