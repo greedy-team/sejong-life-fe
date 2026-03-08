@@ -10,18 +10,22 @@ interface PlaceItemCardProps {
   placeInfo: PlaceProps;
   className?: string;
   showDeleteButton?: boolean;
+  showEditButton?: boolean;
   showFavoriteButton?: boolean;
   isFavorite?: boolean;
   onToggleFavorite?: (placeId: number) => void;
+  onEditButtonClick?: (placeId: number) => void;
 }
 
 const PlaceItemCard = ({
   placeInfo,
   className,
   showDeleteButton = false,
+  showEditButton = false,
   showFavoriteButton = true,
   isFavorite = false,
   onToggleFavorite,
+  onEditButtonClick,
 }: PlaceItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -100,6 +104,17 @@ const PlaceItemCard = ({
             }}
             className="absolute right-0 bottom-2.5 z-30"
           />
+        )}
+        {showEditButton && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onEditButtonClick?.(placeInfo.placeId);
+            }}
+            className="absolute right-3 bottom-10 z-30"
+          >
+            <img src="/asset/admin/edit.svg" alt="edit" className="h-5 w-5" />
+          </button>
         )}
         {showDeleteButton && (
           <button
