@@ -1,4 +1,4 @@
-import PlaceSearchContainer from '../features/admin/components/PlaceSearchContainer';
+import PlaceSearchContainer from '../features/admin-place/components/PlaceSearchContainer';
 
 function AdminPlacesPage() {
   return (

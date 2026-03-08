@@ -1,4 +1,4 @@
-import AdminReviewContainer from '../features/admin/components/AdminReviewContainer';
+import AdminReviewContainer from '../features/admin-review/components/AdminReviewContainer';
 
 function AdminReviewsPage() {
   return <AdminReviewContainer />;

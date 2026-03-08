@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import type { PlaceProps } from '../../types/type';
 import TagButton from '../share/TagButton';
-import { deletePlace } from '../../features/admin/api/deletePlace';
+import { deletePlace } from '../../features/admin-place/api/deletePlace';
 import { toast } from 'react-toastify';
 import FavoriteButton from '../share/FavoriteButton';
 
