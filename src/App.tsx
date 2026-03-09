@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import Layout from './layout/Layout';
-import BackLayout from './layout/BackLayout';
 import ProtectedRoute from './components/share/ProtectedRoute';
 import Spinner from './components/share/Spinner';
 import { ToastContainer } from 'react-toastify';
@@ -39,6 +38,8 @@ function App() {
               <Route path="preparingService" element={<PrepareServicePage />} />
               <Route path="explore" element={<ExplorePage />} />
               <Route path="roulette" element={<RoulettePage />} />
+              <Route path="detail/:id" element={<PlaceDetailPage />} />
+              <Route path="search" element={<SearchResultPage />} />
               <Route
                 path="mypage"
                 element={
@@ -50,55 +51,52 @@ function App() {
               <Route path="/map" element={<KakaoMapPage />} />
             </Route>
 
-            <Route path="/" element={<BackLayout />}>
-              <Route path="detail/:id/reviews" element={<AllReviewPage />} />
-              <Route
-                path="write-review/:id"
-                element={
-                  <ProtectedRoute>
-                    <CreateReviewPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="detail/:id" element={<PlaceDetailPage />} />
-              <Route path="search" element={<SearchResultPage />} />
-              <Route
-                path="admin/places"
-                element={
-                  <ProtectedRoute>
-                    <AdminProtectedRoute>
-                      <AdminPlacesPage />
-                    </AdminProtectedRoute>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="admin/reviews"
-                element={
-                  <ProtectedRoute>
-                    <AdminProtectedRoute>
-                      <AdminReviewsPage />
-                    </AdminProtectedRoute>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="mypage/myReviews"
-                element={
-                  <ProtectedRoute>
-                    <MyReviewPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="mypage/myPlaces"
-                element={
-                  <ProtectedRoute>
-                    <MyPlacesPage />
-                  </ProtectedRoute>
-                }
-              />
-            </Route>
+            <Route path="detail/:id/reviews" element={<AllReviewPage />} />
+            <Route
+              path="write-review/:id"
+              element={
+                <ProtectedRoute>
+                  <CreateReviewPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="admin/places"
+              element={
+                <ProtectedRoute>
+                  <AdminProtectedRoute>
+                    <AdminPlacesPage />
+                  </AdminProtectedRoute>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="admin/reviews"
+              element={
+                <ProtectedRoute>
+                  <AdminProtectedRoute>
+                    <AdminReviewsPage />
+                  </AdminProtectedRoute>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="mypage/myReviews"
+              element={
+                <ProtectedRoute>
+                  <MyReviewPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="mypage/myPlaces"
+              element={
+                <ProtectedRoute>
+                  <MyPlacesPage />
+                </ProtectedRoute>
+              }
+            />
 
             <Route
               path="/admin"

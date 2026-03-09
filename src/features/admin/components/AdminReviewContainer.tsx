@@ -3,6 +3,7 @@ import { AuthContext } from '../../../context/userContext';
 import { useAdminReviewStream } from '../hooks/useAdminReviewStream';
 import { USER_ROLE } from '../../../types/role';
 import AdminReviewCard from './AdminReviewCard';
+import HeaderWithBack from '../../../components/share/HeaderWithBack';
 
 function ConnectionStatus({ isConnected }: { isConnected: boolean }) {
   return (
@@ -45,36 +46,44 @@ function AdminReviewContainer() {
   };
 
   return (
-    <section className="mx-auto max-w-4xl p-4">
-      <header className="mb-4 flex items-center justify-between">
-        <h1 className="text-xl font-bold">리뷰 관리</h1>
-        <ConnectionStatus isConnected={isConnected} />
-      </header>
+    <>
+      <HeaderWithBack title={'리뷰 관리'} fallbackPath={`/admin`} />
+      <section className="mx-auto max-w-4xl p-4">
+        <header className="mb-4 flex items-center justify-between">
+          <h1 className="text-xl font-bold">리뷰 관리</h1>
+          <ConnectionStatus isConnected={isConnected} />
+        </header>
 
-      {error && (
-        <div role="alert" className="mb-4 rounded bg-red-100 p-3 text-red-700">
-          {error.message}
-        </div>
-      )}
-
-      <section className="space-y-4" aria-label="리뷰 목록">
-        {reviews.length === 0 ? (
-          <p className="rounded border border-gray-200 p-8 text-center text-gray-500">
-            {isLoading ? '로딩 중...' : '리뷰가 없습니다'}
-          </p>
-        ) : (
-          reviews.map((review) => (
-            <AdminReviewCard
-              key={review.reviewId}
-              review={review}
-              onDelete={handleDelete}
-            />
-          ))
+        {error && (
+          <div
+            role="alert"
+            className="mb-4 rounded bg-red-100 p-3 text-red-700"
+          >
+            {error.message}
+          </div>
         )}
-      </section>
 
-      <p className="mt-4 text-sm text-gray-600">총 {reviews.length}개의 리뷰</p>
-    </section>
+        <section className="space-y-4" aria-label="리뷰 목록">
+          {reviews.length === 0 ? (
+            <p className="rounded border border-gray-200 p-8 text-center text-gray-500">
+              {isLoading ? '로딩 중...' : '리뷰가 없습니다'}
+            </p>
+          ) : (
+            reviews.map((review) => (
+              <AdminReviewCard
+                key={review.reviewId}
+                review={review}
+                onDelete={handleDelete}
+              />
+            ))
+          )}
+        </section>
+
+        <p className="mt-4 text-sm text-gray-600">
+          총 {reviews.length}개의 리뷰
+        </p>
+      </section>
+    </>
   );
 }
 

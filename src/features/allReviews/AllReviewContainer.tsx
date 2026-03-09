@@ -1,11 +1,7 @@
 import AllReviewSection from './AllReviewSection';
 
 const AllReviewContainer = () => {
-  return (
-    <>
-      <AllReviewSection />
-    </>
-  );
+  return <AllReviewSection />;
 };
 
 export default AllReviewContainer;

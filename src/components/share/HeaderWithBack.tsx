@@ -1,33 +1,38 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { usePlaceDetail } from '../../features/placeDetail/hooks';
+import { useNavigate } from 'react-router-dom';
 
-const HeaderWithBack = () => {
+interface HeaderWithBackProps {
+  title: string;
+  fallbackPath?: string;
+  onBack?: () => void;
+}
+
+const HeaderWithBack = ({
+  title,
+  fallbackPath = '/',
+  onBack,
+}: HeaderWithBackProps) => {
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-  const location = useLocation();
-  const { place } = usePlaceDetail(id);
-  const isMyReviewPage = location.pathname.startsWith('/mypage/myReviews');
-  const isMyPlacePage = location.pathname.startsWith('/mypage/myPlaces');
+
+  const handleBack = () => {
+    if (onBack) {
+      onBack();
+      return;
+    }
+
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+
+    navigate(fallbackPath, { replace: true });
+  };
 
   return (
     <header className="sticky z-50 flex h-14 w-full border-b border-b-[#EEEFF1] bg-white px-[5%] py-2 lg:px-15">
-      <button onClick={() => navigate(-1)} className="flex items-center gap-5">
+      <button onClick={handleBack} className="flex items-center gap-5">
         <div className="flex items-center gap-5">
           <img src="/asset/all-review/backArrow.svg" alt="뒤로가기"></img>
-          {isMyReviewPage && (
-            <span className="font-semibold text-[#354052]">내가 쓴 리뷰</span>
-          )}
-          {!isMyReviewPage && isMyPlacePage && (
-            <span className="font-semibold text-[#354052]">
-              내가 저장한 장소
-            </span>
-          )}
-          {!isMyReviewPage && !isMyPlacePage && id && place?.name && (
-            <span className="font-semibold text-[#354052]">{place.name}</span>
-          )}
-          {!isMyReviewPage && !isMyPlacePage && !id && (
-            <span className="font-semibold text-[#354052]">검색결과</span>
-          )}
+          <span className="font-semibold text-[#354052]">{title}</span>
         </div>
       </button>
     </header>
