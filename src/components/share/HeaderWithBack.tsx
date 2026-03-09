@@ -3,22 +3,12 @@ import { useNavigate } from 'react-router-dom';
 interface HeaderWithBackProps {
   title: string;
   fallbackPath?: string;
-  onBack?: () => void;
 }
 
-const HeaderWithBack = ({
-  title,
-  fallbackPath = '/',
-  onBack,
-}: HeaderWithBackProps) => {
+const HeaderWithBack = ({ title, fallbackPath = '/' }: HeaderWithBackProps) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    if (onBack) {
-      onBack();
-      return;
-    }
-
     if (window.history.length > 1) {
       navigate(-1);
       return;
