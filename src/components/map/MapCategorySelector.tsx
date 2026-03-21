@@ -24,7 +24,7 @@ export default function MapCategorySelector({
   if (!categories) return null;
 
   return (
-    <div className="fixed top-23 left-1/2 z-50 flex -translate-x-1/2 gap-2">
+    <div className="fixed top-23 left-1/2 z-50 flex -translate-x-1/2 gap-2 sm:top-27">
       {categories.map((category: CategoryProps) => {
         const isSelected = selectedCategory === category.categoryName;
         const iconSrc = CATEGORY_ICONS[category.categoryName];
@@ -32,23 +32,22 @@ export default function MapCategorySelector({
           <button
             key={category.categoryId}
             onClick={() => onSelect(category.categoryName)}
-            className={`flex h-10 w-10 cursor-pointer flex-col items-center justify-center rounded-full shadow-md transition-all active:scale-95 ${
+            className={`flex h-10 w-10 cursor-pointer flex-col items-center justify-center rounded-full shadow-md transition-all active:scale-95 sm:h-auto sm:w-auto sm:flex-row sm:gap-1.5 sm:rounded-full sm:px-5 sm:py-2.5 ${
               isSelected
-                ? 'border-[#7cd23f] bg-[#8BE34A] text-white'
+                ? 'border-[#7cd23f] bg-[#8BE34A]'
                 : 'border-gray-100 bg-white text-gray-700 backdrop-blur-xl'
             }`}
           >
-            {iconSrc ? (
+            {iconSrc && (
               <img
                 src={iconSrc}
                 alt={category.categoryName}
                 className="h-5 w-5"
               />
-            ) : (
-              <span className="text-xs font-semibold">
-                {category.categoryName}
-              </span>
             )}
+            <span className="hidden text-xs font-semibold whitespace-nowrap sm:inline">
+              {category.categoryName}
+            </span>
           </button>
         );
       })}
