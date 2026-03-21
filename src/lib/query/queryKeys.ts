@@ -8,6 +8,8 @@ export const queryKeys = {
     hot: () => [...queryKeys.places.all, 'hot'] as const,
     partnershipMap: () =>
       [...queryKeys.places.all, 'map', 'partnership'] as const,
+    partnershipMapByCategory: (category: string) =>
+      [...queryKeys.places.all, 'map', 'partnership', category] as const,
   },
   reviews: {
     all: ['reviews'] as const,
