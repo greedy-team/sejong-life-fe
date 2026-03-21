@@ -24,7 +24,7 @@ export default function MapCategorySelector({
   if (!categories) return null;
 
   return (
-    <div className="fixed top-23 left-1/2 z-50 flex -translate-x-1/2 gap-2 overflow-y-auto">
+    <div className="fixed top-23 left-1/2 z-50 flex -translate-x-1/2 gap-2">
       {categories.map((category: CategoryProps) => {
         const isSelected = selectedCategory === category.categoryName;
         const iconSrc = CATEGORY_ICONS[category.categoryName];
@@ -33,7 +33,9 @@ export default function MapCategorySelector({
             key={category.categoryId}
             onClick={() => onSelect(category.categoryName)}
             className={`flex h-10 w-10 cursor-pointer flex-col items-center justify-center rounded-full shadow-md transition-all active:scale-95 ${
-              isSelected ? 'bg-[#8BE34A] text-white' : 'bg-white text-gray-700'
+              isSelected
+                ? 'border-[#7cd23f] bg-[#8BE34A] text-white'
+                : 'border-gray-100 bg-white text-gray-700 backdrop-blur-xl'
             }`}
           >
             {iconSrc ? (
