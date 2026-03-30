@@ -25,7 +25,7 @@ const PlaceDetailContainer = () => {
       <div className="flex w-full border border-gray-100" />
       <ReviewStatsSection stats={stats} />
       <div className="flex w-full flex-col sm:w-[90%]">
-        {reviews.slice(0, 2).map((review) => (
+        {reviews.slice(0, 5).map((review) => (
           <div key={review.reviewId}>
             <div className="flex w-full border border-gray-100" />
             <ReviewCard
@@ -35,7 +35,7 @@ const PlaceDetailContainer = () => {
             />
           </div>
         ))}
-        {reviews.length > 2 && (
+        {reviews.length > 5 && (
           <MoreReviewButton reviewCount={stats.reviewCount} />
         )}
       </div>

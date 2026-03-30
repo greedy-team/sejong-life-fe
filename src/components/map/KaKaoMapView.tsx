@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { usePartnershipPlacesForMap } from '../../features/map/hooks/usePartnershipPlacesForMap';
 import { ICONS } from '../../features/share/constants/icons';
 import { PartnershipPlaceCard } from './PartnershipPlaceCard';
+import MapCategorySelector from './MapCategorySelector';
 import type { PlaceProps } from '../../types/type';
 import Spinner from '../share/Spinner';
 
@@ -53,8 +54,10 @@ export default function KakaoMapView({
   const clustererRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
 
+  const [selectedCategory, setSelectedCategory] = useState('전체');
+
   const navigate = useNavigate();
-  const { data: places } = usePartnershipPlacesForMap();
+  const { data: places } = usePartnershipPlacesForMap(selectedCategory);
   const pinImage = ICONS.greenPin;
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<PlaceProps | null>(null);
@@ -234,6 +237,10 @@ export default function KakaoMapView({
           <Spinner />
         </div>
       )}
+      <MapCategorySelector
+        selectedCategory={selectedCategory}
+        onSelect={setSelectedCategory}
+      />
       {selectedPlace && (
         <PartnershipPlaceCard isSheetOpen={isSheetOpen} place={selectedPlace} />
       )}
