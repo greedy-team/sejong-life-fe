@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { openMeetingCard } from '../apis/meetingApi';
 import type { CardOpenResponse } from '../../../types/meetingType';
@@ -7,8 +8,8 @@ export const useOpenCard = (onSuccess: (data: CardOpenResponse) => void) => {
   return useMutation({
     mutationFn: (profileId: number) => openMeetingCard(profileId),
     onSuccess,
-    onError: (error: { response?: { status?: number } }) => {
-      const status = error?.response?.status;
+    onError: (error: unknown) => {
+      const status = isAxiosError(error) ? error.response?.status : undefined;
       if (status === 403) {
         toast.error('카드 오픈 횟수를 모두 사용했습니다.');
       } else if (status === 409) {

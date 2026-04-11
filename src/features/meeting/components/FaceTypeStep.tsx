@@ -31,7 +31,7 @@ function FaceTypeStep({ value, onChange }: FaceTypeStepProps) {
           >
             <span className="text-[46.9px] leading-[48px]">{emoji}</span>
             <span
-              className={`text-body-medium font-bold ${value === label ? 'text-white' : 'text-shark'}`}
+              className={`text-body-bold ${value === label ? 'text-white' : 'text-shark'}`}
             >
               {label}
             </span>

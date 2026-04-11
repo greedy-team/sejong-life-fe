@@ -34,11 +34,8 @@ function ContactRevealModal({
             남은 오픈 횟수: {remainOpenCount}회
           </p>
         </div>
-        <div
-          className="flex w-full items-center justify-center rounded-2xl px-6 py-4"
-          style={{ background: '#F5F3FF' }}
-        >
-          <span className="text-heading-2 text-shark text-center font-bold break-all">
+        <div className="bg-meeting-surface flex w-full items-center justify-center rounded-2xl px-6 py-4">
+          <span className="text-heading-2 text-shark text-center break-all">
             {contact}
           </span>
         </div>

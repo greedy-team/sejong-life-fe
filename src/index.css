@@ -128,6 +128,24 @@ body {
     line-height: 20px;
   }
 
+  .text-body-bold {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+  }
+
+  .text-dial-selected {
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 43px;
+  }
+
+  .text-dial-unselected {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+  }
+
   .text-button {
     font-size: 20px;
     font-weight: 700;

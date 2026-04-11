@@ -99,16 +99,11 @@ function BirthYearStep({ value, onChange }: BirthYearStepProps) {
                   style={{ height: ITEM_HEIGHT, scrollSnapAlign: 'center' }}
                 >
                   <span
-                    style={{
-                      fontSize: year === displayedYear ? 36 : 24,
-                      fontWeight: year === displayedYear ? 900 : 500,
-                      lineHeight: year === displayedYear ? '43px' : '32px',
-                      color:
-                        year === displayedYear
-                          ? '#EB4763'
-                          : 'rgba(121, 121, 134, 0.5)',
-                      transition: 'font-size 0.1s ease, color 0.1s ease',
-                    }}
+                    className={`transition-[font-size,color] duration-100 ${
+                      year === displayedYear
+                        ? 'text-dial-selected text-mandy'
+                        : 'text-dial-unselected text-jumbo-50'
+                    }`}
                   >
                     {year}
                   </span>

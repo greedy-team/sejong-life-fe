@@ -22,7 +22,7 @@ function GenderStep({ value, onChange }: GenderStepProps) {
         >
           <span className="mb-2 text-[46.9px] leading-[48px]">🙋‍♂️</span>
           <span
-            className={`text-button font-bold ${value === '남' ? 'text-white' : 'text-shark'}`}
+            className={`text-button ${value === '남' ? 'text-white' : 'text-shark'}`}
           >
             남성
           </span>
@@ -38,7 +38,7 @@ function GenderStep({ value, onChange }: GenderStepProps) {
         >
           <span className="mb-2 text-[46.9px] leading-[48px]">🙋‍♀️</span>
           <span
-            className={`text-button font-bold ${value === '여' ? 'text-white' : 'text-shark'}`}
+            className={`text-button ${value === '여' ? 'text-white' : 'text-shark'}`}
           >
             여성
           </span>

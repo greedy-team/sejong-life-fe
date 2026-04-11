@@ -63,7 +63,7 @@ function ProfileCard({ profile, onOpen }: ProfileCardProps) {
             <span style={{ fontSize: 30, lineHeight: '36px' }}>{emoji}</span>
           </div>
           <div className="flex min-w-0 flex-1 flex-col">
-            <span className="text-button text-shark leading-6 font-bold">
+            <span className="text-button text-shark leading-6">
               {profile.faceType}
             </span>
             <span className="text-body-regular text-jumbo">{age}세</span>

@@ -12,11 +12,9 @@ function MeetingPage() {
   const [openCardResult, setOpenCardResult] = useState<CardOpenResponse | null>(
     null,
   );
-  const [remainOpenCount, setRemainOpenCount] = useState(1);
 
   const { mutate: openCard } = useOpenCard((data) => {
     setOpenCardResult(data);
-    setRemainOpenCount(data.remainOpenCount);
   });
 
   const handleOpenCard = (profileId: number) => {
@@ -112,7 +110,7 @@ function MeetingPage() {
               />
             </svg>
             <span className="text-caption font-bold text-white">
-              {remainOpenCount}개
+              {openCardResult?.remainOpenCount ?? 1}개
             </span>
           </button>
         </div>

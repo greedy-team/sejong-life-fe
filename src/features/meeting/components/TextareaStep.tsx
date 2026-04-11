@@ -36,7 +36,7 @@ function TextareaStep({
               placeholder={placeholder}
               maxLength={MAX_LENGTH}
               aria-label={title}
-              className="text-body-medium text-shark h-[76px] w-full resize-none bg-transparent leading-7 font-medium outline-none placeholder:text-[#B9B9B9]"
+              className="text-body-medium text-shark h-[76px] w-full resize-none bg-transparent leading-7 outline-none placeholder:text-[#B9B9B9]"
             />
           </div>
           <div className="mt-1 flex justify-end">
