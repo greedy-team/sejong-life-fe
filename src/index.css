@@ -92,4 +92,87 @@ body {
   scrollbar-color: rgba(0,0,0,0.3) transparent;
 }
 
+.dial-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.dial-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
 /* bg-white shadow-lg rounded-xl rounded-full*/
+
+@layer utilities {
+  .text-heading-1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+  }
+
+  .text-heading-2 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+
+  .text-body-regular {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+
+  .text-body-medium {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  .text-body-bold {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+  }
+
+  .text-dial-selected {
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 43px;
+  }
+
+  .text-dial-unselected {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+  }
+
+  .text-button {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+
+  .text-caption {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  .text-char-count {
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 12px;
+  }
+
+  .bg-main-gradient {
+    background: linear-gradient(95.33deg, #EB4763 0%, #F48434 100%);
+  }
+
+  .bg-card-gradient {
+    background: linear-gradient(135deg, #F0F9FF 0%, #F3E8FF 100%);
+  }
+
+  .bg-choice-header-gradient {
+    background: linear-gradient(115.6deg, #EB4763 0%, #F48434 100%);
+  }
+}
