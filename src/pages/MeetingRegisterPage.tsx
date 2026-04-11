@@ -4,8 +4,7 @@ import FunnelProgressBar from '../features/meeting/components/FunnelProgressBar'
 import GenderStep from '../features/meeting/components/GenderStep';
 import FaceTypeStep from '../features/meeting/components/FaceTypeStep';
 import BirthYearStep from '../features/meeting/components/BirthYearStep';
-import HobbyStep from '../features/meeting/components/HobbyStep';
-import DesiredDateStep from '../features/meeting/components/DesiredDateStep';
+import TextareaStep from '../features/meeting/components/TextareaStep';
 import ContactStep from '../features/meeting/components/ContactStep';
 import { useRegisterProfile } from '../features/meeting/hooks/useRegisterProfile';
 
@@ -125,14 +124,20 @@ function MeetingRegisterPage() {
         );
       case 'hobby':
         return (
-          <HobbyStep
+          <TextareaStep
+            title="취미/특기를 알려주세요"
+            description="자신의 취미나 특기를 적어주세요"
+            placeholder="예: 한강에서 치맥하며 수다떨기"
             value={formState.hobby}
             onChange={updateFormState('hobby')}
           />
         );
       case 'desiredDate':
         return (
-          <DesiredDateStep
+          <TextareaStep
+            title="원하는 데이트는?"
+            description="하고싶은 데이트를 적어주세요"
+            placeholder="예: 한강에서 치맥하며 수다떨기"
             value={formState.desiredDate}
             onChange={updateFormState('desiredDate')}
           />

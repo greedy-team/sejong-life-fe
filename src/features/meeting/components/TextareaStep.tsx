@@ -1,11 +1,20 @@
 const MAX_LENGTH = 100;
 
-interface DesiredDateStepProps {
+interface TextareaStepProps {
+  title: string;
+  description: string;
+  placeholder: string;
   value: string;
-  onChange: (desiredDate: string) => void;
+  onChange: (value: string) => void;
 }
 
-function DesiredDateStep({ value, onChange }: DesiredDateStepProps) {
+function TextareaStep({
+  title,
+  description,
+  placeholder,
+  value,
+  onChange,
+}: TextareaStepProps) {
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length <= MAX_LENGTH) {
       onChange(event.target.value);
@@ -15,10 +24,8 @@ function DesiredDateStep({ value, onChange }: DesiredDateStepProps) {
   return (
     <div className="flex w-full flex-col items-start gap-1 pb-1">
       <div className="flex w-full flex-col gap-1 pb-1">
-        <h1 className="text-heading-1 text-shark">원하는 데이트는?</h1>
-        <p className="text-body-regular text-jumbo">
-          하고싶은 데이트를 적어주세요
-        </p>
+        <h1 className="text-heading-1 text-shark">{title}</h1>
+        <p className="text-body-regular text-jumbo">{description}</p>
       </div>
       <div className="flex w-full flex-col gap-3 pt-4">
         <div className="w-full">
@@ -26,7 +33,7 @@ function DesiredDateStep({ value, onChange }: DesiredDateStepProps) {
             <textarea
               value={value}
               onChange={handleChange}
-              placeholder="예: 한강에서 치맥하며 수다떨기"
+              placeholder={placeholder}
               maxLength={MAX_LENGTH}
               className="text-body-medium text-shark h-[76px] w-full resize-none bg-transparent leading-7 font-medium outline-none placeholder:text-[#B9B9B9]"
             />
@@ -42,4 +49,4 @@ function DesiredDateStep({ value, onChange }: DesiredDateStepProps) {
   );
 }
 
-export default DesiredDateStep;
+export default TextareaStep;

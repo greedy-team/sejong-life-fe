@@ -1,13 +1,9 @@
-const FACE_TYPES = [
-  { label: '강아지상', emoji: '🐶' },
-  { label: '고양이상', emoji: '🐱' },
-  { label: '여우상', emoji: '🦊' },
-  { label: '토끼상', emoji: '🐰' },
-  { label: '곰상', emoji: '🐻' },
-  { label: '사슴상', emoji: '🦌' },
-  { label: '햄스터상', emoji: '🐹' },
-  { label: '공룡상', emoji: '🦕' },
-];
+import { FACE_TYPE_EMOJI } from '../constants/meetingConstants';
+
+const FACE_TYPES = Object.entries(FACE_TYPE_EMOJI).map(([label, emoji]) => ({
+  label,
+  emoji,
+}));
 
 interface FaceTypeStepProps {
   value: string | null;
