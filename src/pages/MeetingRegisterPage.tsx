@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import FunnelProgressBar from '../features/meeting/components/FunnelProgressBar';
 import GenderStep from '../features/meeting/components/GenderStep';
 import FaceTypeStep from '../features/meeting/components/FaceTypeStep';
@@ -8,7 +9,16 @@ import DesiredDateStep from '../features/meeting/components/DesiredDateStep';
 import ContactStep from '../features/meeting/components/ContactStep';
 import { useRegisterProfile } from '../features/meeting/hooks/useRegisterProfile';
 
-const TOTAL_STEPS = 6;
+const STEPS = [
+  'gender',
+  'faceType',
+  'birthYear',
+  'hobby',
+  'desiredDate',
+  'contact',
+] as const;
+
+type StepKey = (typeof STEPS)[number];
 
 interface RegisterFormState {
   gender: '남' | '여' | null;
@@ -19,8 +29,27 @@ interface RegisterFormState {
   contact: string;
 }
 
+const STEP_VALIDATION: Record<StepKey, (state: RegisterFormState) => boolean> =
+  {
+    gender: (state) => state.gender !== null,
+    faceType: (state) => state.faceType !== null,
+    birthYear: () => true,
+    hobby: (state) => state.hobby.trim().length > 0,
+    desiredDate: (state) => state.desiredDate.trim().length > 0,
+    contact: (state) => state.contact.trim().length > 0,
+  };
+
 function MeetingRegisterPage() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const stepParam = searchParams.get('step') as StepKey | null;
+  const currentStepKey: StepKey =
+    stepParam !== null && (STEPS as readonly string[]).includes(stepParam)
+      ? stepParam
+      : 'gender';
+  const currentStepIndex = STEPS.indexOf(currentStepKey);
+
   const [formState, setFormState] = useState<RegisterFormState>({
     gender: null,
     faceType: null,
@@ -32,40 +61,33 @@ function MeetingRegisterPage() {
 
   const { mutate: registerProfile, isPending } = useRegisterProfile();
 
-  const isCurrentStepValid = () => {
-    if (currentStep === 1) return formState.gender !== null;
-    if (currentStep === 2) return formState.faceType !== null;
-    if (currentStep === 3) return true;
-    if (currentStep === 4) return formState.hobby.trim().length > 0;
-    if (currentStep === 5) return formState.desiredDate.trim().length > 0;
-    if (currentStep === 6) return formState.contact.trim().length > 0;
-    return false;
-  };
+  useEffect(() => {
+    if (currentStepIndex > 0 && formState.gender === null) {
+      setSearchParams({ step: 'gender' }, { replace: true });
+    }
+  }, []);
+
+  const isCurrentStepValid = STEP_VALIDATION[currentStepKey](formState);
+
+  const updateFormState =
+    <K extends keyof RegisterFormState>(key: K) =>
+    (value: RegisterFormState[K]) =>
+      setFormState((previous) => ({ ...previous, [key]: value }));
 
   const handleNext = () => {
-    if (currentStep < TOTAL_STEPS) {
-      setCurrentStep((previous) => previous + 1);
+    if (currentStepIndex < STEPS.length - 1) {
+      setSearchParams({ step: STEPS[currentStepIndex + 1] });
     } else {
       handleSubmit();
     }
   };
 
   const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep((previous) => previous - 1);
-    }
+    navigate(-1);
   };
 
   const handleSubmit = () => {
-    if (
-      !formState.gender ||
-      !formState.faceType ||
-      !formState.hobby.trim() ||
-      !formState.desiredDate.trim() ||
-      !formState.contact.trim()
-    ) {
-      return;
-    }
+    if (!formState.gender || !formState.faceType) return;
 
     registerProfile({
       gender: formState.gender,
@@ -78,74 +100,75 @@ function MeetingRegisterPage() {
     });
   };
 
+  const renderStep = () => {
+    switch (currentStepKey) {
+      case 'gender':
+        return (
+          <GenderStep
+            value={formState.gender}
+            onChange={updateFormState('gender')}
+          />
+        );
+      case 'faceType':
+        return (
+          <FaceTypeStep
+            value={formState.faceType}
+            onChange={updateFormState('faceType')}
+          />
+        );
+      case 'birthYear':
+        return (
+          <BirthYearStep
+            value={formState.birthYear}
+            onChange={updateFormState('birthYear')}
+          />
+        );
+      case 'hobby':
+        return (
+          <HobbyStep
+            value={formState.hobby}
+            onChange={updateFormState('hobby')}
+          />
+        );
+      case 'desiredDate':
+        return (
+          <DesiredDateStep
+            value={formState.desiredDate}
+            onChange={updateFormState('desiredDate')}
+          />
+        );
+      case 'contact':
+        return (
+          <ContactStep
+            value={formState.contact}
+            onChange={updateFormState('contact')}
+          />
+        );
+    }
+  };
+
   return (
     <div className="bg-alabaster mx-auto flex min-h-screen w-full max-w-[448px] flex-col">
-      <FunnelProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
+      <FunnelProgressBar
+        currentStep={currentStepIndex + 1}
+        totalSteps={STEPS.length}
+      />
       <div className="flex flex-1 flex-col px-6 pt-6 pb-4">
-        <div className="flex-1">
-          {currentStep === 1 && (
-            <GenderStep
-              value={formState.gender}
-              onChange={(gender) =>
-                setFormState((previous) => ({ ...previous, gender }))
-              }
-            />
-          )}
-          {currentStep === 2 && (
-            <FaceTypeStep
-              value={formState.faceType}
-              onChange={(faceType) =>
-                setFormState((previous) => ({ ...previous, faceType }))
-              }
-            />
-          )}
-          {currentStep === 3 && (
-            <BirthYearStep
-              value={formState.birthYear}
-              onChange={(birthYear) =>
-                setFormState((previous) => ({ ...previous, birthYear }))
-              }
-            />
-          )}
-          {currentStep === 4 && (
-            <HobbyStep
-              value={formState.hobby}
-              onChange={(hobby) =>
-                setFormState((previous) => ({ ...previous, hobby }))
-              }
-            />
-          )}
-          {currentStep === 5 && (
-            <DesiredDateStep
-              value={formState.desiredDate}
-              onChange={(desiredDate) =>
-                setFormState((previous) => ({ ...previous, desiredDate }))
-              }
-            />
-          )}
-          {currentStep === 6 && (
-            <ContactStep
-              value={formState.contact}
-              onChange={(contact) =>
-                setFormState((previous) => ({ ...previous, contact }))
-              }
-            />
-          )}
-        </div>
+        <div className="flex-1">{renderStep()}</div>
         <div className="mt-4 flex flex-col gap-0">
           <button
             type="button"
             onClick={handleNext}
-            disabled={!isCurrentStepValid() || isPending}
+            disabled={!isCurrentStepValid || isPending}
             className={`text-button w-full cursor-pointer rounded-2xl py-4 font-bold text-white transition-opacity ${
-              isCurrentStepValid() && !isPending
+              isCurrentStepValid && !isPending
                 ? 'bg-main-gradient'
                 : 'bg-main-gradient cursor-not-allowed opacity-40'
             }`}
           >
-            {currentStep === TOTAL_STEPS ? '제출하기' : '다음'}
+            {currentStepIndex === STEPS.length - 1 ? '제출하기' : '다음'}
           </button>
-          {currentStep > 1 && (
+          {currentStepIndex > 0 && (
             <button
               type="button"
               onClick={handleBack}
