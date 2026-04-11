@@ -76,8 +76,6 @@ function MeetingRegisterPage() {
   const handleNext = () => {
     if (currentStepIndex < STEPS.length - 1) {
       setSearchParams({ step: STEPS[currentStepIndex + 1] });
-    } else {
-      handleSubmit();
     }
   };
 
@@ -153,16 +151,22 @@ function MeetingRegisterPage() {
   };
 
   return (
-    <div className="bg-alabaster mx-auto flex min-h-screen w-full max-w-[448px] flex-col">
+    <main className="bg-alabaster mx-auto flex min-h-screen w-full max-w-[448px] flex-col">
       <FunnelProgressBar
         currentStep={currentStepIndex + 1}
         totalSteps={STEPS.length}
       />
-      <div className="flex flex-1 flex-col px-6 pt-6 pb-4">
+      <form
+        className="flex flex-1 flex-col px-6 pt-6 pb-4"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSubmit();
+        }}
+      >
         <div className="flex-1">{renderStep()}</div>
         <div className="mt-4 flex flex-col gap-0">
           <button
-            type="button"
+            type={currentStepIndex === STEPS.length - 1 ? 'submit' : 'button'}
             onClick={handleNext}
             disabled={!isCurrentStepValid || isPending}
             className={`text-button w-full cursor-pointer rounded-2xl py-4 font-bold text-white transition-opacity ${
@@ -184,8 +188,8 @@ function MeetingRegisterPage() {
             </button>
           )}
         </div>
-      </div>
-    </div>
+      </form>
+    </main>
   );
 }
 

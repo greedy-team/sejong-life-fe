@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-
-const CURRENT_YEAR = 2026;
+import { CURRENT_YEAR } from '../constants/meetingConstants';
 const MIN_YEAR = 1980;
 const MAX_YEAR = 2008;
 const ITEM_HEIGHT = 56;
@@ -61,7 +60,7 @@ function BirthYearStep({ value, onChange }: BirthYearStepProps) {
   return (
     <div className="flex w-full flex-col items-start gap-1 pb-1">
       <div className="flex w-full flex-col gap-1 pb-1">
-        <h1 className="text-heading-1 text-shark">나이를 알려주세요</h1>
+        <h2 className="text-heading-1 text-shark">나이를 알려주세요</h2>
         <p className="text-body-regular text-jumbo">
           스크롤해서 나이를 선택하세요
         </p>
@@ -74,6 +73,9 @@ function BirthYearStep({ value, onChange }: BirthYearStepProps) {
           <div
             ref={scrollContainerRef}
             onScroll={handleScroll}
+            role="listbox"
+            aria-label="출생년도"
+            aria-activedescendant={`year-${displayedYear}`}
             className="dial-scroll w-full"
             style={{
               height: containerHeight,
@@ -90,6 +92,9 @@ function BirthYearStep({ value, onChange }: BirthYearStepProps) {
               {years.map((year) => (
                 <div
                   key={year}
+                  id={`year-${year}`}
+                  role="option"
+                  aria-selected={year === displayedYear}
                   className="flex items-center justify-center"
                   style={{ height: ITEM_HEIGHT, scrollSnapAlign: 'center' }}
                 >

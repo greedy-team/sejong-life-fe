@@ -8,11 +8,13 @@ interface ProfileCardListProps {
 
 function ProfileCardList({ profiles, onOpenCard }: ProfileCardListProps) {
   return (
-    <div className="flex w-full flex-col gap-5 px-4 pt-2 pb-8">
+    <ul className="flex w-full flex-col gap-5 px-4 pt-2 pb-8">
       {profiles.map((profile) => (
-        <ProfileCard key={profile.id} profile={profile} onOpen={onOpenCard} />
+        <li key={profile.id}>
+          <ProfileCard profile={profile} onOpen={onOpenCard} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 

@@ -28,8 +28,8 @@ function MeetingPage() {
   };
 
   return (
-    <div className="bg-meeting-surface mx-auto flex min-h-screen w-full max-w-[448px] flex-col">
-      <div
+    <main className="bg-meeting-surface mx-auto flex min-h-screen w-full max-w-[448px] flex-col">
+      <header
         className="sticky top-0 z-10 w-full"
         style={{
           background: 'rgba(250, 250, 250, 0.8)',
@@ -38,7 +38,13 @@ function MeetingPage() {
       >
         <div className="flex w-full flex-row items-center justify-between px-5 py-4">
           <div className="flex flex-row items-center gap-2">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              aria-hidden="true"
+            >
               <path
                 d="M10 2C6.686 2 4 4.686 4 8C4 11.314 6.686 14 10 14C13.314 14 16 11.314 16 8C16 4.686 13.314 4 10 2Z"
                 stroke="#EB4763"
@@ -64,7 +70,13 @@ function MeetingPage() {
             onClick={() => navigate('/meeting/register')}
             className="bg-choice-header-gradient flex cursor-pointer flex-row items-center gap-1.5 rounded-full px-4 py-2"
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
               <rect
                 x="1.335"
                 y="1.335"
@@ -104,7 +116,7 @@ function MeetingPage() {
             </span>
           </button>
         </div>
-      </div>
+      </header>
 
       <div className="flex-1 overflow-y-auto">
         {isLoading && (
@@ -146,7 +158,7 @@ function MeetingPage() {
           onClose={handleCloseModal}
         />
       )}
-    </div>
+    </main>
   );
 }
 

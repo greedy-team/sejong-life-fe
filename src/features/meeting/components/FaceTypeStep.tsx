@@ -14,7 +14,7 @@ function FaceTypeStep({ value, onChange }: FaceTypeStepProps) {
   return (
     <div className="flex w-full flex-col items-start gap-1 pb-1">
       <div className="flex w-full flex-col gap-1 pb-1">
-        <h1 className="text-heading-1 text-shark">당신의 동물상은?</h1>
+        <h2 className="text-heading-1 text-shark">당신의 동물상은?</h2>
         <p className="text-body-regular text-jumbo">닮은 동물을 골라주세요</p>
       </div>
       <div className="grid w-full grid-cols-2 gap-4 pt-4">

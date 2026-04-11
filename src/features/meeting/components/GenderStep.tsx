@@ -7,7 +7,7 @@ function GenderStep({ value, onChange }: GenderStepProps) {
   return (
     <div className="flex w-full flex-col items-start gap-1 pb-1">
       <div className="flex w-full flex-col gap-1 pb-1">
-        <h1 className="text-heading-1 text-shark">성별을 선택해주세요</h1>
+        <h2 className="text-heading-1 text-shark">성별을 선택해주세요</h2>
         <p className="text-body-regular text-jumbo">하나를 선택해주세요</p>
       </div>
       <div className="flex w-full flex-row gap-4 pt-4">

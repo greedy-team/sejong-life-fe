@@ -16,12 +16,18 @@ function ContactRevealModal({
       onClick={onClose}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-modal-title"
         className="relative mx-4 flex w-full max-w-sm flex-col items-center gap-6 rounded-3xl bg-white p-8"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex w-full flex-col items-center gap-2">
           <span className="text-4xl">💌</span>
-          <h2 className="text-heading-1 text-shark text-center">
+          <h2
+            id="contact-modal-title"
+            className="text-heading-1 text-shark text-center"
+          >
             연락처가 공개되었어요!
           </h2>
           <p className="text-body-regular text-jumbo text-center">

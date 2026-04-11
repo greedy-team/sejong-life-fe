@@ -15,7 +15,7 @@ function ContactStep({ value, onChange }: ContactStepProps) {
   return (
     <div className="flex w-full flex-col items-start gap-1 pb-1">
       <div className="flex w-full flex-col gap-1 pb-1">
-        <h1 className="text-heading-1 text-shark">연락처를 알려주세요</h1>
+        <h2 className="text-heading-1 text-shark">연락처를 알려주세요</h2>
         <p className="text-body-regular text-jumbo">
           매칭 후 연락할 수단을 입력해주세요
         </p>
@@ -29,6 +29,7 @@ function ContactStep({ value, onChange }: ContactStepProps) {
               onChange={handleChange}
               placeholder="예: @my_kakao_id 또는 @my_instagram"
               maxLength={MAX_LENGTH}
+              aria-label="연락처"
               className="text-caption text-shark w-full bg-transparent outline-none placeholder:text-[#B9B9B9]"
             />
           </div>
