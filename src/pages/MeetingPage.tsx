@@ -4,7 +4,7 @@ import { useMeetingProfiles } from '../features/meeting/hooks/useMeetingProfiles
 import { useOpenCard } from '../features/meeting/hooks/useOpenCard';
 import ProfileCardList from '../features/meeting/components/ProfileCardList';
 import ContactRevealModal from '../features/meeting/components/ContactRevealModal';
-import { TodayConnectionIcon, AddProfileIcon } from '../components/icons';
+import { TodayConnectionIcon, CoinIcon } from '../components/icons';
 import type { CardOpenResponse } from '../types/meetingType';
 
 function MeetingPage() {
@@ -45,7 +45,7 @@ function MeetingPage() {
             onClick={() => navigate('/meeting/register')}
             className="bg-choice-header-gradient flex cursor-pointer flex-row items-center gap-1.5 rounded-full px-4 py-2"
           >
-            <AddProfileIcon />
+            <CoinIcon className="h-5 w-5" />
             <span className="text-caption font-bold text-white">
               {openCardResult?.remainOpenCount ?? 1}개
             </span>
