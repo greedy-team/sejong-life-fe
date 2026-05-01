@@ -87,19 +87,24 @@ function ProfileCard({ profile, onOpen }: ProfileCardProps) {
           </span>
         </div>
         {hobbyTags.length > 0 && (
-          <div className="flex flex-row flex-wrap gap-1.5">
-            {hobbyTags.map((tag) => (
-              <span
-                key={tag}
-                className="text-caption text-shark px-3 py-1"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.6)',
-                  borderRadius: 9999,
-                }}
-              >
-                {tag}
-              </span>
-            ))}
+          <div className="flex flex-col gap-2">
+            <span className="text-caption text-shark px-4 font-medium">
+              Q: 취미/특기는?
+            </span>
+            <div className="flex flex-row flex-wrap gap-1.5 px-4">
+              {hobbyTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-caption text-shark px-3 py-1"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.6)',
+                    borderRadius: 9999,
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         )}
       </div>
