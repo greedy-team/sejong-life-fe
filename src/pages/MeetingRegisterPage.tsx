@@ -79,16 +79,17 @@ function MeetingRegisterPage() {
     }
   };
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   const handleSubmit = () => {
-    if (!formState.gender || !formState.faceType) return;
+    if (
+      !Object.entries(STEP_VALIDATION).every(([, validate]) =>
+        validate(formState),
+      )
+    )
+      return;
 
     registerProfile({
-      gender: formState.gender,
-      faceType: formState.faceType,
+      gender: formState.gender as '남' | '여',
+      faceType: formState.faceType as string,
       birthYear: formState.birthYear,
       hobby: formState.hobby.trim(),
       desiredDate: formState.desiredDate.trim(),
@@ -97,58 +98,52 @@ function MeetingRegisterPage() {
     });
   };
 
-  const renderStep = () => {
-    switch (currentStepKey) {
-      case 'gender':
-        return (
-          <GenderStep
-            value={formState.gender}
-            onChange={updateFormState('gender')}
-          />
-        );
-      case 'faceType':
-        return (
-          <FaceTypeStep
-            value={formState.faceType}
-            onChange={updateFormState('faceType')}
-          />
-        );
-      case 'birthYear':
-        return (
-          <BirthYearStep
-            value={formState.birthYear}
-            onChange={updateFormState('birthYear')}
-          />
-        );
-      case 'hobby':
-        return (
-          <TextareaStep
-            title="취미/특기를 알려주세요"
-            description="자신의 취미나 특기를 적어주세요"
-            placeholder="예: 한강에서 치맥하며 수다떨기"
-            value={formState.hobby}
-            onChange={updateFormState('hobby')}
-          />
-        );
-      case 'desiredDate':
-        return (
-          <TextareaStep
-            title="원하는 데이트는?"
-            description="하고싶은 데이트를 적어주세요"
-            placeholder="예: 한강에서 치맥하며 수다떨기"
-            value={formState.desiredDate}
-            onChange={updateFormState('desiredDate')}
-          />
-        );
-      case 'contact':
-        return (
-          <ContactStep
-            value={formState.contact}
-            onChange={updateFormState('contact')}
-          />
-        );
-    }
+  const STEP_COMPONENTS: Record<StepKey, React.ReactNode> = {
+    gender: (
+      <GenderStep
+        value={formState.gender}
+        onChange={updateFormState('gender')}
+      />
+    ),
+    faceType: (
+      <FaceTypeStep
+        value={formState.faceType}
+        onChange={updateFormState('faceType')}
+      />
+    ),
+    birthYear: (
+      <BirthYearStep
+        value={formState.birthYear}
+        onChange={updateFormState('birthYear')}
+      />
+    ),
+    hobby: (
+      <TextareaStep
+        title="취미/특기를 알려주세요"
+        description="자신의 취미나 특기를 적어주세요"
+        placeholder="예: 한강에서 치맥하며 수다떨기"
+        value={formState.hobby}
+        onChange={updateFormState('hobby')}
+      />
+    ),
+    desiredDate: (
+      <TextareaStep
+        title="원하는 데이트는?"
+        description="하고싶은 데이트를 적어주세요"
+        placeholder="예: 한강에서 치맥하며 수다떨기"
+        value={formState.desiredDate}
+        onChange={updateFormState('desiredDate')}
+      />
+    ),
+    contact: (
+      <ContactStep
+        value={formState.contact}
+        onChange={updateFormState('contact')}
+      />
+    ),
   };
+
+  const renderStep = () => STEP_COMPONENTS[currentStepKey];
 
   return (
     <main className="bg-alabaster mx-auto flex min-h-screen w-full max-w-[448px] flex-col">
@@ -180,7 +175,7 @@ function MeetingRegisterPage() {
           {currentStepIndex > 0 && (
             <button
               type="button"
-              onClick={handleBack}
+              onClick={() => navigate(-1)}
               className="text-body-medium w-full cursor-pointer py-7 text-center font-medium"
               style={{ color: '#8F8F8F' }}
             >
