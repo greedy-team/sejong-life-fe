@@ -4,6 +4,7 @@ import { useMeetingProfiles } from '../features/meeting/hooks/useMeetingProfiles
 import { useOpenCard } from '../features/meeting/hooks/useOpenCard';
 import ProfileCardList from '../features/meeting/components/ProfileCardList';
 import ContactRevealModal from '../features/meeting/components/ContactRevealModal';
+import { TodayConnectionIcon, AddProfileIcon } from '../components/icons';
 import type { CardOpenResponse } from '../types/meetingType';
 
 function MeetingPage() {
@@ -36,31 +37,7 @@ function MeetingPage() {
       >
         <div className="flex w-full flex-row items-center justify-between px-5 py-4">
           <div className="flex flex-row items-center gap-2">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M10 2C6.686 2 4 4.686 4 8C4 11.314 6.686 14 10 14C13.314 14 16 11.314 16 8C16 4.686 13.314 4 10 2Z"
-                stroke="#EB4763"
-                strokeWidth="1.667"
-              />
-              <path
-                d="M16.667 2.5L14.167 5"
-                stroke="#EB4763"
-                strokeWidth="1.667"
-              />
-              <path d="M15 2L17 4" stroke="#EB4763" strokeWidth="1.667" />
-              <path
-                d="M3.333 14.167L5.833 16.667"
-                stroke="#EB4763"
-                strokeWidth="1.667"
-              />
-              <path d="M2.5 15L5 17.5" stroke="#EB4763" strokeWidth="1.667" />
-            </svg>
+            <TodayConnectionIcon />
             <span className="text-heading-2 text-shark">오늘의 인연</span>
           </div>
           <button
@@ -68,47 +45,7 @@ function MeetingPage() {
             onClick={() => navigate('/meeting/register')}
             className="bg-choice-header-gradient flex cursor-pointer flex-row items-center gap-1.5 rounded-full px-4 py-2"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden="true"
-            >
-              <rect
-                x="1.335"
-                y="1.335"
-                width="5.33"
-                height="5.33"
-                rx="1"
-                stroke="white"
-                strokeWidth="1.333"
-              />
-              <rect
-                x="9.335"
-                y="1.335"
-                width="5.33"
-                height="5.33"
-                rx="1"
-                stroke="white"
-                strokeWidth="1.333"
-              />
-              <rect
-                x="1.335"
-                y="9.335"
-                width="5.33"
-                height="5.33"
-                rx="1"
-                stroke="white"
-                strokeWidth="1.333"
-              />
-              <path
-                d="M9.667 12.333L12.333 12.333M12.333 9.667L12.333 14.999"
-                stroke="white"
-                strokeWidth="1.333"
-                strokeLinecap="round"
-              />
-            </svg>
+            <AddProfileIcon />
             <span className="text-caption font-bold text-white">
               {openCardResult?.remainOpenCount ?? 1}개
             </span>
