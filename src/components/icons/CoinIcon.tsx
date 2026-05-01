@@ -7,7 +7,7 @@ function CoinIcon({ className }: CoinIconProps) {
     <img
       src="/asset/meeting/coinIcon.svg"
       alt="coin"
-      className={className}
+      className={`${className} inline-block align-middle`}
       aria-hidden="true"
     />
   );
