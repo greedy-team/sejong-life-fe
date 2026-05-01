@@ -70,7 +70,7 @@ function ProfileCard({ profile, onOpen }: ProfileCardProps) {
           </div>
         </div>
         <div
-          className="flex w-full flex-col items-start px-4"
+          className="flex w-full flex-col items-start gap-1 px-4"
           style={{
             paddingTop: 11.3,
             paddingBottom: 12,
@@ -79,8 +79,11 @@ function ProfileCard({ profile, onOpen }: ProfileCardProps) {
             borderRadius: 16,
           }}
         >
+          <span className="text-caption text-shark font-medium">
+            Q: 함께하고 싶은 데이트는?
+          </span>
           <span className="text-body-medium text-shark">
-            💭 &quot;{profile.desiredDate}&quot;
+            &quot;{profile.desiredDate}&quot;
           </span>
         </div>
         {hobbyTags.length > 0 && (
