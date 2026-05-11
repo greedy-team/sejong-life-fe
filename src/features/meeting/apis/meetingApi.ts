@@ -23,7 +23,7 @@ export const registerMeetingProfile = async (
 }> => {
   const signUpToken = sessionStorage.getItem('signUpToken');
 
-  const response = await authApi.post('/meeting/auth/signup', payload, {
+  const response = await authApi.post('/api/meeting/auth/signup', payload, {
     headers: {
       Authorization: `Bearer ${signUpToken}`,
     },

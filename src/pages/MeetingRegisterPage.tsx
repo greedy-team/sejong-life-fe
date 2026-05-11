@@ -94,7 +94,6 @@ function MeetingRegisterPage() {
       hobby: formState.hobby.trim(),
       desiredDate: formState.dateStyle.trim(),
       contact: formState.contact.trim(),
-      remainPickCount: 5,
     });
   };
 

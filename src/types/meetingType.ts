@@ -17,7 +17,6 @@ export interface ProfileRegisterPayload {
   desiredDate: string;
   selfAppeal?: string;
   contact: string;
-  remainPickCount: number;
 }
 
 export interface CardOpenResponse {
