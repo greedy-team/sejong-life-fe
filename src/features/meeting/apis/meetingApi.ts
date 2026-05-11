@@ -37,3 +37,17 @@ export const openMeetingCard = async (
   const response = await authApi.post(`/meeting/profiles/${profileId}/open`);
   return response.data;
 };
+
+export const kakaoLogin = async ({
+  code,
+  state,
+}: {
+  code: string;
+  state: string;
+}) => {
+  const response = await authApi.post('/api/meeting/auth/kakao/login', {
+    code,
+    state,
+  });
+  return response.data;
+};

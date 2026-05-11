@@ -1,9 +1,41 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useKakaoLogin } from '../features/meeting/hooks/useKaKaoLogin';
+import { authApi } from '../api/api';
+
+const KAKAO_CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
+const KAKAO_REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
 
 const MeetingKakaoLoginPage = () => {
   const navigate = useNavigate();
-  const handleKakaoLogin = () => {
-    navigate('/meeting/register');
+  const [searchParams] = useSearchParams();
+  const { mutate: kakaoLogin } = useKakaoLogin((data) => {
+    if (data.data.newUser) {
+      sessionStorage.setItem('signUpToken', data.data.signUpToken);
+      navigate('/meeting/register?step=gender');
+    } else {
+      localStorage.setItem('accessToken', data.data.accessToken);
+      navigate('/meeting');
+    }
+  });
+
+  useEffect(() => {
+    const code = searchParams.get('code');
+    const state = searchParams.get('state');
+    if (code && state) {
+      kakaoLogin({ code, state }); //자동으로 mutate 하도록
+    }
+  }, []);
+
+  const handleKakaoLogin = async () => {
+    const { data } = await authApi.get('/meeting/auth/kakao/state');
+
+    window.location.href =
+      `https://kauth.kakao.com/oauth/authorize` +
+      `?client_id=${KAKAO_CLIENT_ID}` +
+      `&redirect_uri=${KAKAO_REDIRECT_URI}` +
+      `&response_type=code` +
+      `&state=${data.state}`;
   };
   return (
     <main className="bg-alabaster mx-auto flex min-h-screen w-full max-w-[448px] flex-col items-center justify-center px-6">
