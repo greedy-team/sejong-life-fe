@@ -13,7 +13,7 @@ const STEPS = [
   'faceType',
   'birthYear',
   'hobby',
-  'desiredDate',
+  'dateStyle',
   'contact',
 ] as const;
 
@@ -24,7 +24,7 @@ interface RegisterFormState {
   faceType: string | null;
   birthYear: number;
   hobby: string;
-  desiredDate: string;
+  dateStyle: string;
   contact: string;
 }
 
@@ -34,7 +34,7 @@ const STEP_VALIDATION: Record<StepKey, (state: RegisterFormState) => boolean> =
     faceType: (state) => state.faceType !== null,
     birthYear: () => true,
     hobby: (state) => state.hobby.trim().length > 0,
-    desiredDate: (state) => state.desiredDate.trim().length > 0,
+    dateStyle: (state) => state.dateStyle.trim().length > 0,
     contact: (state) => state.contact.trim().length > 0,
   };
 
@@ -54,7 +54,7 @@ function MeetingRegisterPage() {
     faceType: null,
     birthYear: 2002,
     hobby: '',
-    desiredDate: '',
+    dateStyle: '',
     contact: '',
   });
 
@@ -92,7 +92,7 @@ function MeetingRegisterPage() {
       faceType: formState.faceType as string,
       birthYear: formState.birthYear,
       hobby: formState.hobby.trim(),
-      desiredDate: formState.desiredDate.trim(),
+      desiredDate: formState.dateStyle.trim(),
       contact: formState.contact.trim(),
       remainPickCount: 5,
     });
@@ -126,13 +126,13 @@ function MeetingRegisterPage() {
         onChange={updateFormState('hobby')}
       />
     ),
-    desiredDate: (
+    dateStyle: (
       <TextareaStep
         title="원하는 데이트는?"
         description="하고싶은 데이트를 적어주세요"
         placeholder="예: 한강에서 치맥하며 수다떨기"
-        value={formState.desiredDate}
-        onChange={updateFormState('desiredDate')}
+        value={formState.dateStyle}
+        onChange={updateFormState('dateStyle')}
       />
     ),
     contact: (

@@ -12,8 +12,22 @@ export const fetchMeetingProfiles = async (): Promise<Profile[]> => {
 
 export const registerMeetingProfile = async (
   payload: ProfileRegisterPayload,
-): Promise<{ id: number; message: string }> => {
-  const response = await authApi.post('/meeting/profiles', payload);
+): Promise<{
+  message: string;
+  data: {
+    accessToken: string;
+    signUpToken: string;
+    userInfo: { studentId: string; name: string };
+    newUser: boolean;
+  };
+}> => {
+  const signUpToken = sessionStorage.getItem('signUpToken');
+
+  const response = await authApi.post('/meeting/auth/signup', payload, {
+    headers: {
+      Authorization: `Bearer ${signUpToken}`,
+    },
+  });
   return response.data;
 };
 
