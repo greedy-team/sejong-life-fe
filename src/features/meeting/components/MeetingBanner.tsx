@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 const MeetingBanner = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-main-gradient relative mx-4 mt-5 flex items-center justify-between overflow-hidden rounded-2xl p-5">
       <div className="relative z-10">
@@ -16,7 +20,10 @@ const MeetingBanner = () => {
         </p>
       </div>
 
-      <button className="relative z-10 flex-shrink-0 rounded-xl bg-white px-4 py-2.5 text-xs font-bold text-[#f8433a]">
+      <button
+        onClick={() => navigate('/meeting/kakaoLogin')}
+        className="relative z-10 flex-shrink-0 rounded-xl bg-white px-4 py-2.5 text-xs font-bold text-[#f8433a]"
+      >
         참여하기 →
       </button>
     </div>
