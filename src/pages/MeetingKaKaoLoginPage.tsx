@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useKakaoLogin } from '../features/meeting/hooks/useKaKaoLogin';
+import { useEffect, useRef } from 'react';
+import { useKakaoLogin } from '../features/meeting/hooks/useKakaoLogin';
 import { authApi } from '../api/api';
 
 const KAKAO_CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
@@ -19,23 +19,26 @@ const MeetingKakaoLoginPage = () => {
     }
   });
 
+  const hasCalledLogin = useRef(false);
+
   useEffect(() => {
     const code = searchParams.get('code');
     const state = searchParams.get('state');
-    if (code && state) {
-      kakaoLogin({ code, state }); //자동으로 mutate 하도록
+    if (code && state && !hasCalledLogin.current) {
+      hasCalledLogin.current = true;
+      kakaoLogin({ code, state });
     }
   }, []);
 
   const handleKakaoLogin = async () => {
-    const { data } = await authApi.get('/meeting/auth/kakao/state');
+    const { data } = await authApi.get('/api/meeting/auth/kakao/state');
 
     window.location.href =
       `https://kauth.kakao.com/oauth/authorize` +
       `?client_id=${KAKAO_CLIENT_ID}` +
       `&redirect_uri=${KAKAO_REDIRECT_URI}` +
       `&response_type=code` +
-      `&state=${data.state}`;
+      `&state=${encodeURIComponent(data.data.state)}`;
   };
   return (
     <main className="bg-alabaster mx-auto flex min-h-screen w-full max-w-[448px] flex-col items-center justify-center px-6">
@@ -48,7 +51,7 @@ const MeetingKakaoLoginPage = () => {
 
       <button
         onClick={handleKakaoLogin}
-        className="flex w-full items-center justify-center gap-3 rounded-2xl py-4 font-bold text-[#3C1E1E]"
+        className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-2xl py-4 font-bold text-[#3C1E1E]"
         style={{ backgroundColor: '#FEE500' }}
       >
         카카오로 시작하기
