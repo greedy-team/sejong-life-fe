@@ -6,7 +6,7 @@ import type {
 } from '../../../types/meetingType';
 
 export const fetchMeetingProfiles = async (): Promise<Profile[]> => {
-  const response = await authApi.get('/meeting/profiles');
+  const response = await authApi.get('/api/meeting/profiles');
   return response.data;
 };
 

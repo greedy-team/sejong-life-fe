@@ -72,13 +72,6 @@ function MeetingPage() {
             <span className="text-body-regular text-jumbo">
               아직 등록된 프로필이 없어요
             </span>
-            <button
-              type="button"
-              onClick={() => navigate('/meeting/register')}
-              className="bg-main-gradient text-body-medium cursor-pointer rounded-full px-6 py-3 font-bold text-white"
-            >
-              내 프로필 등록하기
-            </button>
           </div>
         )}
         {profiles && profiles.length > 0 && (
