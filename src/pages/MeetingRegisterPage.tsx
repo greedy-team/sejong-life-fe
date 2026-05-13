@@ -20,7 +20,7 @@ const STEPS = [
 type StepKey = (typeof STEPS)[number];
 
 interface RegisterFormState {
-  gender: '남' | '여' | null;
+  gender: 'MALE' | 'FEMALE' | null;
   faceType: string | null;
   birthYear: number;
   hobby: string;
@@ -88,11 +88,11 @@ function MeetingRegisterPage() {
       return;
 
     registerProfile({
-      gender: formState.gender as '남' | '여',
+      gender: formState.gender as 'MALE' | 'FEMALE',
       faceType: formState.faceType as string,
       birthYear: formState.birthYear,
       hobby: formState.hobby.trim(),
-      desiredDate: formState.dateStyle.trim(),
+      dateStyle: formState.dateStyle.trim(),
       contact: formState.contact.trim(),
     });
   };

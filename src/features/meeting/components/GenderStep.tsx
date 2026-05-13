@@ -1,6 +1,6 @@
 interface GenderStepProps {
-  value: '남' | '여' | null;
-  onChange: (gender: '남' | '여') => void;
+  value: 'MALE' | 'FEMALE' | null;
+  onChange: (gender: 'MALE' | 'FEMALE') => void;
 }
 
 function GenderStep({ value, onChange }: GenderStepProps) {
@@ -13,32 +13,32 @@ function GenderStep({ value, onChange }: GenderStepProps) {
       <div className="flex w-full flex-row gap-4 pt-4">
         <button
           type="button"
-          onClick={() => onChange('남')}
+          onClick={() => onChange('MALE')}
           className={`flex h-[163px] flex-1 cursor-pointer flex-col items-center justify-center rounded-3xl border transition-colors ${
-            value === '남'
+            value === 'MALE'
               ? 'bg-main-gradient border-transparent'
               : 'border-iron hover:border-mandy bg-white'
           }`}
         >
           <span className="mb-2 text-[46.9px] leading-[48px]">🙋‍♂️</span>
           <span
-            className={`text-button ${value === '남' ? 'text-white' : 'text-shark'}`}
+            className={`text-button ${value === 'MALE' ? 'text-white' : 'text-shark'}`}
           >
             남성
           </span>
         </button>
         <button
           type="button"
-          onClick={() => onChange('여')}
+          onClick={() => onChange('FEMALE')}
           className={`flex h-[163px] flex-1 cursor-pointer flex-col items-center justify-center rounded-3xl border transition-colors ${
-            value === '여'
+            value === 'FEMALE'
               ? 'bg-main-gradient border-transparent'
               : 'border-iron hover:border-mandy bg-white'
           }`}
         >
           <span className="mb-2 text-[46.9px] leading-[48px]">🙋‍♀️</span>
           <span
-            className={`text-button ${value === '여' ? 'text-white' : 'text-shark'}`}
+            className={`text-button ${value === 'FEMALE' ? 'text-white' : 'text-shark'}`}
           >
             여성
           </span>

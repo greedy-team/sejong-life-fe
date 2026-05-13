@@ -1,5 +1,5 @@
 import type { Profile } from '../../../types/meetingType';
-import { CURRENT_YEAR, FACE_TYPE_EMOJI } from '../constants/meetingConstants';
+import { CURRENT_YEAR, FACE_TYPES } from '../constants/meetingConstants';
 
 interface ProfileCardProps {
   profile: Profile;
@@ -7,7 +7,9 @@ interface ProfileCardProps {
 }
 
 function ProfileCard({ profile, onOpen }: ProfileCardProps) {
-  const emoji = FACE_TYPE_EMOJI[profile.faceType] ?? '😊';
+  const faceType = FACE_TYPES.find((f) => f.value === profile.faceType);
+  const emoji = faceType?.emoji ?? '😊';
+  const faceLabel = faceType?.label ?? profile.faceType;
   const age = CURRENT_YEAR - profile.birthYear;
   const hobbyTags = profile.hobby
     .split(',')
@@ -64,7 +66,7 @@ function ProfileCard({ profile, onOpen }: ProfileCardProps) {
           </div>
           <div className="flex min-w-0 flex-1 flex-col">
             <span className="text-button text-shark leading-6">
-              {profile.faceType}
+              {faceLabel}
             </span>
             <span className="text-body-regular text-jumbo">{age}세</span>
           </div>
@@ -83,7 +85,7 @@ function ProfileCard({ profile, onOpen }: ProfileCardProps) {
             Q: 함께하고 싶은 데이트는?
           </span>
           <span className="text-body-medium text-shark">
-            &quot;{profile.desiredDate}&quot;
+            &quot;{profile.dateStyle}&quot;
           </span>
         </div>
         {hobbyTags.length > 0 && (

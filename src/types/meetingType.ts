@@ -1,20 +1,20 @@
 export interface Profile {
   id: number;
-  gender: '남' | '여';
+  gender: 'MALE' | 'FEMALE';
   faceType: string;
   birthYear: number;
   hobby: string;
-  desiredDate: string;
+  dateStyle: string;
   selfAppeal?: string;
   remainPickCount: number;
 }
 
 export interface ProfileRegisterPayload {
-  gender: '남' | '여';
+  gender: 'MALE' | 'FEMALE';
   faceType: string;
   birthYear: number;
   hobby: string;
-  desiredDate: string;
+  dateStyle: string;
   selfAppeal?: string;
   contact: string;
 }
