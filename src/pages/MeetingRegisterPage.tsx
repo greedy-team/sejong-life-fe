@@ -28,16 +28,6 @@ interface RegisterFormState {
   contact: string;
 }
 
-const STEP_VALIDATION: Record<StepKey, (state: RegisterFormState) => boolean> =
-  {
-    gender: (state) => state.gender !== null,
-    faceType: (state) => state.faceType !== null,
-    birthYear: () => true,
-    hobby: (state) => state.hobby.trim().length > 0,
-    dateStyle: (state) => state.dateStyle.trim().length > 0,
-    contact: (state) => state.contact.trim().length > 0,
-  };
-
 function MeetingRegisterPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -59,6 +49,35 @@ function MeetingRegisterPage() {
   });
 
   const { mutate: registerProfile, isPending } = useRegisterProfile();
+
+  const STEP_VALIDATION: Record<
+    StepKey,
+    (state: RegisterFormState) => boolean
+  > = {
+    gender: (state) => state.gender !== null,
+    faceType: (state) => state.faceType !== null,
+    birthYear: () => true,
+    hobby: (state) =>
+      state.hobby.trim().length > 0 && state.hobby.trim().length <= 20,
+    dateStyle: (state) =>
+      state.dateStyle.trim().length > 0 && state.dateStyle.trim().length <= 30,
+    contact: (state) => state.contact.trim().length > 0,
+  };
+
+  const getStepError = (): string | null => {
+    if (currentStepKey === 'hobby' && formState.hobby.trim().length > 20) {
+      return '취미/특기는 20자 이내로 적어주세요';
+    }
+    if (
+      currentStepKey === 'dateStyle' &&
+      formState.dateStyle.trim().length > 30
+    ) {
+      return '데이트 스타일은 30자 이내로 적어주세요';
+    }
+    return null;
+  };
+
+  const stepError = getStepError();
 
   useEffect(() => {
     if (currentStepIndex > 0 && formState.gender === null) {
@@ -118,18 +137,20 @@ function MeetingRegisterPage() {
     ),
     hobby: (
       <TextareaStep
-        title="취미/특기를 알려주세요"
-        description="자신의 취미나 특기를 적어주세요"
-        placeholder="예: 한강에서 치맥하며 수다떨기"
+        title="당신의 취미/특기는?"
+        maxLength={20}
+        description="자신의 취미나 특기를 적어주세요 (20자 이내)"
+        placeholder="예: 클라이밍, 요가"
         value={formState.hobby}
         onChange={updateFormState('hobby')}
       />
     ),
     dateStyle: (
       <TextareaStep
-        title="원하는 데이트는?"
-        description="하고싶은 데이트를 적어주세요"
-        placeholder="예: 한강에서 치맥하며 수다떨기"
+        title="당신이 원하는 데이트는?"
+        maxLength={30}
+        description="하고싶은 데이트를 적어주세요 (30자 이내)"
+        placeholder="예: 한강에서 치맥하기"
         value={formState.dateStyle}
         onChange={updateFormState('dateStyle')}
       />
@@ -159,9 +180,14 @@ function MeetingRegisterPage() {
       >
         <div className="flex-1">{renderStep()}</div>
         <div className="mt-4 flex flex-col gap-0">
+          {stepError && (
+            <p className="mb-2 text-center text-sm text-red-400">{stepError}</p>
+          )}
           <button
             type={currentStepIndex === STEPS.length - 1 ? 'submit' : 'button'}
-            onClick={handleNext}
+            onClick={
+              currentStepIndex === STEPS.length - 1 ? undefined : handleNext
+            }
             disabled={!isCurrentStepValid || isPending}
             className={`text-button w-full cursor-pointer rounded-2xl py-4 font-bold text-white transition-opacity ${
               isCurrentStepValid && !isPending

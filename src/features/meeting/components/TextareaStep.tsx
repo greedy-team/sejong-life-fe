@@ -6,6 +6,7 @@ interface TextareaStepProps {
   placeholder: string;
   value: string;
   onChange: (value: string) => void;
+  maxLength?: number;
 }
 
 function TextareaStep({
@@ -14,6 +15,7 @@ function TextareaStep({
   placeholder,
   value,
   onChange,
+  maxLength = 100,
 }: TextareaStepProps) {
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length <= MAX_LENGTH) {
@@ -41,7 +43,7 @@ function TextareaStep({
           </div>
           <div className="mt-1 flex justify-end">
             <span className="text-char-count text-[#B9B9B9]">
-              {value.length}/{MAX_LENGTH}
+              {value.length}/{maxLength}
             </span>
           </div>
         </div>

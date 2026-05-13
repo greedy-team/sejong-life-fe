@@ -38,7 +38,7 @@ function MeetingPage() {
         <div className="flex w-full flex-row items-center justify-between px-5 py-4">
           <div className="flex flex-row items-center gap-2">
             <TodayConnectionIcon />
-            <span className="text-heading-2 text-shark">오늘의 인연</span>
+            <span className="text-heading-2 text-shark">나의 인연 찾기</span>
           </div>
           <button
             type="button"
