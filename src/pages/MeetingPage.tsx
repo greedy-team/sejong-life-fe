@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useMeetingProfiles } from '../features/meeting/hooks/useMeetingProfiles';
 import { useOpenCard } from '../features/meeting/hooks/useOpenCard';
 import ProfileCardList from '../features/meeting/components/ProfileCardList';
 import ContactRevealModal from '../features/meeting/components/ContactRevealModal';
-import { TodayConnectionIcon, CoinIcon } from '../components/icons';
+import { TodayConnectionIcon } from '../components/icons';
 import type { CardOpenResponse } from '../types/meetingType';
 
 function MeetingPage() {
-  const navigate = useNavigate();
   const { data: profiles, isLoading, isError } = useMeetingProfiles();
   const [openCardResult, setOpenCardResult] = useState<CardOpenResponse | null>(
     null,
@@ -40,16 +38,6 @@ function MeetingPage() {
             <TodayConnectionIcon />
             <span className="text-heading-2 text-shark">나의 인연 찾기</span>
           </div>
-          <button
-            type="button"
-            onClick={() => navigate('/meeting/register')}
-            className="bg-choice-header-gradient flex cursor-pointer flex-row items-center gap-1.5 rounded-full px-4 py-2"
-          >
-            <CoinIcon className="h-5 w-5" />
-            <span className="text-caption font-bold text-white">
-              {openCardResult?.remainOpenCount ?? 1}개
-            </span>
-          </button>
         </div>
       </header>
 

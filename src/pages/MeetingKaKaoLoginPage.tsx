@@ -47,6 +47,9 @@ const MeetingKakaoLoginPage = () => {
         <p className="text-gray-90 mt-4 text-lg font-semibold">
           카카오 로그인 후 이용할 수 있어요
         </p>
+        <p className="text-gray-90text-lg mt-1 font-semibold">
+          📱 모바일 이용을 권장드립니다
+        </p>
       </div>
 
       <button
