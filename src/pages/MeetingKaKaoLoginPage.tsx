@@ -42,14 +42,16 @@ const MeetingKakaoLoginPage = () => {
   };
   return (
     <main className="bg-alabaster mx-auto flex min-h-screen w-full max-w-[448px] flex-col items-center justify-center px-6">
-      <div className="mb-12 text-center">
-        <h1 className="mb-2 text-2xl font-bold text-gray-900">미팅 서비스</h1>
-        <p className="text-gray-90 mt-4 text-lg font-semibold">
+      <div className="mb-12 flex flex-col items-center gap-2 text-center">
+        <h1 className="text-2xl font-bold text-gray-900">미팅 서비스</h1>
+        <p className="font-semibold text-gray-900">
           카카오 로그인 후 이용할 수 있어요
         </p>
-        <p className="text-gray-90text-lg mt-1 font-semibold">
-          📱 모바일 이용을 권장드립니다
-        </p>
+        <div className="mt-1 flex items-center gap-1 rounded-lg bg-gray-100 px-3 py-1.5">
+          <span className="text-xs text-gray-500">
+            📱 모바일 이용을 권장해요
+          </span>
+        </div>
       </div>
 
       <button
@@ -59,12 +61,21 @@ const MeetingKakaoLoginPage = () => {
       >
         카카오로 시작하기
       </button>
-      <p className="text-body-medium mt-5 text-center leading-relaxed text-gray-500">
-        * 카카오 계정은{' '}
-        <span className="font-semibold text-gray-700">1인 1계정 확인</span>
-        용으로만 사용돼요
-        <br />* 이름, 친구목록 등 개인정보는 일절 수집하지 않아요
-      </p>
+
+      <div className="mt-6 flex w-full flex-col items-center gap-2">
+        <div className="flex items-start gap-2">
+          <span className="mt-0.5 text-xs text-gray-400">🔒</span>
+          <p className="text-xs leading-relaxed text-gray-400">
+            카카오 계정은 로그인 인증용으로만 사용돼요
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <span className="mt-0.5 text-xs text-gray-400">❌</span>
+          <p className="text-xs leading-relaxed text-gray-400">
+            이름, 친구목록 등 개인정보는 일절 수집하지 않아요
+          </p>
+        </div>
+      </div>
     </main>
   );
 };
