@@ -13,7 +13,7 @@ function MeetingPage() {
   const [openCardResult, setOpenCardResult] = useState<CardOpenResponse | null>(
     null,
   );
-  const { mutate: openCard } = useOpenCard((data) => {
+  const { mutate: openCard, isPending: isOpening } = useOpenCard((data) => {
     setOpenCardResult(data);
   });
   const navigate = useNavigate();
@@ -71,7 +71,11 @@ function MeetingPage() {
           </div>
         )}
         {profiles && profiles.length > 0 && (
-          <ProfileCardList profiles={profiles} onOpenCard={handleOpenCard} />
+          <ProfileCardList
+            profiles={profiles}
+            onOpenCard={handleOpenCard}
+            isOpening={isOpening}
+          />
         )}
       </div>
 

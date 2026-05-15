@@ -4,9 +4,10 @@ import { CURRENT_YEAR, FACE_TYPES } from '../constants/meetingConstants';
 interface ProfileCardProps {
   profile: Profile;
   onOpen: (profileId: number) => void;
+  isOpening: boolean;
 }
 
-function ProfileCard({ profile, onOpen }: ProfileCardProps) {
+function ProfileCard({ profile, onOpen, isOpening }: ProfileCardProps) {
   const faceType = FACE_TYPES.find((f) => f.value === profile.faceType);
   const emoji = faceType?.emoji ?? '😊';
   const faceLabel = faceType?.label ?? profile.faceType;
@@ -20,7 +21,8 @@ function ProfileCard({ profile, onOpen }: ProfileCardProps) {
     <button
       type="button"
       onClick={() => onOpen(profile.id)}
-      className="bg-card-gradient isolation-isolate relative flex w-full cursor-pointer flex-col items-start overflow-hidden rounded-3xl p-5 text-left"
+      disabled={isOpening}
+      className="bg-card-gradient isolation-isolate relative flex w-full cursor-pointer flex-col items-start overflow-hidden rounded-3xl p-5 text-left disabled:cursor-not-allowed disabled:opacity-50"
     >
       <div
         className="pointer-events-none absolute"
