@@ -60,9 +60,9 @@ function BirthYearStep({ value, onChange }: BirthYearStepProps) {
   return (
     <div className="flex w-full flex-col items-start gap-1 pb-1">
       <div className="flex w-full flex-col gap-1 pb-1">
-        <h2 className="text-heading-1 text-shark">나이를 알려주세요</h2>
+        <h2 className="text-heading-1 text-shark">당신의 나이는?</h2>
         <p className="text-body-regular text-jumbo">
-          스크롤해서 나이를 선택하세요
+          스크롤해서 출생연도를 선택하세요
         </p>
       </div>
       <div className="flex w-full flex-col items-center gap-3 pt-4">

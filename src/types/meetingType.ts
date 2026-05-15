@@ -21,5 +21,4 @@ export interface ProfileRegisterPayload {
 
 export interface CardOpenResponse {
   contact: string;
-  remainOpenCount: number;
 }

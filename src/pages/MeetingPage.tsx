@@ -5,16 +5,18 @@ import ProfileCardList from '../features/meeting/components/ProfileCardList';
 import ContactRevealModal from '../features/meeting/components/ContactRevealModal';
 import { TodayConnectionIcon } from '../components/icons';
 import type { CardOpenResponse } from '../types/meetingType';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function MeetingPage() {
   const { data: profiles, isLoading, isError } = useMeetingProfiles();
   const [openCardResult, setOpenCardResult] = useState<CardOpenResponse | null>(
     null,
   );
-
   const { mutate: openCard } = useOpenCard((data) => {
     setOpenCardResult(data);
   });
+  const navigate = useNavigate();
 
   const handleOpenCard = (profileId: number) => {
     openCard(profileId);
@@ -22,6 +24,11 @@ function MeetingPage() {
 
   const handleCloseModal = () => {
     setOpenCardResult(null);
+    toast('💚 또 만나요! 새로운 인연이 기다리고 있어요', {
+      position: 'top-center',
+      autoClose: 3000,
+    });
+    navigate('/');
   };
 
   return (
@@ -58,7 +65,8 @@ function MeetingPage() {
           <div className="flex flex-col items-center justify-center gap-4 py-20">
             <span className="text-4xl">🌸</span>
             <span className="text-body-regular text-jumbo">
-              아직 등록된 프로필이 없어요
+              아직 등록된 프로필이 없어요🥲
+              <br /> 잠시 후 다시 방문해주세요.
             </span>
           </div>
         )}
@@ -70,7 +78,6 @@ function MeetingPage() {
       {openCardResult && (
         <ContactRevealModal
           contact={openCardResult.contact}
-          remainOpenCount={openCardResult.remainOpenCount}
           onClose={handleCloseModal}
         />
       )}

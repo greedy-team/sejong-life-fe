@@ -34,7 +34,9 @@ export const registerMeetingProfile = async (
 export const openMeetingCard = async (
   profileId: number,
 ): Promise<CardOpenResponse> => {
-  const response = await authApi.post(`/meeting/profiles/${profileId}/open`);
+  const response = await authApi.post(
+    `/api/meeting/profiles/${profileId}/open`,
+  );
   return response.data;
 };
 
