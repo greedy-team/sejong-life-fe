@@ -3,9 +3,7 @@ import { useMeetingProfiles } from '../features/meeting/hooks/useMeetingProfiles
 import { useOpenCard } from '../features/meeting/hooks/useOpenCard';
 import ProfileCardList from '../features/meeting/components/ProfileCardList';
 import ContactRevealModal from '../features/meeting/components/ContactRevealModal';
-import { TodayConnectionIcon } from '../components/icons';
 import type { CardOpenResponse } from '../types/meetingType';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 function MeetingPage() {
@@ -31,22 +29,45 @@ function MeetingPage() {
 
   return (
     <main className="bg-meeting-surface mx-auto flex min-h-screen w-full max-w-[448px] flex-col">
-      <header
-        className="sticky top-0 z-10 w-full"
-        style={{
-          background: 'rgba(250, 250, 250, 0.8)',
-          backdropFilter: 'blur(8px)',
-        }}
-      >
-        <div className="flex w-full flex-row items-center justify-between px-5 py-4">
-          <div className="flex flex-row items-center gap-2">
-            <TodayConnectionIcon />
+      <header className="sticky top-0 z-10 w-full">
+        {/* 메인 헤더 */}
+        <div
+          className="flex w-full flex-row items-center justify-between px-5 py-4"
+          style={{
+            background: 'rgba(255, 253, 249, 0.85)',
+            backdropFilter: 'blur(10px)',
+            borderBottom: '1px solid rgba(255, 107, 53, 0.08)',
+          }}
+        >
+          <div className="flex flex-col gap-0.5">
             <span className="text-heading-2 text-shark">나의 인연 찾기</span>
+            <p className="text-sm text-gray-400">
+              카드를 눌러 연락처를 확인해보세요
+            </p>
           </div>
+          <div className="flex flex-col items-end gap-0.5">
+            <span className="text-2xl leading-none font-black">999명</span>{' '}
+            <span className="text-xs text-gray-400">의 이성 프로필 등록됨</span>
+          </div>
+        </div>
+
+        <div
+          className="flex w-full flex-row items-center justify-between px-5 py-2.5"
+          style={{
+            background: 'rgba(255, 107, 53, 0.06)',
+            borderBottom: '1px solid rgba(255, 107, 53, 0.1)',
+          }}
+        >
+          <div className="flex items-center gap-1.5">
+            <span className="text-sm text-gray-500">🎟️ 뽑기 기회</span>
+            <span className="text-sm font-black">N회</span>
+            <span className="text-sm text-gray-400">남음</span>
+          </div>
+          <span className="text-xs text-gray-400">00분 00초 후 +1 충전</span>
         </div>
       </header>
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="mt-4 flex-1 overflow-y-auto">
         {isLoading && (
           <div className="flex items-center justify-center py-20">
             <span className="text-body-regular text-jumbo">불러오는 중...</span>
