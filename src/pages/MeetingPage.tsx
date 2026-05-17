@@ -16,7 +16,6 @@ function MeetingPage() {
   const { mutate: openCard, isPending: isOpening } = useOpenCard((data) => {
     setOpenCardResult(data);
   });
-  const navigate = useNavigate();
 
   const handleOpenCard = (profileId: number) => {
     openCard(profileId);
@@ -28,7 +27,6 @@ function MeetingPage() {
       position: 'top-center',
       autoClose: 3000,
     });
-    navigate('/');
   };
 
   return (
@@ -65,7 +63,7 @@ function MeetingPage() {
           <div className="flex flex-col items-center justify-center gap-4 py-20">
             <span className="text-4xl">🌸</span>
             <span className="text-body-regular text-jumbo">
-              아직 등록된 프로필이 없어요🥲
+              아직 등록된 프로필이 없어요 🥲
               <br /> 잠시 후 다시 방문해주세요.
             </span>
           </div>

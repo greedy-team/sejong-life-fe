@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface ContactRevealModalProps {
   contact: string;
@@ -6,22 +6,7 @@ interface ContactRevealModalProps {
 }
 
 function ContactRevealModal({ contact, onClose }: ContactRevealModalProps) {
-  const [countdown, setCountdown] = useState(30);
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          onClose();
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(contact);
@@ -50,8 +35,6 @@ function ContactRevealModal({ contact, onClose }: ContactRevealModalProps) {
             연락처가 공개되었어요!
           </h2>
           <p className="text-center text-sm text-gray-400">
-            이 창을 닫으면 다시 볼 수 없어요
-            <br />
             연락처를 복사하거나 캡처해두세요
           </p>
         </div>
@@ -69,10 +52,6 @@ function ContactRevealModal({ contact, onClose }: ContactRevealModalProps) {
         >
           {copied ? '✅ 복사됐어요!' : '연락처 복사하기'}
         </button>
-
-        <p className="text-sm text-gray-400">
-          ⏱ {countdown}초 후 자동으로 홈으로 돌아갑니다
-        </p>
 
         <button
           type="button"
