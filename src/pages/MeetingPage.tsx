@@ -21,7 +21,7 @@ function MeetingPage() {
 
   const handleCloseModal = () => {
     setOpenCardResult(null);
-    toast('💚 또 만나요! 새로운 인연이 기다리고 있어요', {
+    toast('🧡 또 만나요! 새로운 인연이 기다리고 있어요', {
       position: 'top-center',
       autoClose: 3000,
     });
