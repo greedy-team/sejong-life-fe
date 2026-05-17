@@ -6,7 +6,6 @@ export interface Profile {
   hobby: string;
   dateStyle: string;
   selfAppeal?: string;
-  remainPickCount: number;
 }
 
 export interface ProfileRegisterPayload {

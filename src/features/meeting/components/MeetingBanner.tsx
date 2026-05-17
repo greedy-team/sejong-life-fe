@@ -10,7 +10,7 @@ const MeetingBanner = () => {
           ✨ 축제 한정
         </span>
         <p className="text-[17px] leading-snug font-extrabold text-white">
-          캠퍼스 미팅부스 OPEN!
+          슬기로운 연애생활 OPEN!
         </p>
         <p className="mt-1 text-[11px] text-white/80">
           축제 기간 동안 운영되는 특별한 만남의 공간
