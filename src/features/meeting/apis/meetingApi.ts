@@ -1,4 +1,4 @@
-import { authApi } from '../../../api/api';
+import { api, authApi } from '../../../api/api';
 import type {
   Profile,
   ProfileRegisterPayload,
@@ -48,7 +48,7 @@ export const kakaoLogin = async ({
   code: string;
   state: string;
 }) => {
-  const response = await authApi.post('/api/meeting/auth/kakao/login', {
+  const response = await api.post('/api/meeting/auth/kakao/login', {
     code,
     state,
   });

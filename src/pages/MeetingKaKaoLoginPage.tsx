@@ -61,13 +61,11 @@ const MeetingKakaoLoginPage = () => {
         `}
       </style>
 
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,#FFE4D2_0%,#FFFDF9_48%,#FFFFFF_100%)]" />
-
-      <div className="pointer-events-none absolute inset-0 opacity-60 blur-[1px]">
+      <div className="pointer-events-none fixed inset-0 opacity-60 blur-[1px]">
         {meetingMockProfiles.map((profile, index) => (
           <div
             key={profile.id}
-            className={`absolute ${profile.position} w-[210px] rounded-2xl shadow-[0_8px_32px_rgba(255,107,53,0.2)] ring-1 ring-orange-200`}
+            className={`absolute ${profile.position} w-[210px] rounded-3xl shadow-[0_8px_32px_rgba(255,107,53,0.2)] ring-1 ring-orange-200`}
             style={{
               animation: 'floatUp 12s linear infinite',
               animationDelay: `${index * -2}s`,
@@ -156,7 +154,7 @@ const MeetingKakaoLoginPage = () => {
               않아요
             </p>
             <p>
-              🧡 이미 프로필을 등록하셨다면 로그인 시 바로 인연 목록 페이지가
+              🧡 이미 프로필을 등록하셨다면 로그인 시 바로 인연 프로필 페이지가
               나와요
             </p>
           </div>
