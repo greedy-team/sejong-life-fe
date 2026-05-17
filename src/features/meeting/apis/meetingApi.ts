@@ -37,7 +37,6 @@ export const openMeetingCard = async (
   const response = await authApi.post(
     `/api/meeting/profiles/${profileId}/open`,
   );
-  localStorage.removeItem('accessToken');
   return response.data;
 };
 
