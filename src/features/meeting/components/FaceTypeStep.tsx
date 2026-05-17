@@ -1,9 +1,4 @@
-import { FACE_TYPE_EMOJI } from '../constants/meetingConstants';
-
-const FACE_TYPES = Object.entries(FACE_TYPE_EMOJI).map(([label, emoji]) => ({
-  label,
-  emoji,
-}));
+import { FACE_TYPES } from '../constants/meetingConstants';
 
 interface FaceTypeStepProps {
   value: string | null;
@@ -18,20 +13,20 @@ function FaceTypeStep({ value, onChange }: FaceTypeStepProps) {
         <p className="text-body-regular text-jumbo">닮은 동물을 골라주세요</p>
       </div>
       <div className="grid w-full grid-cols-2 gap-4 pt-4">
-        {FACE_TYPES.map(({ label, emoji }) => (
+        {FACE_TYPES.map(({ value: faceValue, label, emoji }) => (
           <button
-            key={label}
+            key={faceValue}
             type="button"
-            onClick={() => onChange(label)}
+            onClick={() => onChange(faceValue)}
             className={`flex h-[120px] cursor-pointer flex-col items-center justify-center gap-2 rounded-3xl border transition-colors ${
-              value === label
+              value === faceValue
                 ? 'bg-main-gradient border-transparent'
                 : 'border-iron hover:border-mandy bg-white'
             }`}
           >
             <span className="text-[46.9px] leading-[48px]">{emoji}</span>
             <span
-              className={`text-body-bold ${value === label ? 'text-white' : 'text-shark'}`}
+              className={`text-body-bold ${value === faceValue ? 'text-white' : 'text-shark'}`}
             >
               {label}
             </span>

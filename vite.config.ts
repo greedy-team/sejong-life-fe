@@ -6,6 +6,15 @@ import { defineConfig as defineVitestConfig } from 'vitest/config';
 
 export default defineVitestConfig({
   plugins: [react(), tailwindcss()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.sejonglife.site',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
   test: {
     environment: 'jsdom',
     globals: true,

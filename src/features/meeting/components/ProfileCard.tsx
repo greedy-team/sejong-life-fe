@@ -1,13 +1,16 @@
 import type { Profile } from '../../../types/meetingType';
-import { CURRENT_YEAR, FACE_TYPE_EMOJI } from '../constants/meetingConstants';
+import { CURRENT_YEAR, FACE_TYPES } from '../constants/meetingConstants';
 
 interface ProfileCardProps {
   profile: Profile;
   onOpen: (profileId: number) => void;
+  isOpening: boolean;
 }
 
-function ProfileCard({ profile, onOpen }: ProfileCardProps) {
-  const emoji = FACE_TYPE_EMOJI[profile.faceType] ?? '😊';
+function ProfileCard({ profile, onOpen, isOpening }: ProfileCardProps) {
+  const faceType = FACE_TYPES.find((f) => f.value === profile.faceType);
+  const emoji = faceType?.emoji ?? '😊';
+  const faceLabel = faceType?.label ?? profile.faceType;
   const age = CURRENT_YEAR - profile.birthYear;
   const hobbyTags = profile.hobby
     .split(',')
@@ -18,7 +21,8 @@ function ProfileCard({ profile, onOpen }: ProfileCardProps) {
     <button
       type="button"
       onClick={() => onOpen(profile.id)}
-      className="bg-card-gradient isolation-isolate relative flex w-full cursor-pointer flex-col items-start overflow-hidden rounded-3xl p-5 text-left"
+      disabled={isOpening}
+      className="bg-card-gradient isolation-isolate relative flex w-full cursor-pointer flex-col items-start overflow-hidden rounded-3xl p-5 text-left disabled:cursor-not-allowed disabled:opacity-50"
     >
       <div
         className="pointer-events-none absolute"
@@ -64,7 +68,7 @@ function ProfileCard({ profile, onOpen }: ProfileCardProps) {
           </div>
           <div className="flex min-w-0 flex-1 flex-col">
             <span className="text-button text-shark leading-6">
-              {profile.faceType}
+              {faceLabel}
             </span>
             <span className="text-body-regular text-jumbo">{age}세</span>
           </div>
@@ -83,7 +87,7 @@ function ProfileCard({ profile, onOpen }: ProfileCardProps) {
             Q: 함께하고 싶은 데이트는?
           </span>
           <span className="text-body-medium text-shark">
-            &quot;{profile.desiredDate}&quot;
+            &quot;{profile.dateStyle}&quot;
           </span>
         </div>
         {hobbyTags.length > 0 && (

@@ -16,6 +16,7 @@ import MyPlacesPage from './pages/MyPlacesPage';
 import PrivacyPolicy from './pages/PrivacyPolicyPage';
 import KakaoMapPage from './pages/KakaoMapPage';
 import ScrollToTop from './components/share/ScrollToTop';
+import MeetingKakaoLoginPage from './pages/MeetingKaKaoLoginPage';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -111,6 +112,10 @@ function App() {
               }
             />
             <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route
+              path="/meeting/kakaoLogin"
+              element={<MeetingKakaoLoginPage />}
+            />
             <Route path="/meeting" element={<MeetingPage />} />
             <Route path="/meeting/register" element={<MeetingRegisterPage />} />
           </Routes>

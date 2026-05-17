@@ -9,7 +9,8 @@ const mockProfiles = [
     faceType: '고양이상',
     birthYear: 2001,
     hobby: '독서, 요가',
-    desiredDate: '카페에서 조용한 대화',
+    desiredDate:
+      '집에서 같이 요리하기 성수동 팝업스토어 오픈런 같이하기 한강에서 자전거타기',
     selfAppeal: '조용하고 감성적인 편이에요',
     remainPickCount: 5,
   },

@@ -12,7 +12,9 @@ export const useRegisterProfile = () => {
   return useMutation({
     mutationFn: (payload: ProfileRegisterPayload) =>
       registerMeetingProfile(payload),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      localStorage.setItem('accessToken', data.data.accessToken);
+      sessionStorage.removeItem('signUpToken');
       toast.success('프로필이 등록되었습니다!');
       queryClient.invalidateQueries({ queryKey: queryKeys.meeting.profiles() });
       navigate('/meeting');
