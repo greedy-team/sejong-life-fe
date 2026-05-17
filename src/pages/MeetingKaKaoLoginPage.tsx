@@ -88,26 +88,24 @@ const MeetingKakaoLoginPage = () => {
         <div className="flex-1">
           <div className="mt-20 text-center">
             <h1 className="text-[32px] leading-tight font-black tracking-[-0.04em] text-gray-900">
-              내 카드를 등록하면
+              내 프로필을 등록하면
               <br />
-              <span className="text-[#FF6B35]">인연 카드를 뽑을 수 있어요</span>
+              <span className="text-[#FF6B35]">
+                인연 프로필을 뽑을 수 있어요
+              </span>
             </h1>
             <p className="mt-3 text-base leading-relaxed font-medium text-gray-500">
-              등록은 딱 한 번, 카드는 축제 기간 동안 유지돼요
+              등록은 딱 한 번, 프로필은 축제 기간 동안 유지돼요
             </p>
           </div>
 
-          <div className="mt-5 flex items-center justify-center gap-3">
-            <span className="text-sm font-semibold text-[#FF5F6D]">
-              ♀ 여자 999명
-            </span>
+          <div className="mt-8 flex items-center justify-center gap-3">
+            <span className="font-semibold text-[#FF5F6D]">♀ 여자 999명</span>
             <span className="h-3.5 w-px bg-gray-200" />
-            <span className="text-sm font-semibold text-[#3B82F6]">
-              ♂ 남자 999명
-            </span>
+            <span className="font-semibold text-[#3B82F6]">♂ 남자 999명</span>
           </div>
 
-          <div className="mt-6 flex flex-col gap-2">
+          <div className="mt-5 flex flex-col gap-2">
             <MeetingInfoCard
               icon="🎟️"
               title={
@@ -116,7 +114,7 @@ const MeetingKakaoLoginPage = () => {
                   <span className="text-[#FF6B35]">1회</span> 열람
                 </>
               }
-              description="내 카드를 등록하면 다른 사람의 카드를 1번 뽑을 수 있어요."
+              description="내 프로필을 등록하면 다른 사람의 프로필을 1번 뽑을 수 있어요."
             />
 
             <MeetingInfoCard
@@ -127,7 +125,7 @@ const MeetingKakaoLoginPage = () => {
                   <span className="text-[#FF6B35]">+1</span>
                 </>
               }
-              description="카드를 뽑은 후 1시간마다 +1의 뽑기 기회가 생겨요. 자주 방문할수록 더 많은 인연을!"
+              description="프로필을 뽑은 후 1시간마다 +1의 뽑기 기회가 생겨요. 자주 방문할수록 더 많은 인연을!"
             />
 
             <MeetingInfoCard
@@ -149,12 +147,18 @@ const MeetingKakaoLoginPage = () => {
             onClick={handleKakaoLogin}
             className="flex w-full cursor-pointer items-center justify-center gap-4 rounded-full bg-gradient-to-r from-[#FF6B35] to-[#FF5F6D] py-4 text-center leading-tight font-bold text-white shadow-[0_16px_36px_rgba(255,95,109,0.35)] active:scale-[0.98]"
           >
-            <span>카카오 로그인하고 내 카드 등록하기 ›</span>
+            <span>카카오 로그인하고 내 프로필 등록하기 ›</span>
           </button>
 
           <div className="mt-5 flex flex-col items-center gap-2 text-xs text-gray-400">
-            <p>🔒 카카오 계정은 로그인 인증용으로만 사용돼요</p>
-            <p>❌ 이름, 친구목록 등 개인정보는 일절 수집하지 않아요</p>
+            <p>
+              🔒 카카오 계정은 로그인 인증용으로 이름 등 개인정보는 수집하지
+              않아요
+            </p>
+            <p>
+              🧡 이미 프로필을 등록하셨다면 로그인 시 바로 인연 목록 페이지가
+              나와요
+            </p>
           </div>
         </div>
       </section>
