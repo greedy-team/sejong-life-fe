@@ -91,21 +91,25 @@ function MeetingPage() {
         </div>
 
         <div
-          className="flex w-full flex-row items-center justify-between px-5 py-2.5"
+          className="flex w-full flex-row items-start justify-between px-5 py-2.5"
           style={{
             background: 'rgba(255, 107, 53, 0.06)',
             borderBottom: '1px solid rgba(255, 107, 53, 0.1)',
           }}
         >
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5">
-              <span className="text-sm text-gray-500">🎟️ 뽑기 기회</span>
-              <span className="text-sm font-black">{availableOpenCount}회</span>
-              <span className="text-sm text-gray-400">남음</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-sm text-gray-500">🎁 보너스</span>
-              <span className="text-sm font-black">{bonusOpenCount}회</span>
+          <div className="flex items-start gap-1">
+            <div className="flex-col items-center gap-3">
+              <div className="flex items-center gap-1.5">
+                <span className="text-sm text-gray-500">🎟️ 뽑기 기회</span>
+                <span className="text-sm font-black">
+                  {availableOpenCount}회
+                </span>
+                <span className="text-sm text-gray-400">남음</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-sm text-gray-500">🎁 보너스</span>
+                <span className="text-sm font-black">{bonusOpenCount}회</span>
+              </div>
             </div>
             <OpenCountInfoButton />
           </div>

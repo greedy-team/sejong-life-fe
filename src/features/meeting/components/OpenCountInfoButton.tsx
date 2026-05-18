@@ -31,7 +31,7 @@ function OpenCountInfoButton() {
         onClick={handleToggle}
         aria-label="열람권 안내"
         aria-expanded={isOpen}
-        className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border border-gray-300 text-[10px] leading-none font-bold text-gray-400"
+        className="mt-0.5 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border border-gray-300 text-[10px] leading-none font-bold text-gray-400"
       >
         i
       </button>
