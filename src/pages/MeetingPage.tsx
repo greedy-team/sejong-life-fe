@@ -25,6 +25,15 @@ function MeetingPage() {
   );
   const { mutate: openCard, isPending: isOpening } = useOpenCard((data) => {
     setOpenCardResult(data);
+    if (data.alreadyViewed) {
+      toast('🧡 이미 열람한 카드예요. 열람권이 차감되지 않았어요', {
+        position: 'top-center',
+        autoClose: 3000,
+      });
+    }
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.meeting.openCount(),
+    });
   });
 
   const availableOpenCount = openCount?.availableOpenCount ?? 0;
