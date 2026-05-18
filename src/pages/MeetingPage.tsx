@@ -6,6 +6,7 @@ import { useOpenCount } from '../features/meeting/hooks/useOpenCount';
 import { useCooldownTimer } from '../features/meeting/hooks/useCooldownTimer';
 import ProfileCardList from '../features/meeting/components/ProfileCardList';
 import ContactRevealModal from '../features/meeting/components/ContactRevealModal';
+import OpenCountInfoButton from '../features/meeting/components/OpenCountInfoButton';
 import type { CardOpenResponse } from '../types/meetingType';
 import { queryKeys } from '../lib/query/queryKeys';
 import { toast } from 'react-toastify';
@@ -106,6 +107,7 @@ function MeetingPage() {
               <span className="text-sm text-gray-500">🎁 보너스</span>
               <span className="text-sm font-black">{bonusOpenCount}회</span>
             </div>
+            <OpenCountInfoButton />
           </div>
           <span className="text-xs text-gray-400">
             {remainingSeconds > 0
