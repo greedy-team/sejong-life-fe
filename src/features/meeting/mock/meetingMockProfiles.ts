@@ -30,7 +30,7 @@ export const meetingMockProfiles: (Profile & { position: string })[] = [
   },
   {
     id: 4,
-    faceType: 'DINOSOUR',
+    faceType: 'DINOSAUR',
     birthYear: 1998,
     gender: 'MALE',
     dateStyle: '카페에서 수다 떨기',
