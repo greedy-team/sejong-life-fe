@@ -3,11 +3,17 @@ import type {
   Profile,
   ProfileRegisterPayload,
   CardOpenResponse,
+  OpenCountResponse,
 } from '../../../types/meetingType';
 
 export const fetchMeetingProfiles = async (): Promise<Profile[]> => {
   const response = await authApi.get('/api/meeting/profiles');
   return response.data;
+};
+
+export const fetchOpenCount = async (): Promise<OpenCountResponse> => {
+  const response = await authApi.get('/api/meeting/profiles/open-count');
+  return response.data.data;
 };
 
 export const registerMeetingProfile = async (
