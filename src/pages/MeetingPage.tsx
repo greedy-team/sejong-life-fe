@@ -1,13 +1,25 @@
 import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useMeetingProfiles } from '../features/meeting/hooks/useMeetingProfiles';
 import { useOpenCard } from '../features/meeting/hooks/useOpenCard';
+import { useOpenCount } from '../features/meeting/hooks/useOpenCount';
+import { useCooldownTimer } from '../features/meeting/hooks/useCooldownTimer';
 import ProfileCardList from '../features/meeting/components/ProfileCardList';
 import ContactRevealModal from '../features/meeting/components/ContactRevealModal';
 import type { CardOpenResponse } from '../types/meetingType';
+import { queryKeys } from '../lib/query/queryKeys';
 import { toast } from 'react-toastify';
 
+const formatCooldown = (totalSeconds: number) => {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${String(minutes).padStart(2, '0')}분 ${String(seconds).padStart(2, '0')}초`;
+};
+
 function MeetingPage() {
+  const queryClient = useQueryClient();
   const { data: profiles, isLoading, isError } = useMeetingProfiles();
+  const { data: openCount } = useOpenCount();
   const [openCardResult, setOpenCardResult] = useState<CardOpenResponse | null>(
     null,
   );
@@ -15,7 +27,24 @@ function MeetingPage() {
     setOpenCardResult(data);
   });
 
+  const availableOpenCount = openCount?.availableOpenCount ?? 0;
+  const bonusOpenCount = openCount?.bonusOpenCount ?? 0;
+  const totalOpenableCount = availableOpenCount + bonusOpenCount;
+
+  const remainingSeconds = useCooldownTimer(
+    openCount?.cooldownRemainingSeconds ?? 0,
+    () => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.meeting.openCount(),
+      });
+    },
+  );
+
   const handleOpenCard = (profileId: number) => {
+    if (totalOpenableCount <= 0) {
+      toast.error('남은 뽑기 기회가 없어요. 충전 시간을 기다려주세요.');
+      return;
+    }
     openCard(profileId);
   };
 
@@ -58,12 +87,22 @@ function MeetingPage() {
             borderBottom: '1px solid rgba(255, 107, 53, 0.1)',
           }}
         >
-          <div className="flex items-center gap-1.5">
-            <span className="text-sm text-gray-500">🎟️ 뽑기 기회</span>
-            <span className="text-sm font-black">N회</span>
-            <span className="text-sm text-gray-400">남음</span>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm text-gray-500">🎟️ 뽑기 기회</span>
+              <span className="text-sm font-black">{availableOpenCount}회</span>
+              <span className="text-sm text-gray-400">남음</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm text-gray-500">🎁 보너스</span>
+              <span className="text-sm font-black">{bonusOpenCount}회</span>
+            </div>
           </div>
-          <span className="text-xs text-gray-400">00분 00초 후 +1 충전</span>
+          <span className="text-xs text-gray-400">
+            {remainingSeconds > 0
+              ? `${formatCooldown(remainingSeconds)} 후 +1 충전`
+              : '충전 완료'}
+          </span>
         </div>
       </header>
 
