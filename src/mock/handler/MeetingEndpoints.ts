@@ -5,64 +5,64 @@ const API_BASE = 'https://api.sejonglife.site';
 const mockProfiles = [
   {
     id: 1,
-    gender: '여',
-    faceType: '고양이상',
+    kakaoId: 'kakao_1',
+    gender: 'FEMALE',
+    faceType: 'CAT',
     birthYear: 2001,
     hobby: '독서, 요가',
-    desiredDate:
+    dateStyle:
       '집에서 같이 요리하기 성수동 팝업스토어 오픈런 같이하기 한강에서 자전거타기',
-    selfAppeal: '조용하고 감성적인 편이에요',
-    remainPickCount: 5,
+    createdAt: '2025-05-17T10:00:00',
   },
   {
     id: 2,
-    gender: '여',
-    faceType: '여우상',
+    kakaoId: 'kakao_2',
+    gender: 'FEMALE',
+    faceType: 'FOX',
     birthYear: 2003,
     hobby: '그림, 영화',
-    desiredDate: '미술관 데이트',
-    selfAppeal: '예술을 좋아해요',
-    remainPickCount: 3,
+    dateStyle: '미술관 데이트',
+    createdAt: '2025-05-17T11:00:00',
   },
   {
     id: 3,
-    gender: '남',
-    faceType: '곰상',
+    kakaoId: 'kakao_3',
+    gender: 'MALE',
+    faceType: 'BEAR',
     birthYear: 1999,
     hobby: '운동, 요리',
-    desiredDate: '한강 피크닉',
-    selfAppeal: '활동적이고 따뜻해요',
-    remainPickCount: 4,
+    dateStyle: '한강 피크닉',
+    createdAt: '2025-05-17T12:00:00',
   },
   {
     id: 4,
-    gender: '남',
-    faceType: '강아지상',
+    kakaoId: 'kakao_4',
+    gender: 'MALE',
+    faceType: 'DOG',
     birthYear: 2002,
     hobby: '음악, 게임',
-    desiredDate: '야경 드라이브',
-    selfAppeal: '신나고 재밌어요',
-    remainPickCount: 5,
+    dateStyle: '야경 드라이브',
+    createdAt: '2025-05-17T13:00:00',
   },
   {
     id: 5,
-    gender: '여',
-    faceType: '토끼상',
+    kakaoId: 'kakao_5',
+    gender: 'FEMALE',
+    faceType: 'RABBIT',
     birthYear: 2004,
     hobby: '사진, 산책',
-    desiredDate: '빈티지 카페 탐방',
-    selfAppeal: '소소한 것을 좋아해요',
-    remainPickCount: 2,
+    dateStyle: '빈티지 카페 탐방',
+    createdAt: '2025-05-17T14:00:00',
   },
   {
     id: 6,
-    gender: '남',
-    faceType: '사슴상',
+    kakaoId: 'kakao_6',
+    gender: 'MALE',
+    faceType: 'DEER',
     birthYear: 2000,
     hobby: '독서, 클라이밍',
-    desiredDate: '북카페에서 독서',
-    selfAppeal: '차분하고 진지해요',
-    remainPickCount: 3,
+    dateStyle: '북카페에서 독서',
+    createdAt: '2025-05-17T15:00:00',
   },
 ];
 
@@ -75,35 +75,56 @@ const mockContacts: Record<number, string> = {
   6: '010-5555-7777',
 };
 
-let remainOpenCount = 1;
+let availableOpenCount = 1;
+let bonusOpenCount = 0;
+const cooldownRemainingSeconds = 3540;
+const viewedProfileIds = new Set<number>();
 
 export const getMeetingProfiles = http.get(
-  `${API_BASE}/meeting/profiles`,
+  `${API_BASE}/api/meeting/profiles`,
   () => {
     return HttpResponse.json(mockProfiles, { status: 200 });
   },
 );
 
-export const postMeetingProfile = http.post(
-  `${API_BASE}/meeting/profiles`,
+export const getMeetingOpenCount = http.get(
+  `${API_BASE}/api/meeting/profiles/open-count`,
   () => {
     return HttpResponse.json(
-      { id: 99, message: '프로필이 등록되었습니다.' },
-      { status: 201 },
+      {
+        message: '열람권 현황 조회 성공',
+        data: {
+          availableOpenCount,
+          bonusOpenCount,
+          cooldownRemainingSeconds,
+        },
+      },
+      { status: 200 },
+    );
+  },
+);
+
+export const postMeetingSignup = http.post(
+  `${API_BASE}/api/meeting/auth/signup`,
+  () => {
+    return HttpResponse.json(
+      {
+        message: '회원가입 성공',
+        data: {
+          accessToken: 'mock-access-token',
+          signUpToken: null,
+          userInfo: { studentId: '20200000', name: '홍길동' },
+          newUser: false,
+        },
+      },
+      { status: 200 },
     );
   },
 );
 
 export const openMeetingCard = http.post(
-  `${API_BASE}/meeting/profiles/:profileId/open`,
+  `${API_BASE}/api/meeting/profiles/:profileId/open`,
   ({ params }) => {
-    if (remainOpenCount <= 0) {
-      return HttpResponse.json(
-        { message: '카드 오픈 횟수를 모두 사용했습니다.' },
-        { status: 403 },
-      );
-    }
-
     const profileId = Number(params.profileId);
     const contact = mockContacts[profileId];
 
@@ -114,8 +135,30 @@ export const openMeetingCard = http.post(
       );
     }
 
-    remainOpenCount -= 1;
+    if (viewedProfileIds.has(profileId)) {
+      return HttpResponse.json(
+        { contact, alreadyViewed: true },
+        { status: 200 },
+      );
+    }
 
-    return HttpResponse.json({ contact, remainOpenCount }, { status: 200 });
+    if (availableOpenCount + bonusOpenCount <= 0) {
+      return HttpResponse.json(
+        { message: '카드 오픈 횟수를 모두 사용했습니다.' },
+        { status: 403 },
+      );
+    }
+
+    if (availableOpenCount > 0) {
+      availableOpenCount -= 1;
+    } else {
+      bonusOpenCount -= 1;
+    }
+    viewedProfileIds.add(profileId);
+
+    return HttpResponse.json(
+      { contact, alreadyViewed: false },
+      { status: 200 },
+    );
   },
 );
