@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import Layout from './layout/Layout';
 import ProtectedRoute from './components/share/ProtectedRoute';
@@ -132,6 +132,10 @@ function App() {
                   <MeetingRegisterPage />
                 </MeetingProtectedRoute>
               }
+            />
+            <Route
+              path="/meeting/*"
+              element={<Navigate to="/meeting" replace />}
             />
           </Routes>
         </Suspense>
