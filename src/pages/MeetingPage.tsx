@@ -110,7 +110,9 @@ function MeetingPage() {
           <span className="text-xs text-gray-400">
             {remainingSeconds > 0
               ? `${formatCooldown(remainingSeconds)} 후 +1 충전`
-              : '충전 완료'}
+              : totalOpenableCount > 0
+                ? '✨ 지금 바로 뽑을 수 있어요'
+                : ''}
           </span>
         </div>
       </header>

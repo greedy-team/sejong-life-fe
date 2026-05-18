@@ -13,7 +13,7 @@ export const fetchMeetingProfiles = async (): Promise<Profile[]> => {
 
 export const fetchOpenCount = async (): Promise<OpenCountResponse> => {
   const response = await authApi.get('/api/meeting/profiles/open-count');
-  return response.data.data;
+  return response.data?.data ?? response.data;
 };
 
 export const registerMeetingProfile = async (
