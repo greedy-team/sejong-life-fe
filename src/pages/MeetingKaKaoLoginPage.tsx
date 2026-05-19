@@ -148,7 +148,7 @@ const MeetingKakaoLoginPage = () => {
                   기회 <span className="text-[#FF6B35]"> +1</span>
                 </>
               }
-              description="친구에게 슬종생 링크를 공유하면 추가로 뽑기 기회를 받을 수 있어요."
+              description="친구에게 슬종생 링크를 공유하면 보너스 기회를 받을 수 있어요."
             />
           </div>
         </div>
