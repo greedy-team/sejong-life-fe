@@ -23,4 +23,10 @@ export const queryKeys = {
   tags: {
     all: ['tags'] as const,
   },
+  meeting: {
+    all: ['meeting'] as const,
+    profiles: () => [...queryKeys.meeting.all, 'profiles'] as const,
+    openCount: () => [...queryKeys.meeting.all, 'openCount'] as const,
+    profileCount: () => [...queryKeys.meeting.all, 'profileCount'] as const,
+  },
 } as const;

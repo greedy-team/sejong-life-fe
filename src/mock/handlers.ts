@@ -3,6 +3,13 @@ import { getPlaces, getPlaceDetails } from './handler/PlaceEndpoints';
 import { getReviewStats } from './handler/ReviewEndpoints';
 import { getTags, getCategoryTags } from './handler/TagEndPoints';
 import { getReviewDetail } from './handler/ReviewEndpoints';
+import {
+  getMeetingProfiles,
+  getMeetingProfileCount,
+  getMeetingOpenCount,
+  postMeetingSignup,
+  openMeetingCard,
+} from './handler/MeetingEndpoints';
 
 export const handlers = [
   getCategories,
@@ -12,4 +19,9 @@ export const handlers = [
   getCategoryTags,
   getReviewStats,
   getReviewDetail,
+  getMeetingProfiles,
+  getMeetingProfileCount,
+  getMeetingOpenCount,
+  postMeetingSignup,
+  openMeetingCard,
 ];

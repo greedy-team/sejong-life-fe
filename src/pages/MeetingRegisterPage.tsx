@@ -1,0 +1,216 @@
+import { useState, useEffect } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import FunnelProgressBar from '../features/meeting/components/FunnelProgressBar';
+import GenderStep from '../features/meeting/components/GenderStep';
+import FaceTypeStep from '../features/meeting/components/FaceTypeStep';
+import BirthYearStep from '../features/meeting/components/BirthYearStep';
+import TextareaStep from '../features/meeting/components/TextareaStep';
+import ContactStep from '../features/meeting/components/ContactStep';
+import { useRegisterProfile } from '../features/meeting/hooks/useRegisterProfile';
+
+const STEPS = [
+  'gender',
+  'faceType',
+  'birthYear',
+  'hobby',
+  'dateStyle',
+  'contact',
+] as const;
+
+type StepKey = (typeof STEPS)[number];
+
+interface RegisterFormState {
+  gender: 'MALE' | 'FEMALE' | null;
+  faceType: string | null;
+  birthYear: number;
+  hobby: string;
+  dateStyle: string;
+  contact: string;
+}
+
+function MeetingRegisterPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const stepParam = searchParams.get('step') as StepKey | null;
+  const currentStepKey: StepKey =
+    stepParam !== null && (STEPS as readonly string[]).includes(stepParam)
+      ? stepParam
+      : 'gender';
+  const currentStepIndex = STEPS.indexOf(currentStepKey);
+
+  const [formState, setFormState] = useState<RegisterFormState>({
+    gender: null,
+    faceType: null,
+    birthYear: 2002,
+    hobby: '',
+    dateStyle: '',
+    contact: '',
+  });
+
+  const { mutate: registerProfile, isPending } = useRegisterProfile();
+
+  const STEP_VALIDATION: Record<
+    StepKey,
+    (state: RegisterFormState) => boolean
+  > = {
+    gender: (state) => state.gender !== null,
+    faceType: (state) => state.faceType !== null,
+    birthYear: () => true,
+    hobby: (state) =>
+      state.hobby.trim().length > 0 && state.hobby.trim().length <= 20,
+    dateStyle: (state) =>
+      state.dateStyle.trim().length > 0 && state.dateStyle.trim().length <= 30,
+    contact: (state) => state.contact.trim().length > 0,
+  };
+
+  const getStepError = (): string | null => {
+    if (currentStepKey === 'hobby' && formState.hobby.trim().length > 20) {
+      return '취미/특기는 20자 이내로 적어주세요';
+    }
+    if (
+      currentStepKey === 'dateStyle' &&
+      formState.dateStyle.trim().length > 30
+    ) {
+      return '데이트 스타일은 30자 이내로 적어주세요';
+    }
+    return null;
+  };
+
+  const stepError = getStepError();
+
+  useEffect(() => {
+    if (currentStepIndex > 0 && formState.gender === null) {
+      setSearchParams({ step: 'gender' }, { replace: true });
+    }
+  }, []);
+
+  const isCurrentStepValid = STEP_VALIDATION[currentStepKey](formState);
+
+  const updateFormState =
+    <K extends keyof RegisterFormState>(key: K) =>
+    (value: RegisterFormState[K]) =>
+      setFormState((previous) => ({ ...previous, [key]: value }));
+
+  const handleNext = () => {
+    if (currentStepIndex < STEPS.length - 1) {
+      setSearchParams({ step: STEPS[currentStepIndex + 1] });
+    }
+  };
+
+  const handleSubmit = () => {
+    if (
+      !Object.entries(STEP_VALIDATION).every(([, validate]) =>
+        validate(formState),
+      )
+    )
+      return;
+
+    registerProfile({
+      gender: formState.gender as 'MALE' | 'FEMALE',
+      faceType: formState.faceType as string,
+      birthYear: formState.birthYear,
+      hobby: formState.hobby.trim(),
+      dateStyle: formState.dateStyle.trim(),
+      contact: formState.contact.trim(),
+    });
+  };
+
+  const STEP_COMPONENTS: Record<StepKey, React.ReactNode> = {
+    gender: (
+      <GenderStep
+        value={formState.gender}
+        onChange={updateFormState('gender')}
+      />
+    ),
+    faceType: (
+      <FaceTypeStep
+        value={formState.faceType}
+        onChange={updateFormState('faceType')}
+      />
+    ),
+    birthYear: (
+      <BirthYearStep
+        value={formState.birthYear}
+        onChange={updateFormState('birthYear')}
+      />
+    ),
+    hobby: (
+      <TextareaStep
+        title="당신의 취미/특기는?"
+        maxLength={20}
+        description="자신의 취미나 특기를 적어주세요 (20자 이내)"
+        placeholder="예: 클라이밍, 요가"
+        value={formState.hobby}
+        onChange={updateFormState('hobby')}
+      />
+    ),
+    dateStyle: (
+      <TextareaStep
+        title="당신이 원하는 데이트는?"
+        maxLength={30}
+        description="하고싶은 데이트를 적어주세요 (30자 이내)"
+        placeholder="예: 한강에서 치맥하기"
+        value={formState.dateStyle}
+        onChange={updateFormState('dateStyle')}
+      />
+    ),
+    contact: (
+      <ContactStep
+        value={formState.contact}
+        onChange={updateFormState('contact')}
+      />
+    ),
+  };
+
+  const renderStep = () => STEP_COMPONENTS[currentStepKey];
+
+  return (
+    <main className="bg-alabaster mx-auto flex min-h-screen w-full max-w-[448px] flex-col">
+      <FunnelProgressBar
+        currentStep={currentStepIndex + 1}
+        totalSteps={STEPS.length}
+      />
+      <form
+        className="flex flex-1 flex-col px-6 pt-6 pb-4"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSubmit();
+        }}
+      >
+        <div className="flex-1">{renderStep()}</div>
+        <div className="mt-4 flex flex-col gap-0">
+          {stepError && (
+            <p className="mb-2 text-center text-sm text-red-400">{stepError}</p>
+          )}
+          <button
+            type={currentStepIndex === STEPS.length - 1 ? 'submit' : 'button'}
+            onClick={
+              currentStepIndex === STEPS.length - 1 ? undefined : handleNext
+            }
+            disabled={!isCurrentStepValid || isPending}
+            className={`text-button w-full cursor-pointer rounded-2xl py-4 font-bold text-white transition-opacity ${
+              isCurrentStepValid && !isPending
+                ? 'bg-main-gradient'
+                : 'bg-main-gradient cursor-not-allowed opacity-40'
+            }`}
+          >
+            {currentStepIndex === STEPS.length - 1 ? '제출하기' : '다음'}
+          </button>
+          {currentStepIndex > 0 && (
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="text-body-medium w-full cursor-pointer py-7 text-center font-medium"
+              style={{ color: '#8F8F8F' }}
+            >
+              ← 이전으로
+            </button>
+          )}
+        </div>
+      </form>
+    </main>
+  );
+}
+
+export default MeetingRegisterPage;
