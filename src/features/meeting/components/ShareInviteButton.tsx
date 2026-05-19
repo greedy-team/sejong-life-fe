@@ -26,6 +26,9 @@ function ShareInviteButton() {
     };
 
     if (!KAKAO_JS_KEY) {
+      console.warn(
+        '[ShareInvite] VITE_KAKAO_JS_KEY 가 없어 복사 폴백으로 동작합니다.',
+      );
       await copyFallback();
       return;
     }
@@ -37,7 +40,11 @@ function ShareInviteButton() {
         text: '슬종생 미팅에서 인연을 찾아보세요! 이 링크로 가입하면 친구에게 보너스 뽑기권이 지급돼요 🎟️',
         link: { mobileWebUrl: shareUrl, webUrl: shareUrl },
       });
-    } catch {
+    } catch (error) {
+      console.error(
+        '[ShareInvite] 카카오 공유 실패 → 복사 폴백으로 전환:',
+        error,
+      );
       await copyFallback();
     }
   };
