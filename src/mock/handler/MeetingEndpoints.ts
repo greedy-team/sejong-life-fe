@@ -87,6 +87,18 @@ export const getMeetingProfiles = http.get(
   },
 );
 
+export const getMeetingProfileCount = http.get(
+  `${API_BASE}/api/meeting/profiles/count`,
+  () => {
+    const male = mockProfiles.filter((p) => p.gender === 'MALE').length;
+    const female = mockProfiles.filter((p) => p.gender === 'FEMALE').length;
+    return HttpResponse.json(
+      { total: male + female, male, female },
+      { status: 200 },
+    );
+  },
+);
+
 export const getMeetingOpenCount = http.get(
   `${API_BASE}/api/meeting/profiles/open-count`,
   () => {

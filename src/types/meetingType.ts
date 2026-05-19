@@ -28,3 +28,9 @@ export interface OpenCountResponse {
   bonusOpenCount: number;
   cooldownRemainingSeconds: number;
 }
+
+export interface ProfileCountResponse {
+  total: number;
+  male: number;
+  female: number;
+}

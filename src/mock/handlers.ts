@@ -5,6 +5,7 @@ import { getTags, getCategoryTags } from './handler/TagEndPoints';
 import { getReviewDetail } from './handler/ReviewEndpoints';
 import {
   getMeetingProfiles,
+  getMeetingProfileCount,
   getMeetingOpenCount,
   postMeetingSignup,
   openMeetingCard,
@@ -19,6 +20,7 @@ export const handlers = [
   getReviewStats,
   getReviewDetail,
   getMeetingProfiles,
+  getMeetingProfileCount,
   getMeetingOpenCount,
   postMeetingSignup,
   openMeetingCard,
