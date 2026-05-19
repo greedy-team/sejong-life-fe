@@ -37,7 +37,10 @@ export function loadKakaoSdk(jsKey: string): Promise<any> {
     script.async = true;
     script.src = 'https://t1.kakao.com/kakao_js_sdk/2.7.4/kakao.min.js';
     script.onload = onReady;
-    script.onerror = reject;
+    script.onerror = () => {
+      console.error('[loadKakaoSdk] SDK 로드 실패:', script.src);
+      reject(new Error(`Kakao SDK load failed: ${script.src}`));
+    };
 
     document.head.appendChild(script);
   });
