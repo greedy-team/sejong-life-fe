@@ -1,6 +1,7 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { useKakaoLogin } from '../features/meeting/hooks/useKakaoLogin';
+import { useProfileCount } from '../features/meeting/hooks/useProfileCount';
 import { authApi } from '../api/api';
 import { MeetingInfoCard } from '../features/meeting/components/MeetingInfoCard';
 import ProfileCard from '../features/meeting/components/ProfileCard';
@@ -12,6 +13,7 @@ const KAKAO_REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
 const MeetingKakaoLoginPage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { data: profileCount } = useProfileCount();
 
   const { mutate: kakaoLogin } = useKakaoLogin((data) => {
     if (data.data.newUser) {
@@ -98,9 +100,13 @@ const MeetingKakaoLoginPage = () => {
           </div>
 
           <div className="mt-8 flex items-center justify-center gap-3">
-            <span className="font-semibold text-[#FF5F6D]">♀ 여자 999명</span>
+            <span className="font-semibold text-[#FF5F6D]">
+              ♀ 여자 {profileCount?.female ?? 0}명
+            </span>
             <span className="h-3.5 w-px bg-gray-200" />
-            <span className="font-semibold text-[#3B82F6]">♂ 남자 999명</span>
+            <span className="font-semibold text-[#3B82F6]">
+              ♂ 남자 {profileCount?.male ?? 0}명
+            </span>
           </div>
 
           <div className="mt-5 flex flex-col gap-2">
