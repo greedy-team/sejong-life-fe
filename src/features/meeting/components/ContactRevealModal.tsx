@@ -39,24 +39,49 @@ function ContactRevealModal({ contact, onClose }: ContactRevealModalProps) {
           </p>
         </div>
 
-        <div className="bg-meeting-surface flex w-full items-center justify-center rounded-2xl px-6 py-4">
-          <span className="text-heading-2 text-shark text-center break-all">
-            {contact}
-          </span>
+        <div className="bg-meeting-surface flex w-full items-center justify-between gap-3 rounded-2xl px-6 py-4">
+          <span className="text-heading-2 text-shark break-all">{contact}</span>
+          <button
+            type="button"
+            onClick={handleCopy}
+            aria-label="연락처 복사하기"
+            className="text-jumbo hover:text-shark shrink-0 cursor-pointer transition-colors"
+          >
+            {copied ? (
+              <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m20 6-11 11-5-5" />
+              </svg>
+            ) : (
+              <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="9" y="9" width="11" height="11" rx="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+              </svg>
+            )}
+          </button>
         </div>
 
         <button
           type="button"
-          onClick={handleCopy}
-          className="w-full cursor-pointer rounded-2xl border border-gray-200 py-3 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50"
-        >
-          {copied ? '✅ 복사됐어요!' : '연락처 복사하기'}
-        </button>
-
-        <button
-          type="button"
           onClick={onClose}
-          className="bg-main-gradient text-button w-full cursor-pointer rounded-2xl py-4 font-bold text-white"
+          className="w-full cursor-pointer rounded-2xl border border-gray-200 py-3 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50"
         >
           닫기
         </button>
