@@ -3,6 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useMeetingProfiles } from '../features/meeting/hooks/useMeetingProfiles';
 import { useOpenCard } from '../features/meeting/hooks/useOpenCard';
 import { useOpenCount } from '../features/meeting/hooks/useOpenCount';
+import { useProfileCount } from '../features/meeting/hooks/useProfileCount';
 import { useCooldownTimer } from '../features/meeting/hooks/useCooldownTimer';
 import ProfileCardList from '../features/meeting/components/ProfileCardList';
 import ContactRevealModal from '../features/meeting/components/ContactRevealModal';
@@ -21,6 +22,7 @@ function MeetingPage() {
   const queryClient = useQueryClient();
   const { data: profiles, isLoading, isError } = useMeetingProfiles();
   const { data: openCount } = useOpenCount();
+  const { data: profileCount } = useProfileCount();
   const [openCardResult, setOpenCardResult] = useState<CardOpenResponse | null>(
     null,
   );
@@ -36,6 +38,13 @@ function MeetingPage() {
       queryKey: queryKeys.meeting.openCount(),
     });
   });
+
+  const oppositeSexCount =
+    profiles && profiles.length > 0
+      ? profiles[0].gender === 'FEMALE'
+        ? (profileCount?.female ?? 0)
+        : (profileCount?.male ?? 0)
+      : 0;
 
   const availableOpenCount = openCount?.availableOpenCount ?? 0;
   const bonusOpenCount = openCount?.bonusOpenCount ?? 0;
@@ -85,7 +94,9 @@ function MeetingPage() {
             </p>
           </div>
           <div className="flex flex-col items-end gap-0.5">
-            <span className="text-2xl leading-none font-black">999명</span>{' '}
+            <span className="text-2xl leading-none font-black">
+              {oppositeSexCount}명
+            </span>{' '}
             <span className="text-xs text-gray-400">의 이성 프로필 등록됨</span>
           </div>
         </div>
