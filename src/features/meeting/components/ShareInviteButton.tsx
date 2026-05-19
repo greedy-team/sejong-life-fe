@@ -1,7 +1,4 @@
 import { toast } from 'react-toastify';
-import { loadKakaoSdk } from '../../../lib/share/loadKakaoSdk';
-
-const KAKAO_JS_KEY = import.meta.env.VITE_KAKAO_JS_KEY;
 
 function ShareInviteButton() {
   const handleShare = async () => {
@@ -12,6 +9,8 @@ function ShareInviteButton() {
     }
 
     const shareUrl = `${window.location.origin}/meeting/kakaoLogin?ref=${encodeURIComponent(kakaoId)}`;
+    const shareText =
+      '슬종생 미팅에서 인연을 찾아보세요! 이 링크로 가입하면 친구에게 보너스 뽑기권이 지급돼요 🎟️';
 
     const copyFallback = async () => {
       try {
@@ -25,26 +24,21 @@ function ShareInviteButton() {
       }
     };
 
-    if (!KAKAO_JS_KEY) {
-      console.warn(
-        '[ShareInvite] VITE_KAKAO_JS_KEY 가 없어 복사 폴백으로 동작합니다.',
-      );
+    if (!navigator.share) {
       await copyFallback();
       return;
     }
 
     try {
-      const kakao = await loadKakaoSdk(KAKAO_JS_KEY);
-      kakao.Share.sendDefault({
-        objectType: 'text',
-        text: '슬종생 미팅에서 인연을 찾아보세요! 이 링크로 가입하면 친구에게 보너스 뽑기권이 지급돼요 🎟️',
-        link: { mobileWebUrl: shareUrl, webUrl: shareUrl },
+      await navigator.share({
+        title: '슬종생 미팅',
+        text: shareText,
+        url: shareUrl,
       });
     } catch (error) {
-      console.error(
-        '[ShareInvite] 카카오 공유 실패 → 복사 폴백으로 전환:',
-        error,
-      );
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        return;
+      }
       await copyFallback();
     }
   };
