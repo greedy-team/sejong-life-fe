@@ -4,6 +4,8 @@ declare global {
   }
 }
 
+const SDK_SRC = 'https://t1.kakao.com/kakao_js_sdk/2.7.4/kakao.min.js';
+
 let kakaoSdkPromise: Promise<any> | null = null;
 
 export function loadKakaoSdk(jsKey: string): Promise<any> {
@@ -35,11 +37,15 @@ export function loadKakaoSdk(jsKey: string): Promise<any> {
     const script = document.createElement('script');
     script.dataset.kakaoSdk = 'true';
     script.async = true;
-    script.src = 'https://t1.kakao.com/kakao_js_sdk/2.7.4/kakao.min.js';
+    script.src = SDK_SRC;
     script.onload = onReady;
     script.onerror = () => {
-      console.error('[loadKakaoSdk] SDK 로드 실패:', script.src);
-      reject(new Error(`Kakao SDK load failed: ${script.src}`));
+      console.error(
+        '[loadKakaoSdk] SDK 로드 실패 (DNS/네트워크 차단 가능):',
+        SDK_SRC,
+      );
+      kakaoSdkPromise = null;
+      reject(new Error(`Kakao SDK load failed: ${SDK_SRC}`));
     };
 
     document.head.appendChild(script);
