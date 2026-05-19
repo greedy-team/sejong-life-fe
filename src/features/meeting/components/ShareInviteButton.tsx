@@ -48,9 +48,23 @@ function ShareInviteButton() {
       <button
         type="button"
         onClick={handleShare}
-        className="bg-main-gradient text-button flex w-full cursor-pointer items-center justify-center gap-2 rounded-full py-4 font-bold text-white shadow-[0_12px_28px_rgba(255,95,109,0.35)] active:scale-[0.98]"
+        className="bg-main-gradient text-heading-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full py-4 font-bold text-white shadow-[0_12px_28px_rgba(255,95,109,0.35)] active:scale-[0.98]"
       >
-        🎁 친구에게 공유하고 보너스 뽑기권 받기!
+        <span className="relative inline-flex h-6 w-6 shrink-0 items-center justify-center">
+          <span className="animate-cursor-ripple absolute h-5 w-5 rounded-full border-2 border-white" />
+          <svg
+            viewBox="0 0 24 24"
+            className="animate-cursor-tap relative h-5 w-5"
+            fill="white"
+            stroke="rgba(0,0,0,0.25)"
+            strokeWidth="1"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 3.5 18.5 12 12 13 9 19 5 3.5Z" />
+          </svg>
+        </span>
+        초대하고 보너스 뽑기권 받기!
       </button>
     </div>
   );

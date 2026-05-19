@@ -83,7 +83,7 @@ function MeetingPage() {
         <div
           className="flex w-full flex-row items-center justify-between px-5 py-4"
           style={{
-            background: 'rgba(255, 253, 249, 0.85)',
+            background: 'rgba(255, 253, 249)',
             backdropFilter: 'blur(10px)',
             borderBottom: '1px solid rgba(255, 107, 53, 0.08)',
           }}
@@ -105,7 +105,7 @@ function MeetingPage() {
         <div
           className="flex w-full flex-row items-start justify-between px-5 py-2.5"
           style={{
-            background: 'rgba(255, 107, 53, 0.06)',
+            background: 'rgba(255, 253, 249, 1)',
             borderBottom: '1px solid rgba(255, 107, 53, 0.1)',
           }}
         >
@@ -135,7 +135,7 @@ function MeetingPage() {
         </div>
       </header>
 
-      <div className="mt-4 flex-1 overflow-y-auto pb-28">
+      <div className="flex-1 overflow-y-auto pb-28">
         {isLoading && (
           <div className="flex items-center justify-center py-20">
             <span className="text-body-regular text-jumbo">불러오는 중...</span>

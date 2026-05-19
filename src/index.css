@@ -175,4 +175,37 @@ body {
   .bg-choice-header-gradient {
     background: linear-gradient(115.6deg, #EB4763 0%, #F48434 100%);
   }
+
+  .animate-cursor-tap {
+    animation: cursor-tap 1.4s ease-in-out infinite;
+    transform-origin: 30% 30%;
+  }
+
+  .animate-cursor-ripple {
+    animation: cursor-ripple 1.4s ease-out infinite;
+    transform-origin: center;
+  }
+}
+
+@keyframes cursor-tap {
+  0%, 60%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  30% {
+    transform: translateY(2px) scale(0.85);
+  }
+}
+
+@keyframes cursor-ripple {
+  0%, 22% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  35% {
+    opacity: 0.7;
+  }
+  70%, 100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
 }

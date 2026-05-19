@@ -71,7 +71,7 @@ const MeetingKakaoLoginPage = () => {
         `}
       </style>
 
-      <div className="pointer-events-none fixed inset-0 opacity-60 blur-[1px]">
+      <div className="pointer-events-none fixed inset-0 opacity-60 blur-[3px]">
         {meetingMockProfiles.map((profile, index) => (
           <div
             key={profile.id}
@@ -99,7 +99,7 @@ const MeetingKakaoLoginPage = () => {
               내 프로필을 등록하면
               <br />
               <span className="text-[#FF6B35]">
-                인연 프로필을 뽑을 수 있어요
+                이성 프로필을 뽑을 수 있어요
               </span>
             </h1>
             <p className="mt-3 text-base leading-relaxed font-medium text-gray-500">
@@ -137,18 +137,18 @@ const MeetingKakaoLoginPage = () => {
                   <span className="text-[#FF6B35]">+1</span>
                 </>
               }
-              description="프로필을 뽑은 후 1시간마다 +1의 뽑기 기회가 생겨요. 자주 방문할수록 더 많은 인연을!"
+              description="프로필을 뽑은 후 1시간마다 +1의 뽑기 기회가 생겨요. 자주 방문할수록 더 많은 기회를!"
             />
 
             <MeetingInfoCard
               icon="🔗"
               title={
                 <>
-                  <span className="text-[#FF6B35]">링크 공유</span>하면 뽑기
+                  <span className="text-[#FF6B35]">친구 초대</span>하면 뽑기
                   기회 <span className="text-[#FF6B35]"> +1</span>
                 </>
               }
-              description="친구에게 슬종생 링크를 공유하면 보너스 기회를 받을 수 있어요."
+              description="슬종생 링크를 공유하고 친구가 등록하면 보너스 기회를 받을 수 있어요."
             />
           </div>
         </div>
