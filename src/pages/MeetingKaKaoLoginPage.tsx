@@ -57,7 +57,7 @@ const MeetingKakaoLoginPage = () => {
   };
 
   return (
-    <main className="relative mx-auto min-h-screen w-full max-w-[448px] overflow-hidden bg-[#FFFDF9]">
+    <main className="relative mx-auto min-h-dvh w-full max-w-[448px] overflow-hidden bg-[#FFFDF9]">
       <style>
         {`
           @keyframes floatUp {
@@ -92,7 +92,7 @@ const MeetingKakaoLoginPage = () => {
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/10 via-white/70 to-white" />
 
-      <section className="relative z-10 flex min-h-screen flex-col px-6 pt-10 pb-7">
+      <section className="relative z-10 flex min-h-dvh flex-col px-6 pt-10 pb-7">
         <div className="flex-1">
           <div className="mt-20 text-center">
             <h1 className="text-[32px] leading-tight font-black tracking-[-0.04em] text-gray-900">
@@ -117,7 +117,7 @@ const MeetingKakaoLoginPage = () => {
             </span>
           </div>
 
-          <div className="mt-5 flex flex-col gap-2">
+          <div className="mt-5 flex flex-col gap-2 pb-48">
             <MeetingInfoCard
               icon="🎟️"
               title={

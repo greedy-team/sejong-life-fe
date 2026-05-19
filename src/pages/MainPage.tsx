@@ -66,7 +66,7 @@ const MainPage = () => {
           <SearchBar />
         </div>
 
-        <div className="flex flex-wrap justify-center gap-5 pt-10">
+        <div className="flex flex-wrap justify-center gap-5 pt-4">
           {menus.map((m) => (
             <PageRouterButton
               key={m.label}

@@ -4,7 +4,10 @@ const MeetingBanner = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-main-gradient relative mx-4 mt-5 flex items-center justify-between overflow-hidden rounded-2xl p-5">
+    <div
+      onClick={() => navigate('/meeting/kakaoLogin')}
+      className="bg-main-gradient relative mx-4 mt-5 flex cursor-pointer items-center justify-between overflow-hidden rounded-2xl p-5"
+    >
       <div className="relative z-10">
         <span className="mb-2 inline-block rounded-full bg-white/20 px-3 py-0.5 text-[11px] font-bold text-white">
           ✨ 축제 한정
@@ -20,10 +23,7 @@ const MeetingBanner = () => {
         </p>
       </div>
 
-      <button
-        onClick={() => navigate('/meeting/kakaoLogin')}
-        className="relative z-10 flex-shrink-0 rounded-xl bg-white px-4 py-2.5 text-xs font-bold text-[#f8433a]"
-      >
+      <button className="relative z-10 flex-shrink-0 rounded-xl bg-white px-4 py-2.5 text-xs font-bold text-[#f8433a]">
         참여하기 →
       </button>
     </div>
