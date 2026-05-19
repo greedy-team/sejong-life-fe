@@ -1,6 +1,7 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { useKakaoLogin } from '../features/meeting/hooks/useKakaoLogin';
+import { useProfileCount } from '../features/meeting/hooks/useProfileCount';
 import { authApi } from '../api/api';
 import { MeetingInfoCard } from '../features/meeting/components/MeetingInfoCard';
 import ProfileCard from '../features/meeting/components/ProfileCard';
@@ -12,8 +13,10 @@ const KAKAO_REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
 const MeetingKakaoLoginPage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { data: profileCount } = useProfileCount();
 
   const { mutate: kakaoLogin } = useKakaoLogin((data) => {
+    localStorage.setItem('kakaoId', data.data.kakaoId);
     if (data.data.newUser) {
       sessionStorage.setItem('signUpToken', data.data.signUpToken);
       navigate('/meeting/register?step=gender');
@@ -24,6 +27,13 @@ const MeetingKakaoLoginPage = () => {
   });
 
   const hasCalledLogin = useRef(false);
+
+  useEffect(() => {
+    const ref = searchParams.get('ref');
+    if (ref) {
+      sessionStorage.setItem('meetingRef', ref);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const code = searchParams.get('code');
@@ -61,7 +71,7 @@ const MeetingKakaoLoginPage = () => {
         `}
       </style>
 
-      <div className="pointer-events-none fixed inset-0 opacity-60 blur-[1px]">
+      <div className="pointer-events-none fixed inset-0 opacity-60 blur-[3px]">
         {meetingMockProfiles.map((profile, index) => (
           <div
             key={profile.id}
@@ -89,7 +99,7 @@ const MeetingKakaoLoginPage = () => {
               내 프로필을 등록하면
               <br />
               <span className="text-[#FF6B35]">
-                인연 프로필을 뽑을 수 있어요
+                이성 프로필을 뽑을 수 있어요
               </span>
             </h1>
             <p className="mt-3 text-base leading-relaxed font-medium text-gray-500">
@@ -98,9 +108,13 @@ const MeetingKakaoLoginPage = () => {
           </div>
 
           <div className="mt-8 flex items-center justify-center gap-3">
-            <span className="font-semibold text-[#FF5F6D]">♀ 여자 999명</span>
+            <span className="font-semibold text-[#FF5F6D]">
+              ♀ 여자 {profileCount?.female ?? 0}명
+            </span>
             <span className="h-3.5 w-px bg-gray-200" />
-            <span className="font-semibold text-[#3B82F6]">♂ 남자 999명</span>
+            <span className="font-semibold text-[#3B82F6]">
+              ♂ 남자 {profileCount?.male ?? 0}명
+            </span>
           </div>
 
           <div className="mt-5 flex flex-col gap-2">
@@ -123,18 +137,18 @@ const MeetingKakaoLoginPage = () => {
                   <span className="text-[#FF6B35]">+1</span>
                 </>
               }
-              description="프로필을 뽑은 후 1시간마다 +1의 뽑기 기회가 생겨요. 자주 방문할수록 더 많은 인연을!"
+              description="프로필을 뽑은 후 1시간마다 +1의 뽑기 기회가 생겨요. 자주 방문할수록 더 많은 기회를!"
             />
 
             <MeetingInfoCard
               icon="🔗"
               title={
                 <>
-                  <span className="text-[#FF6B35]">링크 공유</span>하면 뽑기
+                  <span className="text-[#FF6B35]">친구 초대</span>하면 뽑기
                   기회 <span className="text-[#FF6B35]"> +1</span>
                 </>
               }
-              description="친구에게 슬종생 링크를 공유하면 추가로 뽑기 기회를 받을 수 있어요."
+              description="슬종생 링크를 공유하고 친구가 등록하면 보너스 기회를 받을 수 있어요."
             />
           </div>
         </div>

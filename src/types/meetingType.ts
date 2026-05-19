@@ -1,11 +1,12 @@
 export interface Profile {
   id: number;
+  kakaoId?: string;
   gender: 'MALE' | 'FEMALE';
   faceType: string;
   birthYear: number;
   hobby: string;
   dateStyle: string;
-  selfAppeal?: string;
+  createdAt?: string;
 }
 
 export interface ProfileRegisterPayload {
@@ -14,10 +15,33 @@ export interface ProfileRegisterPayload {
   birthYear: number;
   hobby: string;
   dateStyle: string;
-  selfAppeal?: string;
   contact: string;
 }
 
 export interface CardOpenResponse {
   contact: string;
+  alreadyViewed: boolean;
+}
+
+export interface OpenCountResponse {
+  availableOpenCount: number;
+  bonusOpenCount: number;
+  cooldownRemainingSeconds: number;
+}
+
+export interface ProfileCountResponse {
+  total: number;
+  male: number;
+  female: number;
+}
+
+export interface LoginResponse {
+  message: string;
+  data: {
+    accessToken: string;
+    signUpToken: string;
+    kakaoId: string;
+    userInfo: { studentId: string; name: string };
+    newUser: boolean;
+  };
 }

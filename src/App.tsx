@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import Layout from './layout/Layout';
 import ProtectedRoute from './components/share/ProtectedRoute';
@@ -17,6 +17,7 @@ import PrivacyPolicy from './pages/PrivacyPolicyPage';
 import KakaoMapPage from './pages/KakaoMapPage';
 import ScrollToTop from './components/share/ScrollToTop';
 import MeetingKakaoLoginPage from './pages/MeetingKaKaoLoginPage';
+import MeetingProtectedRoute from './features/meeting/components/MeetingProtectedRoute';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -116,8 +117,26 @@ function App() {
               path="/meeting/kakaoLogin"
               element={<MeetingKakaoLoginPage />}
             />
-            <Route path="/meeting" element={<MeetingPage />} />
-            <Route path="/meeting/register" element={<MeetingRegisterPage />} />
+            <Route
+              path="/meeting"
+              element={
+                <MeetingProtectedRoute tokenType="access">
+                  <MeetingPage />
+                </MeetingProtectedRoute>
+              }
+            />
+            <Route
+              path="/meeting/register"
+              element={
+                <MeetingProtectedRoute tokenType="signup">
+                  <MeetingRegisterPage />
+                </MeetingProtectedRoute>
+              }
+            />
+            <Route
+              path="/meeting/*"
+              element={<Navigate to="/meeting" replace />}
+            />
           </Routes>
         </Suspense>
       </BrowserRouter>

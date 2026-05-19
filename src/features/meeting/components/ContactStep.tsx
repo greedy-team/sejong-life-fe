@@ -27,7 +27,7 @@ function ContactStep({ value, onChange }: ContactStepProps) {
               type="text"
               value={value}
               onChange={handleChange}
-              placeholder="예: @my_kakao_id 또는 @my_instagram"
+              placeholder="예: 인스타그램 @my_instagram / 연락처 010-1234-5678"
               maxLength={MAX_LENGTH}
               aria-label="연락처"
               className="text-caption text-shark w-full bg-transparent outline-none placeholder:text-[#B9B9B9]"
@@ -39,6 +39,10 @@ function ContactStep({ value, onChange }: ContactStepProps) {
             </span>
           </div>
         </div>
+        <p className="text-caption text-jumbo">
+          💡 상대방이 회원님의 프로필을 뽑으면 입력하신 연락처가 공개돼요.
+          편하게 연락받을 수 있는 수단으로 적어주세요!
+        </p>
       </div>
     </div>
   );
