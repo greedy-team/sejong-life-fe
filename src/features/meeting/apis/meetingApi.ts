@@ -5,6 +5,7 @@ import type {
   CardOpenResponse,
   OpenCountResponse,
   ProfileCountResponse,
+  LoginResponse,
 } from '../../../types/meetingType';
 
 export const fetchMeetingProfiles = async (): Promise<Profile[]> => {
@@ -24,21 +25,15 @@ export const fetchProfileCount = async (): Promise<ProfileCountResponse> => {
 
 export const registerMeetingProfile = async (
   payload: ProfileRegisterPayload,
-): Promise<{
-  message: string;
-  data: {
-    accessToken: string;
-    signUpToken: string;
-    userInfo: { studentId: string; name: string };
-    newUser: boolean;
-  };
-}> => {
+): Promise<LoginResponse> => {
   const signUpToken = sessionStorage.getItem('signUpToken');
+  const ref = sessionStorage.getItem('meetingRef');
 
   const response = await authApi.post('/api/meeting/auth/signup', payload, {
     headers: {
       Authorization: `Bearer ${signUpToken}`,
     },
+    params: ref ? { ref } : undefined,
   });
   return response.data;
 };

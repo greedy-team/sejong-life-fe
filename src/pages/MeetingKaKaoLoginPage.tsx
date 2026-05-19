@@ -16,6 +16,7 @@ const MeetingKakaoLoginPage = () => {
   const { data: profileCount } = useProfileCount();
 
   const { mutate: kakaoLogin } = useKakaoLogin((data) => {
+    localStorage.setItem('kakaoId', data.data.kakaoId);
     if (data.data.newUser) {
       sessionStorage.setItem('signUpToken', data.data.signUpToken);
       navigate('/meeting/register?step=gender');
@@ -26,6 +27,13 @@ const MeetingKakaoLoginPage = () => {
   });
 
   const hasCalledLogin = useRef(false);
+
+  useEffect(() => {
+    const ref = searchParams.get('ref');
+    if (ref) {
+      sessionStorage.setItem('meetingRef', ref);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const code = searchParams.get('code');

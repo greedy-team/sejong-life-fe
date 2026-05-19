@@ -14,7 +14,9 @@ export const useRegisterProfile = () => {
       registerMeetingProfile(payload),
     onSuccess: (data) => {
       localStorage.setItem('accessToken', data.data.accessToken);
+      localStorage.setItem('kakaoId', data.data.kakaoId);
       sessionStorage.removeItem('signUpToken');
+      sessionStorage.removeItem('meetingRef');
       toast.success('프로필이 등록되었습니다!');
       queryClient.invalidateQueries({ queryKey: queryKeys.meeting.profiles() });
       navigate('/meeting');

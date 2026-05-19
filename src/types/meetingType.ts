@@ -34,3 +34,14 @@ export interface ProfileCountResponse {
   male: number;
   female: number;
 }
+
+export interface LoginResponse {
+  message: string;
+  data: {
+    accessToken: string;
+    signUpToken: string;
+    kakaoId: string;
+    userInfo: { studentId: string; name: string };
+    newUser: boolean;
+  };
+}
