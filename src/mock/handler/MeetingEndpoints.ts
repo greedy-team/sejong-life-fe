@@ -118,13 +118,15 @@ export const getMeetingOpenCount = http.get(
 
 export const postMeetingSignup = http.post(
   `${API_BASE}/api/meeting/auth/signup`,
-  () => {
+  ({ request }) => {
+    const ref = new URL(request.url).searchParams.get('ref');
     return HttpResponse.json(
       {
-        message: '회원가입 성공',
+        message: ref ? `회원가입 성공 (초대자: ${ref})` : '회원가입 성공',
         data: {
           accessToken: 'mock-access-token',
           signUpToken: null,
+          kakaoId: 'mock-kakao-id',
           userInfo: { studentId: '20200000', name: '홍길동' },
           newUser: false,
         },

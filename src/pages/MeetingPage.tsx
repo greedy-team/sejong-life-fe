@@ -8,6 +8,7 @@ import { useCooldownTimer } from '../features/meeting/hooks/useCooldownTimer';
 import ProfileCardList from '../features/meeting/components/ProfileCardList';
 import ContactRevealModal from '../features/meeting/components/ContactRevealModal';
 import OpenCountInfoButton from '../features/meeting/components/OpenCountInfoButton';
+import ShareInviteButton from '../features/meeting/components/ShareInviteButton';
 import type { CardOpenResponse } from '../types/meetingType';
 import { queryKeys } from '../lib/query/queryKeys';
 import { toast } from 'react-toastify';
@@ -134,7 +135,7 @@ function MeetingPage() {
         </div>
       </header>
 
-      <div className="mt-4 flex-1 overflow-y-auto">
+      <div className="mt-4 flex-1 overflow-y-auto pb-28">
         {isLoading && (
           <div className="flex items-center justify-center py-20">
             <span className="text-body-regular text-jumbo">불러오는 중...</span>
@@ -164,6 +165,8 @@ function MeetingPage() {
           />
         )}
       </div>
+
+      {profiles && profiles.length > 0 && <ShareInviteButton />}
 
       {openCardResult && (
         <ContactRevealModal
