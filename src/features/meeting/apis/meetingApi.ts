@@ -1,4 +1,4 @@
-import { api, authApi } from '../../../api/api';
+import { api, meetingAuthApi } from '../../../api/api';
 import type {
   Profile,
   ProfileRegisterPayload,
@@ -9,12 +9,12 @@ import type {
 } from '../../../types/meetingType';
 
 export const fetchMeetingProfiles = async (): Promise<Profile[]> => {
-  const response = await authApi.get('/api/meeting/profiles');
+  const response = await meetingAuthApi.get('/api/meeting/profiles');
   return response.data;
 };
 
 export const fetchOpenCount = async (): Promise<OpenCountResponse> => {
-  const response = await authApi.get('/api/meeting/profiles/open-count');
+  const response = await meetingAuthApi.get('/api/meeting/profiles/open-count');
   return response.data?.data ?? response.data;
 };
 
@@ -29,7 +29,7 @@ export const registerMeetingProfile = async (
   const signUpToken = sessionStorage.getItem('signUpToken');
   const ref = sessionStorage.getItem('meetingRef');
 
-  const response = await authApi.post('/api/meeting/auth/signup', payload, {
+  const response = await api.post('/api/meeting/auth/signup', payload, {
     headers: {
       Authorization: `Bearer ${signUpToken}`,
     },
@@ -41,7 +41,7 @@ export const registerMeetingProfile = async (
 export const openMeetingCard = async (
   profileId: number,
 ): Promise<CardOpenResponse> => {
-  const response = await authApi.post(
+  const response = await meetingAuthApi.post(
     `/api/meeting/profiles/${profileId}/open`,
   );
   return response.data;

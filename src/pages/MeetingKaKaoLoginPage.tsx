@@ -2,7 +2,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { useKakaoLogin } from '../features/meeting/hooks/useKakaoLogin';
 import { useProfileCount } from '../features/meeting/hooks/useProfileCount';
-import { authApi } from '../api/api';
+import { api } from '../api/api';
 import { MeetingInfoCard } from '../features/meeting/components/MeetingInfoCard';
 import ProfileCard from '../features/meeting/components/ProfileCard';
 import { meetingMockProfiles } from '../features/meeting/mock/meetingMockProfiles';
@@ -21,7 +21,7 @@ const MeetingKakaoLoginPage = () => {
       sessionStorage.setItem('signUpToken', data.data.signUpToken);
       navigate('/meeting/register?step=gender');
     } else {
-      localStorage.setItem('accessToken', data.data.accessToken);
+      localStorage.setItem('meetingAccessToken', data.data.accessToken);
       navigate('/meeting');
     }
   });
@@ -46,7 +46,7 @@ const MeetingKakaoLoginPage = () => {
   }, [searchParams, kakaoLogin]);
 
   const handleKakaoLogin = async () => {
-    const { data } = await authApi.get('/api/meeting/auth/kakao/state');
+    const { data } = await api.get('/api/meeting/auth/kakao/state');
 
     window.location.href =
       `https://kauth.kakao.com/oauth/authorize` +

@@ -43,6 +43,9 @@ function ContactStep({ value, onChange }: ContactStepProps) {
           💡 상대방이 회원님의 프로필을 뽑으면 입력하신 연락처가 공개돼요.
           편하게 연락받을 수 있는 수단으로 적어주세요!
         </p>
+        <p className="text-caption text-jumbo">
+          ⚠️ 거짓 정보 입력 시 무통보 삭제될 수 있습니다.
+        </p>
       </div>
     </div>
   );
