@@ -14,7 +14,7 @@ const MeetingProtectedRoute = ({
   const navigate = useNavigate();
   const hasAccess =
     tokenType === 'access'
-      ? !!localStorage.getItem('accessToken')
+      ? !!localStorage.getItem('meetingAccessToken')
       : !!sessionStorage.getItem('signUpToken');
 
   useEffect(() => {
