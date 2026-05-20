@@ -26,3 +26,22 @@ authApi.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
+export const meetingAuthApi = axios.create({
+  baseURL: BASE_URL,
+  timeout: 10000,
+  withCredentials: true,
+});
+
+meetingAuthApi.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('meetingAccessToken');
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
