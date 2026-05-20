@@ -13,7 +13,7 @@ export const useRegisterProfile = () => {
     mutationFn: (payload: ProfileRegisterPayload) =>
       registerMeetingProfile(payload),
     onSuccess: (data) => {
-      localStorage.setItem('accessToken', data.data.accessToken);
+      localStorage.setItem('meetingAccessToken', data.data.accessToken);
       localStorage.setItem('kakaoId', data.data.kakaoId);
       sessionStorage.removeItem('signUpToken');
       sessionStorage.removeItem('meetingRef');
