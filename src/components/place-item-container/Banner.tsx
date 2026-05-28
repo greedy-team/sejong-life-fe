@@ -2,7 +2,7 @@ import TextType from '../share/TextType';
 
 const Banner = () => {
   return (
-    <section className="relative flex h-[100px] w-full items-center justify-center bg-white text-center text-gray-800">
+    <section className="relative mt-5 flex h-[100px] w-full items-center justify-center bg-white text-center text-gray-800 sm:mt-10">
       <div className="relative z-20 flex flex-col items-center justify-center">
         <p className="mt-15 text-2xl sm:text-4xl">
           세종대생의 하루를 더 편하게 <br />
