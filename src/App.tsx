@@ -113,30 +113,6 @@ function App() {
               }
             />
             <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route
-              path="/meeting/kakaoLogin"
-              element={<MeetingKakaoLoginPage />}
-            />
-            <Route
-              path="/meeting"
-              element={
-                <MeetingProtectedRoute tokenType="access">
-                  <MeetingPage />
-                </MeetingProtectedRoute>
-              }
-            />
-            <Route
-              path="/meeting/register"
-              element={
-                <MeetingProtectedRoute tokenType="signup">
-                  <MeetingRegisterPage />
-                </MeetingProtectedRoute>
-              }
-            />
-            <Route
-              path="/meeting/*"
-              element={<Navigate to="/meeting" replace />}
-            />
           </Routes>
         </Suspense>
       </BrowserRouter>
