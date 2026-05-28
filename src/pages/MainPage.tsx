@@ -60,7 +60,7 @@ const MainPage = () => {
   return (
     <>
       <div className="w-full overflow-x-hidden">
-        <MeetingBanner />
+        {/* <MeetingBanner /> */}
         <Banner />
         <div className="flex justify-center">
           <SearchBar />
