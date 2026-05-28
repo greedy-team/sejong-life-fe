@@ -25,8 +25,6 @@ const PrepareServicePage = lazy(() => import('./pages/PrepareServicePage'));
 const ExplorePage = lazy(() => import('./pages/ExplorePage'));
 const AllReviewPage = lazy(() => import('./pages/AllReviewsPage'));
 const RoulettePage = lazy(() => import('./pages/RoulettePage'));
-const MeetingPage = lazy(() => import('./pages/MeetingPage'));
-const MeetingRegisterPage = lazy(() => import('./pages/MeetingRegisterPage'));
 
 function App() {
   return (
