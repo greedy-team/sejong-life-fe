@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import Layout from './layout/Layout';
 import ProtectedRoute from './components/share/ProtectedRoute';
@@ -16,8 +16,6 @@ import MyPlacesPage from './pages/MyPlacesPage';
 import PrivacyPolicy from './pages/PrivacyPolicyPage';
 import KakaoMapPage from './pages/KakaoMapPage';
 import ScrollToTop from './components/share/ScrollToTop';
-import MeetingKakaoLoginPage from './pages/MeetingKaKaoLoginPage';
-import MeetingProtectedRoute from './features/meeting/components/MeetingProtectedRoute';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -27,8 +25,6 @@ const PrepareServicePage = lazy(() => import('./pages/PrepareServicePage'));
 const ExplorePage = lazy(() => import('./pages/ExplorePage'));
 const AllReviewPage = lazy(() => import('./pages/AllReviewsPage'));
 const RoulettePage = lazy(() => import('./pages/RoulettePage'));
-const MeetingPage = lazy(() => import('./pages/MeetingPage'));
-const MeetingRegisterPage = lazy(() => import('./pages/MeetingRegisterPage'));
 
 function App() {
   return (
@@ -113,30 +109,6 @@ function App() {
               }
             />
             <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route
-              path="/meeting/kakaoLogin"
-              element={<MeetingKakaoLoginPage />}
-            />
-            <Route
-              path="/meeting"
-              element={
-                <MeetingProtectedRoute tokenType="access">
-                  <MeetingPage />
-                </MeetingProtectedRoute>
-              }
-            />
-            <Route
-              path="/meeting/register"
-              element={
-                <MeetingProtectedRoute tokenType="signup">
-                  <MeetingRegisterPage />
-                </MeetingProtectedRoute>
-              }
-            />
-            <Route
-              path="/meeting/*"
-              element={<Navigate to="/meeting" replace />}
-            />
           </Routes>
         </Suspense>
       </BrowserRouter>

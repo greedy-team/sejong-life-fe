@@ -8,7 +8,6 @@ import { useHotPlaces } from '../features/main/hooks';
 import SearchBar from '../components/share/SearchBar';
 import { useNavigate } from 'react-router-dom';
 import MapNavigateButton from '../components/share/MapNavigateButton';
-import MeetingBanner from '../features/meeting/components/MeetingBanner';
 
 const menus = [
   {
@@ -60,7 +59,7 @@ const MainPage = () => {
   return (
     <>
       <div className="w-full overflow-x-hidden">
-        <MeetingBanner />
+        {/* <MeetingBanner /> */}
         <Banner />
         <div className="flex justify-center">
           <SearchBar />
