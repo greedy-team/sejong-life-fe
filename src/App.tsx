@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import Layout from './layout/Layout';
 import ProtectedRoute from './components/share/ProtectedRoute';
@@ -16,8 +16,6 @@ import MyPlacesPage from './pages/MyPlacesPage';
 import PrivacyPolicy from './pages/PrivacyPolicyPage';
 import KakaoMapPage from './pages/KakaoMapPage';
 import ScrollToTop from './components/share/ScrollToTop';
-import MeetingKakaoLoginPage from './pages/MeetingKaKaoLoginPage';
-import MeetingProtectedRoute from './features/meeting/components/MeetingProtectedRoute';
 
 // lazy import
 const MainPage = lazy(() => import('./pages/MainPage'));
