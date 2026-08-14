@@ -1,4 +1,4 @@
-import { api, authApi } from '../../../api/api';
+import { api } from '../../../api/api';
 import type { LoginPayload, LoginResponse } from '../../../types/type';
 
 interface SignUpPayload {
@@ -22,10 +22,6 @@ export const requestLogin = async (
     console.error('로그인 실패:', error);
     throw error;
   }
-};
-
-export const requestLogout = async (): Promise<void> => {
-  await authApi.post('/api/auth/logout');
 };
 
 export const requestSignUp = async (
