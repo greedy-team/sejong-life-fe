@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import type { UserProfileResponseProps } from '../types/type';
 import { getMyProfile } from '../features/myPage/apis/getMyProfile';
 import deleteUser from '../features/myPage/apis/deleteUser';
+import { requestLogout } from '../features/login/api/loginApi';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
@@ -38,10 +39,16 @@ function MyPage() {
   if (error) return <div>유저 정보를 불러오지 못했어요</div>;
   if (!myProfile) return null;
 
-  const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    setIsLoggedIn(false);
-    navigate('/', { replace: true });
+  const handleLogout = async () => {
+    try {
+      await requestLogout();
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+    } finally {
+      localStorage.removeItem('accessToken');
+      setIsLoggedIn(false);
+      navigate('/', { replace: true });
+    }
   };
 
   const handleMembershipCancellation = async () => {
