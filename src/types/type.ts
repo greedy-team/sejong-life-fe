@@ -138,15 +138,6 @@ export interface LoginResponse {
   data: LoginResponseProps;
 }
 
-export interface ReissueResponseProps {
-  accessToken: string;
-}
-
-export interface ReissueResponse {
-  message: string;
-  data: ReissueResponseProps;
-}
-
 export interface UserProfileResponseProps {
   name: string;
   nickname: string;
