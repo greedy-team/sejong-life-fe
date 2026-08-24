@@ -18,7 +18,7 @@ export const PLACE_SORT_OPTIONS: { value: PlaceSortType; label: string }[] = [
 
 export const isPlaceSortType = (
   value?: string | null,
-): value is PlaceSortType => !!value && value in PLACE_SORT_TYPES;
+): value is PlaceSortType => !!value && Object.hasOwn(PLACE_SORT_TYPES, value);
 
 export const getPlaceSortLabel = (sortType: PlaceSortType) =>
   PLACE_SORT_OPTIONS.find((option) => option.value === sortType)?.label ?? '';
