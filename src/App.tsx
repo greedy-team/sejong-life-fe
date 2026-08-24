@@ -6,7 +6,6 @@ import Spinner from './components/share/Spinner';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyPage from './pages/MyPage';
-import SearchResultPage from './pages/SearchResultPage';
 import MyReviewPage from './pages/MyReviewPage';
 import AdminPlacesPage from './pages/AdminPlacesPage';
 import AdminPage from './pages/AdminPage';
@@ -39,7 +38,6 @@ function App() {
               <Route path="explore" element={<ExplorePage />} />
               <Route path="roulette" element={<RoulettePage />} />
               <Route path="detail/:id" element={<PlaceDetailPage />} />
-              <Route path="search" element={<SearchResultPage />} />
               <Route
                 path="mypage"
                 element={
