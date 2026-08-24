@@ -1,11 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 import PlaceItemCard from '../../../components/place-item-card/PlaceItemCard';
 import TagButton from '../../../components/share/TagButton';
 import Spinner from '../../../components/share/Spinner';
+import SortSelector from './SortSelector';
 import { useSearchParams } from 'react-router-dom';
+import type { PlaceSortType } from '../../../types/type';
 import { useFilteredPlaces } from '../hooks/queries';
+import { useUserLocation } from '../hooks/useUserLocation';
 import { useFavorites } from '../../myPage/hooks/useFavorites';
 import { getPageNumbers } from '../../../utils/pagination';
+import {
+  DEFAULT_PLACE_SORT,
+  PLACE_SORT_TYPES,
+  isPlaceSortType,
+} from '../constants/sortOptions';
 
 const PAGE_SIZE = 9;
 
@@ -14,10 +23,35 @@ const ExploreItem = () => {
   const categoryFromQuery = searchParams.get('category') || '';
   const tagsFromQuery = searchParams.getAll('tags') || [];
   const currentPage = Number(searchParams.get('page') || '0');
+  const sortFromQuery = searchParams.get('sort');
+  const sortType: PlaceSortType = isPlaceSortType(sortFromQuery)
+    ? sortFromQuery
+    : DEFAULT_PLACE_SORT;
   const [isPartnershipButtonOn, setIsPartnershipButtonOn] = useState(false);
   const prevCategory = useRef(categoryFromQuery);
   const prevTags = useRef(tagsFromQuery.join(','));
   const prevPartnership = useRef(isPartnershipButtonOn);
+
+  const { coords, status: locationStatus, requestLocation } = useUserLocation();
+  const isDistanceSort = sortType === PLACE_SORT_TYPES.DISTANCE;
+
+  useEffect(() => {
+    if (isDistanceSort && locationStatus === 'idle') requestLocation();
+  }, [isDistanceSort, locationStatus, requestLocation]);
+
+  useEffect(() => {
+    if (!isDistanceSort || locationStatus !== 'error') return;
+
+    toast.error('위치 정보를 가져올 수 없어 기본 정렬로 변경했어요.');
+    setSearchParams(
+      (prev) => {
+        const newParams = new URLSearchParams(prev);
+        newParams.delete('sort');
+        return newParams;
+      },
+      { replace: true },
+    );
+  }, [isDistanceSort, locationStatus]);
 
   useEffect(() => {
     const categoryChanged = prevCategory.current !== categoryFromQuery;
@@ -41,13 +75,15 @@ const ExploreItem = () => {
     }
   }, [categoryFromQuery, tagsFromQuery.join(','), isPartnershipButtonOn]);
 
-  const { data, isLoading } = useFilteredPlaces(
-    categoryFromQuery,
-    tagsFromQuery,
-    isPartnershipButtonOn,
-    currentPage,
-    PAGE_SIZE,
-  );
+  const { data, isLoading } = useFilteredPlaces({
+    category: categoryFromQuery,
+    tags: tagsFromQuery,
+    isPartnershipOnly: isPartnershipButtonOn,
+    sortType,
+    coords,
+    page: currentPage,
+    size: PAGE_SIZE,
+  });
   const { isFavorite, handleToggleFavorite } = useFavorites();
 
   const filteredPlaces = data?.places || [];
@@ -73,6 +109,26 @@ const ExploreItem = () => {
     );
   };
 
+  const handleSortChange = (newSortType: PlaceSortType) => {
+    if (newSortType === PLACE_SORT_TYPES.DISTANCE && !coords) {
+      requestLocation();
+    }
+
+    setSearchParams(
+      (prev) => {
+        const newParams = new URLSearchParams(prev);
+        if (newSortType === DEFAULT_PLACE_SORT) {
+          newParams.delete('sort');
+        } else {
+          newParams.set('sort', newSortType);
+        }
+        newParams.delete('page');
+        return newParams;
+      },
+      { replace: true },
+    );
+  };
+
   const handlePageChange = (newPage: number) => {
     setSearchParams(
       (prev) => {
@@ -88,7 +144,10 @@ const ExploreItem = () => {
     );
   };
 
-  if (isLoading) {
+  const isPlacesLoading =
+    isLoading || (isDistanceSort && locationStatus === 'loading');
+
+  if (isPlacesLoading) {
     return <Spinner />;
   }
 
@@ -121,7 +180,7 @@ const ExploreItem = () => {
         >
           제휴
         </span>
-        <ul className="flex flex-nowrap gap-2 overflow-x-auto px-2 whitespace-nowrap">
+        <ul className="flex min-w-0 flex-1 flex-nowrap gap-2 overflow-x-auto px-2 whitespace-nowrap">
           {tagsFromQuery.map((tag) => (
             <TagButton
               key={tag}
@@ -134,6 +193,11 @@ const ExploreItem = () => {
             </TagButton>
           ))}
         </ul>
+        <SortSelector
+          value={sortType}
+          onChange={handleSortChange}
+          isLocating={locationStatus === 'loading'}
+        />
       </div>
       <div className="mb-10 flex w-full border border-gray-100" />
       <div className="mx-auto flex max-w-6xl">
