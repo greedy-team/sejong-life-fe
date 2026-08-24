@@ -47,6 +47,7 @@ const ExploreItem = () => {
       (prev) => {
         const newParams = new URLSearchParams(prev);
         newParams.delete('sort');
+        newParams.delete('page');
         return newParams;
       },
       { replace: true },
