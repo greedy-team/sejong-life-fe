@@ -80,20 +80,25 @@ const SortSelector = ({
           className="absolute right-0 z-30 mt-1 w-40 overflow-hidden rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
         >
           {PLACE_SORT_OPTIONS.map((option) => (
-            <li key={option.value}>
-              <button
-                type="button"
-                role="option"
-                aria-selected={option.value === value}
-                className={`w-full cursor-pointer px-3 py-2 text-left text-sm whitespace-nowrap transition-colors duration-100 hover:bg-gray-100 ${
-                  option.value === value
-                    ? 'font-semibold text-[#8BE34A]'
-                    : 'text-[#354052]'
-                }`}
-                onClick={() => handleSelect(option.value)}
-              >
-                {option.label}
-              </button>
+            <li
+              key={option.value}
+              role="option"
+              tabIndex={0}
+              aria-selected={option.value === value}
+              className={`cursor-pointer px-3 py-2 text-sm whitespace-nowrap transition-colors duration-100 hover:bg-gray-100 ${
+                option.value === value
+                  ? 'font-semibold text-[#8BE34A]'
+                  : 'text-[#354052]'
+              }`}
+              onClick={() => handleSelect(option.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  handleSelect(option.value);
+                }
+              }}
+            >
+              {option.label}
             </li>
           ))}
         </ul>
