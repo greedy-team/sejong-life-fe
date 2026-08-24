@@ -40,13 +40,21 @@ export const useFilteredPlaces = (
   isPartnershipOnly: boolean,
   page: number = 0,
   size: number = 10,
+  keyword: string = '',
 ) => {
   return useQuery<Place, Error, { places: PlaceProps[]; pageInfo: PageInfo }>({
     queryKey: queryKeys.places.list(
-      `${category}-${tags.join(',')}-${isPartnershipOnly}-${page}-${size}`,
+      `${category}-${tags.join(',')}-${isPartnershipOnly}-${page}-${size}-${keyword}`,
     ),
     queryFn: () =>
-      fetchFilteredPlaces(category, tags, isPartnershipOnly, page, size),
+      fetchFilteredPlaces(
+        category,
+        tags,
+        isPartnershipOnly,
+        page,
+        size,
+        keyword,
+      ),
     select: (data) => ({
       places: data.data?.places || [],
       pageInfo: data.data?.page,

@@ -8,6 +8,7 @@ export const fetchFilteredPlaces = async (
   isPartnershipOnly: boolean = false,
   page: number = 0,
   size: number = 9,
+  keyword: string = '',
 ): Promise<Place> => {
   try {
     const params = new URLSearchParams();
@@ -19,6 +20,9 @@ export const fetchFilteredPlaces = async (
 
     params.append('page', String(page));
     params.append('size', String(size));
+
+    const trimmedKeyword = keyword.trim();
+    if (trimmedKeyword) params.append('keyword', trimmedKeyword);
 
     const response = await api.get(`/api/places?${params.toString()}`);
     return response.data;
