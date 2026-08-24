@@ -1,26 +1,26 @@
 import type { Coordinates, Place, PlaceSortType } from '../../../types/type';
 import { api } from '../../../api/api';
-import { DEFAULT_PLACE_SORT, PLACE_SORT_TYPES } from '../constants/sortOptions';
+import { PLACE_SORT_TYPES } from '../constants/sortOptions';
 
 export interface FetchFilteredPlacesParams {
   category: string;
-  tags?: string[];
-  isPartnershipOnly?: boolean;
-  sortType?: PlaceSortType;
-  coords?: Coordinates | null;
-  page?: number;
-  size?: number;
+  tags: string[];
+  isPartnershipOnly: boolean;
+  sortType: PlaceSortType;
+  coords: Coordinates | null;
+  page: number;
+  size: number;
 }
 
 // 필터된 장소 api
 export const fetchFilteredPlaces = async ({
   category,
-  tags = [],
-  isPartnershipOnly = false,
-  sortType = DEFAULT_PLACE_SORT,
-  coords = null,
-  page = 0,
-  size = 9,
+  tags,
+  isPartnershipOnly,
+  sortType,
+  coords,
+  page,
+  size,
 }: FetchFilteredPlacesParams): Promise<Place> => {
   try {
     const params = new URLSearchParams();

@@ -38,15 +38,18 @@ export const useCategoryTagLists = (categoryId?: number) => {
   });
 };
 
+type UseFilteredPlacesParams = Partial<FetchFilteredPlacesParams> &
+  Pick<FetchFilteredPlacesParams, 'category' | 'page' | 'size'>;
+
 export const useFilteredPlaces = ({
   category,
   tags = [],
   isPartnershipOnly = false,
   sortType = DEFAULT_PLACE_SORT,
   coords = null,
-  page = 0,
-  size = 10,
-}: FetchFilteredPlacesParams) => {
+  page,
+  size,
+}: UseFilteredPlacesParams) => {
   const needsCoords = sortType === PLACE_SORT_TYPES.DISTANCE;
   const coordsKey = coords ? `${coords.latitude},${coords.longitude}` : 'none';
 
