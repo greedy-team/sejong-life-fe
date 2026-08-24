@@ -22,6 +22,7 @@ const ExploreItem = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryFromQuery = searchParams.get('category') || '';
   const tagsFromQuery = searchParams.getAll('tags') || [];
+  const tagsKey = tagsFromQuery.join(',');
   const currentPage = Number(searchParams.get('page') || '0');
   const sortFromQuery = searchParams.get('sort');
   const sortType: PlaceSortType = isPlaceSortType(sortFromQuery)
@@ -29,7 +30,7 @@ const ExploreItem = () => {
     : DEFAULT_PLACE_SORT;
   const [isPartnershipButtonOn, setIsPartnershipButtonOn] = useState(false);
   const prevCategory = useRef(categoryFromQuery);
-  const prevTags = useRef(tagsFromQuery.join(','));
+  const prevTags = useRef(tagsKey);
   const prevPartnership = useRef(isPartnershipButtonOn);
 
   const { coords, status: locationStatus, requestLocation } = useUserLocation();
@@ -52,16 +53,16 @@ const ExploreItem = () => {
       },
       { replace: true },
     );
-  }, [isDistanceSort, locationStatus]);
+  }, [isDistanceSort, locationStatus, setSearchParams]);
 
   useEffect(() => {
     const categoryChanged = prevCategory.current !== categoryFromQuery;
-    const tagsChanged = prevTags.current !== tagsFromQuery.join(',');
+    const tagsChanged = prevTags.current !== tagsKey;
     const partnershipChanged =
       prevPartnership.current !== isPartnershipButtonOn;
 
     prevCategory.current = categoryFromQuery;
-    prevTags.current = tagsFromQuery.join(',');
+    prevTags.current = tagsKey;
     prevPartnership.current = isPartnershipButtonOn;
 
     if (categoryChanged || tagsChanged || partnershipChanged) {
@@ -74,7 +75,7 @@ const ExploreItem = () => {
         { replace: true },
       );
     }
-  }, [categoryFromQuery, tagsFromQuery.join(','), isPartnershipButtonOn]);
+  }, [categoryFromQuery, tagsKey, isPartnershipButtonOn, setSearchParams]);
 
   const { data, isLoading } = useFilteredPlaces({
     category: categoryFromQuery,
