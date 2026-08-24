@@ -14,7 +14,13 @@ const CategoryFilter = () => {
   };
 
   const handleCategoryClick = (category: CategoryProps) => {
-    setSearchParams({ category: category.categoryName });
+    setSearchParams((prev) => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set('category', category.categoryName);
+      newParams.delete('tags');
+      newParams.delete('page');
+      return newParams;
+    });
   };
 
   const getEmoji = (name: string) => {
