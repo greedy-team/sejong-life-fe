@@ -4,3 +4,4 @@ export {
   useCategoryTagLists,
   useFilteredPlaces,
 } from './queries';
+export { useUserLocation } from './useUserLocation';
