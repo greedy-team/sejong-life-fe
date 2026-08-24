@@ -145,7 +145,7 @@ const ExploreItem = () => {
   };
 
   const isPlacesLoading =
-    isLoading || (isDistanceSort && locationStatus === 'loading');
+    isLoading || (isDistanceSort && !coords && locationStatus !== 'error');
 
   if (isPlacesLoading) {
     return <Spinner />;
