@@ -2,7 +2,7 @@ export const queryKeys = {
   places: {
     all: ['places'] as const,
     lists: () => [...queryKeys.places.all, 'list'] as const,
-    list: (filters: string) => [...queryKeys.places.lists(), filters] as const,
+    list: (filters: object) => [...queryKeys.places.lists(), filters] as const,
     details: () => [...queryKeys.places.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.places.details(), id] as const,
     hot: () => [...queryKeys.places.all, 'hot'] as const,

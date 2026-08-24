@@ -51,22 +51,21 @@ export const useFilteredPlaces = ({
   size,
 }: UseFilteredPlacesParams) => {
   const needsCoords = sortType === PLACE_SORT_TYPES.DISTANCE;
-  const coordsKey = coords ? `${coords.latitude},${coords.longitude}` : 'none';
+  const effectiveCoords = needsCoords ? coords : null;
+
+  const params: FetchFilteredPlacesParams = {
+    category,
+    tags,
+    isPartnershipOnly,
+    sortType,
+    coords: effectiveCoords,
+    page,
+    size,
+  };
 
   return useQuery<Place, Error, { places: PlaceProps[]; pageInfo: PageInfo }>({
-    queryKey: queryKeys.places.list(
-      `${category}-${tags.join(',')}-${isPartnershipOnly}-${sortType}-${coordsKey}-${page}-${size}`,
-    ),
-    queryFn: () =>
-      fetchFilteredPlaces({
-        category,
-        tags,
-        isPartnershipOnly,
-        sortType,
-        coords,
-        page,
-        size,
-      }),
+    queryKey: queryKeys.places.list(params),
+    queryFn: () => fetchFilteredPlaces(params),
     select: (data) => ({
       places: data.data?.places || [],
       pageInfo: data.data?.page,
