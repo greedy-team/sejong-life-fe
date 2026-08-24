@@ -13,23 +13,32 @@ const ExploreItem = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryFromQuery = searchParams.get('category') || '';
   const tagsFromQuery = searchParams.getAll('tags') || [];
+  const keywordFromQuery = searchParams.get('keyword') || '';
   const currentPage = Number(searchParams.get('page') || '0');
   const [isPartnershipButtonOn, setIsPartnershipButtonOn] = useState(false);
   const prevCategory = useRef(categoryFromQuery);
   const prevTags = useRef(tagsFromQuery.join(','));
   const prevPartnership = useRef(isPartnershipButtonOn);
+  const prevKeyword = useRef(keywordFromQuery);
 
   useEffect(() => {
     const categoryChanged = prevCategory.current !== categoryFromQuery;
     const tagsChanged = prevTags.current !== tagsFromQuery.join(',');
     const partnershipChanged =
       prevPartnership.current !== isPartnershipButtonOn;
+    const keywordChanged = prevKeyword.current !== keywordFromQuery;
 
     prevCategory.current = categoryFromQuery;
     prevTags.current = tagsFromQuery.join(',');
     prevPartnership.current = isPartnershipButtonOn;
+    prevKeyword.current = keywordFromQuery;
 
-    if (categoryChanged || tagsChanged || partnershipChanged) {
+    if (
+      categoryChanged ||
+      tagsChanged ||
+      partnershipChanged ||
+      keywordChanged
+    ) {
       setSearchParams(
         (prev) => {
           const newParams = new URLSearchParams(prev);
@@ -39,7 +48,12 @@ const ExploreItem = () => {
         { replace: true },
       );
     }
-  }, [categoryFromQuery, tagsFromQuery.join(','), isPartnershipButtonOn]);
+  }, [
+    categoryFromQuery,
+    tagsFromQuery.join(','),
+    isPartnershipButtonOn,
+    keywordFromQuery,
+  ]);
 
   const { data, isLoading } = useFilteredPlaces(
     categoryFromQuery,
@@ -47,6 +61,7 @@ const ExploreItem = () => {
     isPartnershipButtonOn,
     currentPage,
     PAGE_SIZE,
+    keywordFromQuery,
   );
   const { isFavorite, handleToggleFavorite } = useFavorites();
 
@@ -136,19 +151,27 @@ const ExploreItem = () => {
         </ul>
       </div>
       <div className="mb-10 flex w-full border border-gray-100" />
-      <div className="mx-auto flex max-w-6xl">
-        <div className="flex grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredPlaces.map((place) => (
-            <PlaceItemCard
-              key={place.placeId}
-              placeInfo={place}
-              className="w-full"
-              isFavorite={isFavorite(place.placeId)}
-              onToggleFavorite={handleToggleFavorite}
-            />
-          ))}
+      {filteredPlaces.length === 0 ? (
+        <div className="flex justify-center py-25 text-gray-500">
+          {keywordFromQuery
+            ? `'${keywordFromQuery}'에 대한 검색 결과가 없습니다.`
+            : '조건에 맞는 장소가 없습니다.'}
         </div>
-      </div>
+      ) : (
+        <div className="mx-auto flex max-w-6xl">
+          <div className="flex grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredPlaces.map((place) => (
+              <PlaceItemCard
+                key={place.placeId}
+                placeInfo={place}
+                className="w-full"
+                isFavorite={isFavorite(place.placeId)}
+                onToggleFavorite={handleToggleFavorite}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {pageInfo && pageInfo.totalPages > 1 && (
         <div className="mt-8 flex items-center justify-center gap-1">
