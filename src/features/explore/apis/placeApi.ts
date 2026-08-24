@@ -1,21 +1,41 @@
-import type { Place } from '../../../types/type';
+import type { Coordinates, Place, PlaceSortType } from '../../../types/type';
 import { api } from '../../../api/api';
+import { DEFAULT_PLACE_SORT, PLACE_SORT_TYPES } from '../constants/sortOptions';
+
+export interface FetchFilteredPlacesParams {
+  category: string;
+  tags?: string[];
+  isPartnershipOnly?: boolean;
+  sortType?: PlaceSortType;
+  coords?: Coordinates | null;
+  page?: number;
+  size?: number;
+}
 
 // 필터된 장소 api
-export const fetchFilteredPlaces = async (
-  selectedCategory: string,
-  selectedTags: string[],
-  isPartnershipOnly: boolean = false,
-  page: number = 0,
-  size: number = 9,
-): Promise<Place> => {
+export const fetchFilteredPlaces = async ({
+  category,
+  tags = [],
+  isPartnershipOnly = false,
+  sortType = DEFAULT_PLACE_SORT,
+  coords = null,
+  page = 0,
+  size = 9,
+}: FetchFilteredPlacesParams): Promise<Place> => {
   try {
     const params = new URLSearchParams();
-    params.append('category', selectedCategory);
+    params.append('category', category);
 
-    selectedTags.forEach((tag) => params.append('tags', tag));
+    tags.forEach((tag) => params.append('tags', tag));
 
     params.append('partnershipOnly', String(isPartnershipOnly));
+
+    params.append('sortType', sortType);
+
+    if (sortType === PLACE_SORT_TYPES.DISTANCE && coords) {
+      params.append('latitude', String(coords.latitude));
+      params.append('longitude', String(coords.longitude));
+    }
 
     params.append('page', String(page));
     params.append('size', String(size));

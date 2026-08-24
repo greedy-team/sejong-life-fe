@@ -10,7 +10,11 @@ import type {
 } from '../../../types/type';
 import { queryKeys } from '../../../lib/query/queryKeys';
 import { fetchCategories, fetchCategoryTags } from '../apis/filterApi';
-import { fetchFilteredPlaces } from '../apis/placeApi';
+import {
+  fetchFilteredPlaces,
+  type FetchFilteredPlacesParams,
+} from '../apis/placeApi';
+import { DEFAULT_PLACE_SORT, PLACE_SORT_TYPES } from '../constants/sortOptions';
 
 export const useCategoryLists = () => {
   return useQuery<Category, Error, CategoryProps[]>({
@@ -34,24 +38,37 @@ export const useCategoryTagLists = (categoryId?: number) => {
   });
 };
 
-export const useFilteredPlaces = (
-  category: string,
-  tags: string[],
-  isPartnershipOnly: boolean,
-  page: number = 0,
-  size: number = 10,
-) => {
+export const useFilteredPlaces = ({
+  category,
+  tags = [],
+  isPartnershipOnly = false,
+  sortType = DEFAULT_PLACE_SORT,
+  coords = null,
+  page = 0,
+  size = 10,
+}: FetchFilteredPlacesParams) => {
+  const needsCoords = sortType === PLACE_SORT_TYPES.DISTANCE;
+  const coordsKey = coords ? `${coords.latitude},${coords.longitude}` : 'none';
+
   return useQuery<Place, Error, { places: PlaceProps[]; pageInfo: PageInfo }>({
     queryKey: queryKeys.places.list(
-      `${category}-${tags.join(',')}-${isPartnershipOnly}-${page}-${size}`,
+      `${category}-${tags.join(',')}-${isPartnershipOnly}-${sortType}-${coordsKey}-${page}-${size}`,
     ),
     queryFn: () =>
-      fetchFilteredPlaces(category, tags, isPartnershipOnly, page, size),
+      fetchFilteredPlaces({
+        category,
+        tags,
+        isPartnershipOnly,
+        sortType,
+        coords,
+        page,
+        size,
+      }),
     select: (data) => ({
       places: data.data?.places || [],
       pageInfo: data.data?.page,
     }),
-    enabled: !!category,
+    enabled: !!category && (!needsCoords || !!coords),
     staleTime: 5 * 60 * 1000,
   });
 };
