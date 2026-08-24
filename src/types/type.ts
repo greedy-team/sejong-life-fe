@@ -33,6 +33,17 @@ export interface PlaceProps {
   partnershipContent?: string;
 }
 
+export type PlaceSortType =
+  | 'REVIEW_COUNT'
+  | 'RATING'
+  | 'VIEW_COUNT'
+  | 'DISTANCE';
+
+export interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
+
 export interface PageInfo {
   page: number;
   size: number;
