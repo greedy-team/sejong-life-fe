@@ -70,6 +70,22 @@ body {
   font-family: 'Pretendard', sans-serif;
 }
 
+/*
+  제휴맵 FAB의 하단 위치. 메인/탐색/지도 세 곳에서 쓰므로 여기서만 정한다.
+  (전에 지도만 인라인 style에 숫자가 박혀 있어서 한 곳만 고치는 일이 있었다)
+
+  모바일 8px: Safari, 삼성 인터넷, 네이버/카카오 인앱 브라우저는 하단
+  툴바가 FAB 아래를 받쳐줘서 실제로는 그보다 훨씬 위에 그려진다.
+  데스크톱 16px: 받쳐주는 것이 없어 8px이면 창 바닥에 붙어 보인다.
+*/
+@utility bottom-fab {
+  bottom: 0.5rem;
+
+  @media (width >= 40rem) {
+    bottom: 1rem;
+  }
+}
+
 .custom-scroll::-webkit-scrollbar {
   width: 6px;
 }
@@ -89,7 +105,7 @@ body {
 
 .custom-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(0,0,0,0.3) transparent;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
 }
 
 .dial-scroll::-webkit-scrollbar {
@@ -165,15 +181,15 @@ body {
   }
 
   .bg-main-gradient {
-    background: linear-gradient(95.33deg, #EB4763 0%, #F48434 100%);
+    background: linear-gradient(95.33deg, #eb4763 0%, #f48434 100%);
   }
 
   .bg-card-gradient {
-    background: linear-gradient(135deg, #F0F9FF 0%, #F3E8FF 100%);
+    background: linear-gradient(135deg, #f0f9ff 0%, #f3e8ff 100%);
   }
 
   .bg-choice-header-gradient {
-    background: linear-gradient(115.6deg, #EB4763 0%, #F48434 100%);
+    background: linear-gradient(115.6deg, #eb4763 0%, #f48434 100%);
   }
 
   .animate-cursor-tap {
@@ -188,7 +204,9 @@ body {
 }
 
 @keyframes cursor-tap {
-  0%, 60%, 100% {
+  0%,
+  60%,
+  100% {
     transform: translateY(0) scale(1);
   }
   30% {
@@ -197,14 +215,16 @@ body {
 }
 
 @keyframes cursor-ripple {
-  0%, 22% {
+  0%,
+  22% {
     opacity: 0;
     transform: scale(0.3);
   }
   35% {
     opacity: 0.7;
   }
-  70%, 100% {
+  70%,
+  100% {
     opacity: 0;
     transform: scale(1.6);
   }

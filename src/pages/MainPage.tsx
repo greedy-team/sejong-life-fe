@@ -94,7 +94,7 @@ const MainPage = () => {
           items={hotPlaces}
         />
       </div>
-      <div className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2">
+      <div className="bottom-fab fixed left-1/2 z-50 -translate-x-1/2">
         <MapNavigateButton onClick={() => navigate('/map')} />
       </div>
       <Footer />
