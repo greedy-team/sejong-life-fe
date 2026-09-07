@@ -229,6 +229,8 @@ export default function KakaoMapView({
     clusterer.addMarkers(markers);
   }, [places, pinImage, mapReady]);
 
+  const isSheetUp = Boolean(selectedPlace && isSheetOpen);
+
   return (
     <>
       <div ref={mapRef} style={{ width: '100%', height: '100vh' }} />
@@ -244,15 +246,16 @@ export default function KakaoMapView({
       {selectedPlace && (
         <PartnershipPlaceCard isSheetOpen={isSheetOpen} place={selectedPlace} />
       )}
+      {/* 시트가 열리면 제휴 장소 카드 위에 얹히므로 그때만 값을 따로 준다 */}
       <div
-        className="fixed left-1/2 z-50 -translate-x-1/2"
-        style={{ bottom: selectedPlace && isSheetOpen ? 180 : 40 }}
+        className={`fixed left-1/2 z-50 -translate-x-1/2 ${isSheetUp ? '' : 'bottom-fab'}`}
+        style={isSheetUp ? { bottom: 180 } : undefined}
       >
         <MapNavigateButton onClick={() => navigate('/explore?category=전체')} />
       </div>
       <div
-        className="fixed left-4 z-50"
-        style={{ bottom: selectedPlace && isSheetOpen ? 180 : 40 }}
+        className={`fixed left-4 z-50 ${isSheetUp ? '' : 'bottom-fab'}`}
+        style={isSheetUp ? { bottom: 180 } : undefined}
       >
         <button
           onClick={moveToMyLocation}

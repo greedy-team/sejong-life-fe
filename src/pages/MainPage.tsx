@@ -65,7 +65,10 @@ const MainPage = () => {
           <SearchBar />
         </div>
 
-        <div className="flex flex-wrap justify-center gap-5 pt-4">
+        {/* 7개를 4열 2행(4+3)으로 배치한다. flex-wrap이던 때는 버튼이
+            88px 고정이라 375px에서 3+3+1로 끊겨 마지막 하나가 외톨이였다.
+            max-w-md는 4열이 데스크톱에서 화면 끝까지 벌어지지 않게 잡는다. */}
+        <div className="mx-auto grid max-w-md grid-cols-4 justify-items-center gap-3 px-4 pt-4 sm:gap-5">
           {menus.map((m) => (
             <PageRouterButton
               key={m.label}
@@ -91,7 +94,7 @@ const MainPage = () => {
           items={hotPlaces}
         />
       </div>
-      <div className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2">
+      <div className="bottom-fab fixed left-1/2 z-50 -translate-x-1/2">
         <MapNavigateButton onClick={() => navigate('/map')} />
       </div>
       <Footer />
