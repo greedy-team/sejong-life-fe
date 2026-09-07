@@ -13,6 +13,7 @@ export const usePartnershipPlacesForMap = (categoryName: string = '전체') => {
         isPartnershipOnly: true,
         sortType: DEFAULT_PLACE_SORT,
         coords: null,
+        keyword: '',
         page: 0,
         size: 1000,
       }),

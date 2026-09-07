@@ -47,6 +47,7 @@ export const useFilteredPlaces = ({
   isPartnershipOnly = false,
   sortType = DEFAULT_PLACE_SORT,
   coords = null,
+  keyword = '',
   page,
   size,
 }: UseFilteredPlacesParams) => {
@@ -59,6 +60,7 @@ export const useFilteredPlaces = ({
     isPartnershipOnly,
     sortType,
     coords: effectiveCoords,
+    keyword,
     page,
     size,
   };

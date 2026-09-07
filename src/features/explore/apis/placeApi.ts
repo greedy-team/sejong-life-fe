@@ -8,6 +8,7 @@ export interface FetchFilteredPlacesParams {
   isPartnershipOnly: boolean;
   sortType: PlaceSortType;
   coords: Coordinates | null;
+  keyword: string;
   page: number;
   size: number;
 }
@@ -19,6 +20,7 @@ export const fetchFilteredPlaces = async ({
   isPartnershipOnly,
   sortType,
   coords,
+  keyword,
   page,
   size,
 }: FetchFilteredPlacesParams): Promise<Place> => {
@@ -39,6 +41,9 @@ export const fetchFilteredPlaces = async ({
 
     params.append('page', String(page));
     params.append('size', String(size));
+
+    const trimmedKeyword = keyword.trim();
+    if (trimmedKeyword) params.append('keyword', trimmedKeyword);
 
     const response = await api.get(`/api/places?${params.toString()}`);
     return response.data;

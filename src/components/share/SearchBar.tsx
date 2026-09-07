@@ -11,11 +11,12 @@ const SearchBar = () => {
     e.preventDefault();
 
     const trimmed = keyword.trim();
-    if (!trimmed) return [];
 
-    navigate(`/search?keyword=${trimmed}`, {
-      state: { title: '검색결과' },
-    });
+    const params = new URLSearchParams();
+    params.set('category', '전체');
+    if (trimmed) params.set('keyword', trimmed);
+
+    navigate(`/explore?${params.toString()}`);
   };
 
   return (
