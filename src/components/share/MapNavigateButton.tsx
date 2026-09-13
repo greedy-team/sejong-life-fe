@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import { ICONS } from '../../features/share/constants/icons';
 
 interface MapNavigateButtonProps {
@@ -5,7 +6,9 @@ interface MapNavigateButtonProps {
 }
 
 function MapNavigateButton({ onClick }: MapNavigateButtonProps) {
-  const isMapPage = location.pathname.startsWith('/map');
+  // 전역 location을 읽으면 라우트만 바뀔 때 라벨이 갱신되지 않는다
+  const { pathname } = useLocation();
+  const isMapPage = pathname.startsWith('/map');
   const text = isMapPage === true ? '목록 보기 ' : '제휴맵 보기';
   const icon = isMapPage === true ? ICONS.list : ICONS.map;
 

@@ -65,7 +65,7 @@ const MainPage = () => {
           <SearchBar />
         </div>
 
-        <div className="flex flex-wrap justify-center gap-5 pt-4">
+        <div className="mx-auto grid max-w-md grid-cols-4 justify-items-center gap-3 px-4 pt-4 sm:gap-5">
           {menus.map((m) => (
             <PageRouterButton
               key={m.label}
@@ -91,7 +91,7 @@ const MainPage = () => {
           items={hotPlaces}
         />
       </div>
-      <div className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2">
+      <div className="bottom-fab fixed left-1/2 z-50 -translate-x-1/2">
         <MapNavigateButton onClick={() => navigate('/map')} />
       </div>
       <Footer />
