@@ -1,15 +1,10 @@
-import { api } from '../../../api/api';
+import { api, authApi } from '../../../api/api';
 import type { LoginPayload, LoginResponse } from '../../../types/type';
 
 interface SignUpPayload {
   studentId: string;
   name: string;
   nickname: string;
-}
-
-interface SignUpResponse {
-  message: string;
-  data: string;
 }
 
 export const requestLogin = async (
@@ -24,9 +19,13 @@ export const requestLogin = async (
   }
 };
 
+export const requestLogout = async (): Promise<void> => {
+  await authApi.post('/api/auth/logout');
+};
+
 export const requestSignUp = async (
   payload: SignUpPayload,
-): Promise<SignUpResponse> => {
+): Promise<LoginResponse> => {
   try {
     const signUpToken = localStorage.getItem('signUpToken');
     const response = await api.post('/api/users/signup', payload, {

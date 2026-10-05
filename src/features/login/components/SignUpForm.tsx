@@ -43,7 +43,7 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
 
     try {
       const data = await requestSignUp(signUpForm);
-      localStorage.setItem('accessToken', data.data);
+      localStorage.setItem('accessToken', data.data.accessToken);
       localStorage.removeItem('signUpToken');
       localStorage.removeItem('name');
       localStorage.removeItem('studentId');
