@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import Layout from './layout/Layout';
 import ProtectedRoute from './components/share/ProtectedRoute';
 import Spinner from './components/share/Spinner';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import { SESSION_EXPIRED_KEY } from './api/api';
 import 'react-toastify/dist/ReactToastify.css';
 import MyPage from './pages/MyPage';
 import SearchResultPage from './pages/SearchResultPage';
@@ -27,6 +28,13 @@ const AllReviewPage = lazy(() => import('./pages/AllReviewsPage'));
 const RoulettePage = lazy(() => import('./pages/RoulettePage'));
 
 function App() {
+  useEffect(() => {
+    if (sessionStorage.getItem(SESSION_EXPIRED_KEY)) {
+      sessionStorage.removeItem(SESSION_EXPIRED_KEY);
+      toast.error('로그인이 만료되었습니다. 다시 로그인해주세요.');
+    }
+  }, []);
+
   return (
     <>
       <BrowserRouter>

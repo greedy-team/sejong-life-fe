@@ -45,9 +45,13 @@ const onTokenRefreshed = (accessToken: string) => {
   refreshSubscribers = [];
 };
 
+export const SESSION_EXPIRED_KEY = 'sessionExpired';
+
 const handleRefreshFailure = () => {
   refreshSubscribers = [];
   localStorage.removeItem('accessToken');
+  // 전체 새로고침으로 이동하면 toast가 사라지므로, 이동 후 App에서 안내하도록 플래그를 남긴다.
+  sessionStorage.setItem(SESSION_EXPIRED_KEY, 'true');
   window.location.href = '/';
 };
 
@@ -78,8 +82,8 @@ authApi.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      const { data } = await api.post<ReissueResponse>('/api/auth/reissue');
-      const newAccessToken = data.data.accessToken;
+      const response = await api.post<ReissueResponse>('/api/auth/reissue');
+      const newAccessToken = response.data.data.accessToken;
 
       localStorage.setItem('accessToken', newAccessToken);
       onTokenRefreshed(newAccessToken);

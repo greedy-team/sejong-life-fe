@@ -25,27 +25,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const isTokenExpired = (token: string) => {
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const exp = payload.exp;
-
-      if (!exp) return true;
-
-      const now = Math.floor(Date.now() / 1000);
-      return exp < now;
-    } catch (e) {
-      return true;
-    }
-  };
-
   useEffect(() => {
     const handleStorageChange = () => {
       const token = localStorage.getItem('accessToken');
+      // 실제 만료 처리는 authApi의 401 인터셉터(reissue)가 담당한다.
+      const id = token ? decodeToken(token) : null;
 
-      if (token && !isTokenExpired(token)) {
+      if (token && id !== null) {
         setIsLoggedIn(true);
-        const id = decodeToken(token);
         setStudentId(id);
       } else {
         setIsLoggedIn(false);
