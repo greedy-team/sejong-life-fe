@@ -50,6 +50,8 @@ const ANIMATION_CONFIG = {
   COPY_HEADROOM: 2,
 } as const;
 
+const DRAG_THRESHOLD = 5;
+
 const toCssLength = (value?: number | string): string | undefined =>
   typeof value === 'number' ? `${value}px` : (value ?? undefined);
 
@@ -130,6 +132,7 @@ const useAnimationLoop = (
   seqWidth: number,
   isHovered: boolean,
   pauseOnHover: boolean,
+  isDraggingRef: React.RefObject<boolean>,
 ) => {
   const rafRef = useRef<number | null>(null);
   const lastTimestampRef = useRef<number | null>(null);
@@ -167,13 +170,16 @@ const useAnimationLoop = (
         Math.max(0, timestamp - lastTimestampRef.current) / 1000;
       lastTimestampRef.current = timestamp;
 
-      const target = pauseOnHover && isHovered ? 0 : targetVelocity;
+      const target =
+        isDraggingRef.current || (pauseOnHover && isHovered)
+          ? 0
+          : targetVelocity;
 
       const easingFactor =
         1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
       velocityRef.current += (target - velocityRef.current) * easingFactor;
 
-      if (seqWidth > 0) {
+      if (seqWidth > 0 && !isDraggingRef.current) {
         let nextOffset = offsetRef.current + velocityRef.current * deltaTime;
         nextOffset = ((nextOffset % seqWidth) + seqWidth) % seqWidth;
         offsetRef.current = nextOffset;
@@ -194,7 +200,9 @@ const useAnimationLoop = (
       }
       lastTimestampRef.current = null;
     };
-  }, [targetVelocity, seqWidth, isHovered, pauseOnHover]);
+  }, [targetVelocity, seqWidth, isHovered, pauseOnHover, isDraggingRef]);
+
+  return offsetRef;
 };
 
 export const LogoLoop = React.memo<LogoLoopProps>(
@@ -252,13 +260,67 @@ export const LogoLoop = React.memo<LogoLoopProps>(
 
     useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight]);
 
-    useAnimationLoop(
+    const isDraggingRef = useRef(false);
+    const dragRef = useRef({ active: false, lastX: 0, moved: 0 });
+
+    const offsetRef = useAnimationLoop(
       trackRef,
       targetVelocity,
       seqWidth,
       isHovered,
       pauseOnHover,
+      isDraggingRef,
     );
+
+    const moveTrack = (delta: number) => {
+      if (seqWidth <= 0) return;
+      offsetRef.current =
+        (((offsetRef.current + delta) % seqWidth) + seqWidth) % seqWidth;
+      if (trackRef.current) {
+        trackRef.current.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
+      }
+    };
+
+    const handlePointerDown = (e: React.PointerEvent) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      dragRef.current = { active: true, lastX: e.clientX, moved: 0 };
+    };
+
+    const handlePointerMove = (e: React.PointerEvent) => {
+      const drag = dragRef.current;
+      if (!drag.active || seqWidth <= 0) return;
+
+      const dx = e.clientX - drag.lastX;
+      drag.lastX = e.clientX;
+      drag.moved += Math.abs(dx);
+      if (drag.moved <= DRAG_THRESHOLD) return;
+
+      if (!isDraggingRef.current) {
+        isDraggingRef.current = true;
+        e.currentTarget.setPointerCapture(e.pointerId);
+      }
+
+      moveTrack(-dx);
+    };
+
+    // 트랙패드 가로 스와이프. 세로 스크롤은 페이지에 그대로 둔다.
+    const handleWheel = (e: React.WheelEvent) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      moveTrack(e.deltaX);
+    };
+
+    const handlePointerEnd = () => {
+      dragRef.current.active = false;
+      isDraggingRef.current = false;
+    };
+
+    // 드래그 직후에는 카드 클릭(상세 페이지 이동)이 일어나지 않도록 막는다.
+    const handleClickCapture = (e: React.MouseEvent) => {
+      if (dragRef.current.moved > DRAG_THRESHOLD) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
 
     const cssVariables = useMemo(
       () =>
@@ -273,7 +335,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     const rootClasses = useMemo(
       () =>
         cx(
-          'relative overflow-x-hidden group',
+          'relative touch-pan-y overflow-x-hidden overscroll-x-contain group',
           '[--logoloop-gap:32px]',
           '[--logoloop-logoHeight:28px]',
           '[--logoloop-fadeColorAuto:#ffffff]',
@@ -358,7 +420,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
           <li
             className={cx(
               'mr-[var(--logoloop-gap)] flex-none text-[length:var(--logoloop-logoHeight)] leading-[1]',
-              scaleOnHover && 'group/item overflow-visible',
+              scaleOnHover && 'group/item relative overflow-visible hover:z-50',
             )}
             key={key}
             role="listitem"
@@ -406,6 +468,13 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         aria-label={ariaLabel}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerEnd}
+        onPointerCancel={handlePointerEnd}
+        onWheel={handleWheel}
+        onClickCapture={handleClickCapture}
+        onDragStart={(e) => e.preventDefault()}
       >
         {fadeOut && (
           <>
